@@ -1,0 +1,186 @@
+Links
+
+1. Convolution
+https://medium.com/@bdhuma/6-basic-things-to-know-about-convolution-daef5e1bc411
+
+https://www.allaboutcircuits.com/technical-articles/two-dimensional-convolution-in-image-processing/
+
+2. Filtering
+
+csre.iitb.ac.in/~avikb/GNR401/DIP/Spatial_Filtering.pdf
+
+
+3. Harris Detector
+
+https://medium.com/data-breach/introduction-to-harris-corner-detector-32a88850b3f6
+
+https://docs.opencv.org/4.x/dc/d0d/tutorial_py_features_harris.html
+
+4. SIFT
+
+https://www.andreasjakl.com/basics-of-ar-anchors-keypoints-feature-detection/
+
+https://docs.opencv.org/4.x/da/df5/tutorial_py_sift_intro.html
+
+https://medium.com/data-breach/introduction-to-sift-scale-invariant-feature-transform-65d7f3a72d40
+
+5. Hough Transform
+
+https://homepages.inf.ed.ac.uk/rbf/HIPR2/hough.htm
+
+https://towardsdatascience.com/lines-detection-with-hough-transform-84020b3b1549
+
+https://medium.com/@tomasz.kacmajor/hough-lines-transform-explained-645feda072ab
+
+6. Optical Flow
+
+https://nanonets.com/blog/optical-flow/
+
+https://docs.opencv.org/3.4/d4/dee/tutorial_optical_flow.html
+
+7. Template Matching
+
+https://docs.opencv.org/4.x/d4/dc6/tutorial_py_template_matching.html
+
+https://medium.com/analytics-vidhya/image-processing-template-matching-aac0c1cbe2c0
+
+https://pyimagesearch.com/2021/03/22/opencv-template-matching-cv2-matchtemplate/
+
+
+8. Stereo Rectification
+
+https://www.cs.cmu.edu/~16385/s17/Slides/13.1_Stereo_Rectification.pdf
+
+http://www.sci.utah.edu/~gerig/CS6320-S2012/Materials/CS6320-CV-F2012-Rectification.pdf
+
+9. Stereo & Disparity - SSD/SAD
+
+https://johnwlambert.github.io/stereo/
+
+10.Camera Projection and Calibration
+
+http://www.cs.ucf.edu/~mtappen/cap5415/lecs/lec19.pdf
+
+https://answers.opencv.org/question/226201/difference-between-camera-matrix-and-projection-matrix-for-monocular-camera-calibration/
+
+https://towardsdatascience.com/camera-calibration-with-example-in-python-5147e945cdeb
+
+11.  Stereo Calibration
+
+https://www.cs.auckland.ac.nz/~rklette/CCV-CIMAT/pdfs/B14-CameraCalibration.pdf
+
+https://python.plainenglish.io/the-depth-i-stereo-calibration-and-rectification-24da7b0fb1e0#:~:text=Stereo%20calibration%3A%20Camera%20calibration%20for,the%20images%20from%20each%20camera.
+
+12. RANSAC
+
+https://medium.com/@angel.manzur/got-outliers-ransac-them-f12b6b5f606e
+
+https://sdg002.github.io/ransac-circle/index.html
+
+Important ---
+https://faculty.cc.gatech.edu/~afb/classes/CS4495-Fall2014/slides/CS4495-Ransac.pdf
+
+13. ICP
+
+https://cs.gmu.edu/~kosecka/cs685/cs685-icp.pdf
+https://docs.mrpt.org/reference/latest/tutorial-icp-alignment.html
+
+14. Kabsch
+
+https://en.wikipedia.org/wiki/Kabsch_algorithm
+
+15. PCA and Kmeans
+
+https://medium.com/more-python-less-problems/principal-component-analysis-and-k-means-clustering-to-visualize-a-high-dimensional-dataset-577b2a7a5fe2
+
+https://www.inf.ed.ac.uk/teaching/courses/inf2b/labs/learn-lab3.pdf
+
+https://towardsdatascience.com/k-means-and-pca-for-image-clustering-a-visual-analysis-8e10d4abba40
+
+16. Linear Regression
+
+https://machinelearningmastery.com/linear-regression-for-machine-learning/
+
+https://www.geeksforgeeks.org/ml-linear-regression/
+
+https://towardsdatascience.com/linear-regression-detailed-view-ea73175f6e86
+
+https://www.geeksforgeeks.org/linear-regression-python-implementation/
+
+17. DBSCAN
+
+https://towardsdatascience.com/how-dbscan-works-and-why-should-i-use-it-443b4a191c80
+
+https://www.kdnuggets.com/2020/04/dbscan-clustering-algorithm-machine-learning.html
+
+https://www.geeksforgeeks.org/dbscan-clustering-in-ml-density-based-clustering/
+
+https://www.section.io/engineering-education/dbscan-clustering-in-python/
+
+18. Histogram Filter
+
+https://calvinfeng.gitbook.io/probabilistic-robotics/basics/nonparametric-filters/01-histogram-filter#:~:text=Probabilistic%20Robotics-,Histogram%20Filter,are%20known%20as%20histogram%20filters.
+
+https://www.sabinasz.net/robot-localization-histogram-filter/
+
+https://developpaper.com/automatic-driving-location-algorithm-histogram-filter-localization/
+
+19. Kalman Filter
+
+https://arshren.medium.com/an-easy-explanation-of-kalman-filter-ec2ccb759c46
+
+https://thekalmanfilter.com/kalman-filter-explained-simply/
+
+https://www.bzarg.com/p/how-a-kalman-filter-works-in-pictures/
+
+https://towardsdatascience.com/kalman-filter-an-algorithm-for-making-sense-from-the-insights-of-various-sensors-fused-together-ddf67597f35e
+
+http://bilgin.esme.org/BitsAndBytes/KalmanFilterforDummies
+
+20. SVM
+
+https://towardsdatascience.com/support-vector-machines-explained-with-python-examples-cb65e8172c85
+
+https://www.kdnuggets.com/2016/07/support-vector-machines-simple-explanation.html
+
+https://towardsdatascience.com/support-vector-machine-simply-explained-fee28eba5496
+
+https://medium.com/ai%C2%B3-theory-practice-business/support-vector-machines-svm-1f8ad9adabf7
+
+https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html
+
+21. KNN
+
+https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761
+
+https://medium.com/swlh/k-nearest-neighbor-ca2593d7a3c4
+
+https://towardsdatascience.com/knn-in-python-835643e2fb53
+
+https://www.analyticsvidhya.com/blog/2021/01/a-quick-introduction-to-k-nearest-neighbor-knn-classification-using-python/
+
+22. Visual Odometry
+
+http://www.cs.toronto.edu/~urtasun/courses/CSC2541/03_odometry.pdf
+
+https://avisingh599.github.io/vision/visual-odometry-full/
+
+https://www.ifi.uzh.ch/en/rpg/research/research_vo.html
+
+https://github.com/polygon-software/python-visual-odometry
+
+23. SLAM
+
+https://dspace.mit.edu/bitstream/handle/1721.1/119149/16-412j-spring-2005/contents/projects/1aslam_blas_repo.pdf
+
+https://medium.com/swlh/how-robots-make-maps-an-intro-to-slam-simultaneous-localisation-and-mapping-37370c3e7dfe
+
+https://www.cs.columbia.edu/~allen/F19/NOTES/slam_paper.pdf
+
+https://www.andreasjakl.com/basics-of-ar-slam-simultaneous-localization-and-mapping/
+
+
+
+
+
+
