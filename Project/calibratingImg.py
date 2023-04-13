@@ -95,28 +95,31 @@ def undistort_image(path, mtx, dist):
         dst = dst[y:y+h, x:x+w]
         #cv2.imwrite('calibresult.png', dst)
 
-        #cv2.imshow('img', dst)
-        #cv2.waitKey(100)
-
         font = cv2.FONT_HERSHEY_SIMPLEX
         cv2.putText(dst, 'Picture {}'.format(picture_number), (10, 30), font, 1, (255, 0, 0), 2, cv2.LINE_AA)
-        cv2.imshow('image', dst)
+
+        # Make dst and img the same size
+        dst = cv2.resize(dst, (img.shape[1], img.shape[0]))
+
+        numpy_horizontal = np.hstack((dst, img))
+        cv2.imshow('image', numpy_horizontal)
         #cv2.imwrite('calibresult.png', dst)
         cv2.waitKey(100)
 
-        # Show images side by side
-        plt.subplot(121),plt.imshow(img)
-        plt.subplot(122),plt.imshow(dst)
-        plt.show()
+        # # Show images side by side
+        # plt.subplot(121),plt.imshow(img)
+        # plt.subplot(122),plt.imshow(dst)
+        # plt.show()
 
 
 
 if __name__ == '__main__':
 
-    mtx, dist = calibrate_camera("calib/image_L/data/data_masked", "calib/camera_calibration_L")
-    #calibrate_camera("calib/image_R/data", "calib/camera_calibration_R")
+    mtx_L, dist_L = calibrate_camera("calib/image_L/data/data_masked", "calib/camera_calibration_L")
+    #mtx_R, dist_R = calibrate_camera("calib/image_R/data/data_masked", "calib/camera_calibration_R")
 
-    undistort_image("seq_01/image_L/data", mtx, dist)
+    undistort_image("seq_01/image_L/data", mtx_L, dist_L)
+    #undistort_image("seq_01/image_L/data", mtx_R, dist_R)
 
     
  
