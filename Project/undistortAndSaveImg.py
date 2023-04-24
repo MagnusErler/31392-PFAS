@@ -1,9 +1,24 @@
 import cv2
 import glob
 
-pathCamMtx = "calib/camera_calibration_R.yaml"
-pathImg = "seq_03/image_03_right/data/*.png"
-pathSave = "seq_03/image_03_right/undistorted/"
+pathCamMtxL = "calib/camera_calibration_L.yaml"
+pathCamMtxR = "calib/camera_calibration_R.yaml"
+
+pathImgSeq1L = "seq_01/image_L/data/*.png"
+pathImgSeq2L = "seq_02/image_02_left/data/*.png"
+pathImgSeq3L = "seq_03/image_02_left/data/*.png"
+
+pathImgSeq1R = "seq_01/image_L/data/*.png"
+pathImgSeq2R = "seq_02/image_03_right/data/*.png"
+pathImgSeq3R = "seq_03/image_03_right/data/*.png"
+
+pathSaveSeq1L = "seq_01/image_L/undistorted/"
+pathSaveSeq2L = "seq_02/image_02_left/undistorted/"
+pathSaveSeq3L = "seq_03/image_02_left/undistorted/"
+
+pathSaveSeq1R = "seq_01/image_R/data/*.png"
+pathSaveSeq2R = "seq_02/image_03_right/data/*.png"
+pathSaveSeq3R = "seq_03/image_03_right/data/*.png"
 
 def load_coefficients(path):
     """ Loads camera matrix and distortion coefficients. """
@@ -31,14 +46,71 @@ def undistort(img, camera_matrix, dist_matrix):
     dst = dst[y:y+h, x:x+w]
     return dst
 
-camera_matrix, dist_matrix = load_coefficients(pathCamMtx)
+camera_matrix_L, dist_matrix_L = load_coefficients(pathCamMtxL)
+camera_matrix_R, dist_matrix_R = load_coefficients(pathCamMtxR)
 
-images = glob.glob(pathImg)
+images_seq1L = glob.glob(pathImgSeq1L)
+images_seq2L = glob.glob(pathImgSeq2L)
+images_seq3L = glob.glob(pathImgSeq3L)
 
-for fname in images:
+images_seq1R = glob.glob(pathImgSeq1R)
+images_seq2R = glob.glob(pathImgSeq2R)
+images_seq3R = glob.glob(pathImgSeq3R)
+
+for fname in images_seq1L:
     img = cv2.imread(fname)
-    dst = undistort(img, camera_matrix, dist_matrix)
-    cv2.imwrite(pathSave + fname[20:], dst)
+    dst = undistort(img, camera_matrix_L, dist_matrix_L)
+    cv2.imwrite(pathSaveSeq1L + fname[20:], dst)
+    
+    cv2.imshow("Original image", img)
+    cv2.imshow("Undistorted image", dst)
+    cv2.waitKey(10)
+cv2.destroyAllWindows()
+
+for fname in images_seq2L:
+    img = cv2.imread(fname)
+    dst = undistort(img, camera_matrix_L, dist_matrix_L)
+    cv2.imwrite(pathSaveSeq2L + fname[20:], dst)
+    
+    cv2.imshow("Original image", img)
+    cv2.imshow("Undistorted image", dst)
+    cv2.waitKey(10)
+cv2.destroyAllWindows()
+
+for fname in images_seq3L:
+    img = cv2.imread(fname)
+    dst = undistort(img, camera_matrix_L, dist_matrix_L)
+    cv2.imwrite(pathSaveSeq3L + fname[20:], dst)
+    
+    cv2.imshow("Original image", img)
+    cv2.imshow("Undistorted image", dst)
+    cv2.waitKey(10)
+cv2.destroyAllWindows()
+
+for fname in images_seq1R:
+    img = cv2.imread(fname)
+    dst = undistort(img, camera_matrix_R, dist_matrix_R)
+    cv2.imwrite(pathSaveSeq1R + fname[20:], dst)
+    
+    cv2.imshow("Original image", img)
+    cv2.imshow("Undistorted image", dst)
+    cv2.waitKey(10)
+cv2.destroyAllWindows()
+
+for fname in images_seq2R:
+    img = cv2.imread(fname)
+    dst = undistort(img, camera_matrix_R, dist_matrix_R)
+    cv2.imwrite(pathSaveSeq2R + fname[20:], dst)
+    
+    cv2.imshow("Original image", img)
+    cv2.imshow("Undistorted image", dst)
+    cv2.waitKey(10)
+cv2.destroyAllWindows()
+
+for fname in images_seq3R:
+    img = cv2.imread(fname)
+    dst = undistort(img, camera_matrix_R, dist_matrix_R)
+    cv2.imwrite(pathSaveSeq3R + fname[20:], dst)
     
     cv2.imshow("Original image", img)
     cv2.imshow("Undistorted image", dst)
