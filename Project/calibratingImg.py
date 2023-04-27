@@ -103,7 +103,7 @@ def undistort_image(path, matrix, distortion):
         i+=1
         img = cv2.imread(fname)
         h, w = img.shape[:2]
-        newcameramtx, roi = cv2.getOptimalNewCameraMatrix(matrix, distortion, (w,h), 1, (w,h))
+        newcameramtx, roi = cv2.getOptimalNewCameraMatrix(matrix, distortion, (h,w), 0, (h,w))
 
         # undistortP=camera_matrix
         undst = cv2.undistort(img, matrix, distortion, None, newcameramtx)
@@ -120,16 +120,17 @@ def undistort_image(path, matrix, distortion):
         # Make dst and img the same size
         undst = cv2.resize(undst, (img.shape[1], img.shape[0]))
 
-        # numpy_horizontal = np.hstack((undst, img))
-        # cv2.namedWindow('Image', cv2.WINDOW_NORMAL)
-        # cv2.imshow('Image', numpy_horizontal)
-        # #cv2.imwrite('calibresult.png', dst)
-        # #cv2.waitKey(0)
+        numpy_horizontal = np.hstack((undst, img))
+        cv2.namedWindow('Image', cv2.WINDOW_NORMAL)
+        cv2.imshow('Image', numpy_horizontal)
+        #cv2.imwrite('calibresult.png', dst)
+        cv2.waitKey(10000)
 
 if __name__ == '__main__':
 
     mtx_L, dist_L = calibrate_camera("calib/image_L/data/data_masked", "calib/camera_calibration_L")
     #mtx_R, dist_R = calibrate_camera("calib/image_R/data/data_masked", "calib/camera_calibration_R")
 
-    undistort_image("seq_01/image_L/data", mtx_L, dist_L)
+    #undistort_image("seq_01/image_L/data", mtx_L, dist_L)
+    undistort_image("calib/image_L/data/", mtx_L, dist_L)
     #undistort_image("seq_01/image_L/data", mtx_R, dist_R)
