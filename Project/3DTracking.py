@@ -12,9 +12,9 @@ def importLabels():
     frame = labels[:,0].astype(int)
     track_id = labels[:,1].astype(int)
     type = labels[:,2]
-    truncated = labels[:,3]
-    occluded = labels[:,4]
-    alpha = labels[:,5]
+    truncated = labels[:,3].astype(float)
+    occluded = labels[:,4].astype(int)
+    alpha = labels[:,5].astype(float)
     bbox = labels[:,6:10].astype(float)
     dimensions = labels[:,10:13].astype(float)
     #location = labels[:,13:16]
@@ -128,6 +128,17 @@ if __name__ == '__main__':
     images_L = importImages("seq_02/image_02_left/data")
     #images_R = importImages("seq_02/image_03_right/data")
 
+
+    #get size of image
+    (height, width) = images_L[0].shape
+    print(height, width)
+
+    #Resize width from 1392 down to 1225
+    #Resize height from 512 down to 450
+    for i in range(len(images_L)):
+        images_L[i] = cv2.resize(images_L[i], (1225, 400), interpolation=cv2.INTER_AREA)
+        #images_R[i] = cv2.resize(images_R[i], (1225, 400), interpolation=cv2.INTER_AREA)
+
     #Show bbox from frame = i on image[i]
     for i in range(len(images_L)):
         for j in range(len(frame)):
@@ -136,4 +147,7 @@ if __name__ == '__main__':
                 cv2.putText(images_L[i], str(type[j]), (int(bbox[j][0]), int(bbox[j][1])), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
                 cv2.imshow("Image", images_L[i])
                 cv2.waitKey(1)
+
+
+
 
