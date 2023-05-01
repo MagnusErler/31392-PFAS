@@ -57,45 +57,45 @@ images_seq1R = glob.glob(pathImgSeq1R)
 images_seq2R = glob.glob(pathImgSeq2R)
 images_seq3R = glob.glob(pathImgSeq3R)
 
-# for fname in images_seq1L:
-#     img = cv2.imread(fname)
-#     dst = undistort(img, camera_matrix_L, dist_matrix_L)
-#     cv2.imwrite(pathSaveSeq1L + "u" + fname[20:], dst)
+for fname in images_seq1L:
+    img = cv2.imread(fname)
+    dst = undistort(img, camera_matrix_L, dist_matrix_L)
+    cv2.imwrite(pathSaveSeq1L + "u" + fname[20:], dst)
     
-#     cv2.imshow("Original image", img)
-#     cv2.imshow("Undistorted image", dst)
-#     cv2.waitKey(1)
-# cv2.destroyAllWindows()
+    cv2.imshow("Original image", img)
+    cv2.imshow("Undistorted image", dst)
+    cv2.waitKey(1)
+cv2.destroyAllWindows()
 
-# for fname in images_seq2L:
-#     img = cv2.imread(fname)
-#     dst = undistort(img, camera_matrix_L, dist_matrix_L)
-#     cv2.imwrite(pathSaveSeq2L + "u" + fname[26:], dst)
+for fname in images_seq2L:
+    img = cv2.imread(fname)
+    dst = undistort(img, camera_matrix_L, dist_matrix_L)
+    cv2.imwrite(pathSaveSeq2L + "u" + fname[26:], dst)
     
-#     cv2.imshow("Original image", img)
-#     cv2.imshow("Undistorted image", dst)
-#     cv2.waitKey(1)
-# cv2.destroyAllWindows()
+    cv2.imshow("Original image", img)
+    cv2.imshow("Undistorted image", dst)
+    cv2.waitKey(1)
+cv2.destroyAllWindows()
 
-# for fname in images_seq3L:
-#     img = cv2.imread(fname)
-#     dst = undistort(img, camera_matrix_L, dist_matrix_L)
-#     cv2.imwrite(pathSaveSeq3L + "u" + fname[26:], dst)
+for fname in images_seq3L:
+    img = cv2.imread(fname)
+    dst = undistort(img, camera_matrix_L, dist_matrix_L)
+    cv2.imwrite(pathSaveSeq3L + "u" + fname[26:], dst)
     
-#     cv2.imshow("Original image", img)
-#     cv2.imshow("Undistorted image", dst)
-#     cv2.waitKey(1)
-# cv2.destroyAllWindows()
+    cv2.imshow("Original image", img)
+    cv2.imshow("Undistorted image", dst)
+    cv2.waitKey(1)
+cv2.destroyAllWindows()
 
-# for fname in images_seq1R:
-#     img = cv2.imread(fname)
-#     dst = undistort(img, camera_matrix_R, dist_matrix_R)
-#     cv2.imwrite(pathSaveSeq1R + "u" + fname[20:], dst)
+for fname in images_seq1R:
+    img = cv2.imread(fname)
+    dst = undistort(img, camera_matrix_R, dist_matrix_R)
+    cv2.imwrite(pathSaveSeq1R + "u" + fname[20:], dst)
     
-#     cv2.imshow("Original image", img)
-#     cv2.imshow("Undistorted image", dst)
-#     cv2.waitKey(1)
-# cv2.destroyAllWindows()
+    cv2.imshow("Original image", img)
+    cv2.imshow("Undistorted image", dst)
+    cv2.waitKey(1)
+cv2.destroyAllWindows()
 
 for fname in images_seq2R:
     img = cv2.imread(fname)

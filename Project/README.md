@@ -46,3 +46,16 @@ The labels files contain the following information. All values (numerical or str
 |   1    | `score`   | Only for results: Float, indicating confidence in detection, needed for p/r curves, higher is better.
 
 **Please note that the 2D bounding box provided is given with respect to rectified image coordinates.** 
+
+
+calib_cam_to_cam.txt: Camera-to-camera calibration
+--------------------------------------------------
+
+  - S_xx: 1x2 size of image xx before rectification
+  - K_xx: 3x3 calibration matrix of camera xx before rectification
+  - D_xx: 1x5 distortion vector of camera xx before rectification
+  - R_xx: 3x3 rotation matrix of camera xx (extrinsic)
+  - T_xx: 3x1 translation vector of camera xx (extrinsic)
+  - S_rect_xx: 1x2 size of image xx after rectification
+  - R_rect_xx: 3x3 rectifying rotation to make image planes co-planar
+  - P_rect_xx: 3x4 projection matrix after rectification

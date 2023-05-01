@@ -5,30 +5,6 @@ import re
 import os
 import numpy as np
 
-def importImages(path):
-
-    i = 0
-    grays = []
-
-    images = glob.glob(path + '/*.png')
-    assert images
-    image_paths_sorted = sorted(images, key=lambda i: int(os.path.splitext(os.path.basename(i))[0]))
-
-    for image in image_paths_sorted:
-
-        picture_number = int(re.sub('\D', '', str(image_paths_sorted[i])))
-        i+=1
-        
-        img = cv2.imread(image)
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-        #Write picture number on image
-        cv2.putText(gray, str(picture_number), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
-
-        grays.append(gray)
-
-    return grays
-
 def detectKeyPoints(image_L, image_R):
     # 1. Detect keypoints and their descriptors
     # Based on: https://docs.opencv.org/master/dc/dc3/tutorial_py_matcher.html
@@ -38,6 +14,8 @@ def detectKeyPoints(image_L, image_R):
     # find the keypoints and descriptors with SIFT
     kp1, des1 = sift.detectAndCompute(image_L, None)
     kp2, des2 = sift.detectAndCompute(image_R, None)
+
+    return kp1, des1, kp2, des2
 
 def visualizeKeypoints(img, kp):
     imgSift = cv2.drawKeypoints(img, kp, None, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
@@ -80,19 +58,30 @@ def visualizeKeypoints(img1, kp1, img2, kp2, matches, matchesMask):
     cv2.imshow("Keypoint matches", keypoint_matches)
 
 if __name__ == '__main__':
-    images_L = importImages("seq_02/image_02_left/undistorted")
-    images_R = importImages("seq_02/image_03_right/undistorted")
+
+    image_L = cv2.imread("seq_02/image_02_left/undistorted/u0000000000.png")
+    image_R = cv2.imread("seq_02/image_03_right/undistorted/u0000000000.png")
+
+    cv2.imshow("Left", image_L)
+    cv2.imshow("Right", image_R)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+    # Initiate SIFT detector
+    sift = cv2.SIFT_create()
+    # find the keypoints and descriptors with SIFT
+    kp1, des1 = sift.detectAndCompute(image_L, None)
+    kp2, des2 = sift.detectAndCompute(image_R, None)
+
+    kp1, des1, kp2, des2 = detectKeyPoints(image_L, image_R)
+    imgSift = cv2.drawKeypoints(image_L, kp1, None, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+    cv2.imshow("SIFT Keypoints", imgSift)
+    cv2.waitKey(0)
+
+    # visualizeKeypoints(image_L, kp1)
+    # visualizeKeypoints(image_R, kp2)
 
 
-    #get size of image
-    (height, width) = images_L[0].shape
-    print(height, width)
-
-    for i in range(len(images_L)):
-        # Show all pictures
-        cv2.imshow("Left", images_L[i])
-        cv2.imshow("Right", images_R[i])
-        cv2.waitKey(50)
         
 
 
