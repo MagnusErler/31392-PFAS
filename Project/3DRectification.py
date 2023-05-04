@@ -20,6 +20,8 @@ def detectKeyPoints(image_L, image_R):
 def visualizeKeypoints(img, kp):
     imgSift = cv2.drawKeypoints(img, kp, None, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
     cv2.imshow("SIFT Keypoints", imgSift)
+    cv2.waitKey(0)
+    return imgSift
 
 def matchKeyPoints(des1, des2, kp1, kp2):
     # Based on: https://docs.opencv.org/master/dc/dc3/tutorial_py_matcher.html
