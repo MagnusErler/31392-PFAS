@@ -1,15 +1,16 @@
 import numpy as np
 import cv2 as cv
+import os
 from matplotlib import pyplot as plt
 plt.rcParams.update({'font.size': 8})
 
 def depth_map(imgL, imgR, withFilter):
 
-    window_size = 2
+    window_size = 5
 
     left_matcher = cv.StereoSGBM_create(
-        minDisparity=-1,
-        numDisparities=11*16,  # max_disp has to be dividable by 16 f. E. HH 192, 256
+        minDisparity=-5,
+        numDisparities=9*16,  # max_disp has to be dividable by 16 f. E. HH 192, 256
         blockSize=window_size,
         P1=9 * 3 * window_size,
         P2=128 * 3 * window_size,
@@ -24,7 +25,7 @@ def depth_map(imgL, imgR, withFilter):
     if(withFilter):
         right_matcher = cv.ximgproc.createRightMatcher(left_matcher)
         # FILTER Parameters
-        lmbda = 70000
+        lmbda = 60000
         sigma = 1.7
         visual_multiplier = 6
 
@@ -48,13 +49,28 @@ def depth_map(imgL, imgR, withFilter):
     return processedImg
 
 
-imgL = cv.imread("seq_02/image_02_left/provided/0000000000.png", cv.IMREAD_GRAYSCALE)
-imgR = cv.imread("seq_02/image_03_right/provided/0000000000.png", cv.IMREAD_GRAYSCALE)
+# imgL = cv.imread("seq_02/image_02_left/provided/0000000000.png", cv.IMREAD_GRAYSCALE)
+# imgR = cv.imread("seq_02/image_03_right/provided/0000000000.png", cv.IMREAD_GRAYSCALE)
 
-depth_map = depth_map(imgL, imgR, True)
-cv.imshow('Depth Map', depth_map)
-plt.imshow(depth_map)
-plt.axis('off')
-plt.show()
-cv.waitKey(0)
-cv.destroyAllWindows()
+# depth_map = depth_map(imgL, imgR, True) # Maybe try BM matcher: stereo = cv.StereoBM_create(numDisparities=-1, blockSize=11)
+# cv.imshow('Depth Map', depth_map)
+# plt.imshow(depth_map)
+# plt.axis('off')
+# plt.show()
+# cv.waitKey(0)
+# cv.destroyAllWindows()
+
+left_folder_path = 'seq_02/image_02_left/provided'
+right_folder_path = 'seq_02/image_03_right/provided'
+
+result_folder_path = 'seq_02/depth'
+
+for filename in os.listdir(left_folder_path):
+    if filename.endswith('.png'):  # adjust the file extension to match your images
+        left_image_path = os.path.join(left_folder_path, filename)
+        right_image_path = os.path.join(right_folder_path, filename)
+        left_image = cv.imread(left_image_path, cv.IMREAD_GRAYSCALE)
+        right_image = cv.imread(right_image_path, cv.IMREAD_GRAYSCALE)
+        result_image = depth_map(left_image, right_image, True)  # adjust the parameters as needed
+        result_image_path = os.path.join(result_folder_path, filename)
+        cv.imwrite(result_image_path, result_image)
