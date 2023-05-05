@@ -5,7 +5,6 @@ import re
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from getPixelValue import getPixelValue
 from mpl_toolkits.mplot3d import Axes3D
 
 # IMPORTING DATA
@@ -14,29 +13,37 @@ def importLabels():
     label_path = "seq_02/labels.txt"
     labels = np.loadtxt(label_path, delimiter=' ', dtype=str, usecols=range(15))
 
+    #Frame, ID, Class, BB{4} tror jeg
     frame = labels[:,0].astype(int)
     track_id = labels[:,1].astype(int)
     type = labels[:,2]
-    truncated = labels[:,3].astype(float)
-    occluded = labels[:,4].astype(int)
-    alpha = labels[:,5].astype(float)
-    bbox = labels[:,6:10].astype(float)
-    dimensions = labels[:,10:13].astype(float)
+    #truncated = labels[:,3].astype(float)
+    #occluded = labels[:,4].astype(int)
+    #alpha = labels[:,5].astype(float)
+    #bbox = labels[:,6:10].astype(float)
+    bbox = labels[:,3:7].astype(float)
+    #dimensions = labels[:,10:13].astype(float)
 
 
-    location_x = np.loadtxt(label_path, usecols=13)
-    location_y = np.loadtxt(label_path, usecols=14)
-    location_z = np.loadtxt(label_path, usecols=15)
+    #location_x = np.loadtxt(label_path, usecols=13)
+    #location_y = np.loadtxt(label_path, usecols=14)
+    #location_z = np.loadtxt(label_path, usecols=15)
 
     #rotation_y = labels[:,16]
     #score = labels[:,17]
 
+
+
+
+    
+
+
     # combine location_x, location_y and location_z to one array
-    location = np.array([location_x, location_y, location_z])
+    #location = np.array([location_x, location_y, location_z])
 
 
 
-    return frame, track_id, type, truncated, occluded, alpha, bbox, dimensions, location#, rotation_y, score
+    return frame, track_id, type, bbox#, dimensions, location#, rotation_y, score
 
 def importImages(path):
     print("Importing images...")
@@ -174,22 +181,13 @@ def plotCoordinates(coordinates, labels):
 
 if __name__ == '__main__':
 
-    frame, track_id, type, truncated, occluded, alpha, bbox, dimensions, location = importLabels()
+    #frame, track_id, type, bbox, dimensions, location = importLabels()
+    frame, track_id, type, bbox = importLabels()
 
-
-            
-
-    images_L = importImages("seq_02/image_02_left/provided")
-    #images_L = importImages("seq_02/depth")
+    images_L = importImages("seq_03/image_02_left/provided")
     #images_R = importImages("seq_02/image_03_right/provided")
-    #images_depth = glob.glob("seq_02/depth/*.png")
-    depthValue = []
-
-    images_depth = glob.glob("seq_02/depth/*.png")
-    assert images_depth
-    images_depth = sorted(images_depth, key=lambda i: int(os.path.splitext(os.path.basename(i))[0]))
+    images_depth = importImages("seq_02/depth")
     
-
     #Resizing image
     for i in range(len(images_L)):
         images_L[i] = cv2.resize(images_L[i], (1225, 390), interpolation=cv2.INTER_AREA)
@@ -200,17 +198,36 @@ if __name__ == '__main__':
 
     coordinates, labels  = getMiddleOfSpecificBoundingBox(images_L, track_id, 22)
 
-    depthValueFileName = []
-    for fname in images_depth:
-        depthValueFileName.append(fname)
+    #depthValueFileName = []
+    #for fname in images_depth:
+    #    depthValueFileName.append(fname)
 
-    print("lenght of depthValueFileName: " + str(len(depthValueFileName)))
-    print("lenght of coordinates[0]: " + str(len(coordinates[0])))
-    print("lenght of coordinates[1]: " + str(len(coordinates[1])))
-    print("lenght of images_L: " + str(len(images_L)))
+    # print("lenght of images_depth: " + str(len(images_depth)))
+    # print("lenght of coordinates[0]: " + str(len(coordinates[0])))
+    # print("lenght of coordinates[1]: " + str(len(coordinates[1])))
+    # print("lenght of images_L: " + str(len(images_L)))
+
+    depthValue = []
+
+    coordinates_x = coordinates[0]
+    coordinates_y = coordinates[1]
+
+    # print("coordinates_x: " + str(coordinates_x))
+    # print("coordinates_y: " + str(coordinates_y))
+
+    # depthValueFileName = []
+    # for fname in images_depth:
+    #     depthValueFileName.append(fname)
+
     
-    for i in range(len(images_L)):
-        depthValue.append(getPixelValue(depthValueFileName[i], coordinates[0,i], coordinates[1,i]))
+    # for i in range(len(images_depth)):
+    #     depthValue.append(getPixelValue(depthValueFileName[i], coordinates_x[i], coordinates_y[i]))
+
+    # get pixel value from depth image (without using getPixelValue() ) and append to depthValue list
+    for i in range(len(images_depth)):
+        depthValue.append(images_depth[i][coordinates_y[i], coordinates_x[i]])
+
+    print("depthValue: " + str(depthValue))
     
 
     #drawSpecificBoxOnImage(images_L, track_id, 22)
@@ -246,6 +263,11 @@ if __name__ == '__main__':
     #X = np.ones(len(X))
 
     print(Z)
+
+    # flip Z values around 255/2
+    #for i in range(len(Z)):
+    #    Z[i] = 255 - Z[i]
+
 
     coordinates = np.array([X, Z])
 
