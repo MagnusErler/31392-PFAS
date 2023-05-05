@@ -6,11 +6,11 @@ plt.rcParams.update({'font.size': 8})
 
 def depth_map(imgL, imgR, withFilter):
 
-    window_size = 5
+    window_size = 5 
 
     left_matcher = cv.StereoSGBM_create(
-        minDisparity=-5,
-        numDisparities=9*16,  # max_disp has to be dividable by 16 f. E. HH 192, 256
+        minDisparity=-10,
+        numDisparities=4*16,  # max_disp has to be dividable by 16 f. E. HH 192, 256
         blockSize=window_size,
         P1=9 * 3 * window_size,
         P2=128 * 3 * window_size,
@@ -49,21 +49,25 @@ def depth_map(imgL, imgR, withFilter):
     return processedImg
 
 
-# imgL = cv.imread("seq_02/image_02_left/provided/0000000000.png", cv.IMREAD_GRAYSCALE)
-# imgR = cv.imread("seq_02/image_03_right/provided/0000000000.png", cv.IMREAD_GRAYSCALE)
+# imgL1 = cv.imread("seq_03/image_02_left/provided/0000000000.png", cv.IMREAD_GRAYSCALE)
+# imgR1 = cv.imread("seq_03/image_03_right/provided/0000000000.png", cv.IMREAD_GRAYSCALE)
+# imgL2 = cv.imread("seq_03/image_02_left/provided/0000000052.png", cv.IMREAD_GRAYSCALE)
+# imgR2 = cv.imread("seq_03/image_03_right/provided/0000000052.png", cv.IMREAD_GRAYSCALE)
 
-# depth_map = depth_map(imgL, imgR, True) # Maybe try BM matcher: stereo = cv.StereoBM_create(numDisparities=-1, blockSize=11)
-# cv.imshow('Depth Map', depth_map)
-# plt.imshow(depth_map)
-# plt.axis('off')
-# plt.show()
+# depth_map1 = depth_map(imgL1, imgR1, True) # Maybe try BM matcher: stereo = cv.StereoBM_create(numDisparities=-1, blockSize=11)
+# depth_map2 = depth_map(imgL2, imgR2, True) # Maybe try BM matcher: stereo = cv.StereoBM_create(numDisparities=-1, blockSize=11)
+# cv.imshow('Depth Map 1', depth_map1)
+# cv.imshow('Depth Map 2', depth_map2)
+# # plt.imshow(depth_map)
+# # plt.axis('off')
+# # plt.show()
 # cv.waitKey(0)
 # cv.destroyAllWindows()
 
-left_folder_path = 'seq_02/image_02_left/provided'
-right_folder_path = 'seq_02/image_03_right/provided'
+left_folder_path = 'seq_03/image_02_left/provided'
+right_folder_path = 'seq_03/image_03_right/provided'
 
-result_folder_path = 'seq_02/depth'
+result_folder_path = 'seq_03/depth'
 
 for filename in os.listdir(left_folder_path):
     if filename.endswith('.png'):  # adjust the file extension to match your images
