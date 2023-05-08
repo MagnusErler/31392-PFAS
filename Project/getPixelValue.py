@@ -1,9 +1,16 @@
 import cv2 as cv
 import numpy as np
 
-def getPixelValue(image_path, x, y):
+def getPixelValue(image_path, y, x):
 
-    img = cv.imread(image_path, cv.IMREAD_GRAYSCALE)
+    img = image_path
+    #img = cv.cvtColor(image_path, cv.COLOR_BGR2GRAY)
+    print(img.shape)
+    # show the image
+    #cv.imshow("Image", img)
+    #cv.waitKey(0)
+
+    #img = cv.imread(image_path, cv.IMREAD_GRAYSCALE)
     if x < 0 or y < 0:
         print("Error: x or y is negative")
         return -1
