@@ -1,0 +1,9 @@
+<<<<<<< HEAD
+.pdf filter=lfs diff=lfs merge=lfs -text
+Exam/Combined[[:space:]]slides[[:space:]]2023.pdf filter=lfs diff=lfs merge=lfs -text
+Exam/Christoffer/Documentation/OpenCV-Documenation/ filter=lfs diff=lfs merge=lfs -text
+=======
+Exam/Combined[[:space:]]slides[[:space:]]2023.pdf filter=lfs diff=lfs merge=lfs -text
+Documentation/OpenCV-Documenation/hts-cache/new.zip filter=lfs diff=lfs merge=lfs -text
+Documentation/OpenCV-Documenation/hts-cache/new.zip filter=lfs diff=lfs merge=lfs -text
+>>>>>>> ab05be738637fa4422a766ef36d2a73cfeaa8060

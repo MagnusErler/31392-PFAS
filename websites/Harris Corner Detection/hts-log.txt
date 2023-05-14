@@ -1,0 +1,16 @@
+HTTrack3.49-2+libhtsjava.so.2 launched on Sun, 14 May 2023 13:01:23 at https://medium.com/data-breach/introduction-to-harris-corner-detector-32a88850b3f6
+(winhttrack https://medium.com/data-breach/introduction-to-harris-corner-detector-32a88850b3f6 -O "/home/magnus/websites/Harris Corner Detection" -%v )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+13:01:37	Error: 	"Not Found" (404) at link https://medium.com/data-breach/android-app://com.medium.reader/https/medium.com/p/32a88850b3f6 (from https://medium.com/data-breach/introduction-to-harris-corner-detector-32a88850b3f6)
+13:02:17	Error: 	"Not Found" (404) at link https://medium.com/data-breach/android-app://com.medium.reader/https/medium.com/p/65d7f3a72d40 (from https://medium.com/data-breach/introduction-to-sift-scale-invariant-feature-transform-65d7f3a72d40?source=author_recirc-----32a88850b3f6----0---------------------a726119f_4335_4a45_b91b_22cfb319b94a-------)
+13:02:17	Error: 	"Not Found" (404) at link https://medium.com/data-breach/android-app://com.medium.reader/https/medium.com/p/c7396d6e7c4e (from https://medium.com/data-breach/introduction-to-surf-speeded-up-robust-features-c7396d6e7c4e?source=author_recirc-----32a88850b3f6----1---------------------a726119f_4335_4a45_b91b_22cfb319b94a-------)
+13:02:17	Error: 	"Not Found" (404) at link https://medium.com/data-breach/android-app://com.medium.reader/https/medium.com/p/4220e8ec40cf (from https://medium.com/data-breach/introduction-to-orb-oriented-fast-and-rotated-brief-4220e8ec40cf?source=author_recirc-----32a88850b3f6----2---------------------a726119f_4335_4a45_b91b_22cfb319b94a-------)
+13:02:17	Error: 	"Not Found" (404) at link https://medium.com/data-breach/android-app://com.medium.reader/https/medium.com/p/65e27179885d (from https://medium.com/data-breach/introduction-to-feature-detection-and-matching-65e27179885d?source=author_recirc-----32a88850b3f6----3---------------------a726119f_4335_4a45_b91b_22cfb319b94a-------)
+
+HTTrack Website Copier/3.49-2 mirror complete in 55 seconds : 54 links scanned, 48 files written (11355978 bytes overall) [2102726 bytes received at 38231 bytes/sec], 11476085 bytes transferred using HTTP compression in 54 files, ratio 17%, 13.5 requests per connection
+(5 errors, 0 warnings, 0 messages)

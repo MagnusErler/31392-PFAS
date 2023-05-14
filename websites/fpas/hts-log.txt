@@ -1,0 +1,33 @@
+HTTrack3.49-2+libhtsjava.so.2 launched on Thu, 11 May 2023 10:47:01 at http://https://www.sanfoundry.com/1000-digital-image-processing-questions-answers/ +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/*
+(webhttrack -q -%i -w http://https://www.sanfoundry.com/1000-digital-image-processing-questions-answers/ -O "/home/magnus/websites/fpas" -n -%P -N0 -s2 -p7 -D -a -K0 -c4 -%k -A25000 -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -%s -%u )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+10:47:41	Error: 	"Not Found" (404) at link fonts.googleapis.com/ (from https://www.sanfoundry.com/1000-digital-image-processing-questions-answers/)
+10:47:42	Error: 	"Not Found" (404) at link https://fonts.gstatic.com/ (from https://www.sanfoundry.com/1000-digital-image-processing-questions-answers/)
+10:47:42	Error: 	"Forbidden" (403) at link https://www.sanfoundry.com/xmlrpc.php?rsd (from https://www.sanfoundry.com/1000-digital-image-processing-questions-answers/)
+10:47:42	Error: 	"Not Found" (404) at link https://www.sanfoundry.com/?p=148795 (from https://www.sanfoundry.com/1000-digital-image-processing-questions-answers/)
+10:47:42	Warning: 	Warning: store text/html without scan: /home/magnus/websites/fpas/gmpg.org/xfn/.html
+10:47:42	Warning: 	Warning: store text/html without scan: /home/magnus/websites/fpas/gmpg.org/xfn/intro.html
+10:47:42	Warning: 	Warning: store text/html without scan: /home/magnus/websites/fpas/gmpg.org/xfn/faq.html
+10:47:42	Warning: 	HTML file (10055 bytes) retransferred due to lack of cache: https://www.sanfoundry.com/feed/
+10:47:42	Warning: 	HTML file (1456 bytes) retransferred due to lack of cache: https://www.sanfoundry.com/comments/feed/
+10:47:42	Warning: 	HTML file (88531 bytes) retransferred due to lack of cache: https://www.sanfoundry.com/wp-json/
+10:47:43	Warning: 	File seems complete (same size), but there was a cache read error (4294967295): https://static.mailerlite.com/js/universal.js
+10:47:43	Warning: 	File seems complete (same size), but there was a cache read error (4294967295): https://www.sanfoundry.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.sanfoundry.com%2F1000-digital-image-processing-questions-answers%2F
+10:47:43	Warning: 	File seems complete (same size), but there was a cache read error (4294967295): https://www.sanfoundry.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.sanfoundry.com%2F1000-digital-image-processing-questions-answers%2F&format=xml
+10:47:44	Warning: 	HTML file (4515 bytes) retransferred due to lack of cache: https://www.sanfoundry.com/xmlrpc.php?rsd
+10:47:46	Warning: 	File seems complete (same size), but there was a cache read error (4294967295): cdn.adpushup.com/41319/adpushup.js
+10:47:46	Warning: 	File seems complete (same size), but there was a cache read error (4294967295): https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8421948329591789
+10:47:47	Error: 	"Forbidden" (403) at link https://www.sanfoundry.com/xmlrpc.php?rsd (from https://www.sanfoundry.com/1000-digital-image-processing-questions-answers/)
+10:47:47	Warning: 	HTML file (117 bytes) retransferred due to lack of cache: https://www.sanfoundry.com/?p=148795
+10:47:52	Error: 	"Not Found" (404) at link https://www.sanfoundry.com/?p=148795 (from https://www.sanfoundry.com/1000-digital-image-processing-questions-answers/)
+10:47:52	Warning: 	HTML file (426 bytes) retransferred due to lack of cache: https://www.sanfoundry.com/site.webmanifest
+10:47:55	Warning: 	File seems complete (same size), but there was a cache read error (4294967295): https://cse.google.com/cse.js?cx=3dd3bfc96f9b5c597
+10:47:55	Warning: 	Warning: store text/css without scan: /home/magnus/websites/fpas/gmpg.org/xfn/default.css
+
+HTTrack Website Copier/3.49-2 mirror complete in 54 seconds : 35 links scanned, 38 files written (2288243 bytes overall) [964581 bytes received at 17862 bytes/sec], 1935092 bytes transferred using HTTP compression in 27 files, ratio 28%, 1.8 requests per connection
+(6 errors, 16 warnings, 0 messages)

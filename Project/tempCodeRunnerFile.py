@@ -1,0 +1,1 @@
+result2 = blur[x,y]

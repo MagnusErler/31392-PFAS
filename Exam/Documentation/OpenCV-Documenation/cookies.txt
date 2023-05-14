@@ -1,0 +1,31 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+github.com	TRUE	/	FALSE	1999999999	_octo	GH1.1.138548555.1683794570
+github.com	TRUE	/	FALSE	1999999999	logged_in	no
+en.wikipedia.org	TRUE	/	FALSE	1999999999	WMF-Last-Access	11-May-2023
+.wikipedia.org	TRUE	/	FALSE	1999999999	GeoIP	DK:84:Copenhagen:55.71:12.57:v4
+en.m.wikipedia.org	TRUE	/	FALSE	1999999999	WMF-Last-Access	11-May-2023
+.wikimedia.org	TRUE	/	FALSE	1999999999	GeoIP	DK:84:Copenhagen:55.71:12.57:v4
+en.wikipedia.org	TRUE	/	FALSE	1999999999	ss0-enwikiSession	r8mls28efob91desubs7otbhevrmpack
+en.wikipedia.org	TRUE	/	FALSE	1999999999	enwikiSession	r8mls28efob91desubs7otbhevrmpack
+en.wikipedia.org	TRUE	/	FALSE	1999999999	SameSite	None
+commons.wikimedia.org	TRUE	/	FALSE	1999999999	WMF-Last-Access	11-May-2023
+github.com	TRUE	/	FALSE	1999999999	_device_id	13ceb4b2acea4beacdc2e851ee794286
+github.com	TRUE	/	FALSE	1999999999	_gh_sess	wF1vQDzEtusEq%2FV0ejaZKhOIV1THcTO5nyPPTcx7EDIJty%2FHu9maB%2FwBuex0N%2FOKcw3MLQi8G27yzBMfOsnHcOlZR4HTeGurM2HsD1WsqyoylWStoe%2FZf%2FlKbMVPL8O2oFe1tR56AE34FFw0fbKOKXLWXNarUVH5tDsUZ%2F6sF6%2BRYB09vMjv%2BVEatJ3loqOrDGB6sSYEnu12M4j1vJ2syoHc4%2BO1H9DjZ078vYOQAyA%2BN1Y%2F47R%2FBw1GikLPEM7SQ7NxOqE%3D--meVKgISnix5z8KuZ--ncVlvcFT55hJmMuzhyc4zA%3D%3D
+github.com	TRUE	/	FALSE	1999999999	SameSite	Lax
+en.m.wikipedia.org	TRUE	/	FALSE	1999999999	ss0-enwikiSession	ueq8fjqb65g3hepiregscp09hdg0lj79
+en.m.wikipedia.org	TRUE	/	FALSE	1999999999	enwikiSession	ueq8fjqb65g3hepiregscp09hdg0lj79
+en.m.wikipedia.org	TRUE	/	FALSE	1999999999	SameSite	None
+commons.wikimedia.org	TRUE	/	FALSE	1999999999	ss0-commonswikiSession	aaokb3kc5qece787bdvc3akq5c6qeq8d
+commons.wikimedia.org	TRUE	/	FALSE	1999999999	commonswikiSession	aaokb3kc5qece787bdvc3akq5c6qeq8d
+commons.wikimedia.org	TRUE	/	FALSE	1999999999	SameSite	None
+.wikipedia.org	TRUE	/	FALSE	1999999999	WMF-Last-Access-Global	11-May-2023
+en.wikipedia.org	TRUE	/	FALSE	1999999999	WMF-DP	cbd,002,f9d,d2c,7ec,2f8,11b,2a9,70d
+en.wikipedia.org	TRUE	/	FALSE	1999999999	include_pv	0
+commons.m.wikimedia.org	TRUE	/	FALSE	1999999999	WMF-Last-Access	11-May-2023
+commons.wikimedia.org	TRUE	/	FALSE	1999999999	WMF-DP	632,5cc,61c
+commons.wikimedia.org	TRUE	/	FALSE	1999999999	cpPosIndex	1%401683804071%2328a4a541069b84e63c48949f2641ee81
+en.wikipedia.org	TRUE	/	FALSE	1999999999	cpPosIndex	1%401683804959%2328a4a541069b84e63c48949f2641ee81
+en.m.wikipedia.org	TRUE	/	FALSE	1999999999	WMF-DP	cbd,ba9,2f8,11b,2a9,70d,8e2,577,6cb
+en.m.wikipedia.org	TRUE	/	FALSE	1999999999	include_pv	0
+
