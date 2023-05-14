@@ -1,0 +1,1303 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/pipelines/color_map_optimization.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:27:16 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Color Map Optimization &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Pipelines (Tensor)" href="../t_pipelines/index.html" />
+    <link rel="prev" title="RGBD Odometry" href="rgbd_odometry.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Pipelines</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="icp_registration.html">ICP registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robust_kernels.html">Robust kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="colored_pointcloud_registration.4">Colored point cloud registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="global_registration.html">Global registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiway_registration.html">Multiway registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rgbd_integration.html">RGBD integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rgbd_odometry.html">RGBD Odometry</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Color Map Optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Input">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Rigid-Optimization">Rigid Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Non-rigid-Optimization">Non-rigid Optimization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Pipelines</a> &raquo;</li>
+        
+      <li>Color Map Optimization</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Color-Map-Optimization">
+<h1>Color Map Optimization<a class="headerlink" href="#Color-Map-Optimization" title="Permalink to this headline">¶</a></h1>
+<p>Consider color mapping to the geometry reconstructed from depth cameras. As color and depth frames are not perfectly aligned, the texture mapping using color images is subject to results in blurred color map. Open3D provides color map optimization method proposed by <a class="reference external" href="../reference.html#zhou2014">[Zhou2014]</a>. The following script shows an example of color map optimization.</p>
+<div class="section" id="Input">
+<h2>Input<a class="headerlink" href="#Input" title="Permalink to this headline">¶</a></h2>
+<p>This code below reads color and depth image pairs and makes <code class="docutils literal notranslate"><span class="pre">rgbd_image</span></code>. Note that <code class="docutils literal notranslate"><span class="pre">convert_rgb_to_intensity</span></code> flag is <code class="docutils literal notranslate"><span class="pre">False</span></code>. This is to preserve 8-bit color channels instead of using single channel float type image.</p>
+<p>It is always good practice to visualize the RGBD image before applying it to the color map optimization. The <code class="docutils literal notranslate"><span class="pre">debug_mode</span></code> switch can be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> to visualize the RGBD image.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">load_fountain_dataset</span><span class="p">():</span>
+    <span class="n">rgbd_images</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">fountain_rgbd_dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">SampleFountainRGBDImages</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fountain_rgbd_dataset</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">)):</span>
+        <span class="n">depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">fountain_rgbd_dataset</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">fountain_rgbd_dataset</span><span class="o">.</span><span class="n">color_paths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">rgbd_image</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+            <span class="n">color</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">convert_rgb_to_intensity</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">rgbd_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rgbd_image</span><span class="p">)</span>
+
+    <span class="n">camera_trajectory</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_pinhole_camera_trajectory</span><span class="p">(</span>
+        <span class="n">fountain_rgbd_dataset</span><span class="o">.</span><span class="n">keyframe_poses_log_path</span><span class="p">)</span>
+    <span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span>
+        <span class="n">fountain_rgbd_dataset</span><span class="o">.</span><span class="n">reconstruction_path</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">rgbd_images</span><span class="p">,</span> <span class="n">camera_trajectory</span>
+</pre></div>
+</div>
+</div>
+<p>The code below reads a camera trajectory and a mesh.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Load dataset</span>
+<span class="n">mesh</span><span class="p">,</span> <span class="n">rgbd_images</span><span class="p">,</span> <span class="n">camera_trajectory</span> <span class="o">=</span> <span class="n">load_fountain_dataset</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[Open3D INFO] Downloading https://github.com/isl-org/open3d_downloads/releases/download/20220201-data/SampleFountainRGBDImages.zip
+[Open3D INFO] Downloaded to /home/runner/open3d_data/download/SampleFountainRGBDImages/SampleFountainRGBDImages.zip
+[Open3D INFO] Created directory /home/runner/open3d_data/extract/SampleFountainRGBDImages.
+[Open3D INFO] Extracting /home/runner/open3d_data/download/SampleFountainRGBDImages/SampleFountainRGBDImages.zip.
+[Open3D INFO] Extracted to /home/runner/open3d_data/extract/SampleFountainRGBDImages.
+</pre></div></div>
+</div>
+<p>To visualize how the camera poses are not good for color mapping, this code intentionally sets the iteration number to 0, which means no optimization. <code class="docutils literal notranslate"><span class="pre">color_map_optimization</span></code> paints a mesh using corresponding RGBD images and camera poses. Without optimization, the texture map is blurred.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Before full optimization, let&#39;s visualize texture map</span>
+<span class="c1"># with given geometry, RGBD images, and camera poses.</span>
+<span class="n">mesh</span><span class="p">,</span> <span class="n">camera_trajectory</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">color_map</span><span class="o">.</span><span class="n">run_rigid_optimizer</span><span class="p">(</span>
+    <span class="n">mesh</span><span class="p">,</span> <span class="n">rgbd_images</span><span class="p">,</span> <span class="n">camera_trajectory</span><span class="p">,</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">color_map</span><span class="o">.</span><span class="n">RigidOptimizerOption</span><span class="p">(</span><span class="n">maximum_iteration</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">],</span>
+                                  <span class="n">zoom</span><span class="o">=</span><span class="mf">0.5399</span><span class="p">,</span>
+                                  <span class="n">front</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0665</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1107</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9916</span><span class="p">],</span>
+                                  <span class="n">lookat</span><span class="o">=</span><span class="p">[</span><span class="mf">0.7353</span><span class="p">,</span> <span class="mf">0.6537</span><span class="p">,</span> <span class="mf">1.0521</span><span class="p">],</span>
+                                  <span class="n">up</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0136</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9936</span><span class="p">,</span> <span class="mf">0.1118</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_pipelines_color_map_optimization_7_0.png" src="../../_images/tutorial_pipelines_color_map_optimization_7_" />
+</div>
+</div>
+</div>
+<div class="section" id="Rigid-Optimization">
+<h2>Rigid Optimization<a class="headerlink" href="#Rigid-Optimization" title="Permalink to this headline">¶</a></h2>
+<p>The next step is to optimize camera poses to get a sharp color map.</p>
+<p>The code below sets <code class="docutils literal notranslate"><span class="pre">maximum_iteration</span> <span class="pre">=</span> <span class="pre">300</span></code> for actual iterations.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Optimize texture and save the mesh as texture_mapped.ply</span>
+<span class="c1"># This is implementation of following paper</span>
+<span class="c1"># Q.-Y. Zhou and V. Koltun,</span>
+<span class="c1"># Color Map Optimization for 3D Reconstruction with Consumer Depth Cameras,</span>
+<span class="c1"># SIGGRAPH 2014</span>
+
+<span class="c1"># Run rigid optimization.</span>
+<span class="n">maximum_iteration</span> <span class="o">=</span> <span class="mi">100</span> <span class="k">if</span> <span class="n">is_ci</span> <span class="k">else</span> <span class="mi">300</span>
+<span class="k">with</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityContextManager</span><span class="p">(</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityLevel</span><span class="o">.</span><span class="n">Debug</span><span class="p">)</span> <span class="k">as</span> <span class="n">cm</span><span class="p">:</span>
+    <span class="n">mesh</span><span class="p">,</span> <span class="n">camera_trajectory</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">color_map</span><span class="o">.</span><span class="n">run_rigid_optimizer</span><span class="p">(</span>
+        <span class="n">mesh</span><span class="p">,</span> <span class="n">rgbd_images</span><span class="p">,</span> <span class="n">camera_trajectory</span><span class="p">,</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">color_map</span><span class="o">.</span><span class="n">RigidOptimizerOption</span><span class="p">(</span>
+            <span class="n">maximum_iteration</span><span class="o">=</span><span class="n">maximum_iteration</span><span class="p">))</span>
+
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">],</span>
+                                  <span class="n">zoom</span><span class="o">=</span><span class="mf">0.5399</span><span class="p">,</span>
+                                  <span class="n">front</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0665</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1107</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9916</span><span class="p">],</span>
+                                  <span class="n">lookat</span><span class="o">=</span><span class="p">[</span><span class="mf">0.7353</span><span class="p">,</span> <span class="mf">0.6537</span><span class="p">,</span> <span class="mf">1.0521</span><span class="p">],</span>
+                                  <span class="n">up</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0136</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9936</span><span class="p">,</span> <span class="mf">0.1118</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[Open3D DEBUG] [ColorMapOptimization] CreateUtilImagesFromRGBD
+[Open3D DEBUG] [ColorMapOptimization] CreateDepthBoundaryMasks
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 0/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 1/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 2/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 3/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 4/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 5/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 6/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 7/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 8/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 9/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 10/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 11/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 12/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 13/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 14/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 15/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 16/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 17/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 18/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 19/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 20/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 21/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 22/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 23/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 24/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 25/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 26/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 27/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 28/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 29/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 30/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 31/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 32/33
+[Open3D DEBUG] [ColorMapOptimization] CreateVertexAndImageVisibility
+[Open3D DEBUG] [cam 0]: 238774/536872 (44.47503%) vertices are visible
+[Open3D DEBUG] [cam 1]: 264228/536872 (49.21620%) vertices are visible
+[Open3D DEBUG] [cam 2]: 32910/536872 (6.12995%) vertices are visible
+[Open3D DEBUG] [cam 3]: 207076/536872 (38.57083%) vertices are visible
+[Open3D DEBUG] [cam 4]: 208953/536872 (38.92045%) vertices are visible
+[Open3D DEBUG] [cam 5]: 121789/536872 (22.68492%) vertices are visible
+[Open3D DEBUG] [cam 6]: 139892/536872 (26.05686%) vertices are visible
+[Open3D DEBUG] [cam 7]: 94112/536872 (17.52969%) vertices are visible
+[Open3D DEBUG] [cam 8]: 136523/536872 (25.42934%) vertices are visible
+[Open3D DEBUG] [cam 9]: 88157/536872 (16.42049%) vertices are visible
+[Open3D DEBUG] [cam 10]: 119823/536872 (22.31873%) vertices are visible
+[Open3D DEBUG] [cam 11]: 183991/536872 (34.27092%) vertices are visible
+[Open3D DEBUG] [cam 12]: 238849/536872 (44.48900%) vertices are visible
+[Open3D DEBUG] [cam 13]: 222246/536872 (41.39646%) vertices are visible
+[Open3D DEBUG] [cam 14]: 220761/536872 (41.11986%) vertices are visible
+[Open3D DEBUG] [cam 15]: 257217/536872 (47.91030%) vertices are visible
+[Open3D DEBUG] [cam 16]: 123058/536872 (22.92129%) vertices are visible
+[Open3D DEBUG] [cam 17]: 155657/536872 (28.99332%) vertices are visible
+[Open3D DEBUG] [cam 18]: 109616/536872 (20.41753%) vertices are visible
+[Open3D DEBUG] [cam 19]: 132968/536872 (24.76717%) vertices are visible
+[Open3D DEBUG] [cam 20]: 125766/536872 (23.42570%) vertices are visible
+[Open3D DEBUG] [cam 21]: 118639/536872 (22.09819%) vertices are visible
+[Open3D DEBUG] [cam 22]: 112538/536872 (20.96179%) vertices are visible
+[Open3D DEBUG] [cam 23]: 76603/536872 (14.26839%) vertices are visible
+[Open3D DEBUG] [cam 24]: 74932/536872 (13.95714%) vertices are visible
+[Open3D DEBUG] [cam 25]: 79252/536872 (14.76181%) vertices are visible
+[Open3D DEBUG] [cam 26]: 107727/536872 (20.06568%) vertices are visible
+[Open3D DEBUG] [cam 27]: 114058/536872 (21.24491%) vertices are visible
+[Open3D DEBUG] [cam 28]: 128703/536872 (23.97275%) vertices are visible
+[Open3D DEBUG] [cam 29]: 149558/536872 (27.85729%) vertices are visible
+[Open3D DEBUG] [cam 30]: 165234/536872 (30.77717%) vertices are visible
+[Open3D DEBUG] [cam 31]: 104629/536872 (19.48863%) vertices are visible
+[Open3D DEBUG] [cam 32]: 50546/536872 (9.41491%) vertices are visible
+[Open3D DEBUG] [ColorMapOptimization] Rigid Optimization
+[Open3D DEBUG] [Iteration 0001]
+[Open3D DEBUG] Residual error : 21627.768621 (avg : 0.004597)
+[Open3D DEBUG] [Iteration 0002]
+[Open3D DEBUG] Residual error : 21450.291135 (avg : 0.004559)
+[Open3D DEBUG] [Iteration 0003]
+[Open3D DEBUG] Residual error : 21273.138416 (avg : 0.004522)
+[Open3D DEBUG] [Iteration 0004]
+[Open3D DEBUG] Residual error : 21095.402935 (avg : 0.004484)
+[Open3D DEBUG] [Iteration 0005]
+[Open3D DEBUG] Residual error : 20918.021855 (avg : 0.004446)
+[Open3D DEBUG] [Iteration 0006]
+[Open3D DEBUG] Residual error : 20741.426493 (avg : 0.004409)
+[Open3D DEBUG] [Iteration 0007]
+[Open3D DEBUG] Residual error : 20565.403267 (avg : 0.004371)
+[Open3D DEBUG] [Iteration 0008]
+[Open3D DEBUG] Residual error : 20389.813726 (avg : 0.004334)
+[Open3D DEBUG] [Iteration 0009]
+[Open3D DEBUG] Residual error : 20214.920850 (avg : 0.004297)
+[Open3D DEBUG] [Iteration 0010]
+[Open3D DEBUG] Residual error : 20041.235823 (avg : 0.004260)
+[Open3D DEBUG] [Iteration 0011]
+[Open3D DEBUG] Residual error : 19868.146860 (avg : 0.004223)
+[Open3D DEBUG] [Iteration 0012]
+[Open3D DEBUG] Residual error : 19696.485295 (avg : 0.004186)
+[Open3D DEBUG] [Iteration 0013]
+[Open3D DEBUG] Residual error : 19526.257939 (avg : 0.004150)
+[Open3D DEBUG] [Iteration 0014]
+[Open3D DEBUG] Residual error : 19357.003360 (avg : 0.004114)
+[Open3D DEBUG] [Iteration 0015]
+[Open3D DEBUG] Residual error : 19188.390473 (avg : 0.004078)
+[Open3D DEBUG] [Iteration 0016]
+[Open3D DEBUG] Residual error : 19020.769133 (avg : 0.004043)
+[Open3D DEBUG] [Iteration 0017]
+[Open3D DEBUG] Residual error : 18853.673959 (avg : 0.004007)
+[Open3D DEBUG] [Iteration 0018]
+[Open3D DEBUG] Residual error : 18686.442401 (avg : 0.003972)
+[Open3D DEBUG] [Iteration 0019]
+[Open3D DEBUG] Residual error : 18520.269019 (avg : 0.003936)
+[Open3D DEBUG] [Iteration 0020]
+[Open3D DEBUG] Residual error : 18353.936846 (avg : 0.003901)
+[Open3D DEBUG] [Iteration 0021]
+[Open3D DEBUG] Residual error : 18188.177884 (avg : 0.003866)
+[Open3D DEBUG] [Iteration 0022]
+[Open3D DEBUG] Residual error : 18022.433052 (avg : 0.003831)
+[Open3D DEBUG] [Iteration 0023]
+[Open3D DEBUG] Residual error : 17857.744919 (avg : 0.003796)
+[Open3D DEBUG] [Iteration 0024]
+[Open3D DEBUG] Residual error : 17692.343942 (avg : 0.003760)
+[Open3D DEBUG] [Iteration 0025]
+[Open3D DEBUG] Residual error : 17527.758880 (avg : 0.003726)
+[Open3D DEBUG] [Iteration 0026]
+[Open3D DEBUG] Residual error : 17362.914704 (avg : 0.003690)
+[Open3D DEBUG] [Iteration 0027]
+[Open3D DEBUG] Residual error : 17197.453287 (avg : 0.003655)
+[Open3D DEBUG] [Iteration 0028]
+[Open3D DEBUG] Residual error : 17032.392931 (avg : 0.003620)
+[Open3D DEBUG] [Iteration 0029]
+[Open3D DEBUG] Residual error : 16866.963843 (avg : 0.003585)
+[Open3D DEBUG] [Iteration 0030]
+[Open3D DEBUG] Residual error : 16700.219471 (avg : 0.003550)
+[Open3D DEBUG] [Iteration 0031]
+[Open3D DEBUG] Residual error : 16533.402242 (avg : 0.003514)
+[Open3D DEBUG] [Iteration 0032]
+[Open3D DEBUG] Residual error : 16366.152025 (avg : 0.003479)
+[Open3D DEBUG] [Iteration 0033]
+[Open3D DEBUG] Residual error : 16197.984542 (avg : 0.003443)
+[Open3D DEBUG] [Iteration 0034]
+[Open3D DEBUG] Residual error : 16028.964073 (avg : 0.003407)
+[Open3D DEBUG] [Iteration 0035]
+[Open3D DEBUG] Residual error : 15858.129949 (avg : 0.003371)
+[Open3D DEBUG] [Iteration 0036]
+[Open3D DEBUG] Residual error : 15686.642635 (avg : 0.003334)
+[Open3D DEBUG] [Iteration 0037]
+[Open3D DEBUG] Residual error : 15513.719628 (avg : 0.003297)
+[Open3D DEBUG] [Iteration 0038]
+[Open3D DEBUG] Residual error : 15339.369246 (avg : 0.003260)
+[Open3D DEBUG] [Iteration 0039]
+[Open3D DEBUG] Residual error : 15163.439300 (avg : 0.003223)
+[Open3D DEBUG] [Iteration 0040]
+[Open3D DEBUG] Residual error : 14985.757900 (avg : 0.003185)
+[Open3D DEBUG] [Iteration 0041]
+[Open3D DEBUG] Residual error : 14806.617845 (avg : 0.003147)
+[Open3D DEBUG] [Iteration 0042]
+[Open3D DEBUG] Residual error : 14626.059264 (avg : 0.003109)
+[Open3D DEBUG] [Iteration 0043]
+[Open3D DEBUG] Residual error : 14443.625413 (avg : 0.003070)
+[Open3D DEBUG] [Iteration 0044]
+[Open3D DEBUG] Residual error : 14259.326270 (avg : 0.003031)
+[Open3D DEBUG] [Iteration 0045]
+[Open3D DEBUG] Residual error : 14073.449922 (avg : 0.002991)
+[Open3D DEBUG] [Iteration 0046]
+[Open3D DEBUG] Residual error : 13886.382375 (avg : 0.002952)
+[Open3D DEBUG] [Iteration 0047]
+[Open3D DEBUG] Residual error : 13697.917537 (avg : 0.002911)
+[Open3D DEBUG] [Iteration 0048]
+[Open3D DEBUG] Residual error : 13508.312134 (avg : 0.002871)
+[Open3D DEBUG] [Iteration 0049]
+[Open3D DEBUG] Residual error : 13317.338242 (avg : 0.002831)
+[Open3D DEBUG] [Iteration 0050]
+[Open3D DEBUG] Residual error : 13125.903241 (avg : 0.002790)
+[Open3D DEBUG] [Iteration 0051]
+[Open3D DEBUG] Residual error : 12934.127414 (avg : 0.002749)
+[Open3D DEBUG] [Iteration 0052]
+[Open3D DEBUG] Residual error : 12742.598063 (avg : 0.002708)
+[Open3D DEBUG] [Iteration 0053]
+[Open3D DEBUG] Residual error : 12551.614612 (avg : 0.002668)
+[Open3D DEBUG] [Iteration 0054]
+[Open3D DEBUG] Residual error : 12361.992528 (avg : 0.002628)
+[Open3D DEBUG] [Iteration 0055]
+[Open3D DEBUG] Residual error : 12174.346045 (avg : 0.002588)
+[Open3D DEBUG] [Iteration 0056]
+[Open3D DEBUG] Residual error : 11989.307660 (avg : 0.002548)
+[Open3D DEBUG] [Iteration 0057]
+[Open3D DEBUG] Residual error : 11807.571722 (avg : 0.002510)
+[Open3D DEBUG] [Iteration 0058]
+[Open3D DEBUG] Residual error : 11630.608171 (avg : 0.002472)
+[Open3D DEBUG] [Iteration 0059]
+[Open3D DEBUG] Residual error : 11459.226849 (avg : 0.002436)
+[Open3D DEBUG] [Iteration 0060]
+[Open3D DEBUG] Residual error : 11294.101928 (avg : 0.002401)
+[Open3D DEBUG] [Iteration 0061]
+[Open3D DEBUG] Residual error : 11136.617621 (avg : 0.002367)
+[Open3D DEBUG] [Iteration 0062]
+[Open3D DEBUG] Residual error : 10987.829629 (avg : 0.002335)
+[Open3D DEBUG] [Iteration 0063]
+[Open3D DEBUG] Residual error : 10846.494783 (avg : 0.002305)
+[Open3D DEBUG] [Iteration 0064]
+[Open3D DEBUG] Residual error : 10715.235101 (avg : 0.002278)
+[Open3D DEBUG] [Iteration 0065]
+[Open3D DEBUG] Residual error : 10593.381129 (avg : 0.002252)
+[Open3D DEBUG] [Iteration 0066]
+[Open3D DEBUG] Residual error : 10480.699566 (avg : 0.002228)
+[Open3D DEBUG] [Iteration 0067]
+[Open3D DEBUG] Residual error : 10378.046761 (avg : 0.002206)
+[Open3D DEBUG] [Iteration 0068]
+[Open3D DEBUG] Residual error : 10284.482360 (avg : 0.002186)
+[Open3D DEBUG] [Iteration 0069]
+[Open3D DEBUG] Residual error : 10199.318639 (avg : 0.002168)
+[Open3D DEBUG] [Iteration 0070]
+[Open3D DEBUG] Residual error : 10122.739402 (avg : 0.002152)
+[Open3D DEBUG] [Iteration 0071]
+[Open3D DEBUG] Residual error : 10053.677972 (avg : 0.002137)
+[Open3D DEBUG] [Iteration 0072]
+[Open3D DEBUG] Residual error : 9991.653715 (avg : 0.002124)
+[Open3D DEBUG] [Iteration 0073]
+[Open3D DEBUG] Residual error : 9935.956504 (avg : 0.002112)
+[Open3D DEBUG] [Iteration 0074]
+[Open3D DEBUG] Residual error : 9885.848506 (avg : 0.002101)
+[Open3D DEBUG] [Iteration 0075]
+[Open3D DEBUG] Residual error : 9840.681676 (avg : 0.002092)
+[Open3D DEBUG] [Iteration 0076]
+[Open3D DEBUG] Residual error : 9800.219243 (avg : 0.002083)
+[Open3D DEBUG] [Iteration 0077]
+[Open3D DEBUG] Residual error : 9763.323634 (avg : 0.002075)
+[Open3D DEBUG] [Iteration 0078]
+[Open3D DEBUG] Residual error : 9730.056207 (avg : 0.002068)
+[Open3D DEBUG] [Iteration 0079]
+[Open3D DEBUG] Residual error : 9699.678138 (avg : 0.002062)
+[Open3D DEBUG] [Iteration 0080]
+[Open3D DEBUG] Residual error : 9672.215074 (avg : 0.002056)
+[Open3D DEBUG] [Iteration 0081]
+[Open3D DEBUG] Residual error : 9646.627006 (avg : 0.002050)
+[Open3D DEBUG] [Iteration 0082]
+[Open3D DEBUG] Residual error : 9623.530113 (avg : 0.002045)
+[Open3D DEBUG] [Iteration 0083]
+[Open3D DEBUG] Residual error : 9601.971151 (avg : 0.002041)
+[Open3D DEBUG] [Iteration 0084]
+[Open3D DEBUG] Residual error : 9582.367893 (avg : 0.002037)
+[Open3D DEBUG] [Iteration 0085]
+[Open3D DEBUG] Residual error : 9564.142260 (avg : 0.002033)
+[Open3D DEBUG] [Iteration 0086]
+[Open3D DEBUG] Residual error : 9547.028282 (avg : 0.002029)
+[Open3D DEBUG] [Iteration 0087]
+[Open3D DEBUG] Residual error : 9531.077865 (avg : 0.002026)
+[Open3D DEBUG] [Iteration 0088]
+[Open3D DEBUG] Residual error : 9516.119413 (avg : 0.002023)
+[Open3D DEBUG] [Iteration 0089]
+[Open3D DEBUG] Residual error : 9502.171065 (avg : 0.002020)
+[Open3D DEBUG] [Iteration 0090]
+[Open3D DEBUG] Residual error : 9488.918634 (avg : 0.002017)
+[Open3D DEBUG] [Iteration 0091]
+[Open3D DEBUG] Residual error : 9476.499042 (avg : 0.002014)
+[Open3D DEBUG] [Iteration 0092]
+[Open3D DEBUG] Residual error : 9464.696972 (avg : 0.002012)
+[Open3D DEBUG] [Iteration 0093]
+[Open3D DEBUG] Residual error : 9453.515185 (avg : 0.002009)
+[Open3D DEBUG] [Iteration 0094]
+[Open3D DEBUG] Residual error : 9442.825386 (avg : 0.002007)
+[Open3D DEBUG] [Iteration 0095]
+[Open3D DEBUG] Residual error : 9432.423517 (avg : 0.002005)
+[Open3D DEBUG] [Iteration 0096]
+[Open3D DEBUG] Residual error : 9422.587274 (avg : 0.002003)
+[Open3D DEBUG] [Iteration 0097]
+[Open3D DEBUG] Residual error : 9413.130207 (avg : 0.002001)
+[Open3D DEBUG] [Iteration 0098]
+[Open3D DEBUG] Residual error : 9404.124481 (avg : 0.001999)
+[Open3D DEBUG] [Iteration 0099]
+[Open3D DEBUG] Residual error : 9395.318127 (avg : 0.001997)
+[Open3D DEBUG] [Iteration 0100]
+[Open3D DEBUG] Residual error : 9386.564204 (avg : 0.001995)
+[Open3D DEBUG] [ColorMapOptimization] Set Mesh Color
+[Open3D DEBUG] [RemoveDuplicatedVertices] 0 vertices have been removed.
+[Open3D DEBUG] [RemoveDuplicatedTriangles] 0 triangles have been removed.
+[Open3D DEBUG] [RemoveUnreferencedVertices] 734 vertices have been removed.
+[Open3D DEBUG] [RemoveDegenerateTriangles] 0 triangles have been removed.
+[Open3D DEBUG] Triangle mesh sampled from 536872 vertices and 1033745 triangles to 504121 vertices and 976218 triangles.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_pipelines_color_map_optimization_9_1.png" src="../../_images/tutorial_pipelines_color_map_optimization_9_" />
+</div>
+</div>
+<p>The residual error implies inconsistency of image intensities. Lower residual leads to a better color map quality. By default, <code class="docutils literal notranslate"><span class="pre">ColorMapOptimizationOption</span></code> enables rigid optimization. It optimizes 6-dimensional pose of every cameras.</p>
+</div>
+<div class="section" id="Non-rigid-Optimization">
+<h2>Non-rigid Optimization<a class="headerlink" href="#Non-rigid-Optimization" title="Permalink to this headline">¶</a></h2>
+<p>For better alignment quality, there is an option for non-rigid optimization. To enable this option, simply set <code class="docutils literal notranslate"><span class="pre">option.non_rigid_camera_coordinate</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> before calling <code class="docutils literal notranslate"><span class="pre">color_map_optimization</span></code>. Besides 6-dimensional camera poses, non-rigid optimization even considers local image warping represented by anchor points. This adds even more flexibility and leads to an even higher quality color mapping. The residual error is smaller than the case of rigid optimization.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Run non-rigid optimization.</span>
+<span class="n">maximum_iteration</span> <span class="o">=</span> <span class="mi">100</span> <span class="k">if</span> <span class="n">is_ci</span> <span class="k">else</span> <span class="mi">300</span>
+<span class="k">with</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityContextManager</span><span class="p">(</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityLevel</span><span class="o">.</span><span class="n">Debug</span><span class="p">)</span> <span class="k">as</span> <span class="n">cm</span><span class="p">:</span>
+    <span class="n">mesh</span><span class="p">,</span> <span class="n">camera_trajectory</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">color_map</span><span class="o">.</span><span class="n">run_non_rigid_optimizer</span><span class="p">(</span>
+        <span class="n">mesh</span><span class="p">,</span> <span class="n">rgbd_images</span><span class="p">,</span> <span class="n">camera_trajectory</span><span class="p">,</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">color_map</span><span class="o">.</span><span class="n">NonRigidOptimizerOption</span><span class="p">(</span>
+            <span class="n">maximum_iteration</span><span class="o">=</span><span class="n">maximum_iteration</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[Open3D DEBUG] [ColorMapOptimization] CreateUtilImagesFromRGBD
+[Open3D DEBUG] [ColorMapOptimization] CreateDepthBoundaryMasks
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 0/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 1/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 2/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 3/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 4/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 5/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 6/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 7/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 8/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 9/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 10/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 11/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 12/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 13/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 14/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 15/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 16/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 17/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 18/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 19/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 20/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 21/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 22/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 23/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 24/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 25/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 26/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 27/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 28/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 29/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 30/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 31/33
+[Open3D DEBUG] [MakeDepthMasks] geometry::Image 32/33
+[Open3D DEBUG] [ColorMapOptimization] CreateVertexAndImageVisibility
+[Open3D DEBUG] [cam 0]: 249227/536872 (46.42205%) vertices are visible
+[Open3D DEBUG] [cam 1]: 270723/536872 (50.42599%) vertices are visible
+[Open3D DEBUG] [cam 2]: 230773/536872 (42.98473%) vertices are visible
+[Open3D DEBUG] [cam 3]: 224391/536872 (41.79600%) vertices are visible
+[Open3D DEBUG] [cam 4]: 212453/536872 (39.57237%) vertices are visible
+[Open3D DEBUG] [cam 5]: 176854/536872 (32.94156%) vertices are visible
+[Open3D DEBUG] [cam 6]: 194256/536872 (36.18293%) vertices are visible
+[Open3D DEBUG] [cam 7]: 146473/536872 (27.28267%) vertices are visible
+[Open3D DEBUG] [cam 8]: 149126/536872 (27.77683%) vertices are visible
+[Open3D DEBUG] [cam 9]: 120544/536872 (22.45302%) vertices are visible
+[Open3D DEBUG] [cam 10]: 159456/536872 (29.70093%) vertices are visible
+[Open3D DEBUG] [cam 11]: 182111/536872 (33.92075%) vertices are visible
+[Open3D DEBUG] [cam 12]: 247864/536872 (46.16817%) vertices are visible
+[Open3D DEBUG] [cam 13]: 243854/536872 (45.42125%) vertices are visible
+[Open3D DEBUG] [cam 14]: 221039/536872 (41.17164%) vertices are visible
+[Open3D DEBUG] [cam 15]: 257706/536872 (48.00139%) vertices are visible
+[Open3D DEBUG] [cam 16]: 153151/536872 (28.52654%) vertices are visible
+[Open3D DEBUG] [cam 17]: 159136/536872 (29.64133%) vertices are visible
+[Open3D DEBUG] [cam 18]: 114113/536872 (21.25516%) vertices are visible
+[Open3D DEBUG] [cam 19]: 134865/536872 (25.12051%) vertices are visible
+[Open3D DEBUG] [cam 20]: 129277/536872 (24.07967%) vertices are visible
+[Open3D DEBUG] [cam 21]: 123877/536872 (23.07384%) vertices are visible
+[Open3D DEBUG] [cam 22]: 112334/536872 (20.92380%) vertices are visible
+[Open3D DEBUG] [cam 23]: 106054/536872 (19.75406%) vertices are visible
+[Open3D DEBUG] [cam 24]: 70273/536872 (13.08934%) vertices are visible
+[Open3D DEBUG] [cam 25]: 82594/536872 (15.38430%) vertices are visible
+[Open3D DEBUG] [cam 26]: 128280/536872 (23.89396%) vertices are visible
+[Open3D DEBUG] [cam 27]: 130563/536872 (24.31920%) vertices are visible
+[Open3D DEBUG] [cam 28]: 129309/536872 (24.08563%) vertices are visible
+[Open3D DEBUG] [cam 29]: 158027/536872 (29.43476%) vertices are visible
+[Open3D DEBUG] [cam 30]: 172541/536872 (32.13820%) vertices are visible
+[Open3D DEBUG] [cam 31]: 154058/536872 (28.69548%) vertices are visible
+[Open3D DEBUG] [cam 32]: 99088/536872 (18.45654%) vertices are visible
+[Open3D DEBUG] [ColorMapOptimization] Non-Rigid Optimization
+[Open3D DEBUG] [Iteration 0001]
+[Open3D DEBUG] Residual error : 12219.409463, reg : 0.000000
+[Open3D DEBUG] [Iteration 0002]
+[Open3D DEBUG] Residual error : 11738.098182, reg : 13.917949
+[Open3D DEBUG] [Iteration 0003]
+[Open3D DEBUG] Residual error : 11305.643607, reg : 42.816618
+[Open3D DEBUG] [Iteration 0004]
+[Open3D DEBUG] Residual error : 10918.813332, reg : 78.968639
+[Open3D DEBUG] [Iteration 0005]
+[Open3D DEBUG] Residual error : 10573.282008, reg : 119.248857
+[Open3D DEBUG] [Iteration 0006]
+[Open3D DEBUG] Residual error : 10266.231727, reg : 161.993518
+[Open3D DEBUG] [Iteration 0007]
+[Open3D DEBUG] Residual error : 9994.651602, reg : 206.321346
+[Open3D DEBUG] [Iteration 0008]
+[Open3D DEBUG] Residual error : 9755.193775, reg : 251.393934
+[Open3D DEBUG] [Iteration 0009]
+[Open3D DEBUG] Residual error : 9543.846376, reg : 296.364797
+[Open3D DEBUG] [Iteration 0010]
+[Open3D DEBUG] Residual error : 9357.188969, reg : 340.856491
+[Open3D DEBUG] [Iteration 0011]
+[Open3D DEBUG] Residual error : 9192.092685, reg : 384.427386
+[Open3D DEBUG] [Iteration 0012]
+[Open3D DEBUG] Residual error : 9044.590116, reg : 427.430174
+[Open3D DEBUG] [Iteration 0013]
+[Open3D DEBUG] Residual error : 8912.308474, reg : 470.262477
+[Open3D DEBUG] [Iteration 0014]
+[Open3D DEBUG] Residual error : 8793.536352, reg : 512.533792
+[Open3D DEBUG] [Iteration 0015]
+[Open3D DEBUG] Residual error : 8685.983981, reg : 553.838998
+[Open3D DEBUG] [Iteration 0016]
+[Open3D DEBUG] Residual error : 8587.864179, reg : 594.333689
+[Open3D DEBUG] [Iteration 0017]
+[Open3D DEBUG] Residual error : 8497.926911, reg : 634.226733
+[Open3D DEBUG] [Iteration 0018]
+[Open3D DEBUG] Residual error : 8415.553582, reg : 673.262629
+[Open3D DEBUG] [Iteration 0019]
+[Open3D DEBUG] Residual error : 8339.698617, reg : 710.823110
+[Open3D DEBUG] [Iteration 0020]
+[Open3D DEBUG] Residual error : 8269.788296, reg : 746.891344
+[Open3D DEBUG] [Iteration 0021]
+[Open3D DEBUG] Residual error : 8205.175962, reg : 781.905671
+[Open3D DEBUG] [Iteration 0022]
+[Open3D DEBUG] Residual error : 8145.819129, reg : 815.374447
+[Open3D DEBUG] [Iteration 0023]
+[Open3D DEBUG] Residual error : 8090.392274, reg : 847.772555
+[Open3D DEBUG] [Iteration 0024]
+[Open3D DEBUG] Residual error : 8039.272935, reg : 878.228357
+[Open3D DEBUG] [Iteration 0025]
+[Open3D DEBUG] Residual error : 7991.235360, reg : 907.652260
+[Open3D DEBUG] [Iteration 0026]
+[Open3D DEBUG] Residual error : 7946.467818, reg : 935.692518
+[Open3D DEBUG] [Iteration 0027]
+[Open3D DEBUG] Residual error : 7904.266849, reg : 963.316839
+[Open3D DEBUG] [Iteration 0028]
+[Open3D DEBUG] Residual error : 7865.129914, reg : 989.824742
+[Open3D DEBUG] [Iteration 0029]
+[Open3D DEBUG] Residual error : 7827.801464, reg : 1015.936346
+[Open3D DEBUG] [Iteration 0030]
+[Open3D DEBUG] Residual error : 7792.384305, reg : 1041.294793
+[Open3D DEBUG] [Iteration 0031]
+[Open3D DEBUG] Residual error : 7758.293884, reg : 1066.399713
+[Open3D DEBUG] [Iteration 0032]
+[Open3D DEBUG] Residual error : 7725.480592, reg : 1090.541659
+[Open3D DEBUG] [Iteration 0033]
+[Open3D DEBUG] Residual error : 7692.987831, reg : 1114.471951
+[Open3D DEBUG] [Iteration 0034]
+[Open3D DEBUG] Residual error : 7662.118429, reg : 1137.683806
+[Open3D DEBUG] [Iteration 0035]
+[Open3D DEBUG] Residual error : 7632.939895, reg : 1160.772181
+[Open3D DEBUG] [Iteration 0036]
+[Open3D DEBUG] Residual error : 7604.799390, reg : 1183.075286
+[Open3D DEBUG] [Iteration 0037]
+[Open3D DEBUG] Residual error : 7577.027691, reg : 1205.065050
+[Open3D DEBUG] [Iteration 0038]
+[Open3D DEBUG] Residual error : 7550.057836, reg : 1226.295555
+[Open3D DEBUG] [Iteration 0039]
+[Open3D DEBUG] Residual error : 7524.371723, reg : 1247.180239
+[Open3D DEBUG] [Iteration 0040]
+[Open3D DEBUG] Residual error : 7500.377846, reg : 1267.044466
+[Open3D DEBUG] [Iteration 0041]
+[Open3D DEBUG] Residual error : 7477.983037, reg : 1286.393874
+[Open3D DEBUG] [Iteration 0042]
+[Open3D DEBUG] Residual error : 7456.448528, reg : 1304.842710
+[Open3D DEBUG] [Iteration 0043]
+[Open3D DEBUG] Residual error : 7435.973168, reg : 1323.017066
+[Open3D DEBUG] [Iteration 0044]
+[Open3D DEBUG] Residual error : 7416.670574, reg : 1340.582645
+[Open3D DEBUG] [Iteration 0045]
+[Open3D DEBUG] Residual error : 7398.311362, reg : 1357.998457
+[Open3D DEBUG] [Iteration 0046]
+[Open3D DEBUG] Residual error : 7380.679978, reg : 1374.857620
+[Open3D DEBUG] [Iteration 0047]
+[Open3D DEBUG] Residual error : 7363.572714, reg : 1391.570315
+[Open3D DEBUG] [Iteration 0048]
+[Open3D DEBUG] Residual error : 7347.553292, reg : 1407.570378
+[Open3D DEBUG] [Iteration 0049]
+[Open3D DEBUG] Residual error : 7332.039104, reg : 1423.439561
+[Open3D DEBUG] [Iteration 0050]
+[Open3D DEBUG] Residual error : 7317.365274, reg : 1438.657591
+[Open3D DEBUG] [Iteration 0051]
+[Open3D DEBUG] Residual error : 7303.051216, reg : 1453.837042
+[Open3D DEBUG] [Iteration 0052]
+[Open3D DEBUG] Residual error : 7289.325203, reg : 1468.384926
+[Open3D DEBUG] [Iteration 0053]
+[Open3D DEBUG] Residual error : 7276.009296, reg : 1482.989508
+[Open3D DEBUG] [Iteration 0054]
+[Open3D DEBUG] Residual error : 7263.114785, reg : 1497.018099
+[Open3D DEBUG] [Iteration 0055]
+[Open3D DEBUG] Residual error : 7250.626699, reg : 1511.164147
+[Open3D DEBUG] [Iteration 0056]
+[Open3D DEBUG] Residual error : 7238.652913, reg : 1524.843013
+[Open3D DEBUG] [Iteration 0057]
+[Open3D DEBUG] Residual error : 7226.846554, reg : 1538.593435
+[Open3D DEBUG] [Iteration 0058]
+[Open3D DEBUG] Residual error : 7215.280636, reg : 1551.903145
+[Open3D DEBUG] [Iteration 0059]
+[Open3D DEBUG] Residual error : 7203.936045, reg : 1565.520095
+[Open3D DEBUG] [Iteration 0060]
+[Open3D DEBUG] Residual error : 7192.995198, reg : 1578.700997
+[Open3D DEBUG] [Iteration 0061]
+[Open3D DEBUG] Residual error : 7182.103948, reg : 1591.921342
+[Open3D DEBUG] [Iteration 0062]
+[Open3D DEBUG] Residual error : 7171.855879, reg : 1604.630742
+[Open3D DEBUG] [Iteration 0063]
+[Open3D DEBUG] Residual error : 7161.562146, reg : 1617.355774
+[Open3D DEBUG] [Iteration 0064]
+[Open3D DEBUG] Residual error : 7151.758845, reg : 1629.488044
+[Open3D DEBUG] [Iteration 0065]
+[Open3D DEBUG] Residual error : 7142.100305, reg : 1641.625626
+[Open3D DEBUG] [Iteration 0066]
+[Open3D DEBUG] Residual error : 7132.826719, reg : 1653.229472
+[Open3D DEBUG] [Iteration 0067]
+[Open3D DEBUG] Residual error : 7123.704177, reg : 1664.910146
+[Open3D DEBUG] [Iteration 0068]
+[Open3D DEBUG] Residual error : 7114.863577, reg : 1676.148222
+[Open3D DEBUG] [Iteration 0069]
+[Open3D DEBUG] Residual error : 7106.177615, reg : 1687.443548
+[Open3D DEBUG] [Iteration 0070]
+[Open3D DEBUG] Residual error : 7097.934961, reg : 1698.397956
+[Open3D DEBUG] [Iteration 0071]
+[Open3D DEBUG] Residual error : 7089.657147, reg : 1709.383998
+[Open3D DEBUG] [Iteration 0072]
+[Open3D DEBUG] Residual error : 7081.596743, reg : 1720.160037
+[Open3D DEBUG] [Iteration 0073]
+[Open3D DEBUG] Residual error : 7073.597634, reg : 1730.918839
+[Open3D DEBUG] [Iteration 0074]
+[Open3D DEBUG] Residual error : 7065.908579, reg : 1741.536532
+[Open3D DEBUG] [Iteration 0075]
+[Open3D DEBUG] Residual error : 7058.337071, reg : 1751.983908
+[Open3D DEBUG] [Iteration 0076]
+[Open3D DEBUG] Residual error : 7050.963975, reg : 1762.284984
+[Open3D DEBUG] [Iteration 0077]
+[Open3D DEBUG] Residual error : 7043.798168, reg : 1772.432863
+[Open3D DEBUG] [Iteration 0078]
+[Open3D DEBUG] Residual error : 7036.825314, reg : 1782.551663
+[Open3D DEBUG] [Iteration 0079]
+[Open3D DEBUG] Residual error : 7030.028055, reg : 1792.377245
+[Open3D DEBUG] [Iteration 0080]
+[Open3D DEBUG] Residual error : 7023.041359, reg : 1802.308287
+[Open3D DEBUG] [Iteration 0081]
+[Open3D DEBUG] Residual error : 7016.342084, reg : 1811.972518
+[Open3D DEBUG] [Iteration 0082]
+[Open3D DEBUG] Residual error : 7009.728887, reg : 1821.723036
+[Open3D DEBUG] [Iteration 0083]
+[Open3D DEBUG] Residual error : 7003.492377, reg : 1831.188477
+[Open3D DEBUG] [Iteration 0084]
+[Open3D DEBUG] Residual error : 6997.146977, reg : 1840.716332
+[Open3D DEBUG] [Iteration 0085]
+[Open3D DEBUG] Residual error : 6991.111762, reg : 1850.044389
+[Open3D DEBUG] [Iteration 0086]
+[Open3D DEBUG] Residual error : 6985.083067, reg : 1859.512327
+[Open3D DEBUG] [Iteration 0087]
+[Open3D DEBUG] Residual error : 6978.925543, reg : 1868.754710
+[Open3D DEBUG] [Iteration 0088]
+[Open3D DEBUG] Residual error : 6973.144358, reg : 1877.914578
+[Open3D DEBUG] [Iteration 0089]
+[Open3D DEBUG] Residual error : 6967.202136, reg : 1887.324650
+[Open3D DEBUG] [Iteration 0090]
+[Open3D DEBUG] Residual error : 6961.490244, reg : 1896.446263
+[Open3D DEBUG] [Iteration 0091]
+[Open3D DEBUG] Residual error : 6955.739066, reg : 1905.621188
+[Open3D DEBUG] [Iteration 0092]
+[Open3D DEBUG] Residual error : 6950.256386, reg : 1914.469787
+[Open3D DEBUG] [Iteration 0093]
+[Open3D DEBUG] Residual error : 6944.474468, reg : 1922.937838
+[Open3D DEBUG] [Iteration 0094]
+[Open3D DEBUG] Residual error : 6939.090890, reg : 1931.558575
+[Open3D DEBUG] [Iteration 0095]
+[Open3D DEBUG] Residual error : 6933.843502, reg : 1939.838771
+[Open3D DEBUG] [Iteration 0096]
+[Open3D DEBUG] Residual error : 6928.335215, reg : 1948.237033
+[Open3D DEBUG] [Iteration 0097]
+[Open3D DEBUG] Residual error : 6923.186785, reg : 1956.282267
+[Open3D DEBUG] [Iteration 0098]
+[Open3D DEBUG] Residual error : 6917.679679, reg : 1964.501767
+[Open3D DEBUG] [Iteration 0099]
+[Open3D DEBUG] Residual error : 6912.341878, reg : 1972.443931
+[Open3D DEBUG] [Iteration 0100]
+[Open3D DEBUG] Residual error : 6907.042253, reg : 1980.497469
+[Open3D DEBUG] [ColorMapOptimization] Set Mesh Color
+[Open3D DEBUG] [RemoveDuplicatedVertices] 0 vertices have been removed.
+[Open3D DEBUG] [RemoveDuplicatedTriangles] 0 triangles have been removed.
+[Open3D DEBUG] [RemoveUnreferencedVertices] 768 vertices have been removed.
+[Open3D DEBUG] [RemoveDegenerateTriangles] 0 triangles have been removed.
+[Open3D DEBUG] Triangle mesh sampled from 536872 vertices and 1033745 triangles to 509770 vertices and 984365 triangles.
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">],</span>
+                                  <span class="n">zoom</span><span class="o">=</span><span class="mf">0.5399</span><span class="p">,</span>
+                                  <span class="n">front</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0665</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1107</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9916</span><span class="p">],</span>
+                                  <span class="n">lookat</span><span class="o">=</span><span class="p">[</span><span class="mf">0.7353</span><span class="p">,</span> <span class="mf">0.6537</span><span class="p">,</span> <span class="mf">1.0521</span><span class="p">],</span>
+                                  <span class="n">up</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0136</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9936</span><span class="p">,</span> <span class="mf">0.1118</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_pipelines_color_map_optimization_13_0.png" src="../../_images/tutorial_pipelines_color_map_optimization_13" />
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../t_pipelines/index.html" class="btn btn-neutral float-right" title="Pipelines (Tensor)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="rgbd_odometry.html" class="btn btn-neutral float-left" title="RGBD Odometry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/pipelines/color_map_optimization.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:27:16 GMT -->
+</html>

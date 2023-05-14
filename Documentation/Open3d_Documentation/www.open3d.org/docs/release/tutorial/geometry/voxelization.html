@@ -1,0 +1,1709 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/geometry/voxelization.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:20:48 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Voxelization &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Octree" href="octree.html" />
+    <link rel="prev" title="Point cloud outlier removal" href="pointcloud_outlier_removal.3c.dela" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Geometry</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pointcloud.html">Point cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rgbd_image.html">RGBD images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kdtree.html">KDTree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_io.html">File IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pointcloud_outlier_removal.3c.dela">Point cloud outlier removal</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Voxelization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#From-triangle-mesh">From triangle mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#From-point-cloud">From point cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Inclusion-test">Inclusion test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Voxel-carving">Voxel carving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="octree.html">Octree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="surface_reconstruction.html">Surface reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transformation.html">Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh_deformation.html">Mesh deformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iss_keypoint_detector.html">Intrinsic shape signatures (ISS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ray_casting.html">Ray Casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distance_queries.html">Distance Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_interface.html">Python Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="working_with_numpy.html">Working with NumPy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Geometry</a> &raquo;</li>
+        
+      <li>Voxelization</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Voxelization">
+<h1>Voxelization<a class="headerlink" href="#Voxelization" title="Permalink to this headline">¶</a></h1>
+<p>Point clouds and triangle meshes are very flexible, but irregular, geometry types. The voxel grid is another geometry type in 3D that is defined on a regular 3D grid, whereas a voxel can be thought of as the 3D counterpart to the pixel in 2D. Open3D has the geometry type <code class="docutils literal notranslate"><span class="pre">VoxelGrid</span></code> that can be used to work with voxel grids.</p>
+<div class="section" id="From-triangle-mesh">
+<h2>From triangle mesh<a class="headerlink" href="#From-triangle-mesh" title="Permalink to this headline">¶</a></h2>
+<p>Open3D provides the method <code class="docutils literal notranslate"><span class="pre">create_from_triangle_mesh</span></code> that creates a voxel grid from a triangle mesh. It returns a voxel grid where all voxels that are intersected by a triangle are set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, all others are set to <code class="docutils literal notranslate"><span class="pre">0</span></code>. The argument <code class="docutils literal notranslate"><span class="pre">voxel_size</span></code> defines the resolution of the voxel grid.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">)</span>
+<span class="n">bunny</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">bunny</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+
+<span class="c1"># fit to unit cube</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">get_max_bound</span><span class="p">()</span> <span class="o">-</span> <span class="n">mesh</span><span class="o">.</span><span class="n">get_min_bound</span><span class="p">()),</span>
+           <span class="n">center</span><span class="o">=</span><span class="n">mesh</span><span class="o">.</span><span class="n">get_center</span><span class="p">())</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;voxelization&#39;</span><span class="p">)</span>
+<span class="n">voxel_grid</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">VoxelGrid</span><span class="o">.</span><span class="n">create_from_triangle_mesh</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span>
+                                                              <span class="n">voxel_size</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">voxel_grid</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+input
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_voxelization_3_1.png" src="../../_images/tutorial_geometry_voxelization_3_1.260.delay" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+voxelization
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_voxelization_3_3.png" src="../../_images/tutorial_geometry_voxelization_3_3.261.delay" />
+</div>
+</div>
+</div>
+<div class="section" id="From-point-cloud">
+<h2>From point cloud<a class="headerlink" href="#From-point-cloud" title="Permalink to this headline">¶</a></h2>
+<p>The voxel grid can also be created from a point cloud using the method <code class="docutils literal notranslate"><span class="pre">create_from_point_cloud</span></code>. A voxel is occupied if at least one point of the point cloud is within the voxel. The color of the voxel is the average of all the points within the voxel. The argument <code class="docutils literal notranslate"><span class="pre">voxel_size</span></code> defines the resolution of the voxel grid.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">)</span>
+<span class="n">armadillo</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ArmadilloMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">armadillo</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">2000</span>
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">sample_points_poisson_disk</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="c1"># fit to unit cube</span>
+<span class="n">pcd</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">pcd</span><span class="o">.</span><span class="n">get_max_bound</span><span class="p">()</span> <span class="o">-</span> <span class="n">pcd</span><span class="o">.</span><span class="n">get_min_bound</span><span class="p">()),</span>
+          <span class="n">center</span><span class="o">=</span><span class="n">pcd</span><span class="o">.</span><span class="n">get_center</span><span class="p">())</span>
+<span class="n">pcd</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;voxelization&#39;</span><span class="p">)</span>
+<span class="n">voxel_grid</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">VoxelGrid</span><span class="o">.</span><span class="n">create_from_point_cloud</span><span class="p">(</span><span class="n">pcd</span><span class="p">,</span>
+                                                            <span class="n">voxel_size</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">voxel_grid</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+input
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_voxelization_5_1.png" src="../../_images/tutorial_geometry_voxelization_5_1.262.delay" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+voxelization
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_voxelization_5_3.png" src="../../_images/tutorial_geometry_voxelization_5_3.263.delay" />
+</div>
+</div>
+</div>
+<div class="section" id="Inclusion-test">
+<h2>Inclusion test<a class="headerlink" href="#Inclusion-test" title="Permalink to this headline">¶</a></h2>
+<p>The voxel grid can also be used to test if points are within an occupied voxel. The method <code class="docutils literal notranslate"><span class="pre">check_if_included</span></code> takes a <code class="docutils literal notranslate"><span class="pre">(n,3)</span></code> array as input and outputs a <code class="docutils literal notranslate"><span class="pre">bool</span></code> array.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">queries</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pcd</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">voxel_grid</span><span class="o">.</span><span class="n">check_if_included</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span><span class="n">queries</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[True, True, True, True, True, True, True, True, True, True]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Voxel-carving">
+<h2>Voxel carving<a class="headerlink" href="#Voxel-carving" title="Permalink to this headline">¶</a></h2>
+<p>The methods <code class="docutils literal notranslate"><span class="pre">create_from_point_cloud</span></code> and <code class="docutils literal notranslate"><span class="pre">create_from_triangle_mesh</span></code> create occupied voxels only on the surface of the geometry. It is however possible to carve a voxel grid from a number of depth maps or silhouettes. Open3D provides the methods <code class="docutils literal notranslate"><span class="pre">carve_depth_map</span></code> and <code class="docutils literal notranslate"><span class="pre">carve_silhouette</span></code> for voxel carving.</p>
+<p>The code below demonstrates the usage by first rendering depthmaps from a geometry and using those depthmaps to carve a dense voxel grid. The result is a filled voxel grid of the given shape.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">xyz_spherical</span><span class="p">(</span><span class="n">xyz</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">z</span><span class="p">)</span>
+    <span class="n">r_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">y</span> <span class="o">/</span> <span class="n">r</span><span class="p">)</span>
+    <span class="n">r_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">r_x</span><span class="p">,</span> <span class="n">r_y</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">get_rotation_matrix</span><span class="p">(</span><span class="n">r_x</span><span class="p">,</span> <span class="n">r_y</span><span class="p">):</span>
+    <span class="n">rot_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">r_x</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r_x</span><span class="p">)],</span>
+                        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r_x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">r_x</span><span class="p">)]])</span>
+    <span class="n">rot_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">r_y</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r_y</span><span class="p">)],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                        <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r_y</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">r_y</span><span class="p">)]])</span>
+    <span class="k">return</span> <span class="n">rot_y</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rot_x</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">get_extrinsic</span><span class="p">(</span><span class="n">xyz</span><span class="p">):</span>
+    <span class="n">rvec</span> <span class="o">=</span> <span class="n">xyz_spherical</span><span class="p">(</span><span class="n">xyz</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">get_rotation_matrix</span><span class="p">(</span><span class="n">rvec</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">rvec</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+    <span class="n">trans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">trans</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span>
+    <span class="n">trans</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
+    <span class="k">return</span> <span class="n">trans</span>
+
+
+<span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="n">min_bound</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_min_bound</span><span class="p">()</span>
+    <span class="n">max_bound</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_max_bound</span><span class="p">()</span>
+    <span class="n">center</span> <span class="o">=</span> <span class="n">min_bound</span> <span class="o">+</span> <span class="p">(</span><span class="n">max_bound</span> <span class="o">-</span> <span class="n">min_bound</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">max_bound</span> <span class="o">-</span> <span class="n">min_bound</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">vertices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
+    <span class="n">vertices</span> <span class="o">-=</span> <span class="n">center</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">vertices</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span><span class="n">vertices</span> <span class="o">/</span> <span class="n">scale</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span>
+
+
+<span class="k">def</span> <span class="nf">voxel_carving</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span>
+                  <span class="n">cubic_size</span><span class="p">,</span>
+                  <span class="n">voxel_resolution</span><span class="p">,</span>
+                  <span class="n">w</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+                  <span class="n">h</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+                  <span class="n">use_depth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">surface_method</span><span class="o">=</span><span class="s1">&#39;pointcloud&#39;</span><span class="p">):</span>
+    <span class="n">mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+    <span class="n">camera_sphere</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_sphere</span><span class="p">()</span>
+
+    <span class="c1"># setup dense voxel grid</span>
+    <span class="n">voxel_carving</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">VoxelGrid</span><span class="o">.</span><span class="n">create_dense</span><span class="p">(</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">cubic_size</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">cubic_size</span><span class="p">,</span>
+        <span class="n">depth</span><span class="o">=</span><span class="n">cubic_size</span><span class="p">,</span>
+        <span class="n">voxel_size</span><span class="o">=</span><span class="n">cubic_size</span> <span class="o">/</span> <span class="n">voxel_resolution</span><span class="p">,</span>
+        <span class="n">origin</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">cubic_size</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">cubic_size</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">cubic_size</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">],</span>
+        <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+
+    <span class="c1"># rescale geometry</span>
+    <span class="n">camera_sphere</span> <span class="o">=</span> <span class="n">preprocess</span><span class="p">(</span><span class="n">camera_sphere</span><span class="p">)</span>
+    <span class="n">mesh</span> <span class="o">=</span> <span class="n">preprocess</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+
+    <span class="c1"># setup visualizer to render depthmaps</span>
+    <span class="n">vis</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">()</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">create_window</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">h</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">add_geometry</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">get_render_option</span><span class="p">()</span><span class="o">.</span><span class="n">mesh_show_back_face</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">ctr</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">get_view_control</span><span class="p">()</span>
+    <span class="n">param</span> <span class="o">=</span> <span class="n">ctr</span><span class="o">.</span><span class="n">convert_to_pinhole_camera_parameters</span><span class="p">()</span>
+
+    <span class="c1"># carve voxel grid</span>
+    <span class="n">pcd_agg</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">PointCloud</span><span class="p">()</span>
+    <span class="n">centers_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">camera_sphere</span><span class="o">.</span><span class="n">vertices</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">cid</span><span class="p">,</span> <span class="n">xyz</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">camera_sphere</span><span class="o">.</span><span class="n">vertices</span><span class="p">):</span>
+        <span class="c1"># get new camera pose</span>
+        <span class="n">trans</span> <span class="o">=</span> <span class="n">get_extrinsic</span><span class="p">(</span><span class="n">xyz</span><span class="p">)</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">extrinsic</span> <span class="o">=</span> <span class="n">trans</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
+        <span class="n">centers_pts</span><span class="p">[</span><span class="n">cid</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">c</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">ctr</span><span class="o">.</span><span class="n">convert_from_pinhole_camera_parameters</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+
+        <span class="c1"># capture depth image and make a point cloud</span>
+        <span class="n">vis</span><span class="o">.</span><span class="n">poll_events</span><span class="p">()</span>
+        <span class="n">vis</span><span class="o">.</span><span class="n">update_renderer</span><span class="p">()</span>
+        <span class="n">depth</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">capture_depth_float_buffer</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">pcd_agg</span> <span class="o">+=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">PointCloud</span><span class="o">.</span><span class="n">create_from_depth_image</span><span class="p">(</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">depth</span><span class="p">),</span>
+            <span class="n">param</span><span class="o">.</span><span class="n">intrinsic</span><span class="p">,</span>
+            <span class="n">param</span><span class="o">.</span><span class="n">extrinsic</span><span class="p">,</span>
+            <span class="n">depth_scale</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># depth map carving method</span>
+        <span class="k">if</span> <span class="n">use_depth</span><span class="p">:</span>
+            <span class="n">voxel_carving</span><span class="o">.</span><span class="n">carve_depth_map</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">depth</span><span class="p">),</span> <span class="n">param</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">voxel_carving</span><span class="o">.</span><span class="n">carve_silhouette</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">depth</span><span class="p">),</span> <span class="n">param</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Carve view </span><span class="si">%03d</span><span class="s2">/</span><span class="si">%03d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">camera_sphere</span><span class="o">.</span><span class="n">vertices</span><span class="p">)))</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">destroy_window</span><span class="p">()</span>
+
+    <span class="c1"># add voxel grid survace</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Surface voxel grid from </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">surface_method</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">surface_method</span> <span class="o">==</span> <span class="s1">&#39;pointcloud&#39;</span><span class="p">:</span>
+        <span class="n">voxel_surface</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">VoxelGrid</span><span class="o">.</span><span class="n">create_from_point_cloud_within_bounds</span><span class="p">(</span>
+            <span class="n">pcd_agg</span><span class="p">,</span>
+            <span class="n">voxel_size</span><span class="o">=</span><span class="n">cubic_size</span> <span class="o">/</span> <span class="n">voxel_resolution</span><span class="p">,</span>
+            <span class="n">min_bound</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="n">cubic_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">cubic_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">cubic_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="n">max_bound</span><span class="o">=</span><span class="p">(</span><span class="n">cubic_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cubic_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cubic_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">surface_method</span> <span class="o">==</span> <span class="s1">&#39;mesh&#39;</span><span class="p">:</span>
+        <span class="n">voxel_surface</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">VoxelGrid</span><span class="o">.</span><span class="n">create_from_triangle_mesh_within_bounds</span><span class="p">(</span>
+            <span class="n">mesh</span><span class="p">,</span>
+            <span class="n">voxel_size</span><span class="o">=</span><span class="n">cubic_size</span> <span class="o">/</span> <span class="n">voxel_resolution</span><span class="p">,</span>
+            <span class="n">min_bound</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="n">cubic_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">cubic_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">cubic_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="n">max_bound</span><span class="o">=</span><span class="p">(</span><span class="n">cubic_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cubic_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">cubic_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;invalid surface method&#39;</span><span class="p">)</span>
+    <span class="n">voxel_carving_surface</span> <span class="o">=</span> <span class="n">voxel_surface</span> <span class="o">+</span> <span class="n">voxel_carving</span>
+
+    <span class="k">return</span> <span class="n">voxel_carving_surface</span><span class="p">,</span> <span class="n">voxel_carving</span><span class="p">,</span> <span class="n">voxel_surface</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">armadillo</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ArmadilloMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">armadillo</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+
+<span class="n">visualization</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">cubic_size</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">voxel_resolution</span> <span class="o">=</span> <span class="mf">128.0</span>
+
+<span class="n">voxel_grid</span><span class="p">,</span> <span class="n">voxel_carving</span><span class="p">,</span> <span class="n">voxel_surface</span> <span class="o">=</span> <span class="n">voxel_carving</span><span class="p">(</span>
+    <span class="n">mesh</span><span class="p">,</span> <span class="n">cubic_size</span><span class="p">,</span> <span class="n">voxel_resolution</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Carve view 001/762
+Carve view 002/762
+Carve view 003/762
+Carve view 004/762
+Carve view 005/762
+Carve view 006/762
+Carve view 007/762
+Carve view 008/762
+Carve view 009/762
+Carve view 010/762
+Carve view 011/762
+Carve view 012/762
+Carve view 013/762
+Carve view 014/762
+Carve view 015/762
+Carve view 016/762
+Carve view 017/762
+Carve view 018/762
+Carve view 019/762
+Carve view 020/762
+Carve view 021/762
+Carve view 022/762
+Carve view 023/762
+Carve view 024/762
+Carve view 025/762
+Carve view 026/762
+Carve view 027/762
+Carve view 028/762
+Carve view 029/762
+Carve view 030/762
+Carve view 031/762
+Carve view 032/762
+Carve view 033/762
+Carve view 034/762
+Carve view 035/762
+Carve view 036/762
+Carve view 037/762
+Carve view 038/762
+Carve view 039/762
+Carve view 040/762
+Carve view 041/762
+Carve view 042/762
+Carve view 043/762
+Carve view 044/762
+Carve view 045/762
+Carve view 046/762
+Carve view 047/762
+Carve view 048/762
+Carve view 049/762
+Carve view 050/762
+Carve view 051/762
+Carve view 052/762
+Carve view 053/762
+Carve view 054/762
+Carve view 055/762
+Carve view 056/762
+Carve view 057/762
+Carve view 058/762
+Carve view 059/762
+Carve view 060/762
+Carve view 061/762
+Carve view 062/762
+Carve view 063/762
+Carve view 064/762
+Carve view 065/762
+Carve view 066/762
+Carve view 067/762
+Carve view 068/762
+Carve view 069/762
+Carve view 070/762
+Carve view 071/762
+Carve view 072/762
+Carve view 073/762
+Carve view 074/762
+Carve view 075/762
+Carve view 076/762
+Carve view 077/762
+Carve view 078/762
+Carve view 079/762
+Carve view 080/762
+Carve view 081/762
+Carve view 082/762
+Carve view 083/762
+Carve view 084/762
+Carve view 085/762
+Carve view 086/762
+Carve view 087/762
+Carve view 088/762
+Carve view 089/762
+Carve view 090/762
+Carve view 091/762
+Carve view 092/762
+Carve view 093/762
+Carve view 094/762
+Carve view 095/762
+Carve view 096/762
+Carve view 097/762
+Carve view 098/762
+Carve view 099/762
+Carve view 100/762
+Carve view 101/762
+Carve view 102/762
+Carve view 103/762
+Carve view 104/762
+Carve view 105/762
+Carve view 106/762
+Carve view 107/762
+Carve view 108/762
+Carve view 109/762
+Carve view 110/762
+Carve view 111/762
+Carve view 112/762
+Carve view 113/762
+Carve view 114/762
+Carve view 115/762
+Carve view 116/762
+Carve view 117/762
+Carve view 118/762
+Carve view 119/762
+Carve view 120/762
+Carve view 121/762
+Carve view 122/762
+Carve view 123/762
+Carve view 124/762
+Carve view 125/762
+Carve view 126/762
+Carve view 127/762
+Carve view 128/762
+Carve view 129/762
+Carve view 130/762
+Carve view 131/762
+Carve view 132/762
+Carve view 133/762
+Carve view 134/762
+Carve view 135/762
+Carve view 136/762
+Carve view 137/762
+Carve view 138/762
+Carve view 139/762
+Carve view 140/762
+Carve view 141/762
+Carve view 142/762
+Carve view 143/762
+Carve view 144/762
+Carve view 145/762
+Carve view 146/762
+Carve view 147/762
+Carve view 148/762
+Carve view 149/762
+Carve view 150/762
+Carve view 151/762
+Carve view 152/762
+Carve view 153/762
+Carve view 154/762
+Carve view 155/762
+Carve view 156/762
+Carve view 157/762
+Carve view 158/762
+Carve view 159/762
+Carve view 160/762
+Carve view 161/762
+Carve view 162/762
+Carve view 163/762
+Carve view 164/762
+Carve view 165/762
+Carve view 166/762
+Carve view 167/762
+Carve view 168/762
+Carve view 169/762
+Carve view 170/762
+Carve view 171/762
+Carve view 172/762
+Carve view 173/762
+Carve view 174/762
+Carve view 175/762
+Carve view 176/762
+Carve view 177/762
+Carve view 178/762
+Carve view 179/762
+Carve view 180/762
+Carve view 181/762
+Carve view 182/762
+Carve view 183/762
+Carve view 184/762
+Carve view 185/762
+Carve view 186/762
+Carve view 187/762
+Carve view 188/762
+Carve view 189/762
+Carve view 190/762
+Carve view 191/762
+Carve view 192/762
+Carve view 193/762
+Carve view 194/762
+Carve view 195/762
+Carve view 196/762
+Carve view 197/762
+Carve view 198/762
+Carve view 199/762
+Carve view 200/762
+Carve view 201/762
+Carve view 202/762
+Carve view 203/762
+Carve view 204/762
+Carve view 205/762
+Carve view 206/762
+Carve view 207/762
+Carve view 208/762
+Carve view 209/762
+Carve view 210/762
+Carve view 211/762
+Carve view 212/762
+Carve view 213/762
+Carve view 214/762
+Carve view 215/762
+Carve view 216/762
+Carve view 217/762
+Carve view 218/762
+Carve view 219/762
+Carve view 220/762
+Carve view 221/762
+Carve view 222/762
+Carve view 223/762
+Carve view 224/762
+Carve view 225/762
+Carve view 226/762
+Carve view 227/762
+Carve view 228/762
+Carve view 229/762
+Carve view 230/762
+Carve view 231/762
+Carve view 232/762
+Carve view 233/762
+Carve view 234/762
+Carve view 235/762
+Carve view 236/762
+Carve view 237/762
+Carve view 238/762
+Carve view 239/762
+Carve view 240/762
+Carve view 241/762
+Carve view 242/762
+Carve view 243/762
+Carve view 244/762
+Carve view 245/762
+Carve view 246/762
+Carve view 247/762
+Carve view 248/762
+Carve view 249/762
+Carve view 250/762
+Carve view 251/762
+Carve view 252/762
+Carve view 253/762
+Carve view 254/762
+Carve view 255/762
+Carve view 256/762
+Carve view 257/762
+Carve view 258/762
+Carve view 259/762
+Carve view 260/762
+Carve view 261/762
+Carve view 262/762
+Carve view 263/762
+Carve view 264/762
+Carve view 265/762
+Carve view 266/762
+Carve view 267/762
+Carve view 268/762
+Carve view 269/762
+Carve view 270/762
+Carve view 271/762
+Carve view 272/762
+Carve view 273/762
+Carve view 274/762
+Carve view 275/762
+Carve view 276/762
+Carve view 277/762
+Carve view 278/762
+Carve view 279/762
+Carve view 280/762
+Carve view 281/762
+Carve view 282/762
+Carve view 283/762
+Carve view 284/762
+Carve view 285/762
+Carve view 286/762
+Carve view 287/762
+Carve view 288/762
+Carve view 289/762
+Carve view 290/762
+Carve view 291/762
+Carve view 292/762
+Carve view 293/762
+Carve view 294/762
+Carve view 295/762
+Carve view 296/762
+Carve view 297/762
+Carve view 298/762
+Carve view 299/762
+Carve view 300/762
+Carve view 301/762
+Carve view 302/762
+Carve view 303/762
+Carve view 304/762
+Carve view 305/762
+Carve view 306/762
+Carve view 307/762
+Carve view 308/762
+Carve view 309/762
+Carve view 310/762
+Carve view 311/762
+Carve view 312/762
+Carve view 313/762
+Carve view 314/762
+Carve view 315/762
+Carve view 316/762
+Carve view 317/762
+Carve view 318/762
+Carve view 319/762
+Carve view 320/762
+Carve view 321/762
+Carve view 322/762
+Carve view 323/762
+Carve view 324/762
+Carve view 325/762
+Carve view 326/762
+Carve view 327/762
+Carve view 328/762
+Carve view 329/762
+Carve view 330/762
+Carve view 331/762
+Carve view 332/762
+Carve view 333/762
+Carve view 334/762
+Carve view 335/762
+Carve view 336/762
+Carve view 337/762
+Carve view 338/762
+Carve view 339/762
+Carve view 340/762
+Carve view 341/762
+Carve view 342/762
+Carve view 343/762
+Carve view 344/762
+Carve view 345/762
+Carve view 346/762
+Carve view 347/762
+Carve view 348/762
+Carve view 349/762
+Carve view 350/762
+Carve view 351/762
+Carve view 352/762
+Carve view 353/762
+Carve view 354/762
+Carve view 355/762
+Carve view 356/762
+Carve view 357/762
+Carve view 358/762
+Carve view 359/762
+Carve view 360/762
+Carve view 361/762
+Carve view 362/762
+Carve view 363/762
+Carve view 364/762
+Carve view 365/762
+Carve view 366/762
+Carve view 367/762
+Carve view 368/762
+Carve view 369/762
+Carve view 370/762
+Carve view 371/762
+Carve view 372/762
+Carve view 373/762
+Carve view 374/762
+Carve view 375/762
+Carve view 376/762
+Carve view 377/762
+Carve view 378/762
+Carve view 379/762
+Carve view 380/762
+Carve view 381/762
+Carve view 382/762
+Carve view 383/762
+Carve view 384/762
+Carve view 385/762
+Carve view 386/762
+Carve view 387/762
+Carve view 388/762
+Carve view 389/762
+Carve view 390/762
+Carve view 391/762
+Carve view 392/762
+Carve view 393/762
+Carve view 394/762
+Carve view 395/762
+Carve view 396/762
+Carve view 397/762
+Carve view 398/762
+Carve view 399/762
+Carve view 400/762
+Carve view 401/762
+Carve view 402/762
+Carve view 403/762
+Carve view 404/762
+Carve view 405/762
+Carve view 406/762
+Carve view 407/762
+Carve view 408/762
+Carve view 409/762
+Carve view 410/762
+Carve view 411/762
+Carve view 412/762
+Carve view 413/762
+Carve view 414/762
+Carve view 415/762
+Carve view 416/762
+Carve view 417/762
+Carve view 418/762
+Carve view 419/762
+Carve view 420/762
+Carve view 421/762
+Carve view 422/762
+Carve view 423/762
+Carve view 424/762
+Carve view 425/762
+Carve view 426/762
+Carve view 427/762
+Carve view 428/762
+Carve view 429/762
+Carve view 430/762
+Carve view 431/762
+Carve view 432/762
+Carve view 433/762
+Carve view 434/762
+Carve view 435/762
+Carve view 436/762
+Carve view 437/762
+Carve view 438/762
+Carve view 439/762
+Carve view 440/762
+Carve view 441/762
+Carve view 442/762
+Carve view 443/762
+Carve view 444/762
+Carve view 445/762
+Carve view 446/762
+Carve view 447/762
+Carve view 448/762
+Carve view 449/762
+Carve view 450/762
+Carve view 451/762
+Carve view 452/762
+Carve view 453/762
+Carve view 454/762
+Carve view 455/762
+Carve view 456/762
+Carve view 457/762
+Carve view 458/762
+Carve view 459/762
+Carve view 460/762
+Carve view 461/762
+Carve view 462/762
+Carve view 463/762
+Carve view 464/762
+Carve view 465/762
+Carve view 466/762
+Carve view 467/762
+Carve view 468/762
+Carve view 469/762
+Carve view 470/762
+Carve view 471/762
+Carve view 472/762
+Carve view 473/762
+Carve view 474/762
+Carve view 475/762
+Carve view 476/762
+Carve view 477/762
+Carve view 478/762
+Carve view 479/762
+Carve view 480/762
+Carve view 481/762
+Carve view 482/762
+Carve view 483/762
+Carve view 484/762
+Carve view 485/762
+Carve view 486/762
+Carve view 487/762
+Carve view 488/762
+Carve view 489/762
+Carve view 490/762
+Carve view 491/762
+Carve view 492/762
+Carve view 493/762
+Carve view 494/762
+Carve view 495/762
+Carve view 496/762
+Carve view 497/762
+Carve view 498/762
+Carve view 499/762
+Carve view 500/762
+Carve view 501/762
+Carve view 502/762
+Carve view 503/762
+Carve view 504/762
+Carve view 505/762
+Carve view 506/762
+Carve view 507/762
+Carve view 508/762
+Carve view 509/762
+Carve view 510/762
+Carve view 511/762
+Carve view 512/762
+Carve view 513/762
+Carve view 514/762
+Carve view 515/762
+Carve view 516/762
+Carve view 517/762
+Carve view 518/762
+Carve view 519/762
+Carve view 520/762
+Carve view 521/762
+Carve view 522/762
+Carve view 523/762
+Carve view 524/762
+Carve view 525/762
+Carve view 526/762
+Carve view 527/762
+Carve view 528/762
+Carve view 529/762
+Carve view 530/762
+Carve view 531/762
+Carve view 532/762
+Carve view 533/762
+Carve view 534/762
+Carve view 535/762
+Carve view 536/762
+Carve view 537/762
+Carve view 538/762
+Carve view 539/762
+Carve view 540/762
+Carve view 541/762
+Carve view 542/762
+Carve view 543/762
+Carve view 544/762
+Carve view 545/762
+Carve view 546/762
+Carve view 547/762
+Carve view 548/762
+Carve view 549/762
+Carve view 550/762
+Carve view 551/762
+Carve view 552/762
+Carve view 553/762
+Carve view 554/762
+Carve view 555/762
+Carve view 556/762
+Carve view 557/762
+Carve view 558/762
+Carve view 559/762
+Carve view 560/762
+Carve view 561/762
+Carve view 562/762
+Carve view 563/762
+Carve view 564/762
+Carve view 565/762
+Carve view 566/762
+Carve view 567/762
+Carve view 568/762
+Carve view 569/762
+Carve view 570/762
+Carve view 571/762
+Carve view 572/762
+Carve view 573/762
+Carve view 574/762
+Carve view 575/762
+Carve view 576/762
+Carve view 577/762
+Carve view 578/762
+Carve view 579/762
+Carve view 580/762
+Carve view 581/762
+Carve view 582/762
+Carve view 583/762
+Carve view 584/762
+Carve view 585/762
+Carve view 586/762
+Carve view 587/762
+Carve view 588/762
+Carve view 589/762
+Carve view 590/762
+Carve view 591/762
+Carve view 592/762
+Carve view 593/762
+Carve view 594/762
+Carve view 595/762
+Carve view 596/762
+Carve view 597/762
+Carve view 598/762
+Carve view 599/762
+Carve view 600/762
+Carve view 601/762
+Carve view 602/762
+Carve view 603/762
+Carve view 604/762
+Carve view 605/762
+Carve view 606/762
+Carve view 607/762
+Carve view 608/762
+Carve view 609/762
+Carve view 610/762
+Carve view 611/762
+Carve view 612/762
+Carve view 613/762
+Carve view 614/762
+Carve view 615/762
+Carve view 616/762
+Carve view 617/762
+Carve view 618/762
+Carve view 619/762
+Carve view 620/762
+Carve view 621/762
+Carve view 622/762
+Carve view 623/762
+Carve view 624/762
+Carve view 625/762
+Carve view 626/762
+Carve view 627/762
+Carve view 628/762
+Carve view 629/762
+Carve view 630/762
+Carve view 631/762
+Carve view 632/762
+Carve view 633/762
+Carve view 634/762
+Carve view 635/762
+Carve view 636/762
+Carve view 637/762
+Carve view 638/762
+Carve view 639/762
+Carve view 640/762
+Carve view 641/762
+Carve view 642/762
+Carve view 643/762
+Carve view 644/762
+Carve view 645/762
+Carve view 646/762
+Carve view 647/762
+Carve view 648/762
+Carve view 649/762
+Carve view 650/762
+Carve view 651/762
+Carve view 652/762
+Carve view 653/762
+Carve view 654/762
+Carve view 655/762
+Carve view 656/762
+Carve view 657/762
+Carve view 658/762
+Carve view 659/762
+Carve view 660/762
+Carve view 661/762
+Carve view 662/762
+Carve view 663/762
+Carve view 664/762
+Carve view 665/762
+Carve view 666/762
+Carve view 667/762
+Carve view 668/762
+Carve view 669/762
+Carve view 670/762
+Carve view 671/762
+Carve view 672/762
+Carve view 673/762
+Carve view 674/762
+Carve view 675/762
+Carve view 676/762
+Carve view 677/762
+Carve view 678/762
+Carve view 679/762
+Carve view 680/762
+Carve view 681/762
+Carve view 682/762
+Carve view 683/762
+Carve view 684/762
+Carve view 685/762
+Carve view 686/762
+Carve view 687/762
+Carve view 688/762
+Carve view 689/762
+Carve view 690/762
+Carve view 691/762
+Carve view 692/762
+Carve view 693/762
+Carve view 694/762
+Carve view 695/762
+Carve view 696/762
+Carve view 697/762
+Carve view 698/762
+Carve view 699/762
+Carve view 700/762
+Carve view 701/762
+Carve view 702/762
+Carve view 703/762
+Carve view 704/762
+Carve view 705/762
+Carve view 706/762
+Carve view 707/762
+Carve view 708/762
+Carve view 709/762
+Carve view 710/762
+Carve view 711/762
+Carve view 712/762
+Carve view 713/762
+Carve view 714/762
+Carve view 715/762
+Carve view 716/762
+Carve view 717/762
+Carve view 718/762
+Carve view 719/762
+Carve view 720/762
+Carve view 721/762
+Carve view 722/762
+Carve view 723/762
+Carve view 724/762
+Carve view 725/762
+Carve view 726/762
+Carve view 727/762
+Carve view 728/762
+Carve view 729/762
+Carve view 730/762
+Carve view 731/762
+Carve view 732/762
+Carve view 733/762
+Carve view 734/762
+Carve view 735/762
+Carve view 736/762
+Carve view 737/762
+Carve view 738/762
+Carve view 739/762
+Carve view 740/762
+Carve view 741/762
+Carve view 742/762
+Carve view 743/762
+Carve view 744/762
+Carve view 745/762
+Carve view 746/762
+Carve view 747/762
+Carve view 748/762
+Carve view 749/762
+Carve view 750/762
+Carve view 751/762
+Carve view 752/762
+Carve view 753/762
+Carve view 754/762
+Carve view 755/762
+Carve view 756/762
+Carve view 757/762
+Carve view 758/762
+Carve view 759/762
+Carve view 760/762
+Carve view 761/762
+Carve view 762/762
+Surface voxel grid from pointcloud
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;surface voxels&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">voxel_surface</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">voxel_surface</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;carved voxels&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">voxel_carving</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">voxel_carving</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;combined voxels (carved + surface)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">voxel_grid</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">voxel_grid</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+surface voxels
+VoxelGrid with 590929 voxels.
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_voxelization_11_1.png" src="../../_images/tutorial_geometry_voxelization_11_1.264.dela" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+carved voxels
+VoxelGrid with 16317 voxels.
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_voxelization_11_3.png" src="../../_images/tutorial_geometry_voxelization_11_3.265.dela" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+combined voxels (carved + surface)
+VoxelGrid with 607246 voxels.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_voxelization_11_5.png" src="../../_images/tutorial_geometry_voxelization_11_5.266.dela" />
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="octree.html" class="btn btn-neutral float-right" title="Octree" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pointcloud_outlier_removal.3c.dela" class="btn btn-neutral float-left" title="Point cloud outlier removal" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/geometry/voxelization.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:20:48 GMT -->
+</html>

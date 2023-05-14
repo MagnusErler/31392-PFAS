@@ -1,0 +1,1758 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/geometry/mesh.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:15:15 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Mesh &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="RGBD images" href="rgbd_image.html" />
+    <link rel="prev" title="Point cloud" href="pointcloud.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Geometry</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pointcloud.html">Point cloud</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Mesh</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Visualize-a-3D-mesh">Visualize a 3D mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Surface-normal-estimation">Surface normal estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Crop-mesh">Crop mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Paint-mesh">Paint mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Mesh-properties">Mesh properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Mesh-filtering">Mesh filtering</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Average-filter">Average filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Laplacian">Laplacian</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Taubin-filter">Taubin filter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Sampling">Sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Mesh-subdivision">Mesh subdivision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Mesh-simplification">Mesh simplification</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Vertex-clustering">Vertex clustering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Mesh-decimation">Mesh decimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Connected-components">Connected components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rgbd_image.html">RGBD images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kdtree.html">KDTree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_io.html">File IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pointcloud_outlier_removal.3c.dela">Point cloud outlier removal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="voxelization.html">Voxelization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="octree.html">Octree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="surface_reconstruction.html">Surface reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transformation.html">Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh_deformation.html">Mesh deformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iss_keypoint_detector.html">Intrinsic shape signatures (ISS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ray_casting.html">Ray Casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distance_queries.html">Distance Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_interface.html">Python Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="working_with_numpy.html">Working with NumPy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Geometry</a> &raquo;</li>
+        
+      <li>Mesh</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Mesh">
+<h1>Mesh<a class="headerlink" href="#Mesh" title="Permalink to this headline">¶</a></h1>
+<p>Open3D has a data structure for 3D triangle meshes called <code class="docutils literal notranslate"><span class="pre">TriangleMesh</span></code>. The code below shows how to read a triangle mesh from a <code class="docutils literal notranslate"><span class="pre">ply</span></code> file and print its vertices and triangles.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing mesh in Open3D...&quot;</span><span class="p">)</span>
+<span class="n">armadillo_mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ArmadilloMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">armadillo_mesh</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+
+<span class="n">knot_mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">KnotMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">knot_mesh</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Vertices:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">vertices</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Triangles:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">triangles</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Testing mesh in Open3D...
+TriangleMesh with 1440 points and 2880 triangles.
+Vertices:
+[[  4.51268387  28.68865967 -76.55680847]
+ [  7.63622284  35.52046967 -69.78063965]
+ [  6.21986008  44.22465134 -64.82303619]
+ ...
+ [-22.12651634  31.28466606 -87.37570953]
+ [-13.91188431  25.4865818  -86.25827026]
+ [ -5.27768707  23.36245346 -81.43279266]]
+Triangles:
+[[   0   12   13]
+ [   0   13    1]
+ [   1   13   14]
+ ...
+ [1438   11 1439]
+ [1439   11    0]
+ [1439    0 1428]]
+</pre></div></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">TriangleMesh</span></code> class has a few data fields such as <code class="docutils literal notranslate"><span class="pre">vertices</span></code> and <code class="docutils literal notranslate"><span class="pre">triangles</span></code>. Open3D provides direct memory access to these fields via numpy.</p>
+<div class="section" id="Visualize-a-3D-mesh">
+<h2>Visualize a 3D mesh<a class="headerlink" href="#Visualize-a-3D-mesh" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Try to render a mesh with normals (exist: &quot;</span> <span class="o">+</span>
+      <span class="nb">str</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">has_vertex_normals</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot;) and colors (exist: &quot;</span> <span class="o">+</span>
+      <span class="nb">str</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">has_vertex_colors</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A mesh with no normals and no colors does not look good.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Try to render a mesh with normals (exist: False) and colors (exist: False)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_5_1.png" src="../../_images/tutorial_geometry_mesh_5_1.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+A mesh with no normals and no colors does not look good.
+</pre></div></div>
+</div>
+<p>You can rotate and move the mesh but it is painted with uniform gray color and does not look <code class="docutils literal notranslate"><span class="pre">3d</span></code>. The reason is that the current mesh does not have normals for vertices or faces. So uniform color shading is used instead of a more sophisticated Phong shading.</p>
+</div>
+<div class="section" id="Surface-normal-estimation">
+<h2>Surface normal estimation<a class="headerlink" href="#Surface-normal-estimation" title="Permalink to this headline">¶</a></h2>
+<p>Let’s draw the mesh with surface normals.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Computing normal and rendering it.&quot;</span><span class="p">)</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">triangle_normals</span><span class="p">))</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Computing normal and rendering it.
+[[ 0.79164373 -0.53951444  0.28674793]
+ [ 0.8319824  -0.53303008  0.15389681]
+ [ 0.83488162 -0.09250101  0.54260136]
+ ...
+ [ 0.16269924 -0.76215917 -0.6266118 ]
+ [ 0.52755226 -0.83707495 -0.14489352]
+ [ 0.56778973 -0.76467734 -0.30476777]]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_8_1.png" src="../../_images/tutorial_geometry_mesh_8_1.png" />
+</div>
+</div>
+<p>It uses <code class="docutils literal notranslate"><span class="pre">compute_vertex_normals</span></code> and <code class="docutils literal notranslate"><span class="pre">paint_uniform_color</span></code> which are member functions of <code class="docutils literal notranslate"><span class="pre">mesh</span></code>.</p>
+</div>
+<div class="section" id="Crop-mesh">
+<h2>Crop mesh<a class="headerlink" href="#Crop-mesh" title="Permalink to this headline">¶</a></h2>
+<p>We remove half of the surface by directly operating on the <code class="docutils literal notranslate"><span class="pre">triangle</span></code> and <code class="docutils literal notranslate"><span class="pre">triangle_normals</span></code> data fields of the mesh. This is done via numpy.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;We make a partial mesh of only the first half triangles.&quot;</span><span class="p">)</span>
+<span class="n">mesh1</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+<span class="n">mesh1</span><span class="o">.</span><span class="n">triangles</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3iVector</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mesh1</span><span class="o">.</span><span class="n">triangles</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh1</span><span class="o">.</span><span class="n">triangles</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:])</span>
+<span class="n">mesh1</span><span class="o">.</span><span class="n">triangle_normals</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mesh1</span><span class="o">.</span><span class="n">triangle_normals</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh1</span><span class="o">.</span><span class="n">triangle_normals</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mesh1</span><span class="o">.</span><span class="n">triangles</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+We make a partial mesh of only the first half triangles.
+std::vector&lt;Eigen::Vector3i&gt; with 1440 elements.
+Use numpy.asarray() to access data.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_11_1.png" src="../../_images/tutorial_geometry_mesh_11_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Paint-mesh">
+<h2>Paint mesh<a class="headerlink" href="#Paint-mesh" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">paint_uniform_color</span></code> paints the mesh with a uniform color. The color is in RGB space, [0, 1] range.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Painting the mesh&quot;</span><span class="p">)</span>
+<span class="n">mesh1</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.706</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Painting the mesh
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_13_1.png" src="../../_images/tutorial_geometry_mesh_13_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Mesh-properties">
+<h2>Mesh properties<a class="headerlink" href="#Mesh-properties" title="Permalink to this headline">¶</a></h2>
+<p>A triangle mesh has several properties that can be tested with Open3D. One important property is the manifold property, where we can test the triangle mesh if it is edge manifold <code class="docutils literal notranslate"><span class="pre">is_edge_manifold</span></code> and if it is <code class="docutils literal notranslate"><span class="pre">is_vertex_manifold</span></code>. A triangle mesh is edge manifold, if each edge is bounding either one or two triangles. The function <code class="docutils literal notranslate"><span class="pre">is_edge_manifold</span></code> has the <code class="docutils literal notranslate"><span class="pre">bool</span></code> parameter <code class="docutils literal notranslate"><span class="pre">allow_boundary_edges</span></code> that defines if boundary edges should be allowed. Further, a triangle mesh is vertex
+manifold if the star of the vertex is edge-manifold and edge-connected, e.g., two or more faces connected only by a vertex and not by an edge.</p>
+<p>Another property is the test of self-intersection. The function <code class="docutils literal notranslate"><span class="pre">is_self_intersecting</span></code> returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if there exists a triangle in the mesh that is intersecting another mesh. A watertight mesh can be defined as a mesh that is edge manifold, vertex manifold and not self intersecting. The function <code class="docutils literal notranslate"><span class="pre">is_watertight</span></code> implements this check in Open3D.</p>
+<p>We also can test the triangle mesh, if it is orientable, i.e. the triangles can be oriented in such a way that all normals point towards the outside. The corresponding function in Open3D is called <code class="docutils literal notranslate"><span class="pre">is_orientable</span></code>.</p>
+<p>The code below tests a number of triangle meshes against those properties and visualizes the results. Non-manifold edges are shown in red, boundary edges in green, non-manifold vertices are visualized as green points, and self-intersecting triangles are shown in pink.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">check_properties</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">mesh</span><span class="p">):</span>
+    <span class="n">mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+
+    <span class="n">edge_manifold</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">is_edge_manifold</span><span class="p">(</span><span class="n">allow_boundary_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">edge_manifold_boundary</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">is_edge_manifold</span><span class="p">(</span><span class="n">allow_boundary_edges</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">vertex_manifold</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">is_vertex_manifold</span><span class="p">()</span>
+    <span class="n">self_intersecting</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">is_self_intersecting</span><span class="p">()</span>
+    <span class="n">watertight</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">is_watertight</span><span class="p">()</span>
+    <span class="n">orientable</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">is_orientable</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  edge_manifold:          </span><span class="si">{</span><span class="n">edge_manifold</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  edge_manifold_boundary: </span><span class="si">{</span><span class="n">edge_manifold_boundary</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  vertex_manifold:        </span><span class="si">{</span><span class="n">vertex_manifold</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  self_intersecting:      </span><span class="si">{</span><span class="n">self_intersecting</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  watertight:             </span><span class="si">{</span><span class="n">watertight</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  orientable:             </span><span class="si">{</span><span class="n">orientable</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">geoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">mesh</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">edge_manifold</span><span class="p">:</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">get_non_manifold_edges</span><span class="p">(</span><span class="n">allow_boundary_edges</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">geoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">o3dtut</span><span class="o">.</span><span class="n">edges_to_lineset</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">edges</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">edge_manifold_boundary</span><span class="p">:</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">get_non_manifold_edges</span><span class="p">(</span><span class="n">allow_boundary_edges</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">geoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">o3dtut</span><span class="o">.</span><span class="n">edges_to_lineset</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">edges</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">vertex_manifold</span><span class="p">:</span>
+        <span class="n">verts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">get_non_manifold_vertices</span><span class="p">())</span>
+        <span class="n">pcl</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">PointCloud</span><span class="p">(</span>
+            <span class="n">points</span><span class="o">=</span><span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">vertices</span><span class="p">)[</span><span class="n">verts</span><span class="p">]))</span>
+        <span class="n">pcl</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">geoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pcl</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">self_intersecting</span><span class="p">:</span>
+        <span class="n">intersecting_triangles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+            <span class="n">mesh</span><span class="o">.</span><span class="n">get_self_intersecting_triangles</span><span class="p">())</span>
+        <span class="n">intersecting_triangles</span> <span class="o">=</span> <span class="n">intersecting_triangles</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">intersecting_triangles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">intersecting_triangles</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  # visualize self-intersecting triangles&quot;</span><span class="p">)</span>
+        <span class="n">triangles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">triangles</span><span class="p">)[</span><span class="n">intersecting_triangles</span><span class="p">]</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">triangles</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">triangles</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]))</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+        <span class="p">]</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector2iVector</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
+        <span class="n">geoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">o3dtut</span><span class="o">.</span><span class="n">edges_to_lineset</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">edges</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">(</span><span class="n">geoms</span><span class="p">,</span> <span class="n">mesh_show_back_face</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">knot_mesh_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">KnotMesh</span><span class="p">()</span>
+<span class="n">knot_mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">knot_mesh_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+<span class="n">check_properties</span><span class="p">(</span><span class="s1">&#39;KnotMesh&#39;</span><span class="p">,</span> <span class="n">knot_mesh</span><span class="p">)</span>
+<span class="n">check_properties</span><span class="p">(</span><span class="s1">&#39;Mobius&#39;</span><span class="p">,</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_mobius</span><span class="p">(</span><span class="n">twists</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">check_properties</span><span class="p">(</span><span class="s2">&quot;non-manifold edge&quot;</span><span class="p">,</span> <span class="n">o3dtut</span><span class="o">.</span><span class="n">get_non_manifold_edge_mesh</span><span class="p">())</span>
+<span class="n">check_properties</span><span class="p">(</span><span class="s2">&quot;non-manifold vertex&quot;</span><span class="p">,</span> <span class="n">o3dtut</span><span class="o">.</span><span class="n">get_non_manifold_vertex_mesh</span><span class="p">())</span>
+<span class="n">check_properties</span><span class="p">(</span><span class="s2">&quot;open box&quot;</span><span class="p">,</span> <span class="n">o3dtut</span><span class="o">.</span><span class="n">get_open_box_mesh</span><span class="p">())</span>
+<span class="n">check_properties</span><span class="p">(</span><span class="s2">&quot;intersecting_boxes&quot;</span><span class="p">,</span> <span class="n">o3dtut</span><span class="o">.</span><span class="n">get_intersecting_boxes_mesh</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+KnotMesh
+  edge_manifold:          True
+  edge_manifold_boundary: True
+  vertex_manifold:        True
+  self_intersecting:      False
+  watertight:             True
+  orientable:             True
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_16_1.png" src="../../_images/tutorial_geometry_mesh_16_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Mobius
+  edge_manifold:          True
+  edge_manifold_boundary: False
+  vertex_manifold:        True
+  self_intersecting:      False
+  watertight:             False
+  orientable:             False
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_16_3.png" src="../../_images/tutorial_geometry_mesh_16_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+non-manifold edge
+  edge_manifold:          False
+  edge_manifold_boundary: False
+  vertex_manifold:        True
+  self_intersecting:      False
+  watertight:             False
+  orientable:             True
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_16_5.png" src="../../_images/tutorial_geometry_mesh_16_5.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+non-manifold vertex
+  edge_manifold:          True
+  edge_manifold_boundary: True
+  vertex_manifold:        False
+  self_intersecting:      False
+  watertight:             False
+  orientable:             True
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_16_7.png" src="../../_images/tutorial_geometry_mesh_16_7.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+open box
+  edge_manifold:          True
+  edge_manifold_boundary: False
+  vertex_manifold:        True
+  self_intersecting:      False
+  watertight:             False
+  orientable:             True
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_16_9.png" src="../../_images/tutorial_geometry_mesh_16_9.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+intersecting_boxes
+  edge_manifold:          True
+  edge_manifold_boundary: True
+  vertex_manifold:        True
+  self_intersecting:      True
+  watertight:             False
+  orientable:             True
+  # visualize self-intersecting triangles
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_16_11.png" src="../../_images/tutorial_geometry_mesh_16_11.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Mesh-filtering">
+<h2>Mesh filtering<a class="headerlink" href="#Mesh-filtering" title="Permalink to this headline">¶</a></h2>
+<p>Open3D contains a number of methods to filter meshes. In the following we show the implemented filters to smooth noisy triangle meshes.</p>
+<div class="section" id="Average-filter">
+<h3>Average filter<a class="headerlink" href="#Average-filter" title="Permalink to this headline">¶</a></h3>
+<p>The simplest filter is the average filter. A given vertex <span class="math notranslate nohighlight">\(v_i\)</span> is given by the average of the adjacent vertices <span class="math notranslate nohighlight">\(\mathcal{N}\)</span></p>
+<p><span class="math">\begin{equation}
+v_i = \frac{v_i + \sum_{n \in \mathcal{N}} v_n}{|N| + 1} \,.
+\end{equation}</span></p>
+<p>This filter can be used to denoise meshes as demonstrated in the code below. The parameter <code class="docutils literal notranslate"><span class="pre">number_of_iterations</span></code> in the function <code class="docutils literal notranslate"><span class="pre">filter_smooth_simple</span></code> defines the how often the filter is applied to the mesh.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;create noisy mesh&#39;</span><span class="p">)</span>
+<span class="n">knot_mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">KnotMesh</span><span class="p">()</span>
+<span class="n">mesh_in</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">knot_mesh</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+<span class="n">vertices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mesh_in</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">vertices</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">noise</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">vertices</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">mesh_in</span><span class="o">.</span><span class="n">vertices</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span>
+<span class="n">mesh_in</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh_in</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;filter with average with 1 iteration&#39;</span><span class="p">)</span>
+<span class="n">mesh_out</span> <span class="o">=</span> <span class="n">mesh_in</span><span class="o">.</span><span class="n">filter_smooth_simple</span><span class="p">(</span><span class="n">number_of_iterations</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">mesh_out</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh_out</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;filter with average with 5 iterations&#39;</span><span class="p">)</span>
+<span class="n">mesh_out</span> <span class="o">=</span> <span class="n">mesh_in</span><span class="o">.</span><span class="n">filter_smooth_simple</span><span class="p">(</span><span class="n">number_of_iterations</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">mesh_out</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh_out</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+create noisy mesh
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_19_1.png" src="../../_images/tutorial_geometry_mesh_19_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+filter with average with 1 iteration
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_19_3.png" src="../../_images/tutorial_geometry_mesh_19_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+filter with average with 5 iterations
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_19_5.png" src="../../_images/tutorial_geometry_mesh_19_5.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Laplacian">
+<h3>Laplacian<a class="headerlink" href="#Laplacian" title="Permalink to this headline">¶</a></h3>
+<p>Another important mesh filter is the Laplacian defined as</p>
+<p><span class="math">\begin{equation}
+v_i = v_i \cdot \lambda \sum_{n \in N} w_n v_n - v_i \,,
+\end{equation}</span></p>
+<p>where <span class="math notranslate nohighlight">\(\lambda\)</span> is the strength of the filter and <span class="math notranslate nohighlight">\(w_n\)</span> are normalized weights that relate to the distance of the neighboring vertices. The filter is implemented in <code class="docutils literal notranslate"><span class="pre">filter_smooth_laplacian</span></code> and has the parameters <code class="docutils literal notranslate"><span class="pre">number_of_iterations</span></code> and <code class="docutils literal notranslate"><span class="pre">lambda</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;filter with Laplacian with 10 iterations&#39;</span><span class="p">)</span>
+<span class="n">mesh_out</span> <span class="o">=</span> <span class="n">mesh_in</span><span class="o">.</span><span class="n">filter_smooth_laplacian</span><span class="p">(</span><span class="n">number_of_iterations</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">mesh_out</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh_out</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;filter with Laplacian with 50 iterations&#39;</span><span class="p">)</span>
+<span class="n">mesh_out</span> <span class="o">=</span> <span class="n">mesh_in</span><span class="o">.</span><span class="n">filter_smooth_laplacian</span><span class="p">(</span><span class="n">number_of_iterations</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">mesh_out</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh_out</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+filter with Laplacian with 10 iterations
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_21_1.png" src="../../_images/tutorial_geometry_mesh_21_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+filter with Laplacian with 50 iterations
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_21_3.png" src="../../_images/tutorial_geometry_mesh_21_3.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Taubin-filter">
+<h3>Taubin filter<a class="headerlink" href="#Taubin-filter" title="Permalink to this headline">¶</a></h3>
+<p>The problem with the average and Laplacian filter is that they lead to a shrinkage of the triangle mesh. <a class="reference external" href="../reference.html#Taubin1995">[Taubin1995]</a> showed that the application of two Laplacian filters with different <span class="math notranslate nohighlight">\(\lambda\)</span> parameters can prevent the mesh shrinkage. The filter is implemented in <code class="docutils literal notranslate"><span class="pre">filter_smooth_taubin</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;filter with Taubin with 10 iterations&#39;</span><span class="p">)</span>
+<span class="n">mesh_out</span> <span class="o">=</span> <span class="n">mesh_in</span><span class="o">.</span><span class="n">filter_smooth_taubin</span><span class="p">(</span><span class="n">number_of_iterations</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">mesh_out</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh_out</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;filter with Taubin with 100 iterations&#39;</span><span class="p">)</span>
+<span class="n">mesh_out</span> <span class="o">=</span> <span class="n">mesh_in</span><span class="o">.</span><span class="n">filter_smooth_taubin</span><span class="p">(</span><span class="n">number_of_iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">mesh_out</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh_out</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+filter with Taubin with 10 iterations
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_23_1.png" src="../../_images/tutorial_geometry_mesh_23_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+filter with Taubin with 100 iterations
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_23_3.png" src="../../_images/tutorial_geometry_mesh_23_3.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Sampling">
+<h2>Sampling<a class="headerlink" href="#Sampling" title="Permalink to this headline">¶</a></h2>
+<p>Open3D includes functions to sample point clouds from a triangle mesh. The simplest method is <code class="docutils literal notranslate"><span class="pre">sample_points_uniformly</span></code> that uniformly samples points from the 3D surface based on the triangle area. The parameter <code class="docutils literal notranslate"><span class="pre">number_of_points</span></code> defines how many points are sampled from the triangle surface.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_sphere</span><span class="p">()</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">])</span>
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">sample_points_uniformly</span><span class="p">(</span><span class="n">number_of_points</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_25_0.png" src="../../_images/tutorial_geometry_mesh_25_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_25_1.png" src="../../_images/tutorial_geometry_mesh_25_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">bunny</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">bunny</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">])</span>
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">sample_points_uniformly</span><span class="p">(</span><span class="n">number_of_points</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[Open3D INFO] Downloading https://github.com/isl-org/open3d_downloads/releases/download/20220201-data/BunnyMesh.ply
+[Open3D INFO] Downloaded to /home/runner/open3d_data/download/BunnyMesh/BunnyMesh.ply
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_26_1.png" src="../../_images/tutorial_geometry_mesh_26_1.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_26_2.png" src="../../_images/tutorial_geometry_mesh_26_2.png" />
+</div>
+</div>
+<p>Uniform sampling can yield clusters of points on the surface, while a method called Poisson disk sampling can evenly distribute the points on the surface. The method <code class="docutils literal notranslate"><span class="pre">sample_points_poisson_disk</span></code> implements sample elimination. It starts with a sampled point cloud and removes points to satisfy the sampling criterion. The method supports two options to provide the initial point cloud:</p>
+<ol class="arabic simple">
+<li><p>Default via the parameter <code class="docutils literal notranslate"><span class="pre">init_factor</span></code>: The method first samples uniformly a point cloud from the mesh with <code class="docutils literal notranslate"><span class="pre">init_factor</span></code> x <code class="docutils literal notranslate"><span class="pre">number_of_points</span></code> and uses this for the elimination.</p></li>
+<li><p>One can provide a point cloud and pass it to the <code class="docutils literal notranslate"><span class="pre">sample_points_poisson_disk</span></code> method. Then, this point cloud is used for elimination.</p></li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_sphere</span><span class="p">()</span>
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">sample_points_poisson_disk</span><span class="p">(</span><span class="n">number_of_points</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">init_factor</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">sample_points_uniformly</span><span class="p">(</span><span class="n">number_of_points</span><span class="o">=</span><span class="mi">2500</span><span class="p">)</span>
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">sample_points_poisson_disk</span><span class="p">(</span><span class="n">number_of_points</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">pcl</span><span class="o">=</span><span class="n">pcd</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_28_0.png" src="../../_images/tutorial_geometry_mesh_28_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_28_1.png" src="../../_images/tutorial_geometry_mesh_28_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">bunny</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">bunny</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">sample_points_poisson_disk</span><span class="p">(</span><span class="n">number_of_points</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">init_factor</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">sample_points_uniformly</span><span class="p">(</span><span class="n">number_of_points</span><span class="o">=</span><span class="mi">2500</span><span class="p">)</span>
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">sample_points_poisson_disk</span><span class="p">(</span><span class="n">number_of_points</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">pcl</span><span class="o">=</span><span class="n">pcd</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_29_0.png" src="../../_images/tutorial_geometry_mesh_29_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_29_1.png" src="../../_images/tutorial_geometry_mesh_29_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Mesh-subdivision">
+<h2>Mesh subdivision<a class="headerlink" href="#Mesh-subdivision" title="Permalink to this headline">¶</a></h2>
+<p>In mesh subdivision we divide each triangle into a number of smaller triangles. In the simplest case, we compute the midpoint of each side per triangle and divide the triangle into four smaller triangles. This is implemented in the <code class="docutils literal notranslate"><span class="pre">subdivide_midpoint</span></code> function. The 3D surface and area stays the same, but the number of vertices and triangles increases. The parameter <code class="docutils literal notranslate"><span class="pre">number_of_iterations</span></code> defines how many times this process should be repeated.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_box</span><span class="p">()</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;The mesh has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span><span class="si">}</span><span class="s1"> vertices and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">triangles</span><span class="p">)</span><span class="si">}</span><span class="s1"> triangles&#39;</span>
+<span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">],</span> <span class="n">zoom</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">mesh_show_wireframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">subdivide_midpoint</span><span class="p">(</span><span class="n">number_of_iterations</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;After subdivision it has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span><span class="si">}</span><span class="s1"> vertices and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">triangles</span><span class="p">)</span><span class="si">}</span><span class="s1"> triangles&#39;</span>
+<span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">],</span> <span class="n">zoom</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">mesh_show_wireframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The mesh has 8 vertices and 12 triangles
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_31_1.png" src="../../_images/tutorial_geometry_mesh_31_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+After subdivision it has 26 vertices and 48 triangles
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_31_3.png" src="../../_images/tutorial_geometry_mesh_31_3.png" />
+</div>
+</div>
+<p>Open3D implements an additional subdivision method based on <a class="reference external" href="../reference.html#Loop1987">[Loop1987]</a>. The method is based on a quartic box spline, which generates <span class="math notranslate nohighlight">\(C^2\)</span> continuous limit surfaces everywhere except at extraordinary vertices where they are <span class="math notranslate nohighlight">\(C^1\)</span> continuous. This leads to smoother corners.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_sphere</span><span class="p">()</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;The mesh has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span><span class="si">}</span><span class="s1"> vertices and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">triangles</span><span class="p">)</span><span class="si">}</span><span class="s1"> triangles&#39;</span>
+<span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">],</span> <span class="n">zoom</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">mesh_show_wireframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">subdivide_loop</span><span class="p">(</span><span class="n">number_of_iterations</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;After subdivision it has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span><span class="si">}</span><span class="s1"> vertices and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">triangles</span><span class="p">)</span><span class="si">}</span><span class="s1"> triangles&#39;</span>
+<span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">],</span> <span class="n">zoom</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">mesh_show_wireframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The mesh has 762 vertices and 1520 triangles
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_33_1.png" src="../../_images/tutorial_geometry_mesh_33_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+After subdivision it has 12162 vertices and 24320 triangles
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_33_3.png" src="../../_images/tutorial_geometry_mesh_33_3.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">knot_mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">KnotMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">knot_mesh</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;The mesh has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span><span class="si">}</span><span class="s1"> vertices and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">triangles</span><span class="p">)</span><span class="si">}</span><span class="s1"> triangles&#39;</span>
+<span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">],</span> <span class="n">zoom</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">mesh_show_wireframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">subdivide_loop</span><span class="p">(</span><span class="n">number_of_iterations</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;After subdivision it has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span><span class="si">}</span><span class="s1"> vertices and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">triangles</span><span class="p">)</span><span class="si">}</span><span class="s1"> triangles&#39;</span>
+<span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">],</span> <span class="n">zoom</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">mesh_show_wireframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The mesh has 1440 vertices and 2880 triangles
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_34_1.png" src="../../_images/tutorial_geometry_mesh_34_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+After subdivision it has 5760 vertices and 11520 triangles
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_34_3.png" src="../../_images/tutorial_geometry_mesh_34_3.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Mesh-simplification">
+<h2>Mesh simplification<a class="headerlink" href="#Mesh-simplification" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes we want to represent a high-resolution mesh with fewer triangles and vertices, but the low-resolution mesh should still be close to the high-resolution mesh. For this purpose Open3D implements a number of mesh simplification methods.</p>
+<div class="section" id="Vertex-clustering">
+<h3>Vertex clustering<a class="headerlink" href="#Vertex-clustering" title="Permalink to this headline">¶</a></h3>
+<p>The vertex clustering method pools all vertices that fall into a voxel of a given size to a single vertex. The method is implemented in <code class="docutils literal notranslate"><span class="pre">simplify_vertex_clustering</span></code> and has as parameters <code class="docutils literal notranslate"><span class="pre">voxel_size</span></code> that defines the size of the voxel grid and <code class="docutils literal notranslate"><span class="pre">contraction</span></code> that defines how the vertices are pooled. <code class="docutils literal notranslate"><span class="pre">o3d.geometry.SimplificationContraction.Average</span></code> computes a simple average.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">bunny</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+<span class="n">mesh_in</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">bunny</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+<span class="n">mesh_in</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;Input mesh has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh_in</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span><span class="si">}</span><span class="s1"> vertices and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh_in</span><span class="o">.</span><span class="n">triangles</span><span class="p">)</span><span class="si">}</span><span class="s1"> triangles&#39;</span>
+<span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh_in</span><span class="p">])</span>
+
+<span class="n">voxel_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">mesh_in</span><span class="o">.</span><span class="n">get_max_bound</span><span class="p">()</span> <span class="o">-</span> <span class="n">mesh_in</span><span class="o">.</span><span class="n">get_min_bound</span><span class="p">())</span> <span class="o">/</span> <span class="mi">32</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;voxel_size = </span><span class="si">{</span><span class="n">voxel_size</span><span class="si">:</span><span class="s1">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">mesh_smp</span> <span class="o">=</span> <span class="n">mesh_in</span><span class="o">.</span><span class="n">simplify_vertex_clustering</span><span class="p">(</span>
+    <span class="n">voxel_size</span><span class="o">=</span><span class="n">voxel_size</span><span class="p">,</span>
+    <span class="n">contraction</span><span class="o">=</span><span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">SimplificationContraction</span><span class="o">.</span><span class="n">Average</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;Simplified mesh has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh_smp</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span><span class="si">}</span><span class="s1"> vertices and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh_smp</span><span class="o">.</span><span class="n">triangles</span><span class="p">)</span><span class="si">}</span><span class="s1"> triangles&#39;</span>
+<span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh_smp</span><span class="p">])</span>
+
+<span class="n">voxel_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">mesh_in</span><span class="o">.</span><span class="n">get_max_bound</span><span class="p">()</span> <span class="o">-</span> <span class="n">mesh_in</span><span class="o">.</span><span class="n">get_min_bound</span><span class="p">())</span> <span class="o">/</span> <span class="mi">16</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;voxel_size = </span><span class="si">{</span><span class="n">voxel_size</span><span class="si">:</span><span class="s1">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">mesh_smp</span> <span class="o">=</span> <span class="n">mesh_in</span><span class="o">.</span><span class="n">simplify_vertex_clustering</span><span class="p">(</span>
+    <span class="n">voxel_size</span><span class="o">=</span><span class="n">voxel_size</span><span class="p">,</span>
+    <span class="n">contraction</span><span class="o">=</span><span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">SimplificationContraction</span><span class="o">.</span><span class="n">Average</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;Simplified mesh has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh_smp</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span><span class="si">}</span><span class="s1"> vertices and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh_smp</span><span class="o">.</span><span class="n">triangles</span><span class="p">)</span><span class="si">}</span><span class="s1"> triangles&#39;</span>
+<span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh_smp</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Input mesh has 35947 vertices and 69451 triangles
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_37_1.png" src="../../_images/tutorial_geometry_mesh_37_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+voxel_size = 4.865594e-03
+Simplified mesh has 3222 vertices and 6454 triangles
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_37_3.png" src="../../_images/tutorial_geometry_mesh_37_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+voxel_size = 9.731187e-03
+Simplified mesh has 845 vertices and 1724 triangles
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_37_5.png" src="../../_images/tutorial_geometry_mesh_37_5.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Mesh-decimation">
+<h3>Mesh decimation<a class="headerlink" href="#Mesh-decimation" title="Permalink to this headline">¶</a></h3>
+<p>Another category of mesh simplification methods is mesh decimation that operates in incremental steps. We select a single triangle that minimizes an error metric and removes it. This is repeated until a required number of triangles is achieved. Open3D implements <code class="docutils literal notranslate"><span class="pre">simplify_quadric_decimation</span></code> that minimizes error quadrics (distances to neighboring planes). The parameter <code class="docutils literal notranslate"><span class="pre">target_number_of_triangles</span></code> defines the stopping criteria of the decimation algorithm.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mesh_smp</span> <span class="o">=</span> <span class="n">mesh_in</span><span class="o">.</span><span class="n">simplify_quadric_decimation</span><span class="p">(</span><span class="n">target_number_of_triangles</span><span class="o">=</span><span class="mi">6500</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;Simplified mesh has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh_smp</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span><span class="si">}</span><span class="s1"> vertices and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh_smp</span><span class="o">.</span><span class="n">triangles</span><span class="p">)</span><span class="si">}</span><span class="s1"> triangles&#39;</span>
+<span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh_smp</span><span class="p">])</span>
+
+<span class="n">mesh_smp</span> <span class="o">=</span> <span class="n">mesh_in</span><span class="o">.</span><span class="n">simplify_quadric_decimation</span><span class="p">(</span><span class="n">target_number_of_triangles</span><span class="o">=</span><span class="mi">1700</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="sa">f</span><span class="s1">&#39;Simplified mesh has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh_smp</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span><span class="si">}</span><span class="s1"> vertices and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mesh_smp</span><span class="o">.</span><span class="n">triangles</span><span class="p">)</span><span class="si">}</span><span class="s1"> triangles&#39;</span>
+<span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh_smp</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Simplified mesh has 4405 vertices and 6499 triangles
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_39_1.png" src="../../_images/tutorial_geometry_mesh_39_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Simplified mesh has 1978 vertices and 1700 triangles
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_39_3.png" src="../../_images/tutorial_geometry_mesh_39_3.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Connected-components">
+<h2>Connected components<a class="headerlink" href="#Connected-components" title="Permalink to this headline">¶</a></h2>
+<p>The result of various reconstruction methods. Open3D implements a connected components algorithm <code class="docutils literal notranslate"><span class="pre">cluster_connected_triangles</span></code> that assigns each triangle to a cluster of connected triangles. It returns for each triangle the index of the cluster in <code class="docutils literal notranslate"><span class="pre">triangle_clusters</span></code>, and per cluster the number of triangles in <code class="docutils literal notranslate"><span class="pre">cluster_n_triangles</span></code> and the surface area of the cluster in <code class="docutils literal notranslate"><span class="pre">cluster_area</span></code>.</p>
+<p>This is useful in for instance <a class="reference internal" href="../pipelines/rgbd_integration.html"><span class="doc">RGBD Integration</span></a>, which is not always a single triangle mesh, but a number of meshes. Some of the smaller parts are due to noise and we most likely want to remove them.</p>
+<p>The code below shows the application of <code class="docutils literal notranslate"><span class="pre">cluster_connected_triangles</span></code> and how it can be used to remove spurious triangles.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generate data&quot;</span><span class="p">)</span>
+<span class="n">bunny</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">bunny</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">subdivide_midpoint</span><span class="p">(</span><span class="n">number_of_iterations</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">vert</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span>
+<span class="n">min_vert</span><span class="p">,</span> <span class="n">max_vert</span> <span class="o">=</span> <span class="n">vert</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">vert</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
+    <span class="n">cube</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_box</span><span class="p">()</span>
+    <span class="n">cube</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">get_center</span><span class="p">())</span>
+    <span class="n">cube</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">min_vert</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">max_vert</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">min_vert</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">max_vert</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">min_vert</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">max_vert</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+        <span class="p">),</span>
+        <span class="n">relative</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">mesh</span> <span class="o">+=</span> <span class="n">cube</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Show input mesh&quot;</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Generate data
+Show input mesh
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_41_1.png" src="../../_images/tutorial_geometry_mesh_41_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cluster connected triangles&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityContextManager</span><span class="p">(</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityLevel</span><span class="o">.</span><span class="n">Debug</span><span class="p">)</span> <span class="k">as</span> <span class="n">cm</span><span class="p">:</span>
+    <span class="n">triangle_clusters</span><span class="p">,</span> <span class="n">cluster_n_triangles</span><span class="p">,</span> <span class="n">cluster_area</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">mesh</span><span class="o">.</span><span class="n">cluster_connected_triangles</span><span class="p">())</span>
+<span class="n">triangle_clusters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">triangle_clusters</span><span class="p">)</span>
+<span class="n">cluster_n_triangles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cluster_n_triangles</span><span class="p">)</span>
+<span class="n">cluster_area</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">cluster_area</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Cluster connected triangles
+[Open3D DEBUG] [ClusterConnectedTriangles] Compute triangle adjacency
+[Open3D DEBUG] [ClusterConnectedTriangles] Done computing triangle adjacency
+[Open3D DEBUG] [ClusterConnectedTriangles] Done clustering, #clusters=31
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Show mesh with small clusters removed&quot;</span><span class="p">)</span>
+<span class="n">mesh_0</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+<span class="n">triangles_to_remove</span> <span class="o">=</span> <span class="n">cluster_n_triangles</span><span class="p">[</span><span class="n">triangle_clusters</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">100</span>
+<span class="n">mesh_0</span><span class="o">.</span><span class="n">remove_triangles_by_mask</span><span class="p">(</span><span class="n">triangles_to_remove</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh_0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Show mesh with small clusters removed
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_43_1.png" src="../../_images/tutorial_geometry_mesh_43_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Show largest cluster&quot;</span><span class="p">)</span>
+<span class="n">mesh_1</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+<span class="n">largest_cluster_idx</span> <span class="o">=</span> <span class="n">cluster_n_triangles</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+<span class="n">triangles_to_remove</span> <span class="o">=</span> <span class="n">triangle_clusters</span> <span class="o">!=</span> <span class="n">largest_cluster_idx</span>
+<span class="n">mesh_1</span><span class="o">.</span><span class="n">remove_triangles_by_mask</span><span class="p">(</span><span class="n">triangles_to_remove</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh_1</span><span class="p">])</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Show largest cluster
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_geometry_mesh_44_1.png" src="../../_images/tutorial_geometry_mesh_44_1.png" />
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rgbd_image.html" class="btn btn-neutral float-right" title="RGBD images" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pointcloud.html" class="btn btn-neutral float-left" title="Point cloud" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/geometry/mesh.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:19:35 GMT -->
+</html>

@@ -1,0 +1,686 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.t.geometry.RaycastingScene.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:05 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>open3d.t.geometry.RaycastingScene &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="open3d.t.geometry.TensorMap" href="open3d.t.geometry.TensorMap.html" />
+    <link rel="prev" title="open3d.t.geometry.RGBDImage" href="open3d.t.geometry.RGBDImage.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="open3d.t.html">open3d.t</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="open3d.t.geometry.html">geometry</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.AxisAlignedBoundingBox">AxisAlignedBoundingBox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.DrawableGeometry.122.de">DrawableGeometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.Geometry.html">Geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.Image.html">Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.InterpType.html">InterpType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.LineSet.html">LineSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.OrientedBoundingBox.126">OrientedBoundingBox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.PointCloud.html">PointCloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.RGBDImage.html">RGBDImage</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">RaycastingScene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.TensorMap.html">TensorMap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.TriangleMesh.12b.delaye">TriangleMesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.VoxelBlockGrid.12c.dela">VoxelBlockGrid</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.t.io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.t.pipelines.html">pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="open3d.t.html">open3d.t</a> &raquo;</li>
+        
+          <li><a href="open3d.t.geometry.html">open3d.t.geometry</a> &raquo;</li>
+        
+      <li>open3d.t.geometry.RaycastingScene</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="open3d-t-geometry-raycastingscene">
+<h1>open3d.t.geometry.RaycastingScene<a class="headerlink" href="#open3d-t-geometry-raycastingscene" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="open3d.t.geometry.RaycastingScene">
+<em class="property">class </em><code class="sig-prename descclassname">open3d.t.geometry.</code><code class="sig-name descname">RaycastingScene</code><a class="headerlink" href="#open3d.t.geometry.RaycastingScene" title="Permalink to this definition">¶</a></dt>
+<dd><p>A scene class with basic ray casting and closest point queries.</p>
+<p>The RaycastingScene allows to compute ray intersections with triangle meshes
+or compute the closest point on the surface of a mesh with respect to one
+or more query points.
+It builds an internal acceleration structure to speed up those queries.</p>
+<p>This class supports only the CPU device.</p>
+<p>The following shows how to create a scene and compute ray intersections:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">cube</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span>
+                                    <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_box</span><span class="p">())</span>
+
+<span class="c1"># Create scene and add the cube mesh</span>
+<span class="n">scene</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RaycastingScene</span><span class="p">()</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">add_triangles</span><span class="p">(</span><span class="n">cube</span><span class="p">)</span>
+
+<span class="c1"># Rays are 6D vectors with origin and ray direction.</span>
+<span class="c1"># Here we use a helper function to create rays for a pinhole camera.</span>
+<span class="n">rays</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">create_rays_pinhole</span><span class="p">(</span><span class="n">fov_deg</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+                                 <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span>
+                                 <span class="n">eye</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                                 <span class="n">up</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                                 <span class="n">width_px</span><span class="o">=</span><span class="mi">320</span><span class="p">,</span>
+                                 <span class="n">height_px</span><span class="o">=</span><span class="mi">240</span><span class="p">)</span>
+
+<span class="c1"># Compute the ray intersections.</span>
+<span class="n">ans</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">cast_rays</span><span class="p">(</span><span class="n">rays</span><span class="p">)</span>
+
+<span class="c1"># Visualize the hit distance (depth)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ans</span><span class="p">[</span><span class="s1">&#39;t_hit&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="open3d.t.geometry.RaycastingScene.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.RaycastingScene</span></em>, <em class="sig-param"><span class="n">nthreads</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#open3d.t.geometry.RaycastingScene.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a RaycastingScene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nthreads</strong> (<em>int</em>) – The number of threads to use for building the scene. Set to 0 for automatic.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.RaycastingScene.add_triangles">
+<code class="sig-name descname">add_triangles</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.RaycastingScene.add_triangles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>add_triangles(self: open3d.cpu.pybind.t.geometry.RaycastingScene, vertex_positions: open3d.cpu.pybind.core.Tensor, triangle_indices: open3d.cpu.pybind.core.Tensor) -&gt; int</p></li>
+</ol>
+<p>Add a triangle mesh to the scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vertices</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – Vertices as Tensor of dim {N,3} and dtype
+Float32.</p></li>
+<li><p><strong>triangles</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – Triangles as Tensor of dim {M,3} and dtype
+UInt32.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The geometry ID of the added mesh.</p>
+</dd>
+</dl>
+<ol class="arabic simple" start="2">
+<li><p>add_triangles(self: open3d.cpu.pybind.t.geometry.RaycastingScene, mesh: open3d.cpu.pybind.t.geometry.TriangleMesh) -&gt; int</p></li>
+</ol>
+<p>Add a triangle mesh to the scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mesh</strong> (<a class="reference internal" href="open3d.t.geometry.TriangleMesh.12b.delaye#open3d.t.geometry.TriangleMesh" title="open3d.t.geometry.TriangleMesh"><em>open3d.t.geometry.TriangleMesh</em></a>) – A triangle mesh.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The geometry ID of the added mesh.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.RaycastingScene.cast_rays">
+<code class="sig-name descname">cast_rays</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.RaycastingScene</span></em>, <em class="sig-param"><span class="n">rays</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em>, <em class="sig-param"><span class="n">nthreads</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>open3d.cpu.pybind.core.Tensor<span class="p">]</span><a class="headerlink" href="#open3d.t.geometry.RaycastingScene.cast_rays" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the first intersection of the rays with the scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rays</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – A tensor with &gt;=2 dims, shape {.., 6}, and Dtype
+Float32 describing the rays.
+{..} can be any number of dimensions, e.g., to organize rays for
+creating an image the shape can be {height, width, 6}. The last
+dimension must be 6 and has the format [ox, oy, oz, dx, dy, dz]
+with [ox,oy,oz] as the origin and [dx,dy,dz] as the direction. It is
+not necessary to normalize the direction but the returned hit distance
+uses the length of the direction vector as unit.</p></li>
+<li><p><strong>nthreads</strong> (<em>int</em>) – The number of threads to use. Set to 0 for automatic.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>A dictionary which contains the following keys</p>
+<dl class="simple">
+<dt>t_hit</dt><dd><p>A tensor with the distance to the first hit. The shape is {..}. If there
+is no intersection the hit distance is <em>inf</em>.</p>
+</dd>
+<dt>geometry_ids</dt><dd><p>A tensor with the geometry IDs. The shape is {..}. If there
+is no intersection the ID is <em>INVALID_ID</em>.</p>
+</dd>
+<dt>primitive_ids</dt><dd><p>A tensor with the primitive IDs, which corresponds to the triangle
+index. The shape is {..}.  If there is no intersection the ID is
+<em>INVALID_ID</em>.</p>
+</dd>
+<dt>primitive_uvs</dt><dd><p>A tensor with the barycentric coordinates of the hit points within the
+hit triangles. The shape is {.., 2}.</p>
+</dd>
+<dt>primitive_normals</dt><dd><p>A tensor with the normals of the hit triangles. The shape is {.., 3}.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.RaycastingScene.compute_closest_points">
+<code class="sig-name descname">compute_closest_points</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.RaycastingScene</span></em>, <em class="sig-param"><span class="n">query_points</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em>, <em class="sig-param"><span class="n">nthreads</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>open3d.cpu.pybind.core.Tensor<span class="p">]</span><a class="headerlink" href="#open3d.t.geometry.RaycastingScene.compute_closest_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the closest points on the surfaces of the scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query_points</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – A tensor with &gt;=2 dims, shape {.., 3},
+and Dtype Float32 describing the query points.
+{..} can be any number of dimensions, e.g., to organize the query_point
+to create a 3D grid the shape can be {depth, height, width, 3}.
+The last dimension must be 3 and has the format [x, y, z].</p></li>
+<li><p><strong>nthreads</strong> (<em>int</em>) – The number of threads to use. Set to 0 for automatic.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>The returned dictionary contains</p>
+<dl class="simple">
+<dt>points</dt><dd><p>A tensor with the closest surface points. The shape is {..}.</p>
+</dd>
+<dt>geometry_ids</dt><dd><p>A tensor with the geometry IDs. The shape is {..}.</p>
+</dd>
+<dt>primitive_ids</dt><dd><p>A tensor with the primitive IDs, which corresponds to the triangle
+index. The shape is {..}.</p>
+</dd>
+<dt>primitive_uvs</dt><dd><p>A tensor with the barycentric coordinates of the closest points within
+the triangles. The shape is {.., 2}.</p>
+</dd>
+<dt>primitive_normals</dt><dd><p>A tensor with the normals of the closest triangle . The shape is
+{.., 3}.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.RaycastingScene.compute_distance">
+<code class="sig-name descname">compute_distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.RaycastingScene</span></em>, <em class="sig-param"><span class="n">query_points</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em>, <em class="sig-param"><span class="n">nthreads</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.core.Tensor<a class="headerlink" href="#open3d.t.geometry.RaycastingScene.compute_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the distance to the surface of the scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query_points</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – A tensor with &gt;=2 dims, shape {.., 3},
+and Dtype Float32 describing the query points.
+{..} can be any number of dimensions, e.g., to organize the
+query points to create a 3D grid the shape can be
+{depth, height, width, 3}.
+The last dimension must be 3 and has the format [x, y, z].</p></li>
+<li><p><strong>nthreads</strong> (<em>int</em>) – The number of threads to use. Set to 0 for automatic.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tensor with the distances to the surface. The shape is {..}.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.RaycastingScene.compute_occupancy">
+<code class="sig-name descname">compute_occupancy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.RaycastingScene</span></em>, <em class="sig-param"><span class="n">query_points</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em>, <em class="sig-param"><span class="n">nthreads</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">nsamples</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.core.Tensor<a class="headerlink" href="#open3d.t.geometry.RaycastingScene.compute_occupancy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the occupancy at the query point positions.</p>
+<p>This function computes whether the query points are inside or outside.
+The function assumes that all meshes are watertight and that there are
+no intersections between meshes, i.e., inside and outside must be well
+defined. The function determines if a point is inside by counting the
+intersections of a rays starting at the query points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query_points</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – A tensor with &gt;=2 dims, shape {.., 3},
+and Dtype Float32 describing the query points.
+{..} can be any number of dimensions, e.g., to organize the
+query points to create a 3D grid the shape can be
+{depth, height, width, 3}.
+The last dimension must be 3 and has the format [x, y, z].</p></li>
+<li><p><strong>nthreads</strong> (<em>int</em>) – The number of threads to use. Set to 0 for automatic.</p></li>
+<li><p><strong>nsamples</strong> (<em>int</em>) – The number of rays used for determining the inside.
+This must be an odd number. The default is 1. Use a higher value if you
+notice errors in the occupancy values. Errors can occur when rays hit
+exactly an edge or vertex in the scene.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tensor with the occupancy values. The shape is {..}. Values are either 0
+or 1. A point is occupied or inside if the value is 1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.RaycastingScene.compute_signed_distance">
+<code class="sig-name descname">compute_signed_distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.RaycastingScene</span></em>, <em class="sig-param"><span class="n">query_points</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em>, <em class="sig-param"><span class="n">nthreads</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">nsamples</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.core.Tensor<a class="headerlink" href="#open3d.t.geometry.RaycastingScene.compute_signed_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the signed distance to the surface of the scene.</p>
+<p>This function computes the signed distance to the meshes in the scene.
+The function assumes that all meshes are watertight and that there are
+no intersections between meshes, i.e., inside and outside must be well
+defined. The function determines the sign of the distance by counting
+the intersections of a rays starting at the query points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query_points</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – A tensor with &gt;=2 dims, shape {.., 3},
+and Dtype Float32 describing the query_points.
+{..} can be any number of dimensions, e.g., to organize the
+query points to create a 3D grid the shape can be
+{depth, height, width, 3}.
+The last dimension must be 3 and has the format [x, y, z].</p></li>
+<li><p><strong>nthreads</strong> (<em>int</em>) – The number of threads to use. Set to 0 for automatic.</p></li>
+<li><p><strong>nsamples</strong> (<em>int</em>) – The number of rays used for determining the inside.
+This must be an odd number. The default is 1. Use a higher value if you
+notice sign flipping, which can occur when rays hit exactly an edge or
+vertex in the scene.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tensor with the signed distances to the surface. The shape is {..}.
+Negative distances mean a point is inside a closed surface.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.RaycastingScene.count_intersections">
+<code class="sig-name descname">count_intersections</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.RaycastingScene</span></em>, <em class="sig-param"><span class="n">rays</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em>, <em class="sig-param"><span class="n">nthreads</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.core.Tensor<a class="headerlink" href="#open3d.t.geometry.RaycastingScene.count_intersections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the number of intersection of the rays with the scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rays</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – A tensor with &gt;=2 dims, shape {.., 6}, and Dtype
+Float32 describing the rays.
+{..} can be any number of dimensions, e.g., to organize rays for
+creating an image the shape can be {height, width, 6}.
+The last dimension must be 6 and has the format [ox, oy, oz, dx, dy, dz]
+with [ox,oy,oz] as the origin and [dx,dy,dz] as the direction. It is not
+necessary to normalize the direction.</p></li>
+<li><p><strong>nthreads</strong> (<em>int</em>) – The number of threads to use. Set to 0 for automatic.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tensor with the number of intersections. The shape is {..}.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.RaycastingScene.create_rays_pinhole">
+<em class="property">static </em><code class="sig-name descname">create_rays_pinhole</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.RaycastingScene.create_rays_pinhole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>create_rays_pinhole(intrinsic_matrix: open3d.cpu.pybind.core.Tensor, extrinsic_matrix: open3d.cpu.pybind.core.Tensor, width_px: int, height_px: int) -&gt; open3d.cpu.pybind.core.Tensor</p></li>
+</ol>
+<p>Creates rays for the given camera parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>intrinsic_matrix</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – The upper triangular intrinsic matrix
+with shape {3,3}.</p></li>
+<li><p><strong>extrinsic_matrix</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – The 4x4 world to camera SE(3)
+transformation matrix.</p></li>
+<li><p><strong>width_px</strong> (<em>int</em>) – The width of the image in pixels.</p></li>
+<li><p><strong>height_px</strong> (<em>int</em>) – The height of the image in pixels.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tensor of shape {height_px, width_px, 6} with the rays.</p>
+</dd>
+</dl>
+<ol class="arabic simple" start="2">
+<li><p>create_rays_pinhole(fov_deg: float, center: open3d.cpu.pybind.core.Tensor, eye: open3d.cpu.pybind.core.Tensor, up: open3d.cpu.pybind.core.Tensor, width_px: int, height_px: int) -&gt; open3d.cpu.pybind.core.Tensor</p></li>
+</ol>
+<p>Creates rays for the given camera parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fov_deg</strong> (<em>float</em>) – The horizontal field of view in degree.</p></li>
+<li><p><strong>center</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – The point the camera is looking at with shape
+{3}.</p></li>
+<li><p><strong>eye</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – The position of the camera with shape {3}.</p></li>
+<li><p><strong>up</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – The up-vector with shape {3}.</p></li>
+<li><p><strong>width_px</strong> (<em>int</em>) – The width of the image in pixels.</p></li>
+<li><p><strong>height_px</strong> (<em>int</em>) – The height of the image in pixels.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tensor of shape {height_px, width_px, 6} with the rays.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.RaycastingScene.test_occlusions">
+<code class="sig-name descname">test_occlusions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.RaycastingScene</span></em>, <em class="sig-param"><span class="n">rays</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em>, <em class="sig-param"><span class="n">tnear</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">tfar</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">inf</span></em>, <em class="sig-param"><span class="n">nthreads</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.core.Tensor<a class="headerlink" href="#open3d.t.geometry.RaycastingScene.test_occlusions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the rays have any intersection with the scene.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rays</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – A tensor with &gt;=2 dims, shape {.., 6}, and Dtype
+Float32 describing the rays.
+{..} can be any number of dimensions, e.g., to organize rays for
+creating an image the shape can be {height, width, 6}.
+The last dimension must be 6 and has the format [ox, oy, oz, dx, dy, dz]
+with [ox,oy,oz] as the origin and [dx,dy,dz] as the direction. It is not
+necessary to normalize the direction.</p></li>
+<li><p><strong>tnear</strong> (<em>float</em>) – The tnear offset for the rays. The default is 0.</p></li>
+<li><p><strong>tfar</strong> (<em>float</em>) – The tfar value for the ray. The default is infinity.</p></li>
+<li><p><strong>nthreads</strong> (<em>int</em>) – The number of threads to use. Set to 0 for automatic.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A boolean tensor which indicates if the ray is occluded by the scene (true)
+or not (false).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="open3d.t.geometry.RaycastingScene.INVALID_ID">
+<code class="sig-name descname">INVALID_ID</code><em class="property"> = 4294967295</em><a class="headerlink" href="#open3d.t.geometry.RaycastingScene.INVALID_ID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="open3d.t.geometry.TensorMap.html" class="btn btn-neutral float-right" title="open3d.t.geometry.TensorMap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="open3d.t.geometry.RGBDImage.html" class="btn btn-neutral float-left" title="open3d.t.geometry.RGBDImage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.t.geometry.RaycastingScene.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:05 GMT -->
+</html>

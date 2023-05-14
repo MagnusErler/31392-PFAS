@@ -1,0 +1,667 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/contribute/contribution_recipes.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:22 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Contribution methods &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Open3D style guide" href="styleguide.html" />
+    <link rel="prev" title="Contributing to Open3D" href="contribute.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contribution methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#code-contribution">Code contribution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#recommended-procedure">Recommended procedure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dos">Dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#donts">Don’ts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#code-reviews">Code reviews</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Recommended procedure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Don’ts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#bug-reports">Bug reports</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Recommended procedure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Dos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Don’ts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Recommended procedure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#case-1-when-documenting-c-code">Case 1: When documenting C++ code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#case-2-when-documenting-python-bindings">Case 2: When documenting Python bindings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#case-3-when-documenting-pure-python-code-no-bindings">Case 3: When documenting pure Python code (no bindings)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#case-4-when-adding-a-python-tutorial">Case 4: When adding a Python tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Dos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index-2.html">Docs</a> &raquo;</li>
+        
+      <li>Contribution methods</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="contribution-methods">
+<span id="contribution-recipes"></span><h1>Contribution methods<a class="headerlink" href="#contribution-methods" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="code-contribution">
+<h2>Code contribution<a class="headerlink" href="#code-contribution" title="Permalink to this headline">¶</a></h2>
+<p>You have used Open3D. You are familiar with the Open3D C++ and/or Python interface(s). You want to contribute code for a new feature or a bug fix. The easiest way to start as a new contributor is to take an existing code snippet as a reference and write some code similar to it. Follow the procedure below.</p>
+<div class="section" id="recommended-procedure">
+<h3>Recommended procedure<a class="headerlink" href="#recommended-procedure" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Download, build from source, and familiarize yourself with Open3D.</p></li>
+<li><p>Read the <a class="reference internal" href="styleguide.html#style-guide"><span class="std std-ref">Open3D style guide</span></a> and install required tools.</p></li>
+<li><p>Check existing classes, examples, and related code.</p></li>
+<li><p>Fork Open3D on <a class="reference external" href="https://github.com/isl-org/Open3D">GitHub</a>.</p></li>
+<li><p>Create new features in your fork. Do not forget unit tests and documentation. Double-check the <a class="reference internal" href="styleguide.html#style-guide"><span class="std std-ref">Open3D style guide</span></a>.</p></li>
+<li><p>Make a pull request to the <a class="reference external" href="https://github.com/isl-org/Open3D/tree/master">master branch</a>.</p></li>
+<li><p>Make sure your PR passes the CI tests. If it doesn’t, fix the code until it builds and passes the CI tests.</p></li>
+<li><p>Your PR will be assigned to reviewers.</p></li>
+<li><p>Engage with your reviewers during the review process. Address issues or concerns raised during the review. Don’t let the review die.</p></li>
+</ol>
+<p>Congratulations, your pull request has been merged. You are now part of Open3D!</p>
+</div>
+<div class="section" id="dos">
+<h3>Dos<a class="headerlink" href="#dos" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>[DO] Follow the <a class="reference internal" href="styleguide.html#style-guide"><span class="std std-ref">Open3D style guide</span></a> and install the required tools</p></td>
+</tr>
+<tr class="row-even"><td><p>[DO] Use C++14 features when contributing C++ code</p></td>
+</tr>
+<tr class="row-odd"><td><p>[DO] Remember to provide Python bindings when adding new C++ core functionalities</p></td>
+</tr>
+<tr class="row-even"><td><p>[DO] Use Python 3 when contributing Python code</p></td>
+</tr>
+<tr class="row-odd"><td><p>[DO] Be aware of OS and compiler versions. Please check <a class="reference internal" href="../compilation.html#compiler-version"><span class="std std-ref">System requirements</span></a> for details.</p></td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">[DO] Provide suitable unit tests</div>
+<div class="line-block">
+<div class="line">- Your contribution must come with unit tests of the most important functionality</div>
+<div class="line">- If you are modifying existing code, make sure that the unit tests are updated accordingly</div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>[DO] Use object-oriented design</p></td>
+</tr>
+<tr class="row-even"><td><p>[DO] Minimize dependencies. Do not pull in heavy dependencies. Make the code as self-contained as possible</p></td>
+</tr>
+<tr class="row-odd"><td><p>[DO] Keep your pull request as small and self-contained as possible</p></td>
+</tr>
+<tr class="row-even"><td><p>[DO] Write simple code that is clean and easy to understand</p></td>
+</tr>
+<tr class="row-odd"><td><p>[DO] Minimize redundancies in your implementation</p></td>
+</tr>
+<tr class="row-even"><td><p>[DO] Avoid “premature optimization” that may hinder code readability</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="donts">
+<h3>Don’ts<a class="headerlink" href="#donts" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>[DON’T]  Do not contribute Python 2.7 code. Python 2.7 has been deprecated</p></td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">[DON’T]  Do not break the library</div>
+<div class="line-block">
+<div class="line">- When submitting a pull request, make sure that CI is able to build your PR without any error or warning</div>
+<div class="line">- We know that eliminating all warnings can be hard. Please try. This increases stability and speeds up compilation</div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>[DON’T]  Do not create a massive pull request with dozens of commits and files</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="code-reviews">
+<span id="review-contribution"></span><h2>Code reviews<a class="headerlink" href="#code-reviews" title="Permalink to this headline">¶</a></h2>
+<p>You want to contribute to Open3D by reviewing code. Your mission is to help developers comply with Open3D standards. If you are new to this, make sure you have a good understanding of code review. (See this <a class="reference external" href="https://google.github.io/eng-practices/review/reviewer/">excellent introduction</a>.) Follow the procedure below.</p>
+<div class="section" id="id1">
+<h3>Recommended procedure<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Check the list of <a class="reference external" href="https://github.com/isl-org/Open3D/pulls">open pull requests</a> and pick one that doesn’t yet have a reviewer. Leave a comment on the PR mentioning your interest: e.g., “I could help review this PR.”</p></li>
+<li><p>A project maintainer will assign you to the PR as a reviewer.</p></li>
+<li><p>Use <a class="reference external" href="https://reviewable.io/reviews">Reviewable</a> to perform the code review.</p></li>
+<li><p>When you begin the review, post a comment to indicate that you have started: e.g., “Starting to review this PR.”</p></li>
+<li><p>Make sure that CI is able to build the PR and that tests pass.</p></li>
+<li><p>For features that are not covered by tests and CI (e.g., visualizer), download the code, run it, and inspect.</p></li>
+<li><p>Look for unit tests. If unit tests are not provided, ask the author to add them.</p></li>
+<li><p>Check for good documentation: doxygen/docstring comments.</p></li>
+<li><p>Check for good design.</p>
+<ol class="loweralpha simple">
+<li><p>Object-oriented design.</p></li>
+<li><p>Code is simple and clear without premature optimizations.</p></li>
+<li><p>The implementation is not redundant.</p></li>
+</ol>
+</li>
+<li><p>Verify compliance with the <a class="reference internal" href="styleguide.html#style-guide"><span class="std std-ref">Open3D style guide</span></a>.</p></li>
+<li><p>Provide clear feedback to the author and make suggestions for improving the PR.</p></li>
+<li><p>If the PR gets frozen for a while (more than a week), ping the author to revive the process.</p></li>
+<li><p>When everything is correct, give your <strong>:LGTM:</strong>.</p></li>
+</ol>
+</div></blockquote>
+<p>Congratulations, you have improved Open3D with your review. You are now part of Open3D!</p>
+</div>
+<div class="section" id="id2">
+<h3>Dos<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>[DO] Uphold the highest standards of quality</p></td>
+</tr>
+<tr class="row-even"><td><p>[DO] Implement the <a class="reference internal" href="contribute.html#principles"><span class="std std-ref">Guiding principles</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>[DO] Help the code’s author improve their contribution</p></td>
+</tr>
+<tr class="row-even"><td><p>[DO] Point out algorithm/API/design/style/build/other issues that need to be improved</p></td>
+</tr>
+<tr class="row-odd"><td><p>[DO] Make sure the contribution comes with documentation / updates documentation</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id3">
+<h3>Don’ts<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>[DON’T] Do not approve just to be nice. Do not compromise on quality. Do not compromise the <a class="reference internal" href="contribute.html#principles"><span class="std std-ref">Guiding principles</span></a> of Open3D</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="bug-reports">
+<span id="report-contribution"></span><h2>Bug reports<a class="headerlink" href="#bug-reports" title="Permalink to this headline">¶</a></h2>
+<p>You are using Open3D. You are not getting the results you want. You think there is a bug, or a missing feature. You want to get support. Good! Please follow the procedure below.</p>
+<div class="section" id="id4">
+<h3>Recommended procedure<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Check the Open3D GitHub repository to see if there is already a related issue</p>
+<ol class="loweralpha simple">
+<li><p>If there is an existing issue, add a comment explaining the problem you encountered</p></li>
+<li><p>You can also join our <a class="reference external" href="https://discord.gg/D35BGvn">discord channel</a> to ask questions. Other community members may have encountered the same issue and may be able to provide a solution</p></li>
+</ol>
+</li>
+<li><p>If you cannot find an existing ticket, please file your bug report on the GitHub issues board. Your report should include the following elements:</p>
+<ol class="loweralpha simple">
+<li><p>A description of the problem</p></li>
+<li><p>A description of your environment: OS, Python version, compiler, Open3D version, installation method.</p></li>
+<li><p>A minimal example to reproduce the problem.</p></li>
+<li><p>The obtained output. Feel free to include screenshots.</p></li>
+<li><p>A description of the expected result.</p></li>
+</ol>
+</li>
+<li><p>The Open3D team will explicitly acknowledge the receipt of the bug report by commenting on the issue.</p></li>
+</ol>
+</div></blockquote>
+<p>Congratulations, you have improved Open3D with your report. Thanks for making Open3D better!</p>
+</div>
+<div class="section" id="id5">
+<h3>Dos<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>[DO] Always include a minimal example that reproduces the error</p></td>
+</tr>
+<tr class="row-even"><td><p>[DO] Provide information about your environment, so that we can detect problems related to compilers, dependencies, etc.</p></td>
+</tr>
+<tr class="row-odd"><td><div class="line-block">
+<div class="line">[DO] Indicate the output you were expecting</div>
+<div class="line-block">
+<div class="line">- Sometimes there are misunderstandings and the library provides you with a different output than the expected one</div>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id6">
+<h3>Don’ts<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>[DON’T] Do not open a new issue without double-checking whether there is already an existing issue that deals with the same problem</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="documentation">
+<span id="documentation-contribution"></span><h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h3>Recommended procedure<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Follow the general code contribution guidelines.</p></li>
+<li><p>Follow the <a class="reference internal" href="../builddocs.html#builddocs"><span class="std std-ref">Build documentation</span></a> instructions to build both C++ and Python documentation. Make sure you can view the generated local web pages with a browser.</p></li>
+<li><p>Adhere to the  cases presented below.</p></li>
+<li><p>Iterate steps 2 and 3 to build the docs and see the generated results. Make sure the syntax is correct so that the expected web page is generated.</p></li>
+</ol>
+<div class="section" id="case-1-when-documenting-c-code">
+<h4>Case 1: When documenting C++ code<a class="headerlink" href="#case-1-when-documenting-c-code" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>In header files, use <a class="reference external" href="http://www.doxygen.nl/manual/docblocks.html">Doxygen syntax</a>. In C++ header files we use the in-line style with <cite>///</cite> for docstring blocks. Make sure to use <a class="reference external" href="http://www.doxygen.nl/manual/commands.html">Doxygen commands</a> whenever possible. For instance, use <cite>brief</cite> to denote the brief summary, <cite>param</cite> to define a parameter, <cite>return</cite> to define the return value,  <cite>p</cite> to reference a parameter, <cite>ref</cite> to reference another function, etc.</p></li>
+<li><p>Use <a class="reference external" href="https://www.doxygen.nl/manual/markdown.html">Markdown</a> for formatting longer descriptions, such as lists and example code. Use LaTeX syntax for Math equations.</p></li>
+<li><p>See for example this <cite>Calculator</cite> class:</p></li>
+</ul>
+<div class="highlight-cpp notranslate" id="calculator-class"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Calculator</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">/// \brief Computes summation.</span>
+<span class="w">    </span><span class="c1">///</span>
+<span class="w">    </span><span class="c1">/// Performs addition of \p a and \p b, i.e. \f$ c=a+b \f$. Unlike \ref sub, \ref add is commutative.</span>
+<span class="w">    </span><span class="c1">/// For example code, leave a blank line and indent 4 spaces for Markdown code formatting.</span>
+<span class="w">    </span><span class="c1">/// \param a LHS operand for summation.</span>
+<span class="w">    </span><span class="c1">/// \param b RHS operand for summation.</span>
+<span class="w">    </span><span class="c1">/// \return The sum of \p a and \p b.</span>
+<span class="w">    </span><span class="c1">/// \example</span>
+<span class="w">    </span><span class="c1">///</span>
+<span class="w">    </span><span class="c1">///     c = add(5, 4);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">/// \brief Computes subtraction.</span>
+<span class="w">    </span><span class="c1">///</span>
+<span class="w">    </span><span class="c1">/// If detailed description is needed, add a blank line after the &quot;brief&quot;</span>
+<span class="w">    </span><span class="c1">/// section. Subtracts \p b from \p a, i.e. \f$ c=a-b \f$.</span>
+<span class="w">    </span><span class="c1">/// \param a LHS operand for subtraction.</span>
+<span class="w">    </span><span class="c1">/// \param b RHS operand for subtraction.</span>
+<span class="w">    </span><span class="c1">/// \return The difference of \p a and \p b.</span>
+<span class="w">    </span><span class="c1">/// \example</span>
+<span class="w">    </span><span class="c1">///</span>
+<span class="w">    </span><span class="c1">///     c = sub(5, 4);</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">sub</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Add in-line comments to cpp files to explain complex or non-intuitive parts of your algorithm.</p></li>
+</ul>
+</div>
+<div class="section" id="case-2-when-documenting-python-bindings">
+<h4>Case 2: When documenting Python bindings<a class="headerlink" href="#case-2-when-documenting-python-bindings" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>First, complete the Python binding code following the guides from <a class="reference external" href="https://pybind11.readthedocs.io/en/stable/basics.html">Pybind11 Docs</a>. Make sure to write the high-level docstrings for the classes and functions. Also use <code class="docutils literal notranslate"><span class="pre">&quot;param_name&quot;_a</span></code> to denote function parameters.  Use standard RST based docstring syntax (<a class="reference external" href="https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings">Google style</a>) as explained <a class="reference external" href="https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html">here</a> and <a class="reference external" href="https://www.python.org/dev/peps/pep-0257/">there</a>.</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">docstring::ClassMethodDocInject()</span></code> or <code class="docutils literal notranslate"><span class="pre">docstring::FunctionDocInject()</span></code> to insert parameter docs.</p></li>
+<li><p>Example binding and docstrings for the <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> class:</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">py</span><span class="o">::</span><span class="n">class_</span><span class="o">&lt;</span><span class="n">Calculator</span><span class="o">&gt;</span><span class="w"> </span><span class="n">calculator</span><span class="p">(</span>
+<span class="w">            </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Calculator&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;Calculator class performs numerical computations.&quot;</span><span class="p">);</span>
+<span class="n">calculator</span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">&quot;add&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Calculator</span><span class="o">::</span><span class="n">Add</span><span class="p">,</span>
+<span class="w">               </span><span class="s">&quot;Performs ``a`` plus ``b``, i.e. :math:`c=a+b` Unlike &quot;</span>
+<span class="w">               </span><span class="s">&quot;:math:`open3d.Calculator.sub`, &quot;</span>
+<span class="w">               </span><span class="s">&quot;:math:`open3d.Calculator.add` is &quot;</span>
+<span class="w">               </span><span class="s">&quot;commutative.&quot;</span><span class="p">,</span>
+<span class="w">                            </span><span class="s">&quot;a&quot;</span><span class="n">_a</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;b&quot;</span><span class="n">_a</span><span class="p">);</span>
+<span class="n">calculator</span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">&quot;sub&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Calculator</span><span class="o">::</span><span class="n">Add</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Subtracts ``b`` from ``a``,&quot;</span>
+<span class="w">               </span><span class="s">&quot; i.e. :math:`c=a-b`&quot;</span><span class="p">,</span>
+<span class="w">               </span><span class="s">&quot;a&quot;</span><span class="n">_a</span><span class="p">,</span>
+<span class="w">               </span><span class="s">&quot;b&quot;</span><span class="n">_a</span><span class="p">);</span>
+<span class="n">docstring</span><span class="o">::</span><span class="n">ClassMethodDocInject</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Calculator&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;add&quot;</span><span class="p">,</span>
+<span class="w">                                </span><span class="p">{{</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;LHS operand for summation.&quot;</span><span class="p">},</span>
+<span class="w">                                 </span><span class="p">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;RHS operand for summation.&quot;</span><span class="p">}});</span>
+<span class="n">docstring</span><span class="o">::</span><span class="n">ClassMethodDocInject</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Calculator&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sub&quot;</span><span class="p">,</span>
+<span class="w">                                </span><span class="p">{{</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;LHS operand for subtraction.&quot;</span><span class="p">},</span>
+<span class="w">                                 </span><span class="p">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;RHS operand for subtraction.&quot;</span><span class="p">}});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="case-3-when-documenting-pure-python-code-no-bindings">
+<h4>Case 3: When documenting pure Python code (no bindings)<a class="headerlink" href="#case-3-when-documenting-pure-python-code-no-bindings" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>Use standard docstring syntax (<a class="reference external" href="https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings">Google style</a>) as explained <a class="reference external" href="https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html">here</a> and <a class="reference external" href="https://www.python.org/dev/peps/pep-0257/">there</a>.</p></li>
+</ul>
+</div>
+<div class="section" id="case-4-when-adding-a-python-tutorial">
+<h4>Case 4: When adding a Python tutorial<a class="headerlink" href="#case-4-when-adding-a-python-tutorial" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>Place your tutorial notebook within <code class="docutils literal notranslate"><span class="pre">Open3D/docs/jupyter/</span></code></p></li>
+<li><p>Inside <code class="docutils literal notranslate"><span class="pre">Open3D/docs/tutorial</span></code>, update the <code class="docutils literal notranslate"><span class="pre">toctree</span></code> directive within the
+appropriate <code class="docutils literal notranslate"><span class="pre">index.rst</span></code> file</p></li>
+<li><p>Update the <code class="docutils literal notranslate"><span class="pre">index.rst</span></code> file to include your new tutorial</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When you commit a ipynb notebook file make sure to remove the output cells
+to keep the commit sizes small.
+You can use the script <code class="docutils literal notranslate"><span class="pre">docs/jupyter/jupyter_strip_output.sh</span></code> for
+stripping the output cells of all tutorials.</p>
+</div>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>Dos<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>[DO] Always use a spell checker when writing documentation (e.g. <a class="reference external" href="https://app.grammarly.com/">Grammarly</a>).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="styleguide.html" class="btn btn-neutral float-right" title="Open3D style guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="contribute.html" class="btn btn-neutral float-left" title="Contributing to Open3D" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/contribute/contribution_recipes.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:22 GMT -->
+</html>

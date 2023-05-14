@@ -1,0 +1,499 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.data.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:25 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>open3d.data &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="open3d.data.ArmadilloMesh" href="open3d.data.ArmadilloMesh.html" />
+    <link rel="prev" title="open3d.core.nns.NearestNeighborSearch" href="open3d.core.nns.NearestNeighborSearch.97" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">open3d.data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.ArmadilloMesh.html">ArmadilloMesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.AvocadoModel.html">AvocadoModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.BedroomRGBDImages.html">BedroomRGBDImages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.BunnyMesh.html">BunnyMesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.CrateModel.html">CrateModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.DamagedHelmetModel.html">DamagedHelmetModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.DataDescriptor.html">DataDescriptor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.Dataset.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.DemoColoredICPPointClouds.a3">DemoColoredICPPointClouds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.DemoCropPointCloud.html">DemoCropPointCloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.DemoCustomVisualization.a5.de">DemoCustomVisualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.DemoFeatureMatchingPointCloud">DemoFeatureMatchingPointClouds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.DemoICPPointClouds.html">DemoICPPointClouds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.DemoPoseGraphOptimization.a8">DemoPoseGraphOptimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.DownloadDataset.html">DownloadDataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.EaglePointCloud.html">EaglePointCloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.FlightHelmetModel.html">FlightHelmetModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.JackJackL515Bag.html">JackJackL515Bag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.JuneauImage.html">JuneauImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.KnotMesh.html">KnotMesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.LivingRoomPointClouds.af.dela">LivingRoomPointClouds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.LoungeRGBDImages.html">LoungeRGBDImages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.MetalTexture.html">MetalTexture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.MonkeyModel.html">MonkeyModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.OfficePointClouds.html">OfficePointClouds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.PCDPointCloud.html">PCDPointCloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.PLYPointCloud.html">PLYPointCloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.PaintedPlasterTexture.b4.dela">PaintedPlasterTexture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.RedwoodIndoorLivingRoom1.b7.d">RedwoodIndoorLivingRoom1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.RedwoodIndoorLivingRoom2.b8.d">RedwoodIndoorLivingRoom2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.RedwoodIndoorOffice1.b9.delay">RedwoodIndoorOffice1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.RedwoodIndoorOffice2.ba.delay">RedwoodIndoorOffice2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.SampleFountainRGBDImages.bb.d">SampleFountainRGBDImages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.SampleL515Bag.html">SampleL515Bag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.SampleNYURGBDImage.html">SampleNYURGBDImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.SampleRedwoodRGBDImages.be.de">SampleRedwoodRGBDImages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.SampleSUNRGBDImage.html">SampleSUNRGBDImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.SampleTUMRGBDImage.html">SampleTUMRGBDImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.SwordModel.html">SwordModel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.TerrazzoTexture.html">TerrazzoTexture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.TilesTexture.html">TilesTexture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.WoodFloorTexture.html">WoodFloorTexture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.data.WoodTexture.html">WoodTexture</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index-2.html">Docs</a> &raquo;</li>
+        
+      <li>open3d.data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="open3d-data">
+<h1>open3d.data<a class="headerlink" href="#open3d-data" title="Permalink to this headline">¶</a></h1>
+<p><strong>Classes</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.ArmadilloMesh.html#open3d.data.ArmadilloMesh" title="open3d.data.ArmadilloMesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ArmadilloMesh</span></code></a></p></td>
+<td><p>Data class for <cite>ArmadilloMesh</cite> contains the <cite>ArmadilloMesh.ply</cite> from the <cite>Stanford 3D Scanning Repository</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.AvocadoModel.html#open3d.data.AvocadoModel" title="open3d.data.AvocadoModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AvocadoModel</span></code></a></p></td>
+<td><p>Data class for <cite>AvocadoModel</cite> contains a avocado model file, along with material and PNG format embedded textures.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.BedroomRGBDImages.html#open3d.data.BedroomRGBDImages" title="open3d.data.BedroomRGBDImages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BedroomRGBDImages</span></code></a></p></td>
+<td><p>Data class for <cite>BedroomRGBDImages</cite> contains a sample set of 21931 color and depth images from Redwood Bedroom RGBD dataset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.BunnyMesh.html#open3d.data.BunnyMesh" title="open3d.data.BunnyMesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BunnyMesh</span></code></a></p></td>
+<td><p>Data class for <cite>BunnyMesh</cite> contains the <cite>BunnyMesh.ply</cite> from the <cite>Stanford 3D Scanning Repository</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.CrateModel.html#open3d.data.CrateModel" title="open3d.data.CrateModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CrateModel</span></code></a></p></td>
+<td><p>Data class for <cite>CrateModel</cite> contains a crate model file, along with material and various other texture files.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.DamagedHelmetModel.html#open3d.data.DamagedHelmetModel" title="open3d.data.DamagedHelmetModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DamagedHelmetModel</span></code></a></p></td>
+<td><p>Data class for <cite>DamagedHelmetModel</cite> contains a damaged helmet model file, along with material and JPG format embedded textures.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.DataDescriptor.html#open3d.data.DataDescriptor" title="open3d.data.DataDescriptor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataDescriptor</span></code></a></p></td>
+<td><p>DataDescriptor is a class that describes a data file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.Dataset.html#open3d.data.Dataset" title="open3d.data.Dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset</span></code></a></p></td>
+<td><p>The base dataset class.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.DemoColoredICPPointClouds.a3#open3d.data.DemoColoredICPPointClouds" title="open3d.data.DemoColoredICPPointClouds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DemoColoredICPPointClouds</span></code></a></p></td>
+<td><p>Data class for <cite>DemoColoredICPPointClouds</cite> contains 2 point clouds of <cite>ply</cite> format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.DemoCropPointCloud.html#open3d.data.DemoCropPointCloud" title="open3d.data.DemoCropPointCloud"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DemoCropPointCloud</span></code></a></p></td>
+<td><p>Data class for <cite>DemoCropPointCloud</cite> contains a point cloud, and <cite>cropped.json</cite> (a saved selected polygon volume file).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.DemoCustomVisualization.a5.de#open3d.data.DemoCustomVisualization" title="open3d.data.DemoCustomVisualization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DemoCustomVisualization</span></code></a></p></td>
+<td><p>Data class for <cite>DemoCustomVisualization</cite> contains an example point-cloud, camera trajectory (json file), rendering options (json file).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.DemoFeatureMatchingPointCloud#open3d.data.DemoFeatureMatchingPointClouds" title="open3d.data.DemoFeatureMatchingPointClouds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DemoFeatureMatchingPointClouds</span></code></a></p></td>
+<td><p>Data class for <cite>DemoFeatureMatchingPointClouds</cite> contains 2 pointcloud fragments and their respective FPFH features and L32D features.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.DemoICPPointClouds.html#open3d.data.DemoICPPointClouds" title="open3d.data.DemoICPPointClouds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DemoICPPointClouds</span></code></a></p></td>
+<td><p>Data class for <cite>DemoICPPointClouds</cite> contains 3 point clouds of binary PCD format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.DemoPoseGraphOptimization.a8#open3d.data.DemoPoseGraphOptimization" title="open3d.data.DemoPoseGraphOptimization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DemoPoseGraphOptimization</span></code></a></p></td>
+<td><p>Data class for <cite>DemoPoseGraphOptimization</cite> contains an example fragment pose graph, and global pose graph.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.DownloadDataset.html#open3d.data.DownloadDataset" title="open3d.data.DownloadDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DownloadDataset</span></code></a></p></td>
+<td><p>Single file download dataset class.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.EaglePointCloud.html#open3d.data.EaglePointCloud" title="open3d.data.EaglePointCloud"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EaglePointCloud</span></code></a></p></td>
+<td><p>Data class for <cite>EaglePointCloud</cite> contains the <cite>EaglePointCloud.ply</cite> file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.FlightHelmetModel.html#open3d.data.FlightHelmetModel" title="open3d.data.FlightHelmetModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FlightHelmetModel</span></code></a></p></td>
+<td><p>Data class for <cite>FlightHelmetModel</cite> contains a flight helmet GLTF model file, along with material and various other texture files.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.JackJackL515Bag.html#open3d.data.JackJackL515Bag" title="open3d.data.JackJackL515Bag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JackJackL515Bag</span></code></a></p></td>
+<td><p>Data class for <cite>SampleL515Bag</cite> contains the <cite>JackJackL515Bag.bag</cite> file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.JuneauImage.html#open3d.data.JuneauImage" title="open3d.data.JuneauImage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JuneauImage</span></code></a></p></td>
+<td><p>Data class for <cite>JuneauImage</cite> contains the <cite>JuneauImage.jpg</cite> file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.KnotMesh.html#open3d.data.KnotMesh" title="open3d.data.KnotMesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KnotMesh</span></code></a></p></td>
+<td><p>Data class for <cite>KnotMesh</cite> contains the <cite>KnotMesh.ply</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.LivingRoomPointClouds.af.dela#open3d.data.LivingRoomPointClouds" title="open3d.data.LivingRoomPointClouds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LivingRoomPointClouds</span></code></a></p></td>
+<td><p>Dataset class for <cite>LivingRoomPointClouds</cite> contains 57 point clouds of binary PLY format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.LoungeRGBDImages.html#open3d.data.LoungeRGBDImages" title="open3d.data.LoungeRGBDImages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LoungeRGBDImages</span></code></a></p></td>
+<td><p>Data class for <cite>LoungeRGBDImages</cite> contains a sample set of 3000 color and depth images from Stanford Lounge RGBD dataset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.MetalTexture.html#open3d.data.MetalTexture" title="open3d.data.MetalTexture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MetalTexture</span></code></a></p></td>
+<td><p>Data class for <cite>MetalTexture</cite> contains albedo, normal, roughness and metallic texture files for metal based material.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.MonkeyModel.html#open3d.data.MonkeyModel" title="open3d.data.MonkeyModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MonkeyModel</span></code></a></p></td>
+<td><p>Data class for <cite>MonkeyModel</cite> contains a monkey model file, along with material and various other texture files.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.OfficePointClouds.html#open3d.data.OfficePointClouds" title="open3d.data.OfficePointClouds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OfficePointClouds</span></code></a></p></td>
+<td><p>Dataset class for <cite>OfficePointClouds</cite> contains 53 point clouds of binary PLY format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.PCDPointCloud.html#open3d.data.PCDPointCloud" title="open3d.data.PCDPointCloud"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PCDPointCloud</span></code></a></p></td>
+<td><p>Data class for <cite>PCDPointCloud</cite> contains the <cite>fragment.pcd</cite> point cloud mesh from the <cite>Redwood Living Room</cite> dataset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.PLYPointCloud.html#open3d.data.PLYPointCloud" title="open3d.data.PLYPointCloud"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PLYPointCloud</span></code></a></p></td>
+<td><p>Data class for <cite>PLYPointCloud</cite> contains the <cite>fragment.pcd</cite> point cloud mesh from the <cite>Redwood Living Room</cite> dataset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.PaintedPlasterTexture.b4.dela#open3d.data.PaintedPlasterTexture" title="open3d.data.PaintedPlasterTexture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PaintedPlasterTexture</span></code></a></p></td>
+<td><p>Data class for <cite>PaintedPlasterTexture</cite> contains albedo, normal and roughness texture files for painted plaster based material.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.RedwoodIndoorLivingRoom1.b7.d#open3d.data.RedwoodIndoorLivingRoom1" title="open3d.data.RedwoodIndoorLivingRoom1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RedwoodIndoorLivingRoom1</span></code></a>(…)</p></td>
+<td><p>Data class for <cite>RedwoodIndoorLivingRoom1</cite>, containing dense point cloud, rgb sequence, clean depth sequence, noisy depth sequence, oni sequence, and ground-truth camera trajectory.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.RedwoodIndoorLivingRoom2.b8.d#open3d.data.RedwoodIndoorLivingRoom2" title="open3d.data.RedwoodIndoorLivingRoom2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RedwoodIndoorLivingRoom2</span></code></a>(…)</p></td>
+<td><p>Data class for <cite>RedwoodIndoorLivingRoom2</cite>, containing dense point cloud, rgb sequence, clean depth sequence, noisy depth sequence, oni sequence, and ground-truth camera trajectory.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.RedwoodIndoorOffice1.b9.delay#open3d.data.RedwoodIndoorOffice1" title="open3d.data.RedwoodIndoorOffice1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RedwoodIndoorOffice1</span></code></a>(Augmented ICL-NUIM Dataset)</p></td>
+<td><p>Data class for <cite>RedwoodIndoorOffice1</cite>, containing dense point cloud, rgb sequence, clean depth sequence, noisy depth sequence, oni sequence, and ground-truth camera trajectory.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.RedwoodIndoorOffice2.ba.delay#open3d.data.RedwoodIndoorOffice2" title="open3d.data.RedwoodIndoorOffice2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RedwoodIndoorOffice2</span></code></a>(Augmented ICL-NUIM Dataset)</p></td>
+<td><p>Data class for <cite>RedwoodIndoorOffice2</cite>, containing dense point cloud, rgb sequence, clean depth sequence, noisy depth sequence, oni sequence, and ground-truth camera trajectory.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.SampleFountainRGBDImages.bb.d#open3d.data.SampleFountainRGBDImages" title="open3d.data.SampleFountainRGBDImages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SampleFountainRGBDImages</span></code></a></p></td>
+<td><p>Data class for <cite>SampleFountainRGBDImages</cite> contains a sample set of 33 color and depth images from the <cite>Fountain RGBD dataset</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.SampleL515Bag.html#open3d.data.SampleL515Bag" title="open3d.data.SampleL515Bag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SampleL515Bag</span></code></a></p></td>
+<td><p>Data class for <cite>SampleL515Bag</cite> contains the <cite>SampleL515Bag.bag</cite> file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.SampleNYURGBDImage.html#open3d.data.SampleNYURGBDImage" title="open3d.data.SampleNYURGBDImage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SampleNYURGBDImage</span></code></a></p></td>
+<td><p>Data class for <cite>SampleNYURGBDImage</cite> contains a color image <cite>NYU_color.ppm</cite> and a depth image <cite>NYU_depth.pgm</cite> sample from NYU RGBD dataset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.SampleRedwoodRGBDImages.be.de#open3d.data.SampleRedwoodRGBDImages" title="open3d.data.SampleRedwoodRGBDImages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SampleRedwoodRGBDImages</span></code></a></p></td>
+<td><p>Data class for <cite>SampleRedwoodRGBDImages</cite> contains a sample set of 5 color and depth images from Redwood RGBD dataset living-room1.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.SampleSUNRGBDImage.html#open3d.data.SampleSUNRGBDImage" title="open3d.data.SampleSUNRGBDImage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SampleSUNRGBDImage</span></code></a></p></td>
+<td><p>Data class for <cite>SampleSUNRGBDImage</cite> contains a color image <cite>SUN_color.jpg</cite> and a depth image <cite>SUN_depth.png</cite> sample from SUN RGBD dataset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.SampleTUMRGBDImage.html#open3d.data.SampleTUMRGBDImage" title="open3d.data.SampleTUMRGBDImage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SampleTUMRGBDImage</span></code></a></p></td>
+<td><p>Data class for <cite>SampleTUMRGBDImage</cite> contains a color image <cite>TUM_color.png</cite> and a depth image <cite>TUM_depth.png</cite> sample from TUM RGBD dataset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.SwordModel.html#open3d.data.SwordModel" title="open3d.data.SwordModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SwordModel</span></code></a></p></td>
+<td><p>Data class for <cite>SwordModel</cite> contains a monkey model file, along with material and various other texture files.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.TerrazzoTexture.html#open3d.data.TerrazzoTexture" title="open3d.data.TerrazzoTexture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TerrazzoTexture</span></code></a></p></td>
+<td><p>Data class for <cite>TerrazzoTexture</cite> contains albedo, normal and roughness texture files for terrazzo based material.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.TilesTexture.html#open3d.data.TilesTexture" title="open3d.data.TilesTexture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TilesTexture</span></code></a></p></td>
+<td><p>Data class for <cite>TilesTexture</cite> contains albedo, normal and roughness texture files for tiles based material.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.data.WoodFloorTexture.html#open3d.data.WoodFloorTexture" title="open3d.data.WoodFloorTexture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WoodFloorTexture</span></code></a></p></td>
+<td><p>Data class for <cite>WoodFloorTexture</cite> contains albedo, normal and roughness texture files for wooden floor based material.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.data.WoodTexture.html#open3d.data.WoodTexture" title="open3d.data.WoodTexture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WoodTexture</span></code></a></p></td>
+<td><p>Data class for <cite>WoodTexture</cite> contains albedo, normal and roughness texture files for wood based material.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="open3d.data.ArmadilloMesh.html" class="btn btn-neutral float-right" title="open3d.data.ArmadilloMesh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="open3d.core.nns.NearestNeighborSearch.97" class="btn btn-neutral float-left" title="open3d.core.nns.NearestNeighborSearch" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.data.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:25 GMT -->
+</html>

@@ -1,0 +1,454 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/sensor/azure_kinect.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:48:10 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Azure Kinect with Open3D &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="RealSense with Open3D" href="realsense.html" />
+    <link rel="prev" title="Sensor" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Sensor</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Azure Kinect with Open3D</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#install-the-azure-kinect-sdk">Install the Azure Kinect SDK</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-open3d-from-pip">Install Open3D from Pip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compile-from-source">Compile from Source</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#open3d-azure-kinect-viewer">Open3D Azure Kinect Viewer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#open3d-azure-kinect-recorder">Open3D Azure Kinect Recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#open3d-azure-kinect-mkv-reader">Open3D Azure Kinect MKV Reader</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="realsense.html">RealSense with Open3D</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Sensor</a> &raquo;</li>
+        
+      <li>Azure Kinect with Open3D</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="azure-kinect-with-open3d">
+<span id="azure-kinect"></span><h1>Azure Kinect with Open3D<a class="headerlink" href="#azure-kinect-with-open3d" title="Permalink to this headline">¶</a></h1>
+<p>Azure Kinect is only officially supported on Windows and Ubuntu 18.04.</p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-the-azure-kinect-sdk">
+<h3>Install the Azure Kinect SDK<a class="headerlink" href="#install-the-azure-kinect-sdk" title="Permalink to this headline">¶</a></h3>
+<p>Follow <a class="reference external" href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK">this guide</a>
+to install the Azure Kinect SDK (K4A).</p>
+<p>On Ubuntu, you’ll need to set up a udev rule to use the Kinect camera without
+<code class="docutils literal notranslate"><span class="pre">sudo</span></code>. Follow
+<a class="reference external" href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/develop/docs/usage.md#linux-device-setup">these instructions</a>.</p>
+<p>After installation, you may run <code class="docutils literal notranslate"><span class="pre">k4aviewer</span></code> from the Linux terminal or
+<code class="docutils literal notranslate"><span class="pre">k4aviewer.exe</span></code> on Windows to make sure that the device is working.</p>
+<p>Currently, Open3D supports the Azure Kinect SDK version <code class="docutils literal notranslate"><span class="pre">v1.4.1</span></code>, though future
+versions might also be compatible.</p>
+</div>
+<div class="section" id="install-open3d-from-pip">
+<h3>Install Open3D from Pip<a class="headerlink" href="#install-open3d-from-pip" title="Permalink to this headline">¶</a></h3>
+<p>If you’re using Open3D installed via Pip, Open3D’s Azure Kinect features
+should work out-of-the box if K4A is installed in the system in the recommended
+way. Open3D will try to load the K4A dynamic library automatically at runtime,
+when a K4A related feature within Open3D is used.</p>
+<p>On Ubuntu, the default search path
+follows the Linux <a class="reference external" href="https://unix.stackexchange.com/a/22999/130082">convention</a>.</p>
+<p>On Windows, Open3D will try to load the shared library from the default
+installation path. For example, for K4A <code class="docutils literal notranslate"><span class="pre">v1.4.1</span></code>, the default path is
+<code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files\Azure</span> <span class="pre">Kinect</span> <span class="pre">SDK</span> <span class="pre">v1.4.1</span></code>. If this doesn’t work, copy
+<code class="docutils literal notranslate"><span class="pre">depthengine_x_x.dll</span></code>, <code class="docutils literal notranslate"><span class="pre">k4a.dll</span></code> and <code class="docutils literal notranslate"><span class="pre">k4arecord.dll</span></code> to where Open3D
+Python module is installed if you’re using Open3D with Python, or to the same
+directory as your C++ executable.</p>
+<p>You can get Open3D’s Python module path with the following command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import open3d as o3d; import os; print(os.path.dirname(o3d.__file__))&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="compile-from-source">
+<h3>Compile from Source<a class="headerlink" href="#compile-from-source" title="Permalink to this headline">¶</a></h3>
+<p>To build Open3D from source with K4A support, set <code class="docutils literal notranslate"><span class="pre">BUILD_AZURE_KINECT=ON</span></code> at
+CMake config step. That is,</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_AZURE_KINECT<span class="o">=</span>ON<span class="w"> </span>-DOTHER_FLAGS<span class="w"> </span>..
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="open3d-azure-kinect-viewer">
+<h2>Open3D Azure Kinect Viewer<a class="headerlink" href="#open3d-azure-kinect-viewer" title="Permalink to this headline">¶</a></h2>
+<p>Open3D Azure Kinect Viewer is used for previewing RGB and depth image stream
+captured by the Azure Kinect sensor.</p>
+<p>Open3D provides Python and C++ example code of Azure Kinect viewer. Please
+see <code class="docutils literal notranslate"><span class="pre">examples/cpp/AzureKinectViewer.cpp</span></code> and
+<code class="docutils literal notranslate"><span class="pre">examples/python/reconstruction_system/sensors/azure_kinect_viewer.py</span></code>
+for details.</p>
+<p>We’ll use the Python version as an example.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>examples/python/reconstruction_system/sensors/azure_kinect_viewer.py<span class="w"> </span>--align_depth_to_color
+</pre></div>
+</div>
+<img alt="azure_kinect_viewer_aligned.png" src="../../../../../storage.googleapis.com/open3d-bin/docs/images/azure_kinect_viewer_aligned.2f6.de" />
+<p>When recording at a higher resolution at a high framerate, sometimes it is
+helpful to use the raw depth image without transformation to reduce computation.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>examples/python/reconstruction_system/sensors/azure_kinect_viewer.py
+</pre></div>
+</div>
+<img alt="azure_kinect_viewer_unaligned.png" src="../../../../../storage.googleapis.com/open3d-bin/docs/images/azure_kinect_viewer_unaligned.2f7" />
+<p>When the visualizer window is active, press <code class="docutils literal notranslate"><span class="pre">ESC</span></code> to quit the viewer.</p>
+<p>You may also specify the sensor config with a <code class="docutils literal notranslate"><span class="pre">json</span></code> file.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>examples/python/reconstruction_system/sensors/azure_kinect_viewer.py<span class="w"> </span>--config<span class="w"> </span>config.json
+</pre></div>
+</div>
+<p>An sensor config will look like the following. For the full list of available
+configs, refer to <a class="reference external" href="https://github.com/microsoft/Azure-Kinect-Sensor-SDK/blob/develop/include/k4a/k4atypes.h">this file</a>.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;camera_fps&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;K4A_FRAMES_PER_SECOND_30&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;color_format&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;K4A_IMAGE_FORMAT_COLOR_MJPG&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;color_resolution&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;K4A_COLOR_RESOLUTION_720P&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;depth_delay_off_color_usec&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;depth_mode&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;K4A_DEPTH_MODE_WFOV_2X2BINNED&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;disable_streaming_indicator&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;false&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;subordinate_delay_off_master_usec&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;synchronized_images_only&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;false&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;wired_sync_mode&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;K4A_WIRED_SYNC_MODE_STANDALONE&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="open3d-azure-kinect-recorder">
+<h2>Open3D Azure Kinect Recorder<a class="headerlink" href="#open3d-azure-kinect-recorder" title="Permalink to this headline">¶</a></h2>
+<p>Open3D Azure Kinect Viewer is used for recording RGB and depth image stream
+to an MKV file.</p>
+<p>Open3D provides Python and C++ example code of Azure Kinect viewer. Please
+see <code class="docutils literal notranslate"><span class="pre">examples/cpp/AzureKinectRecord.cpp</span></code> and
+<code class="docutils literal notranslate"><span class="pre">examples/python/reconstruction_system/sensors/azure_kinect_recorder.py</span></code>
+for details.</p>
+<p>We’ll use the Python version as an example.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>examples/python/reconstruction_system/sensors/azure_kinect_recorder.py<span class="w"> </span>--output<span class="w"> </span>record.mkv
+</pre></div>
+</div>
+<p>You may optionally specify the camera config when running the recorder script.</p>
+<p>When the visualizer window is active, press <code class="docutils literal notranslate"><span class="pre">SPACE</span></code> to start or pause the
+recording or press <code class="docutils literal notranslate"><span class="pre">ESC</span></code> to quit the recorder.</p>
+<img alt="azure_kinect_recorder.png" src="../../../../../storage.googleapis.com/open3d-bin/docs/images/azure_kinect_recorder.png" />
+</div>
+<div class="section" id="open3d-azure-kinect-mkv-reader">
+<h2>Open3D Azure Kinect MKV Reader<a class="headerlink" href="#open3d-azure-kinect-mkv-reader" title="Permalink to this headline">¶</a></h2>
+<p>The recorded MKV file uses K4A’s custom format which contains both RGB and depth
+information. The regular video player may only support playing back the color channel
+or not supporting the format at all. To view the customized MKV file, use the
+Open3D Azure Kinect MKV Reader.</p>
+<p>Open3D provides Python and C++ example code of Open3D Azure Kinect MKV Reader.
+Please see <code class="docutils literal notranslate"><span class="pre">examples/cpp/AzureKinectMKVReader.cpp</span></code> and
+<code class="docutils literal notranslate"><span class="pre">examples/python/reconstruction_system/sensors/azure_kinect_mkv_reader.py</span></code>
+for details.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>examples/python/reconstruction_system/sensors/azure_kinect_mkv_reader.py<span class="w"> </span>--input<span class="w"> </span>record.mkv
+</pre></div>
+</div>
+<img alt="azure_kinect_mkv_reader.png" src="../../../../../storage.googleapis.com/open3d-bin/docs/images/azure_kinect_mkv_reader.2f9.delaye" />
+<p>Note that even though the recorder records the unaligned raw depth image, the
+reader can correctly wrap the depth image to align with the color image.</p>
+<p>To convert the MKV video to color and depth image frames, specify the <code class="docutils literal notranslate"><span class="pre">--output</span></code>
+flag.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>examples/python/reconstruction_system/sensors/azure_kinect_mkv_reader.py<span class="w"> </span>--input<span class="w"> </span>record.mkv<span class="w"> </span>--output<span class="w"> </span>frames
+</pre></div>
+</div>
+<img alt="azure_kinect_mkv_reader_extract.png" src="../../../../../storage.googleapis.com/open3d-bin/docs/images/azure_kinect_mkv_reader_extract.2f" />
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="realsense.html" class="btn btn-neutral float-right" title="RealSense with Open3D" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Sensor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/sensor/azure_kinect.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:48:24 GMT -->
+</html>

@@ -1,0 +1,681 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/visualization/tensorboard_plugin.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:46:07 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Open3D for TensorBoard &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Core" href="../core/index.html" />
+    <link rel="prev" title="Web visualizer and Jupyter" href="web_visualizer.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Visualization</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="visualization.html">Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customized_visualization.53.d">Customized visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactive_visualization.54">Interactive visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="non_blocking_visualization.55">Non-blocking visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="headless_rendering.html">Headless rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpu_rendering.html">CPU (Software) Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_visualizer.html">Web visualizer and Jupyter</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Open3D for TensorBoard</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#simple-geometry-sequences">Simple geometry sequences</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tensorflow-users">TensorFlow users</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#rich-3d-models-with-pbr-materials">Rich 3D models with PBR materials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dml-models-training-and-inference">3DML models training and inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-properties-and-semantic-segmentation">Custom properties and semantic segmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#d-object-detection">3D object detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Visualization</a> &raquo;</li>
+        
+      <li>Open3D for TensorBoard</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="open3d-for-tensorboard">
+<span id="tensorboard-plugin"></span><h1>Open3D for TensorBoard<a class="headerlink" href="#open3d-for-tensorboard" title="Permalink to this headline">¶</a></h1>
+<p>Now you can use Open3D within TensorBoard for interactive 3D visualization. Here
+are some of the exciting features:</p>
+<ul class="simple">
+<li><p>Save and visualize geometry sequences along with their properties. Watch how
+your 3D data updates over training or any processing steps and gain deeper
+insight into your 3D algorithms.</p></li>
+<li><p>Support for PBR materials. Your 3D data and models will look as amazing in
+Tensorboard as in Open3D. Your materials can also change over algorithm
+steps.</p></li>
+<li><p>Dedicated support for visualizing 3D semantic segmentation and 3D object
+detection input data, ground truth and results. Customize your data
+visualization through in-browser controls. In addition, any scalar or vector
+custom property can be visualized for point clouds to help you debug your 3D
+algorithms easily.</p></li>
+<li><p>Easily compare results from different runs of your algorithm with features
+such as synchronized time step and viewpoint.</p></li>
+</ul>
+<p><span class="raw-html-m2r"><img src="../../../../../raw.githubusercontent.com/isl-org/Open3D-ML/f7f567389bdc/tensorboard_demo_scene"
+title="Tensorboard demo scene"
+alt="Tensorboard demo scene"
+style="width:80%;display:block;margin:auto"></img></span></p>
+<p>You can save 3D data as TensorBoard summary when working with either TensorFlow
+or PyTorch. The 3D data is saved as ‘.msgpack’ files (serialized Open3D geometry
+data) in the <code class="docutils literal notranslate"><span class="pre">plugins/Open3D</span></code> sub-folder with the event files. The examples
+described below are available in the
+<code class="docutils literal notranslate"><span class="pre">examples/python/gui/tensorboard_pytorch.py</span></code> and
+<code class="docutils literal notranslate"><span class="pre">examples/python/gui/tensorboard_tensorflow.py</span></code> files in the Open3D
+repository. Also see the
+<code class="docutils literal notranslate"><span class="pre">add_3d()</span></code> function documentation for a complete description of supported 3D
+geometry and material properties.</p>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle"><strong>Note:</strong></p>
+<p>Summary writing works on all platforms, and the visualization can be accessed
+from a browser on any platform. Running the tensorboard process is not supported
+on macOS as yet.</p>
+</div><div class="section" id="simple-geometry-sequences">
+<h2>Simple geometry sequences<a class="headerlink" href="#simple-geometry-sequences" title="Permalink to this headline">¶</a></h2>
+<p>To get started, let’s save and visualize simple geometry data such as a cube and
+cylinder. The color of the model changes at each step. First, we will setup the
+required imports and create some simple geometry data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="c1"># Monkey-patch torch.utils.tensorboard.SummaryWriter</span>
+<span class="kn">from</span> <span class="nn">open3d.visualization.tensorboard_plugin</span> <span class="kn">import</span> <span class="n">summary</span>
+<span class="c1"># Utility function to convert Open3D geometry to a dictionary format</span>
+<span class="kn">from</span> <span class="nn">open3d.visualization.tensorboard_plugin.util</span> <span class="kn">import</span> <span class="n">to_dict_batch</span>
+<span class="kn">from</span> <span class="nn">torch.utils.tensorboard</span> <span class="kn">import</span> <span class="n">SummaryWriter</span>
+
+<span class="n">cube</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_box</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">cube</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+<span class="n">cylinder</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_cylinder</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                                                     <span class="n">height</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+                                                     <span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                                                     <span class="n">split</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">cylinder</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Now lets write this as a summary.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">logdir</span> <span class="o">=</span> <span class="s2">&quot;demo_logs/pytorch/small_scale&quot;</span>
+<span class="n">writer</span> <span class="o">=</span> <span class="n">SummaryWriter</span><span class="p">(</span><span class="n">logdir</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">cube</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">step</span><span class="p">])</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">add_3d</span><span class="p">(</span><span class="s1">&#39;cube&#39;</span><span class="p">,</span> <span class="n">to_dict_batch</span><span class="p">([</span><span class="n">cube</span><span class="p">]),</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+    <span class="n">cylinder</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">step</span><span class="p">])</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">add_3d</span><span class="p">(</span><span class="s1">&#39;cylinder&#39;</span><span class="p">,</span> <span class="n">to_dict_batch</span><span class="p">([</span><span class="n">cylinder</span><span class="p">]),</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="tensorflow-users">
+<h3>TensorFlow users<a class="headerlink" href="#tensorflow-users" title="Permalink to this headline">¶</a></h3>
+<p>The repository contains code examples for both PyTorch and TensorFlow. Here is
+the corresponding TensorFlow code. The main differences to note are that
+<code class="docutils literal notranslate"><span class="pre">add_3d()</span></code> is an independent function in the module
+<code class="docutils literal notranslate"><span class="pre">open3d.visualization.tensorboard_plugin.summary</span></code> and requires a <code class="docutils literal notranslate"><span class="pre">logdir</span></code>
+argument. TensorFlow tensors are also accepted in <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">from</span> <span class="nn">open3d.visualization.tensorboard_plugin</span> <span class="kn">import</span> <span class="n">summary</span>
+<span class="c1"># Utility function to convert Open3D geometry to a dictionary format</span>
+<span class="kn">from</span> <span class="nn">open3d.visualization.tensorboard_plugin.util</span> <span class="kn">import</span> <span class="n">to_dict_batch</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="c1"># ... geometry creation code as above ...</span>
+<span class="n">logdir</span> <span class="o">=</span> <span class="s2">&quot;demo_logs/tf/small_scale&quot;</span>
+<span class="n">writer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">create_file_writer</span><span class="p">(</span><span class="n">logdir</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">writer</span><span class="o">.</span><span class="n">as_default</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">cube</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">step</span><span class="p">])</span>
+        <span class="n">summary</span><span class="o">.</span><span class="n">add_3d</span><span class="p">(</span><span class="s1">&#39;cube&#39;</span><span class="p">,</span> <span class="n">to_dict_batch</span><span class="p">([</span><span class="n">cube</span><span class="p">]),</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span> <span class="n">logdir</span><span class="o">=</span><span class="n">logdir</span><span class="p">)</span>
+        <span class="n">cylinder</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">step</span><span class="p">])</span>
+        <span class="n">summary</span><span class="o">.</span><span class="n">add_3d</span><span class="p">(</span><span class="s1">&#39;cylinder&#39;</span><span class="p">,</span> <span class="n">to_dict_batch</span><span class="p">([</span><span class="n">cylinder</span><span class="p">]),</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span>
+                       <span class="n">logdir</span><span class="o">=</span><span class="n">logdir</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can run this example either by pasting the code above in a Python prompt, or
+running the example as:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>examples/python/gui/tensorboard_pytorch.py<span class="w"> </span>small_scale
+</pre></div>
+</div>
+<p>Now start tensorboard to visualize the data with:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>tensorboard<span class="w"> </span>--logdir<span class="w"> </span>demo_logs/pytorch
+</pre></div>
+</div>
+<p>In a Jupyter notebook, you can instead use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">load_ext</span> <span class="n">tensorboard</span>
+<span class="o">%</span><span class="n">tensorboard</span> <span class="o">--</span><span class="n">logdir</span> <span class="n">demo_logs</span><span class="o">/</span><span class="n">pytorch</span>
+</pre></div>
+</div>
+<p><span class="raw-html-m2r"><img src=../../../../../github.com/isl-org/Open3D-ML/raw/f7f567389bdc9e8b5e8dc1c/tensorboard_small_scale
+title="Tensorboard small_scale example"
+alt="Tensorboard small_scale example"
+style="width:80%;display:block;margin:auto"></img></span></p>
+<p>The widget showing each run is an <code class="docutils literal notranslate"><span class="pre">O3DVisualizer</span></code> window displayed over WebRTC,
+so all Open3D controls (such as zoom, pan, rotate view, change Sunlight
+direction, etc.) are available. Click the gear icon on the top right of the
+window to access more controls such as the background color and point size.</p>
+<p>Note that in this example, only the colors change while the vertices, edges and
+normals are the same at each step. We can instruct Open3D to reuse geometry
+properties from an earlier step, instead of writing redundant data to the
+summary files. Replace the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop above with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+       <span class="n">cube</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">step</span><span class="p">])</span>
+       <span class="n">cube_summary</span> <span class="o">=</span> <span class="n">to_dict_batch</span><span class="p">([</span><span class="n">cube</span><span class="p">])</span>
+       <span class="k">if</span> <span class="n">step</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+           <span class="n">cube_summary</span><span class="p">[</span><span class="s1">&#39;vertex_positions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+           <span class="n">cube_summary</span><span class="p">[</span><span class="s1">&#39;vertex_normals&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+       <span class="n">writer</span><span class="o">.</span><span class="n">add_3d</span><span class="p">(</span><span class="s1">&#39;cube&#39;</span><span class="p">,</span> <span class="n">cube_summary</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+       <span class="n">cylinder</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">step</span><span class="p">])</span>
+       <span class="n">cylinder_summary</span> <span class="o">=</span> <span class="n">to_dict_batch</span><span class="p">([</span><span class="n">cylinder</span><span class="p">])</span>
+       <span class="k">if</span> <span class="n">step</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+           <span class="n">cylinder_summary</span><span class="p">[</span><span class="s1">&#39;vertex_positions&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+           <span class="n">cylinder_summary</span><span class="p">[</span><span class="s1">&#39;vertex_normals&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+       <span class="n">writer</span><span class="o">.</span><span class="n">add_3d</span><span class="p">(</span><span class="s1">&#39;cylinder&#39;</span><span class="p">,</span> <span class="n">cylinder_summary</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The geometry property tensor is replaced with an integer (step reference)
+pointing to an earlier step as a source of this geometry property. You can run
+this example with</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>examples/python/gui/tensorboard_pytorch.py<span class="w"> </span>property_reference
+</pre></div>
+</div>
+<p>The summary folder size will be smaller, but you will see the same geometry
+displayed in tensorboard.</p>
+</div>
+</div>
+<div class="section" id="rich-3d-models-with-pbr-materials">
+<h2>Rich 3D models with PBR materials<a class="headerlink" href="#rich-3d-models-with-pbr-materials" title="Permalink to this headline">¶</a></h2>
+<p>In addition to geometry properties, we can save and visualize rich 3D models
+using PBR material properties.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model_dir</span> <span class="o">=</span> <span class="s2">&quot;examples/test_data/monkey&quot;</span>
+<span class="n">logdir</span> <span class="o">=</span> <span class="s2">&quot;demo_logs/pytorch/monkey&quot;</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="s2">&quot;monkey.obj&quot;</span><span class="p">)))</span>
+<span class="c1"># Create geometry dict</span>
+<span class="n">summary_3d</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;vertex_positions&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">vertex</span><span class="p">[</span><span class="s2">&quot;positions&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;vertex_normals&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">vertex</span><span class="p">[</span><span class="s2">&quot;normals&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;triangle_texture_uvs&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">triangle</span><span class="p">[</span><span class="s2">&quot;texture_uvs&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;triangle_indices&quot;</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">triangle</span><span class="p">[</span><span class="s2">&quot;indices&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;material_name&quot;</span><span class="p">:</span> <span class="s2">&quot;defaultLit&quot;</span>
+<span class="p">}</span>
+<span class="c1"># translate material property names (from texture map file names) to Open3D</span>
+<span class="c1"># names, if needed.</span>
+<span class="n">names_to_o3dprop</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ao&quot;</span><span class="p">:</span> <span class="s2">&quot;ambient_occlusion&quot;</span><span class="p">}</span>
+
+<span class="k">for</span> <span class="n">texture</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;albedo&quot;</span><span class="p">,</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="s2">&quot;ao&quot;</span><span class="p">,</span> <span class="s2">&quot;metallic&quot;</span><span class="p">,</span> <span class="s2">&quot;roughness&quot;</span><span class="p">):</span>
+    <span class="n">texture_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_dir</span><span class="p">,</span> <span class="n">texture</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">texture_file</span><span class="p">):</span>
+        <span class="n">texture</span> <span class="o">=</span> <span class="n">names_to_o3dprop</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">texture</span><span class="p">,</span> <span class="n">texture</span><span class="p">)</span>
+        <span class="n">summary_3d</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="p">(</span><span class="s2">&quot;material_texture_map_&quot;</span> <span class="o">+</span> <span class="n">texture</span><span class="p">):</span>
+                <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">texture_file</span><span class="p">)</span>
+        <span class="p">})</span>
+        <span class="c1"># &quot;metallic&quot; texture map needs the base metallic scalar property.</span>
+        <span class="k">if</span> <span class="n">texture</span> <span class="o">==</span> <span class="s2">&quot;metallic&quot;</span><span class="p">:</span>
+            <span class="n">summary_3d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">material_scalar_metallic</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+
+<span class="n">writer</span> <span class="o">=</span> <span class="n">SummaryWriter</span><span class="p">(</span><span class="n">logdir</span><span class="p">)</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">add_3d</span><span class="p">(</span><span class="s2">&quot;monkey&quot;</span><span class="p">,</span> <span class="n">summary_3d</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><span class="raw-html-m2r"><img src=../../../../../github.com/isl-org/Open3D-ML/raw/f7f567389bdc9e8b5e8dc1c/tensorboard_monkey.2ee
+title="Tensorboard materials example"
+alt="Tensorboard materials example"
+style="width:80%;display:block;margin:auto"></img></span></p>
+<p>PBR material properties may be either scalar (such as <code class="docutils literal notranslate"><span class="pre">metallic</span></code>) or a 4 element
+vector (such as <code class="docutils literal notranslate"><span class="pre">base_color</span></code>) for properties that are uniform for the entire
+geometry. Spatially varying material properties are represented as texture map
+images and are mapped to the geometry surface based on the UV coordinates. So,
+UV coordinates (one of <code class="docutils literal notranslate"><span class="pre">vertex_texture_uvs</span></code> or <code class="docutils literal notranslate"><span class="pre">triangle_texture_uvs</span></code>) must be
+provided with any texture map. The keys for the properties are of the form
+<code class="docutils literal notranslate"><span class="pre">material_[TYPE]_[PROP_NAME]</span></code> where <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> is <code class="docutils literal notranslate"><span class="pre">scalar</span></code>, <code class="docutils literal notranslate"><span class="pre">vector</span></code> or
+<code class="docutils literal notranslate"><span class="pre">texture_map</span></code>. In the example above, the keys used were
+<code class="docutils literal notranslate"><span class="pre">material_texture_map_albedo</span></code>, <code class="docutils literal notranslate"><span class="pre">material_texture_map_normal</span></code>,
+<code class="docutils literal notranslate"><span class="pre">material_texture_map_ambient_occlusion</span></code>, <code class="docutils literal notranslate"><span class="pre">material_texture_map_metallic</span></code> and
+<code class="docutils literal notranslate"><span class="pre">material_texture_map_roughness</span></code>. We also provide a <code class="docutils literal notranslate"><span class="pre">material_name</span></code> that
+specifies the Open3D material shader used.</p>
+</div>
+<div class="section" id="dml-models-training-and-inference">
+<h2>3DML models training and inference<a class="headerlink" href="#dml-models-training-and-inference" title="Permalink to this headline">¶</a></h2>
+<p>3DML models from Open3D have built in support for visualizing input data, ground
+truth and network predictions. Edit the YAML configuration files for your
+model+dataset combination in the <code class="docutils literal notranslate"><span class="pre">ml3d/configs</span></code> folder in the Open3D-ML
+repository to start saving summary 3D data:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Open3D for Tensorboard summary (3D data)</span>
+<span class="nt">summary</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Record summary in these stages (from train, valid, test)</span>
+<span class="w">  </span><span class="nt">record_for</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;valid&#39;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="c1"># Subsample point cloud if n_pts exceeds this value. Empty =&gt; save all</span>
+<span class="w">  </span><span class="c1"># points in the summary.</span>
+<span class="w">  </span><span class="nt">max_pts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
+<span class="w">  </span><span class="c1"># Only write input point cloud in the first epoch. In other epochs, use</span>
+<span class="w">  </span><span class="c1"># reference to the first step. Do not use if each epoch has a different</span>
+<span class="w">  </span><span class="c1"># order of minibatches. Do not use for RandLaNet or KPConv.</span>
+<span class="w">  </span><span class="nt">use_reference</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="c1"># Write at most this many samples in each batch</span>
+<span class="w">  </span><span class="nt">max_outputs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p>This configuration will only save summary data during the validation stage. Each
+point cloud will be uniformly sub-sampled to a maximum of 10000 points. From
+each batch of data, only the first element will be saved. The <code class="docutils literal notranslate"><span class="pre">use_reference</span></code>
+flag will only save point clouds for the first epoch and enter references to
+that data for the remaining epochs. This will greatly reduce the size of your 3D
+summaries as well as improving the responsiveness of visualization. But you
+should not use this if each epoch goes through the mini-batches in a different
+order.</p>
+<p>Now you can visualize the data in TensorBoard as before. The web interface
+allows showing and hiding points with different classes, changing their colors,
+and exploring predictions and intermediate network features.  Scalar network
+features can be visualized with custom user editable colormaps, and 3D features
+can be visualized as RGB colors. Here is a video showing the different ways in
+which semantic segmentation summary data can be visualized in TensorBoard.</p>
+<video controls title="Tensorboard semantic segmentation and custom data example"
+alt="Tensorboard semantic segmentation and custom data example"
+style="width:100%;display:block;margin:auto">
+<source src="https://user-images.githubusercontent.com/41028320/142569952-1c358cec-1632-409e-992b-cd62f792d81e.mov" type="video/webm">
+</video><p><a class="reference external" href="https://user-images.githubusercontent.com/41028320/142569952-1c358cec-1632-409e-992b-cd62f792d81e.mov">[download]</a></p>
+<p>And this one shows different ways of visualizing object detection data,
+including bounding boxes.</p>
+<video controls title="Tensorboard object detection example"
+alt="Tensorboard object detection example"
+style="width:100%;display:block;margin:auto">
+<source src="https://user-images.githubusercontent.com/41028320/142569965-786fafde-17b6-4adb-8e23-388d9bb4aac9.mov" type="video/webm">
+</video><p><a class="reference external" href="https://user-images.githubusercontent.com/41028320/142569965-786fafde-17b6-4adb-8e23-388d9bb4aac9.mov">[download]</a></p>
+<p>You can also visualize multiple runs in side by side widgets. To make it easy to
+compare data from different runs, The step,batch index and viewpoint of different
+runs can also be synchronized.</p>
+<video controls title="Tensorboard synchronized view example"
+alt="Tensorboard synchronized view example"
+style="width:100%;display:block;margin:auto">
+<source src="https://user-images.githubusercontent.com/41028320/142570826-5b09b3a4-e153-4d34-98c0-31caf529c3fe.mov" type="video/webm">
+</video><p><a class="reference external" href="https://user-images.githubusercontent.com/41028320/142570826-5b09b3a4-e153-4d34-98c0-31caf529c3fe.mov">[download]</a></p>
+<p>Next lets look at how to save 3D summaries from your own training code. The
+examples below are in the <code class="docutils literal notranslate"><span class="pre">examples/</span></code> folder in the Open3D-ML
+repository.</p>
+</div>
+<div class="section" id="custom-properties-and-semantic-segmentation">
+<h2>Custom properties and semantic segmentation<a class="headerlink" href="#custom-properties-and-semantic-segmentation" title="Permalink to this headline">¶</a></h2>
+<p>We will read sample 3D point clouds and labels from disk and write them to a 3D
+summary. We will also write some random scores and features to disk. The
+workflow is the same when you want to write data during model training. Data may
+be written as PyTorch, TensorFlow, or Open3D tensors or Numpy arrays.  See
+<code class="docutils literal notranslate"><span class="pre">examples/tensorboard_pytorch.py</span></code> or <code class="docutils literal notranslate"><span class="pre">examples/tensorboard_tf.py</span></code> in the
+Open3D-ML repository for the complete example.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">writer</span> <span class="o">=</span> <span class="n">SummaryWriter</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_LOGDIR</span><span class="p">,</span> <span class="s2">&quot;semseg-example&quot;</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pcd_files</span><span class="p">)):</span>
+    <span class="c1"># We will pretend these are the inputs and outputs of a Semantic</span>
+    <span class="c1"># Segmentation model</span>
+    <span class="c1"># float, shape (N, 3), or (B, N, 3) for a batch</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pcd_files</span><span class="p">[</span><span class="n">step</span><span class="p">])</span>
+    <span class="c1"># int, shape (N, 1), or (B, N, 1) for a batch</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">label_files</span><span class="p">[</span><span class="n">step</span><span class="p">])</span>
+    <span class="c1"># We can also visualize noisy scores (car, road, vegetation)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">labels</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">labels</span> <span class="o">==</span> <span class="mi">9</span><span class="p">,</span> <span class="n">labels</span> <span class="o">==</span> <span class="mi">15</span><span class="p">))</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">scores</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">scores</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="mf">0.</span><span class="p">,</span>
+                     <span class="mf">1.</span><span class="p">)</span>
+    <span class="c1"># and outputs of some pretend network layers. The first 3 dimensions</span>
+    <span class="c1"># can be visualized as RGB colors. Here we will use distances from the</span>
+    <span class="c1"># centroids of (all points, road, vegetation).</span>
+    <span class="n">centroid_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">d_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">points</span> <span class="o">-</span> <span class="n">centroid_all</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">centroid_road</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">==</span> <span class="mi">9</span><span class="p">,</span> <span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">d_road</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">points</span> <span class="o">-</span> <span class="n">centroid_road</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">centroid_vegetation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">==</span> <span class="mi">15</span><span class="p">,</span> <span class="p">:],</span>
+                                  <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">d_vegetation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">points</span> <span class="o">-</span> <span class="n">centroid_vegetation</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">d_all</span><span class="p">,</span> <span class="n">d_road</span><span class="p">,</span> <span class="n">d_vegetation</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># You can use Torch tensors directly too.</span>
+    <span class="c1"># Prefix the data with &quot;vertex_&quot; for per vertex data.</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">add_3d</span><span class="p">(</span>
+        <span class="s2">&quot;semantic_segmentation&quot;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;vertex_positions&quot;</span><span class="p">:</span> <span class="n">points</span><span class="p">,</span>  <span class="c1"># (N, 3)</span>
+            <span class="s2">&quot;vertex_labels&quot;</span><span class="p">:</span> <span class="n">labels</span><span class="p">,</span>  <span class="c1"># (N, 1)</span>
+            <span class="s2">&quot;vertex_scores&quot;</span><span class="p">:</span> <span class="n">scores</span><span class="p">,</span>  <span class="c1"># (N, 3)</span>
+            <span class="s2">&quot;vertex_features&quot;</span><span class="p">:</span> <span class="n">features</span>  <span class="c1"># (N, 3)</span>
+        <span class="p">},</span>
+        <span class="n">step</span><span class="p">,</span>
+        <span class="n">label_to_names</span><span class="o">=</span><span class="n">SEMANTIC_KITTI_LABELS</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="d-object-detection">
+<h2>3D object detection<a class="headerlink" href="#d-object-detection" title="Permalink to this headline">¶</a></h2>
+<p>Similar to semantic segmentation, we can save and visualize input point clouds,
+and output bounding box ground truth and predictions from object detection
+models.  In the next example, we will read sample 3D point clouds and bounding
+boxes from disk and write them to a 3D summary. The workflow is the same when
+you want to write data during model training. Data may be written as PyTorch,
+TensorFlow, or Open3D tensors or Numpy arrays.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">writer</span> <span class="o">=</span> <span class="n">SummaryWriter</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_LOGDIR</span><span class="p">,</span> <span class="s2">&quot;objdet-example&quot;</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val_split</span><span class="p">)):</span>  <span class="c1"># one pointcloud per step</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">val_split</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">step</span><span class="p">)</span>
+    <span class="c1"># We will pretend these are the inputs and outputs of an Object</span>
+    <span class="c1"># Detection model. You can use Torch tensors directly too.</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">add_3d</span><span class="p">(</span>
+        <span class="s2">&quot;input_pointcloud&quot;</span><span class="p">,</span>
+        <span class="p">{</span>  <span class="c1"># float, shape (N, 3), or (B, N, 3) for a batch</span>
+            <span class="s2">&quot;vertex_positions&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;point&#39;</span><span class="p">][:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">],</span>
+            <span class="c1"># Extra features: float, shape (N, 1), or (B, N, 1) for a batch</span>
+            <span class="c1"># [should not be (N,)]</span>
+            <span class="s2">&quot;vertex_intensities&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;point&#39;</span><span class="p">][:,</span> <span class="mi">3</span><span class="p">:]</span>
+        <span class="p">},</span>
+        <span class="n">step</span><span class="p">)</span>
+    <span class="c1"># We need label_class to be int, not str</span>
+    <span class="k">for</span> <span class="n">bb</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;bounding_boxes&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bb</span><span class="o">.</span><span class="n">label_class</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">bb</span><span class="o">.</span><span class="n">label_class</span> <span class="o">=</span> <span class="n">name_to_labels</span><span class="p">[</span><span class="n">bb</span><span class="o">.</span><span class="n">label_class</span><span class="p">]</span>
+    <span class="c1"># Bounding boxes (pretend model output): (Nbb, ) or (B, Nbb) for a batch</span>
+    <span class="c1"># Write bounding boxes in a separate call.</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">add_3d</span><span class="p">(</span><span class="s2">&quot;object_detection&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;bboxes&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;bounding_boxes&#39;</span><span class="p">]},</span>
+                  <span class="n">step</span><span class="p">,</span>
+                  <span class="n">label_to_names</span><span class="o">=</span><span class="n">dset</span><span class="o">.</span><span class="n">get_label_to_names</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<p>If you cannot interact with the 3D model, or use controls in the WebRTC widget,
+make sure that Allow Autoplay is enabled for the Tensorboard web site and reload.</p>
+<p><span class="raw-html-m2r"><img src=../../../../../user-images.githubusercontent.com/41028320/180485249-5233b65e-11b1-44ff-bfc4-35f
+title="Allow Autoplay for correct behavior."
+alt="Allow Autoplay for correct behavior."
+style="width:80%;display:block;margin:auto"></img></span></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../core/index.html" class="btn btn-neutral float-right" title="Core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="web_visualizer.html" class="btn btn-neutral float-left" title="Web visualizer and Jupyter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/visualization/tensorboard_plugin.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:46:07 GMT -->
+</html>

@@ -1,0 +1,1402 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.t.geometry.TriangleMesh.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:05 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>open3d.t.geometry.TriangleMesh &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="open3d.t.geometry.VoxelBlockGrid" href="open3d.t.geometry.VoxelBlockGrid.12c.dela" />
+    <link rel="prev" title="open3d.t.geometry.TensorMap" href="open3d.t.geometry.TensorMap.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="open3d.t.html">open3d.t</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="open3d.t.geometry.html">geometry</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.AxisAlignedBoundingBox">AxisAlignedBoundingBox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.DrawableGeometry.122.de">DrawableGeometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.Geometry.html">Geometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.Image.html">Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.InterpType.html">InterpType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.LineSet.html">LineSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.OrientedBoundingBox.126">OrientedBoundingBox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.PointCloud.html">PointCloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.RGBDImage.html">RGBDImage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.RaycastingScene.128.del">RaycastingScene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.TensorMap.html">TensorMap</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">TriangleMesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.VoxelBlockGrid.12c.dela">VoxelBlockGrid</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.t.io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.t.pipelines.html">pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="open3d.t.html">open3d.t</a> &raquo;</li>
+        
+          <li><a href="open3d.t.geometry.html">open3d.t.geometry</a> &raquo;</li>
+        
+      <li>open3d.t.geometry.TriangleMesh</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="open3d-t-geometry-trianglemesh">
+<h1>open3d.t.geometry.TriangleMesh<a class="headerlink" href="#open3d-t-geometry-trianglemesh" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="open3d.t.geometry.TriangleMesh">
+<em class="property">class </em><code class="sig-prename descclassname">open3d.t.geometry.</code><code class="sig-name descname">TriangleMesh</code><a class="headerlink" href="#open3d.t.geometry.TriangleMesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>A triangle mesh contains vertices and triangles. The triangle mesh class stores
+the attribute data in key-value maps. There are two maps: the vertex attributes
+map, and the triangle attribute map.</p>
+<p>The attributes of the triangle mesh have different levels:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+
+<span class="n">device</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="s2">&quot;CPU:0&quot;</span><span class="p">)</span>
+<span class="n">dtype_f</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">float32</span>
+<span class="n">dtype_i</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">int32</span>
+
+<span class="c1"># Create an empty triangle mesh</span>
+<span class="c1"># Use mesh.vertex to access the vertices&#39; attributes</span>
+<span class="c1"># Use mesh.triangle to access the triangles&#39; attributes</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># Default attribute: vertex.positions, triangle.indices</span>
+<span class="c1"># These attributes is created by default and is required by all triangle</span>
+<span class="c1"># meshes. The shape of both must be (N, 3). The device of &quot;positions&quot;</span>
+<span class="c1"># determines the device of the triangle mesh.</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">vertex</span><span class="o">.</span><span class="n">positions</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                                            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">dtype_f</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">triangle</span><span class="o">.</span><span class="n">indices</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                                            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]],</span> <span class="n">dtype_i</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># Common attributes: vertex.colors  , vertex.normals</span>
+<span class="c1">#                    triangle.colors, triangle.normals</span>
+<span class="c1"># Common attributes are used in built-in triangle mesh operations. The</span>
+<span class="c1"># spellings must be correct. For example, if &quot;normal&quot; is used instead of</span>
+<span class="c1"># &quot;normals&quot;, some internal operations that expects &quot;normals&quot; will not work.</span>
+<span class="c1"># &quot;normals&quot; and &quot;colors&quot; must have shape (N, 3) and must be on the same</span>
+<span class="c1"># device as the triangle mesh.</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">vertex</span><span class="o">.</span><span class="n">normals</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                                          <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                          <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                          <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">dtype_f</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">vertex</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+                                         <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+                                         <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
+                                         <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]],</span> <span class="n">dtype_f</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">triangle</span><span class="o">.</span><span class="n">normals</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">triangle</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="c1"># User-defined attributes</span>
+<span class="c1"># You can also attach custom attributes. The value tensor must be on the</span>
+<span class="c1"># same device as the triangle mesh. The are no restrictions on the shape and</span>
+<span class="c1"># dtype, e.g.,</span>
+<span class="n">pcd</span><span class="o">.</span><span class="n">vertex</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">pcd</span><span class="o">.</span><span class="n">triangle</span><span class="o">.</span><span class="n">features</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>__init__(self: open3d.cpu.pybind.t.geometry.TriangleMesh, device: open3d.cpu.pybind.core.Device = CPU:0) -&gt; None</p></li>
+</ol>
+<p>Construct an empty trianglemesh on the provided <code class="docutils literal notranslate"><span class="pre">device</span></code> (default: ‘CPU:0’).</p>
+<ol class="arabic simple" start="2">
+<li><p>__init__(self: open3d.cpu.pybind.t.geometry.TriangleMesh, vertex_positions: open3d.cpu.pybind.core.Tensor, triangle_indices: open3d.cpu.pybind.core.Tensor) -&gt; None</p></li>
+<li><p>__init__(self: open3d.cpu.pybind.t.geometry.TriangleMesh, arg0: open3d.cpu.pybind.t.geometry.TriangleMesh) -&gt; None</p></li>
+</ol>
+<p>Copy constructor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.bake_triangle_attr_textures">
+<code class="sig-name descname">bake_triangle_attr_textures</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">size</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">triangle_attr</span><span class="p">:</span> <span class="n">Set<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">margin</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">2.0</span></em>, <em class="sig-param"><span class="n">fill</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">update_material</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>open3d.cpu.pybind.core.Tensor<span class="p">]</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.bake_triangle_attr_textures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bake triangle attributes into textures.</p>
+<p>This function assumes a triangle attribute with name ‘texture_uvs’.</p>
+<p>This function always uses the CPU device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<em>int</em>) – The width and height of the texture in pixels. Only square
+textures are supported.</p></li>
+<li><p><strong>triangle_attr</strong> (<em>set</em>) – The vertex attributes for which textures should be
+generated.</p></li>
+<li><p><strong>margin</strong> (<em>float</em>) – The margin in pixels. The recommended value is 2. The margin
+are additional pixels around the UV islands to avoid discontinuities.</p></li>
+<li><p><strong>fill</strong> (<em>float</em>) – The value used for filling texels outside the UV islands.</p></li>
+<li><p><strong>update_material</strong> (<em>bool</em>) – If true updates the material of the mesh.
+Baking a vertex attribute with the name ‘albedo’ will become the albedo
+texture in the material. Existing textures in the material will be
+overwritten.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary of tensors that store the baked textures.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>We generate a texture visualizing the index of the triangle to which the
+texel belongs to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">box</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_box</span><span class="p">(</span><span class="n">create_uv_map</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">box</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+<span class="c1"># Creates a triangle attribute &#39;albedo&#39; which is the triangle index</span>
+<span class="c1"># multiplied by (255//12).</span>
+<span class="n">box</span><span class="o">.</span><span class="n">triangle</span><span class="p">[</span><span class="s1">&#39;albedo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="o">//</span><span class="mi">12</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">triangle</span><span class="o">.</span><span class="n">indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+<span class="c1"># Initialize material and bake the &#39;albedo&#39; triangle attribute to a</span>
+<span class="c1"># texture. The texture will be automatically added to the material of</span>
+<span class="c1"># the object.</span>
+<span class="n">box</span><span class="o">.</span><span class="n">material</span><span class="o">.</span><span class="n">set_default_properties</span><span class="p">()</span>
+<span class="n">texture_tensors</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">bake_triangle_attr_textures</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;albedo&#39;</span><span class="p">})</span>
+
+<span class="c1"># Shows the textured cube.</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">box</span><span class="p">])</span>
+
+<span class="c1"># Plot the tensor with the texture.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">texture_tensors</span><span class="p">[</span><span class="s1">&#39;albedo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.bake_vertex_attr_textures">
+<code class="sig-name descname">bake_vertex_attr_textures</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">size</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">vertex_attr</span><span class="p">:</span> <span class="n">Set<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">margin</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">2.0</span></em>, <em class="sig-param"><span class="n">fill</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">update_material</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>open3d.cpu.pybind.core.Tensor<span class="p">]</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.bake_vertex_attr_textures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bake vertex attributes into textures.</p>
+<p>This function assumes a triangle attribute with name ‘texture_uvs’.
+Only float type attributes can be baked to textures.</p>
+<p>This function always uses the CPU device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<em>int</em>) – The width and height of the texture in pixels. Only square
+textures are supported.</p></li>
+<li><p><strong>vertex_attr</strong> (<em>set</em>) – The vertex attributes for which textures should be
+generated.</p></li>
+<li><p><strong>margin</strong> (<em>float</em>) – The margin in pixels. The recommended value is 2. The margin
+are additional pixels around the UV islands to avoid discontinuities.</p></li>
+<li><p><strong>fill</strong> (<em>float</em>) – The value used for filling texels outside the UV islands.</p></li>
+<li><p><strong>update_material</strong> (<em>bool</em>) – If true updates the material of the mesh.
+Baking a vertex attribute with the name ‘albedo’ will become the albedo
+texture in the material. Existing textures in the material will be
+overwritten.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A dictionary of tensors that store the baked textures.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>We generate a texture storing the xyz coordinates for each texel:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">box</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_box</span><span class="p">(</span><span class="n">create_uv_map</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">box</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+<span class="n">box</span><span class="o">.</span><span class="n">vertex</span><span class="p">[</span><span class="s1">&#39;albedo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">vertex</span><span class="o">.</span><span class="n">positions</span>
+
+<span class="c1"># Initialize material and bake the &#39;albedo&#39; vertex attribute to a</span>
+<span class="c1"># texture. The texture will be automatically added to the material of</span>
+<span class="c1"># the object.</span>
+<span class="n">box</span><span class="o">.</span><span class="n">material</span><span class="o">.</span><span class="n">set_default_properties</span><span class="p">()</span>
+<span class="n">texture_tensors</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">bake_vertex_attr_textures</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;albedo&#39;</span><span class="p">})</span>
+
+<span class="c1"># Shows the textured cube.</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">box</span><span class="p">])</span>
+
+<span class="c1"># Plot the tensor with the texture.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">texture_tensors</span><span class="p">[</span><span class="s1">&#39;albedo&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.boolean_difference">
+<code class="sig-name descname">boolean_difference</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">mesh</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">tolerance</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1e-06</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.boolean_difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the mesh that encompasses the volume after subtracting the volume of the second operand.
+Both meshes should be manifold.</p>
+<p>This function always uses the CPU device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mesh</strong> (<a class="reference internal" href="#open3d.t.geometry.TriangleMesh" title="open3d.t.geometry.TriangleMesh"><em>open3d.t.geometry.TriangleMesh</em></a>) – This is the second operand for the
+boolean operation.</p></li>
+<li><p><strong>tolerance</strong> (<em>float</em>) – Threshold which determines when point distances are
+considered to be 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The mesh describing the difference volume.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>This subtracts the sphere from the cube volume:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_box</span><span class="p">()</span>
+<span class="n">box</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+<span class="n">sphere</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_sphere</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">sphere</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">sphere</span><span class="p">)</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">boolean_difference</span><span class="p">(</span><span class="n">sphere</span><span class="p">)</span>
+
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;difference&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">ans</span><span class="p">}])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.boolean_intersection">
+<code class="sig-name descname">boolean_intersection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">mesh</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">tolerance</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1e-06</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.boolean_intersection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the mesh that encompasses the intersection of the volumes of two meshes.
+Both meshes should be manifold.</p>
+<p>This function always uses the CPU device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mesh</strong> (<a class="reference internal" href="#open3d.t.geometry.TriangleMesh" title="open3d.t.geometry.TriangleMesh"><em>open3d.t.geometry.TriangleMesh</em></a>) – This is the second operand for the
+boolean operation.</p></li>
+<li><p><strong>tolerance</strong> (<em>float</em>) – Threshold which determines when point distances are
+considered to be 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The mesh describing the intersection volume.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>This copmutes the intersection of a sphere and a cube:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_box</span><span class="p">()</span>
+<span class="n">box</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+<span class="n">sphere</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_sphere</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">sphere</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">sphere</span><span class="p">)</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">boolean_intersection</span><span class="p">(</span><span class="n">sphere</span><span class="p">)</span>
+
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;intersection&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">ans</span><span class="p">}])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.boolean_union">
+<code class="sig-name descname">boolean_union</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">mesh</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">tolerance</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1e-06</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.boolean_union" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the mesh that encompasses the union of the volumes of two meshes.
+Both meshes should be manifold.</p>
+<p>This function always uses the CPU device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mesh</strong> (<a class="reference internal" href="#open3d.t.geometry.TriangleMesh" title="open3d.t.geometry.TriangleMesh"><em>open3d.t.geometry.TriangleMesh</em></a>) – This is the second operand for the
+boolean operation.</p></li>
+<li><p><strong>tolerance</strong> (<em>float</em>) – Threshold which determines when point distances are
+considered to be 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The mesh describing the union volume.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>This copmutes the union of a sphere and a cube:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_box</span><span class="p">()</span>
+<span class="n">box</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+<span class="n">sphere</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_sphere</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">sphere</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">sphere</span><span class="p">)</span>
+
+<span class="n">ans</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">boolean_union</span><span class="p">(</span><span class="n">sphere</span><span class="p">)</span>
+
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;union&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">ans</span><span class="p">}])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all elements in the geometry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>open3d.t.geometry.Geometry</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.clip_plane">
+<code class="sig-name descname">clip_plane</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">point</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em>, <em class="sig-param"><span class="n">normal</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.clip_plane" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new triangle mesh clipped with the plane.</p>
+<p>This method clips the triangle mesh with the specified plane.
+Parts of the mesh on the positive side of the plane will be kept and triangles
+intersected by the plane will be cut.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>point</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – A point on the plane.</p></li>
+<li><p><strong>normal</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – The normal of the plane. The normal points to
+the positive side of the plane for which the geometry will be kept.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>New triangle mesh clipped with the plane.</p>
+</dd>
+</dl>
+<p>This example shows how to create a hemisphere from a sphere:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+
+<span class="n">sphere</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_sphere</span><span class="p">())</span>
+<span class="n">hemisphere</span> <span class="o">=</span> <span class="n">sphere</span><span class="o">.</span><span class="n">clip_plane</span><span class="p">(</span><span class="n">point</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">normal</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">hemisphere</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.clone">
+<code class="sig-name descname">clone</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns copy of the triangle mesh on the same device.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.compute_convex_hull">
+<code class="sig-name descname">compute_convex_hull</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">joggle_inputs</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.compute_convex_hull" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the convex hull of a point cloud using qhull. This runs on the CPU.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>joggle_inputs</strong> (<em>bool with default False</em>) – Handle precision problems by
+randomly perturbing the input data. Set to True if perturbing the input
+iis acceptable but you need convex simplicial output. If False,
+neighboring facets may be merged in case of precision problems. See
+<a href="#id1"><span class="problematic" id="id2">`QHull docs &lt;http://www.qhull.org/html/qh-impre.htm#joggle`__</span></a> for more
+details.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>TriangleMesh representing the convexh hull. This contains an
+extra vertex property “point_indices” that contains the index of the
+corresponding vertex in the original mesh.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>We will load the Stanford Bunny dataset, compute and display it’s convex hull:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bunny</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">bunny</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+<span class="n">hull</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">compute_convex_hull</span><span class="p">()</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;bunny&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">mesh</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;convex hull&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">hull</span><span class="p">}])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.compute_triangle_normals">
+<code class="sig-name descname">compute_triangle_normals</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">normalized</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.compute_triangle_normals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to compute triangle normals, usually called before rendering.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.compute_uvatlas">
+<code class="sig-name descname">compute_uvatlas</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">512</span></em>, <em class="sig-param"><span class="n">gutter</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">max_stretch</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.1666666716337204</span></em>, <em class="sig-param"><span class="n">parallel_partitions</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">nthreads</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>float<span class="p">, </span>int<span class="p">, </span>int<span class="p">]</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.compute_uvatlas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an UV atlas and adds it as triangle attr ‘texture_uvs’ to the mesh.</p>
+<p>Input meshes must be manifold for this method to work.
+The algorithm is based on:
+Zhou et al, “Iso-charts: Stretch-driven Mesh Parameterization using Spectral</p>
+<blockquote>
+<div><p>Analysis”, Eurographics Symposium on Geometry Processing (2004)</p>
+</div></blockquote>
+<p>Sander et al. “Signal-Specialized Parametrization” Europgraphics 2002
+This function always uses the CPU device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<em>int</em>) – The target size of the texture (size x size). The uv coordinates
+will still be in the range [0..1] but parameters like gutter use pixels
+as units.</p></li>
+<li><p><strong>gutter</strong> (<em>float</em>) – This is the space around the uv islands in pixels.</p></li>
+<li><p><strong>max_stretch</strong> (<em>float</em>) – The maximum amount of stretching allowed. The parameter
+range is [0..1] with 0 meaning no stretch allowed.</p></li>
+<li><p><strong>parallel_partitions</strong> (<em>int</em>) – The approximate number of partitions created
+before computing the UV atlas for parallelizing the computation.
+Parallelization can be enabled with values &gt; 1. Note that
+parallelization increases the number of UV islands and can lead to results
+with lower quality.</p></li>
+<li><p><strong>nthreads</strong> (<em>int</em>) – The number of threads used when parallel_partitions
+is &gt; 1. Set to 0 for automatic number of thread detection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>This function creates a face attribute “texture_uvs” and returns a tuple
+with (max stretch, num_charts, num_partitions) storing the
+actual amount of stretch, the number of created charts, and the number of
+parallel partitions created.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>This code creates a uv map for the Stanford Bunny mesh:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="n">bunny</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">bunny</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">compute_uvatlas</span><span class="p">()</span>
+
+<span class="c1"># Add a wood texture and visualize</span>
+<span class="n">texture_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">WoodTexture</span><span class="p">()</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">material</span><span class="o">.</span><span class="n">material_name</span> <span class="o">=</span> <span class="s1">&#39;defaultLit&#39;</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">material</span><span class="o">.</span><span class="n">texture_maps</span><span class="p">[</span><span class="s1">&#39;albedo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">texture_data</span><span class="o">.</span><span class="n">albedo_texture_path</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.compute_vertex_normals">
+<code class="sig-name descname">compute_vertex_normals</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">normalized</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.compute_vertex_normals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to compute vertex normals, usually called before rendering.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.cpu">
+<code class="sig-name descname">cpu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.cpu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transfer the triangle mesh to CPU. If the triangle mesh is already on CPU, no copy will be performed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.create_arrow">
+<em class="property">static </em><code class="sig-name descname">create_arrow</code><span class="sig-paren">(</span><em class="sig-param">cylinder_radius=1.0</em>, <em class="sig-param">cone_radius=1.5</em>, <em class="sig-param">cylinder_height=5.0</em>, <em class="sig-param">cone_height=4.0</em>, <em class="sig-param">resolution=20</em>, <em class="sig-param">cylinder_split=4</em>, <em class="sig-param">cone_split=1</em>, <em class="sig-param">float_dtype=Float32</em>, <em class="sig-param">int_dtype=Int64</em>, <em class="sig-param">device=CPU:0</em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.create_arrow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a arrow mesh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cylinder_radius</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1.0</em>) – The radius of the cylinder.</p></li>
+<li><p><strong>cone_radius</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1.5</em>) – The radius of the cone.</p></li>
+<li><p><strong>cylinder_height</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=5.0</em>) – The height of the cylinder. The cylinder is from (0, 0, 0) to (0, 0, cylinder_height)</p></li>
+<li><p><strong>cone_height</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=4.0</em>) – The height of the cone. The axis of the cone will be from (0, 0, cylinder_height) to (0, 0, cylinder_height + cone_height)</p></li>
+<li><p><strong>resolution</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=20</em>) – The cone will be split into <code class="docutils literal notranslate"><span class="pre">resolution</span></code> segments.</p></li>
+<li><p><strong>cylinder_split</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=4</em>) – The <code class="docutils literal notranslate"><span class="pre">cylinder_height</span></code> will be split into <code class="docutils literal notranslate"><span class="pre">cylinder_split</span></code> segments.</p></li>
+<li><p><strong>cone_split</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=1</em>) – The <code class="docutils literal notranslate"><span class="pre">cone_height</span></code> will be split into <code class="docutils literal notranslate"><span class="pre">cone_split</span></code> segments.</p></li>
+<li><p><strong>float_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Float32</em>) – Float_dtype, Float32 or Float64.</p></li>
+<li><p><strong>int_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Int64</em>) – Int_dtype, Int32 or Int64.</p></li>
+<li><p><strong>(</strong><strong>open3d.core.Device</strong> (<em>device</em>) – 0): Device of the create octahedron.</p></li>
+<li><p><strong>optional</strong> – 0): Device of the create octahedron.</p></li>
+<li><p><strong>default=CPU</strong> – 0): Device of the create octahedron.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.TriangleMesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.create_box">
+<em class="property">static </em><code class="sig-name descname">create_box</code><span class="sig-paren">(</span><em class="sig-param">height=1.0</em>, <em class="sig-param">depth=1.0</em>, <em class="sig-param">float_dtype=Float32</em>, <em class="sig-param">int_dtype=Int64</em>, <em class="sig-param">device=CPU:0</em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.create_box" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>height</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1.0</em>) – y-directional length.</p></li>
+<li><p><strong>depth</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1.0</em>) – z-directional length.</p></li>
+<li><p><strong>float_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Float32</em>) – Float_dtype, Float32 or Float64.</p></li>
+<li><p><strong>int_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Int64</em>) – Int_dtype, Int32 or Int64.</p></li>
+<li><p><strong>(</strong><strong>open3d.core.Device</strong> (<em>device</em>) – 0): Device of the create mesh.</p></li>
+<li><p><strong>optional</strong> – 0): Device of the create mesh.</p></li>
+<li><p><strong>default=CPU</strong> – 0): Device of the create mesh.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.TriangleMesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.create_cone">
+<em class="property">static </em><code class="sig-name descname">create_cone</code><span class="sig-paren">(</span><em class="sig-param">radius=1.0</em>, <em class="sig-param">height=2.0</em>, <em class="sig-param">resolution=20</em>, <em class="sig-param">split=1</em>, <em class="sig-param">float_dtype=Float32</em>, <em class="sig-param">int_dtype=Int64</em>, <em class="sig-param">device=CPU:0</em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.create_cone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a cone mesh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radius</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1.0</em>) – The radius of the cone.</p></li>
+<li><p><strong>height</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=2.0</em>) – The height of the cone. The axis of the cone will be from (0, 0, 0) to (0, 0, height).</p></li>
+<li><p><strong>resolution</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=20</em>) – The circle will be split into <code class="docutils literal notranslate"><span class="pre">resolution</span></code> segments</p></li>
+<li><p><strong>split</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=1</em>) – The <code class="docutils literal notranslate"><span class="pre">height</span></code> will be split into <code class="docutils literal notranslate"><span class="pre">split</span></code> segments.</p></li>
+<li><p><strong>float_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Float32</em>) – Float_dtype, Float32 or Float64.</p></li>
+<li><p><strong>int_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Int64</em>) – Int_dtype, Int32 or Int64.</p></li>
+<li><p><strong>(</strong><strong>open3d.core.Device</strong> (<em>device</em>) – 0): Device of the create octahedron.</p></li>
+<li><p><strong>optional</strong> – 0): Device of the create octahedron.</p></li>
+<li><p><strong>default=CPU</strong> – 0): Device of the create octahedron.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.TriangleMesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.create_coordinate_frame">
+<em class="property">static </em><code class="sig-name descname">create_coordinate_frame</code><span class="sig-paren">(</span><em class="sig-param">size=1.0</em>, <em class="sig-param">origin=array([0.</em>, <em class="sig-param">0.</em>, <em class="sig-param">0.])</em>, <em class="sig-param">float_dtype=Float32</em>, <em class="sig-param">int_dtype=Int64</em>, <em class="sig-param">device=CPU:0</em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.create_coordinate_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a coordinate frame mesh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1.0</em>) – The size of the coordinate frame.</p></li>
+<li><p><strong>origin</strong> (<em>numpy.ndarray</em><em>[</em><em>numpy.float64</em><em>[</em><em>3</em><em>, </em><em>1</em><em>]</em><em>]</em><em>, </em><em>optional</em><em>, </em><em>default=array</em><em>(</em><em>[</em><em>0.</em><em>, </em><em>0.</em><em>, </em><em>0.</em><em>]</em><em>)</em>) – The origin of the coordinate frame.</p></li>
+<li><p><strong>float_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Float32</em>) – Float_dtype, Float32 or Float64.</p></li>
+<li><p><strong>int_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Int64</em>) – Int_dtype, Int32 or Int64.</p></li>
+<li><p><strong>(</strong><strong>open3d.core.Device</strong> (<em>device</em>) – 0): Device of the create octahedron.</p></li>
+<li><p><strong>optional</strong> – 0): Device of the create octahedron.</p></li>
+<li><p><strong>default=CPU</strong> – 0): Device of the create octahedron.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.TriangleMesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.create_cylinder">
+<em class="property">static </em><code class="sig-name descname">create_cylinder</code><span class="sig-paren">(</span><em class="sig-param">radius=1.0</em>, <em class="sig-param">height=2.0</em>, <em class="sig-param">resolution=20</em>, <em class="sig-param">split=4</em>, <em class="sig-param">float_dtype=Float32</em>, <em class="sig-param">int_dtype=Int64</em>, <em class="sig-param">device=CPU:0</em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.create_cylinder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a cylinder mesh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radius</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1.0</em>) – The radius of the cylinder.</p></li>
+<li><p><strong>height</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=2.0</em>) – The height of the cylinder.The axis of the cylinder will be from (0, 0, -height/2) to (0, 0, height/2).</p></li>
+<li><p><strong>resolution</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=20</em>) – The circle will be split into <code class="docutils literal notranslate"><span class="pre">resolution</span></code> segments</p></li>
+<li><p><strong>split</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=4</em>) – The <code class="docutils literal notranslate"><span class="pre">height</span></code> will be split into <code class="docutils literal notranslate"><span class="pre">split</span></code> segments.</p></li>
+<li><p><strong>float_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Float32</em>) – Float_dtype, Float32 or Float64.</p></li>
+<li><p><strong>int_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Int64</em>) – Int_dtype, Int32 or Int64.</p></li>
+<li><p><strong>(</strong><strong>open3d.core.Device</strong> (<em>device</em>) – 0): Device of the create octahedron.</p></li>
+<li><p><strong>optional</strong> – 0): Device of the create octahedron.</p></li>
+<li><p><strong>default=CPU</strong> – 0): Device of the create octahedron.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.TriangleMesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.create_icosahedron">
+<em class="property">static </em><code class="sig-name descname">create_icosahedron</code><span class="sig-paren">(</span><em class="sig-param">radius=1.0</em>, <em class="sig-param">float_dtype=Float32</em>, <em class="sig-param">int_dtype=Int64</em>, <em class="sig-param">device=CPU:0</em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.create_icosahedron" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a icosahedron mesh centered at (0, 0, 0).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radius</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1.0</em>) – Distance from centroid to mesh vetices.</p></li>
+<li><p><strong>float_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Float32</em>) – Float_dtype, Float32 or Float64.</p></li>
+<li><p><strong>int_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Int64</em>) – Int_dtype, Int32 or Int64.</p></li>
+<li><p><strong>(</strong><strong>open3d.core.Device</strong> (<em>device</em>) – 0): Device of the create octahedron.</p></li>
+<li><p><strong>optional</strong> – 0): Device of the create octahedron.</p></li>
+<li><p><strong>default=CPU</strong> – 0): Device of the create octahedron.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.TriangleMesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.create_mobius">
+<em class="property">static </em><code class="sig-name descname">create_mobius</code><span class="sig-paren">(</span><em class="sig-param">length_split=70</em>, <em class="sig-param">width_split=15</em>, <em class="sig-param">twists=1</em>, <em class="sig-param">raidus=1</em>, <em class="sig-param">flatness=1</em>, <em class="sig-param">width=1</em>, <em class="sig-param">scale=1</em>, <em class="sig-param">float_dtype=Float32</em>, <em class="sig-param">int_dtype=Int64</em>, <em class="sig-param">device=CPU:0</em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.create_mobius" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Mobius strip.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>length_split</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=70</em>) – The number of segments along the Mobius strip.</p></li>
+<li><p><strong>width_split</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=15</em>) – The number of segments along the width of the Mobius strip.</p></li>
+<li><p><strong>twists</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=1</em>) – Number of twists of the Mobius strip.</p></li>
+<li><p><strong>raidus</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1</em>) – </p></li>
+<li><p><strong>flatness</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1</em>) – Controls the flatness/height of the Mobius strip.</p></li>
+<li><p><strong>width</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1</em>) – Width of the Mobius strip.</p></li>
+<li><p><strong>scale</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1</em>) – Scale the complete Mobius strip.</p></li>
+<li><p><strong>float_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Float32</em>) – Float_dtype, Float32 or Float64.</p></li>
+<li><p><strong>int_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Int64</em>) – Int_dtype, Int32 or Int64.</p></li>
+<li><p><strong>(</strong><strong>open3d.core.Device</strong> (<em>device</em>) – 0): Device of the create octahedron.</p></li>
+<li><p><strong>optional</strong> – 0): Device of the create octahedron.</p></li>
+<li><p><strong>default=CPU</strong> – 0): Device of the create octahedron.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.TriangleMesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.create_octahedron">
+<em class="property">static </em><code class="sig-name descname">create_octahedron</code><span class="sig-paren">(</span><em class="sig-param">radius=1.0</em>, <em class="sig-param">float_dtype=Float32</em>, <em class="sig-param">int_dtype=Int64</em>, <em class="sig-param">device=CPU:0</em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.create_octahedron" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a octahedron mesh centered at (0, 0, 0).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radius</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1.0</em>) – Distance from centroid to mesh vetices.</p></li>
+<li><p><strong>float_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Float32</em>) – Float_dtype, Float32 or Float64.</p></li>
+<li><p><strong>int_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Int64</em>) – Int_dtype, Int32 or Int64.</p></li>
+<li><p><strong>(</strong><strong>open3d.core.Device</strong> (<em>device</em>) – 0): Device of the create octahedron.</p></li>
+<li><p><strong>optional</strong> – 0): Device of the create octahedron.</p></li>
+<li><p><strong>default=CPU</strong> – 0): Device of the create octahedron.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.TriangleMesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.create_sphere">
+<em class="property">static </em><code class="sig-name descname">create_sphere</code><span class="sig-paren">(</span><em class="sig-param">radius=1.0</em>, <em class="sig-param">resolution=20</em>, <em class="sig-param">float_dtype=Float32</em>, <em class="sig-param">int_dtype=Int64</em>, <em class="sig-param">device=CPU:0</em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.create_sphere" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a sphere mesh centered at (0, 0, 0).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radius</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1.0</em>) – The radius of the sphere.</p></li>
+<li><p><strong>resolution</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=20</em>) – The resolution of the sphere.</p></li>
+<li><p><strong>float_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Float32</em>) – Float_dtype, Float32 or Float64.</p></li>
+<li><p><strong>int_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Int64</em>) – Int_dtype, Int32 or Int64.</p></li>
+<li><p><strong>(</strong><strong>open3d.core.Device</strong> (<em>device</em>) – 0): Device of the create sphere.</p></li>
+<li><p><strong>optional</strong> – 0): Device of the create sphere.</p></li>
+<li><p><strong>default=CPU</strong> – 0): Device of the create sphere.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.TriangleMesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.create_tetrahedron">
+<em class="property">static </em><code class="sig-name descname">create_tetrahedron</code><span class="sig-paren">(</span><em class="sig-param">radius=1.0</em>, <em class="sig-param">float_dtype=Float32</em>, <em class="sig-param">int_dtype=Int64</em>, <em class="sig-param">device=CPU:0</em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.create_tetrahedron" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a tetrahedron mesh centered at (0, 0, 0).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radius</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1.0</em>) – Distance from centroid to mesh vetices.</p></li>
+<li><p><strong>float_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Float32</em>) – Float_dtype, Float32 or Float64.</p></li>
+<li><p><strong>int_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Int64</em>) – Int_dtype, Int32 or Int64.</p></li>
+<li><p><strong>(</strong><strong>open3d.core.Device</strong> (<em>device</em>) – 0): Device of the create tetrahedron.</p></li>
+<li><p><strong>optional</strong> – 0): Device of the create tetrahedron.</p></li>
+<li><p><strong>default=CPU</strong> – 0): Device of the create tetrahedron.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.TriangleMesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.create_text">
+<em class="property">static </em><code class="sig-name descname">create_text</code><span class="sig-paren">(</span><em class="sig-param">text: str</em>, <em class="sig-param">depth: float = 0.0</em>, <em class="sig-param">float_dtype: open3d.cpu.pybind.core.Dtype = Float32</em>, <em class="sig-param">int_dtype: open3d.cpu.pybind.core.Dtype = Int64</em>, <em class="sig-param">device: open3d.cpu.pybind.core.Device = CPU:0</em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.create_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a triangle mesh from a text string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – The text for generating the mesh. ASCII characters 32-126 are
+supported (includes alphanumeric characters and punctuation). In
+addition the line feed ‘n’ is supported to start a new line.</p></li>
+<li><p><strong>depth</strong> (<em>float</em>) – The depth of the generated mesh. If depth is 0 then a flat mesh will be generated.</p></li>
+<li><p><strong>float_dtype</strong> (<em>o3d.core.Dtype</em>) – Float type for the vertices. Either Float32 or Float64.</p></li>
+<li><p><strong>int_dtype</strong> (<em>o3d.core.Dtype</em>) – Int type for the triangle indices. Either Int32 or Int64.</p></li>
+<li><p><strong>device</strong> (<em>o3d.core.Device</em>) – The device for the returned mesh.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Text as triangle mesh.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>This shows how to simplifify the Stanford Bunny mesh:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">create_text</span><span class="p">(</span><span class="s1">&#39;Open3D&#39;</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">mesh</span><span class="p">}])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.create_torus">
+<em class="property">static </em><code class="sig-name descname">create_torus</code><span class="sig-paren">(</span><em class="sig-param">torus_radius=1.0</em>, <em class="sig-param">tube_radius=0.5</em>, <em class="sig-param">radial_resolution=30</em>, <em class="sig-param">tubular_resolution=20</em>, <em class="sig-param">float_dtype=Float32</em>, <em class="sig-param">int_dtype=Int64</em>, <em class="sig-param">device=CPU:0</em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.create_torus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a torus mesh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>torus_radius</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1.0</em>) – The radius from the center of the torus to the center of the tube.</p></li>
+<li><p><strong>tube_radius</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=0.5</em>) – The radius of the torus tube.</p></li>
+<li><p><strong>radial_resolution</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=30</em>) – The number of segments along the radial direction.</p></li>
+<li><p><strong>tubular_resolution</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=20</em>) – The number of segments along the tubular direction.</p></li>
+<li><p><strong>float_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Float32</em>) – Float_dtype, Float32 or Float64.</p></li>
+<li><p><strong>int_dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a><em>, </em><em>optional</em><em>, </em><em>default=Int64</em>) – Int_dtype, Int32 or Int64.</p></li>
+<li><p><strong>(</strong><strong>open3d.core.Device</strong> (<em>device</em>) – 0): Device of the create octahedron.</p></li>
+<li><p><strong>optional</strong> – 0): Device of the create octahedron.</p></li>
+<li><p><strong>default=CPU</strong> – 0): Device of the create octahedron.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.TriangleMesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.cuda">
+<code class="sig-name descname">cuda</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">device_id</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.cuda" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transfer the triangle mesh to a CUDA device. If the triangle mesh is already on the specified CUDA device, no copy will be performed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.extrude_linear">
+<code class="sig-name descname">extrude_linear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">vector</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em>, <em class="sig-param"><span class="n">scale</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">capping</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.extrude_linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sweeps the line set along a direction vector.
+:param vector: The direction vector.
+:type vector: open3d.core.Tensor
+:param scale: Scalar factor which essentially scales the direction vector.
+:type scale: float</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A triangle mesh with the result of the sweep operation.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>This code generates a wedge from a triangle:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="n">triangle</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]])</span>
+<span class="n">wedge</span> <span class="o">=</span> <span class="n">triangle</span><span class="o">.</span><span class="n">extrude_linear</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;wedge&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">wedge</span><span class="p">}])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.extrude_rotation">
+<code class="sig-name descname">extrude_rotation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">angle</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">axis</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em>, <em class="sig-param"><span class="n">resolution</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">16</span></em>, <em class="sig-param"><span class="n">translation</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">capping</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.extrude_rotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sweeps the triangle mesh rotationally about an axis.
+:param angle: The rotation angle in degree.
+:type angle: float
+:param axis: The rotation axis.
+:type axis: open3d.core.Tensor
+:param resolution: The resolution defines the number of intermediate sweeps</p>
+<blockquote>
+<div><p>about the rotation axis.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>translation</strong> (<em>float</em>) – The translation along the rotation axis.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A triangle mesh with the result of the sweep operation.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>This code generates a spring with a triangle cross-section:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.7</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]])</span>
+<span class="n">spring</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">extrude_rotation</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="mi">360</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">3</span><span class="o">*</span><span class="mi">16</span><span class="p">,</span> <span class="n">translation</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;spring&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">spring</span><span class="p">}])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.fill_holes">
+<code class="sig-name descname">fill_holes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">hole_size</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1000000.0</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.fill_holes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill holes by triangulating boundary edges.</p>
+<p>This function always uses the CPU device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hole_size</strong> (<em>float</em>) – This is the approximate threshold for filling holes.
+The value describes the maximum radius of holes to be filled.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>New mesh after filling holes.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>Fill holes at the bottom of the Stanford Bunny mesh:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bunny</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">bunny</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+<span class="n">filled</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">fill_holes</span><span class="p">()</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;filled&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">ans</span><span class="p">}])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.from_legacy">
+<em class="property">static </em><code class="sig-name descname">from_legacy</code><span class="sig-paren">(</span><em class="sig-param">mesh_legacy: open3d.cpu.pybind.geometry.TriangleMesh</em>, <em class="sig-param">vertex_dtype: open3d.cpu.pybind.core.Dtype = Float32</em>, <em class="sig-param">triangle_dtype: open3d.cpu.pybind.core.Dtype = Int64</em>, <em class="sig-param">device: open3d.cpu.pybind.core.Device = CPU:0</em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.from_legacy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a TriangleMesh from a legacy Open3D TriangleMesh.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.get_axis_aligned_bounding_box">
+<code class="sig-name descname">get_axis_aligned_bounding_box</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em><span class="sig-paren">)</span> &#x2192; open3d::t::geometry::AxisAlignedBoundingBox<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.get_axis_aligned_bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an axis-aligned bounding box from vertex attribute ‘positions’.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.get_center">
+<code class="sig-name descname">get_center</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.core.Tensor<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.get_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the center for point coordinates.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.get_max_bound">
+<code class="sig-name descname">get_max_bound</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.core.Tensor<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.get_max_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the max bound for point coordinates.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.get_min_bound">
+<code class="sig-name descname">get_min_bound</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.core.Tensor<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.get_min_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the min bound for point coordinates.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.get_oriented_bounding_box">
+<code class="sig-name descname">get_oriented_bounding_box</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em><span class="sig-paren">)</span> &#x2192; open3d::t::geometry::OrientedBoundingBox<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.get_oriented_bounding_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an oriented bounding box from vertex attribute ‘positions’.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.has_valid_material">
+<code class="sig-name descname">has_valid_material</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.DrawableGeometry</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.has_valid_material" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the geometry’s material is valid.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.is_empty">
+<code class="sig-name descname">is_empty</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> iff the geometry is empty.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.normalize_normals">
+<code class="sig-name descname">normalize_normals</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.normalize_normals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize both triangle normals and vertex normals to length 1.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.pca_partition">
+<code class="sig-name descname">pca_partition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">max_faces</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.pca_partition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Partition the mesh by recursively doing PCA.</p>
+<p>This function creates a new face attribute with the name “partition_ids” storing
+the partition id for each face.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>max_faces</strong> (<em>int</em>) – The maximum allowed number of faces in a partition.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>This code partitions a mesh such that each partition contains at most 20k
+faces:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">bunny</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">bunny</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+<span class="n">num_partitions</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">pca_partition</span><span class="p">(</span><span class="n">max_faces</span><span class="o">=</span><span class="mi">20000</span><span class="p">)</span>
+
+<span class="c1"># print the partition ids and the number of faces for each of them.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">triangle</span><span class="o">.</span><span class="n">partition_ids</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.rotate">
+<code class="sig-name descname">rotate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">R</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em>, <em class="sig-param"><span class="n">center</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.rotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate points and normals (if exist).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.scale">
+<code class="sig-name descname">scale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">scale</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">center</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale points.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.select_faces_by_mask">
+<code class="sig-name descname">select_faces_by_mask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">mask</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.select_faces_by_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new mesh with the faces selected by a boolean mask.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mask</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – A boolean mask with the shape (N) with N as the
+number of faces in the mesh.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A new mesh with the selected faces.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>This code partitions the mesh using PCA and then visualized the individual
+parts:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">bunny</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">bunny</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+<span class="n">num_partitions</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">pca_partition</span><span class="p">(</span><span class="n">max_faces</span><span class="o">=</span><span class="mi">20000</span><span class="p">)</span>
+
+<span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_partitions</span><span class="p">):</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">triangle</span><span class="o">.</span><span class="n">partition_ids</span> <span class="o">==</span> <span class="n">i</span>
+    <span class="n">part</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">select_faces_by_mask</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+    <span class="n">part</span><span class="o">.</span><span class="n">vertex</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">vertex</span><span class="o">.</span><span class="n">positions</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.simplify_quadric_decimation">
+<code class="sig-name descname">simplify_quadric_decimation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">target_reduction</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">preserve_volume</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.simplify_quadric_decimation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to simplify mesh using Quadric Error Metric Decimation by Garland and Heckbert.</p>
+<p>This function always uses the CPU device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_reduction</strong> (<em>float</em>) – The factor of triangles to delete, i.e., setting
+this to 0.9 will return a mesh with about 10% of the original triangle
+count. It is not guaranteed that the target reduction factor will be
+reached.</p></li>
+<li><p><strong>preserve_volume</strong> (<em>bool</em>) – If set to True this enables volume preservation
+which reduces the error in triangle normal direction.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Simplified TriangleMesh.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>This shows how to simplifify the Stanford Bunny mesh:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bunny</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">bunny</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+<span class="n">simplified</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">simplify_quadric_decimation</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;bunny&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">simplified</span><span class="p">}])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.slice_plane">
+<code class="sig-name descname">slice_plane</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">point</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em>, <em class="sig-param"><span class="n">normal</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em>, <em class="sig-param"><span class="n">contour_values</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">[0.0]</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.LineSet<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.slice_plane" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a line set with the contour slices defined by the plane and values.</p>
+<p>This method generates slices as LineSet from the mesh at specific contour
+values with respect to a plane.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>point</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – A point on the plane.</p></li>
+<li><p><strong>normal</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a>) – The normal of the plane.</p></li>
+<li><p><strong>contour_values</strong> (<em>list</em>) – A list of contour values at which slices will be
+generated. The value describes the signed distance to the plane.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>LineSet with he extracted contours.</p>
+</dd>
+</dl>
+<p>This example shows how to create a hemisphere from a sphere:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">bunny</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="o">.</span><span class="n">from_legacy</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">bunny</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+<span class="n">contours</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">slice_plane</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">))</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;bunny&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">contours</span><span class="p">}])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.to">
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">device</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Device</span></em>, <em class="sig-param"><span class="n">copy</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transfer the triangle mesh to a specified device.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.to_legacy">
+<code class="sig-name descname">to_legacy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.to_legacy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert to a legacy Open3D TriangleMesh.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.to_mitsuba">
+<code class="sig-name descname">to_mitsuba</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">bsdf</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.to_mitsuba" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert Open3D TriangleMesh to Mitsuba Mesh.</p>
+<p>Converts an Open3D TriangleMesh to a Mitsuba Mesh which can be used directly
+in a Mitsbua scene. The TriangleMesh’s material will be converted to a
+Mitsuba Principled BSDF and assigned to the Mitsuba Mesh. Optionally, the
+user may provide a Mitsuba BSDF to be used instead of converting the Open3D
+material.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name for the Mitsuba Mesh. Used by Mitsuba as an identifier</p></li>
+<li><p><strong>bsdf</strong> (<em>default None</em>) – If a Mitsuba BSDF is supplied it will be used as</p></li>
+<li><p><strong>BSDF for the converted mesh. Otherwise</strong> (<em>the</em>) – </p></li>
+<li><p><strong>TriangleMesh's material</strong> (<em>the</em>) – </p></li>
+<li><p><strong>be converted to Mitsuba Principled BSDF.</strong> (<em>will</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Mitsuba Mesh (with associated BSDF) ready for use in a Mitsuba scene.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">transformation</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms the points and normals (if exist).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.translate">
+<code class="sig-name descname">translate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.TriangleMesh</span></em>, <em class="sig-param"><span class="n">translation</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em>, <em class="sig-param"><span class="n">relative</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.TriangleMesh<a class="headerlink" href="#open3d.t.geometry.TriangleMesh.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates points.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.device">
+<em class="property">property </em><code class="sig-name descname">device</code><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the device of the geometry.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.is_cpu">
+<em class="property">property </em><code class="sig-name descname">is_cpu</code><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.is_cpu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the geometry is on CPU.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.is_cuda">
+<em class="property">property </em><code class="sig-name descname">is_cuda</code><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.is_cuda" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the geometry is on CUDA.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.material">
+<em class="property">property </em><code class="sig-name descname">material</code><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.material" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.triangle">
+<em class="property">property </em><code class="sig-name descname">triangle</code><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.triangle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.TriangleMesh.vertex">
+<em class="property">property </em><code class="sig-name descname">vertex</code><a class="headerlink" href="#open3d.t.geometry.TriangleMesh.vertex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="open3d.t.geometry.VoxelBlockGrid.12c.dela" class="btn btn-neutral float-right" title="open3d.t.geometry.VoxelBlockGrid" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="open3d.t.geometry.TensorMap.html" class="btn btn-neutral float-left" title="open3d.t.geometry.TensorMap" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.t.geometry.TriangleMesh.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:05 GMT -->
+</html>

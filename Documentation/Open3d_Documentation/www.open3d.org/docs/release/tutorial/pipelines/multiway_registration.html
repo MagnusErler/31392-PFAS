@@ -1,0 +1,997 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/pipelines/multiway_registration.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:26:07 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Multiway registration &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="RGBD integration" href="rgbd_integration.html" />
+    <link rel="prev" title="Global registration" href="global_registration.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Pipelines</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="icp_registration.html">ICP registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="robust_kernels.html">Robust kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="colored_pointcloud_registration.4">Colored point cloud registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="global_registration.html">Global registration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Multiway registration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Input">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Pose-graph">Pose graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Visualize-optimization">Visualize optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Make-a-combined-point-cloud">Make a combined point cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rgbd_integration.html">RGBD integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rgbd_odometry.html">RGBD Odometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="color_map_optimization.html">Color Map Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Pipelines</a> &raquo;</li>
+        
+      <li>Multiway registration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Multiway-registration">
+<h1>Multiway registration<a class="headerlink" href="#Multiway-registration" title="Permalink to this headline">¶</a></h1>
+<p>Multiway registration is the process of aligning multiple pieces of geometry in a global space. Typically, the input is a set of geometries (e.g., point clouds or RGBD images) <span class="math notranslate nohighlight">\(\{\mathbf{P}_{i}\}\)</span>. The output is a set of rigid transformations <span class="math notranslate nohighlight">\(\{\mathbf{T}_{i}\}\)</span>, so that the transformed point clouds <span class="math notranslate nohighlight">\(\{\mathbf{T}_{i}\mathbf{P}_{i}\}\)</span> are aligned in the global space.</p>
+<p>Open3D implements multiway registration via pose graph optimization. The backend implements the technique presented in <a class="reference external" href="../reference.html#choi2015">[Choi2015]</a>.</p>
+<div class="section" id="Input">
+<h2>Input<a class="headerlink" href="#Input" title="Permalink to this headline">¶</a></h2>
+<p>The first part of the tutorial code reads three point clouds from files. The point clouds are downsampled and visualized together. They are misaligned.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">load_point_clouds</span><span class="p">(</span><span class="n">voxel_size</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="n">pcds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">demo_icp_pcds</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DemoICPPointClouds</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">demo_icp_pcds</span><span class="o">.</span><span class="n">paths</span><span class="p">:</span>
+        <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">pcd_down</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="n">voxel_size</span><span class="o">=</span><span class="n">voxel_size</span><span class="p">)</span>
+        <span class="n">pcds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pcd_down</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pcds</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">voxel_size</span> <span class="o">=</span> <span class="mf">0.02</span>
+<span class="n">pcds_down</span> <span class="o">=</span> <span class="n">load_point_clouds</span><span class="p">(</span><span class="n">voxel_size</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">(</span><span class="n">pcds_down</span><span class="p">,</span>
+                                  <span class="n">zoom</span><span class="o">=</span><span class="mf">0.3412</span><span class="p">,</span>
+                                  <span class="n">front</span><span class="o">=</span><span class="p">[</span><span class="mf">0.4257</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2125</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8795</span><span class="p">],</span>
+                                  <span class="n">lookat</span><span class="o">=</span><span class="p">[</span><span class="mf">2.6172</span><span class="p">,</span> <span class="mf">2.0475</span><span class="p">,</span> <span class="mf">1.532</span><span class="p">],</span>
+                                  <span class="n">up</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.0694</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9768</span><span class="p">,</span> <span class="mf">0.2024</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_pipelines_multiway_registration_4_0.png" src="../../_images/tutorial_pipelines_multiway_registration_4_0" />
+</div>
+</div>
+</div>
+<div class="section" id="Pose-graph">
+<h2>Pose graph<a class="headerlink" href="#Pose-graph" title="Permalink to this headline">¶</a></h2>
+<p>A pose graph has two key elements: nodes and edges. A node is a piece of geometry <span class="math notranslate nohighlight">\(\mathbf{P}_{i}\)</span> associated with a pose matrix <span class="math notranslate nohighlight">\(\mathbf{T}_{i}\)</span> which transforms <span class="math notranslate nohighlight">\(\mathbf{P}_{i}\)</span> into the global space. The set <span class="math notranslate nohighlight">\(\{\mathbf{T}_{i}\}\)</span> are the unknown variables to be optimized. <code class="docutils literal notranslate"><span class="pre">PoseGraph.nodes</span></code> is a list of <code class="docutils literal notranslate"><span class="pre">PoseGraphNode</span></code>. We set the global space to be the space of <span class="math notranslate nohighlight">\(\mathbf{P}_{0}\)</span>. Thus <span class="math notranslate nohighlight">\(\mathbf{T}_{0}\)</span> is the identity matrix. The other pose matrices are
+initialized by accumulating transformation between neighboring nodes. The neighboring nodes usually have large overlap and can be registered with <a class="reference internal" href="icp_registration.html#Point-to-plane-ICP"><span class="std std-ref">Point-to-plane ICP</span></a>.</p>
+<p>A pose graph edge connects two nodes (pieces of geometry) that overlap. Each edge contains a transformation matrix <span class="math notranslate nohighlight">\(\mathbf{T}_{i,j}\)</span> that aligns the source geometry <span class="math notranslate nohighlight">\(\mathbf{P}_{i}\)</span> to the target geometry <span class="math notranslate nohighlight">\(\mathbf{P}_{j}\)</span>. This tutorial uses <a class="reference internal" href="icp_registration.html#Point-to-plane-ICP"><span class="std std-ref">Point-to-plane ICP</span></a> to estimate the transformation. In more complicated cases, this pairwise registration problem should be solved via <a class="reference internal" href="global_registration.html"><span class="doc">Global
+registration</span></a>.</p>
+<p><a class="reference external" href="../reference.html#choi2015">[Choi2015]</a> has observed that pairwise registration is error-prone. False pairwise alignments can outnumber correctly aligned pairs. Thus, they partition pose graph edges into two classes. <strong>Odometry edges</strong> connect temporally close, neighboring nodes. A local registration algorithm such as ICP can reliably align them. <strong>Loop closure edges</strong> connect any non-neighboring nodes. The alignment is found by global registration and is less reliable. In Open3D, these two
+classes of edges are distinguished by the <code class="docutils literal notranslate"><span class="pre">uncertain</span></code> parameter in the initializer of <code class="docutils literal notranslate"><span class="pre">PoseGraphEdge</span></code>.</p>
+<p>In addition to the transformation matrix <span class="math notranslate nohighlight">\(\mathbf{T}_{i}\)</span>, the user can set an information matrix <span class="math notranslate nohighlight">\(\mathbf{\Lambda}_{i}\)</span> for each edge. If <span class="math notranslate nohighlight">\(\mathbf{\Lambda}_{i}\)</span> is set using function <code class="docutils literal notranslate"><span class="pre">get_information_matrix_from_point_clouds</span></code>, the loss on this pose graph edge approximates the RMSE of the corresponding sets between the two nodes, with a line process weight. Refer to Eq (3) to (9) in <a class="reference external" href="../reference.html#choi2015">[Choi2015]</a> and <a class="reference external" href="http://redwood-data.org/indoor/registration.html">the Redwood registration
+benchmark</a> for details.</p>
+<p>The script creates a pose graph with three nodes and three edges. Among the edges, two of them are odometry edges (<code class="docutils literal notranslate"><span class="pre">uncertain</span> <span class="pre">=</span> <span class="pre">False</span></code>) and one is a loop closure edge (<code class="docutils literal notranslate"><span class="pre">uncertain</span> <span class="pre">=</span> <span class="pre">True</span></code>).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">pairwise_registration</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Apply point-to-plane ICP&quot;</span><span class="p">)</span>
+    <span class="n">icp_coarse</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">registration_icp</span><span class="p">(</span>
+        <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">max_correspondence_distance_coarse</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">TransformationEstimationPointToPlane</span><span class="p">())</span>
+    <span class="n">icp_fine</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">registration_icp</span><span class="p">(</span>
+        <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">max_correspondence_distance_fine</span><span class="p">,</span>
+        <span class="n">icp_coarse</span><span class="o">.</span><span class="n">transformation</span><span class="p">,</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">TransformationEstimationPointToPlane</span><span class="p">())</span>
+    <span class="n">transformation_icp</span> <span class="o">=</span> <span class="n">icp_fine</span><span class="o">.</span><span class="n">transformation</span>
+    <span class="n">information_icp</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">get_information_matrix_from_point_clouds</span><span class="p">(</span>
+        <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">max_correspondence_distance_fine</span><span class="p">,</span>
+        <span class="n">icp_fine</span><span class="o">.</span><span class="n">transformation</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">transformation_icp</span><span class="p">,</span> <span class="n">information_icp</span>
+
+
+<span class="k">def</span> <span class="nf">full_registration</span><span class="p">(</span><span class="n">pcds</span><span class="p">,</span> <span class="n">max_correspondence_distance_coarse</span><span class="p">,</span>
+                      <span class="n">max_correspondence_distance_fine</span><span class="p">):</span>
+    <span class="n">pose_graph</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">PoseGraph</span><span class="p">()</span>
+    <span class="n">odometry</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">pose_graph</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">PoseGraphNode</span><span class="p">(</span><span class="n">odometry</span><span class="p">))</span>
+    <span class="n">n_pcds</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pcds</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">source_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_pcds</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">target_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">source_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_pcds</span><span class="p">):</span>
+            <span class="n">transformation_icp</span><span class="p">,</span> <span class="n">information_icp</span> <span class="o">=</span> <span class="n">pairwise_registration</span><span class="p">(</span>
+                <span class="n">pcds</span><span class="p">[</span><span class="n">source_id</span><span class="p">],</span> <span class="n">pcds</span><span class="p">[</span><span class="n">target_id</span><span class="p">])</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Build o3d.pipelines.registration.PoseGraph&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">target_id</span> <span class="o">==</span> <span class="n">source_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># odometry case</span>
+                <span class="n">odometry</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">transformation_icp</span><span class="p">,</span> <span class="n">odometry</span><span class="p">)</span>
+                <span class="n">pose_graph</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">PoseGraphNode</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">odometry</span><span class="p">)))</span>
+                <span class="n">pose_graph</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">PoseGraphEdge</span><span class="p">(</span><span class="n">source_id</span><span class="p">,</span>
+                                                             <span class="n">target_id</span><span class="p">,</span>
+                                                             <span class="n">transformation_icp</span><span class="p">,</span>
+                                                             <span class="n">information_icp</span><span class="p">,</span>
+                                                             <span class="n">uncertain</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># loop closure case</span>
+                <span class="n">pose_graph</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">PoseGraphEdge</span><span class="p">(</span><span class="n">source_id</span><span class="p">,</span>
+                                                             <span class="n">target_id</span><span class="p">,</span>
+                                                             <span class="n">transformation_icp</span><span class="p">,</span>
+                                                             <span class="n">information_icp</span><span class="p">,</span>
+                                                             <span class="n">uncertain</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">pose_graph</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Full registration ...&quot;</span><span class="p">)</span>
+<span class="n">max_correspondence_distance_coarse</span> <span class="o">=</span> <span class="n">voxel_size</span> <span class="o">*</span> <span class="mi">15</span>
+<span class="n">max_correspondence_distance_fine</span> <span class="o">=</span> <span class="n">voxel_size</span> <span class="o">*</span> <span class="mf">1.5</span>
+<span class="k">with</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityContextManager</span><span class="p">(</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityLevel</span><span class="o">.</span><span class="n">Debug</span><span class="p">)</span> <span class="k">as</span> <span class="n">cm</span><span class="p">:</span>
+    <span class="n">pose_graph</span> <span class="o">=</span> <span class="n">full_registration</span><span class="p">(</span><span class="n">pcds_down</span><span class="p">,</span>
+                                   <span class="n">max_correspondence_distance_coarse</span><span class="p">,</span>
+                                   <span class="n">max_correspondence_distance_fine</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Full registration ...
+Apply point-to-plane ICP
+[Open3D DEBUG] ICP Iteration #0: Fitness 0.6258, RMSE 0.1566
+[Open3D DEBUG] Residual : 1.85e-02 (# of elements : 17029)
+[Open3D DEBUG] ICP Iteration #1: Fitness 0.6873, RMSE 0.1427
+[Open3D DEBUG] Residual : 1.34e-02 (# of elements : 18703)
+[Open3D DEBUG] ICP Iteration #2: Fitness 0.7258, RMSE 0.1364
+[Open3D DEBUG] Residual : 1.11e-02 (# of elements : 19751)
+[Open3D DEBUG] ICP Iteration #3: Fitness 0.7514, RMSE 0.1330
+[Open3D DEBUG] Residual : 1.02e-02 (# of elements : 20446)
+[Open3D DEBUG] ICP Iteration #4: Fitness 0.7743, RMSE 0.1296
+[Open3D DEBUG] Residual : 9.36e-03 (# of elements : 21070)
+[Open3D DEBUG] ICP Iteration #5: Fitness 0.7881, RMSE 0.1214
+[Open3D DEBUG] Residual : 7.82e-03 (# of elements : 21444)
+[Open3D DEBUG] ICP Iteration #6: Fitness 0.7959, RMSE 0.1142
+[Open3D DEBUG] Residual : 6.81e-03 (# of elements : 21657)
+[Open3D DEBUG] ICP Iteration #7: Fitness 0.8024, RMSE 0.1127
+[Open3D DEBUG] Residual : 6.56e-03 (# of elements : 21833)
+[Open3D DEBUG] ICP Iteration #8: Fitness 0.8026, RMSE 0.1108
+[Open3D DEBUG] Residual : 6.34e-03 (# of elements : 21840)
+[Open3D DEBUG] ICP Iteration #9: Fitness 0.7959, RMSE 0.1050
+[Open3D DEBUG] Residual : 5.79e-03 (# of elements : 21658)
+[Open3D DEBUG] ICP Iteration #10: Fitness 0.7816, RMSE 0.0914
+[Open3D DEBUG] Residual : 4.30e-03 (# of elements : 21268)
+[Open3D DEBUG] ICP Iteration #11: Fitness 0.7676, RMSE 0.0758
+[Open3D DEBUG] Residual : 2.52e-03 (# of elements : 20887)
+[Open3D DEBUG] ICP Iteration #12: Fitness 0.7573, RMSE 0.0682
+[Open3D DEBUG] Residual : 1.73e-03 (# of elements : 20606)
+[Open3D DEBUG] ICP Iteration #13: Fitness 0.7525, RMSE 0.0656
+[Open3D DEBUG] Residual : 1.48e-03 (# of elements : 20475)
+[Open3D DEBUG] ICP Iteration #14: Fitness 0.7500, RMSE 0.0645
+[Open3D DEBUG] Residual : 1.40e-03 (# of elements : 20407)
+[Open3D DEBUG] ICP Iteration #15: Fitness 0.7489, RMSE 0.0639
+[Open3D DEBUG] Residual : 1.36e-03 (# of elements : 20377)
+[Open3D DEBUG] ICP Iteration #16: Fitness 0.7482, RMSE 0.0635
+[Open3D DEBUG] Residual : 1.32e-03 (# of elements : 20358)
+[Open3D DEBUG] ICP Iteration #17: Fitness 0.7477, RMSE 0.0632
+[Open3D DEBUG] Residual : 1.31e-03 (# of elements : 20347)
+[Open3D DEBUG] ICP Iteration #18: Fitness 0.7476, RMSE 0.0631
+[Open3D DEBUG] Residual : 1.30e-03 (# of elements : 20342)
+[Open3D DEBUG] ICP Iteration #19: Fitness 0.7475, RMSE 0.0631
+[Open3D DEBUG] Residual : 1.29e-03 (# of elements : 20341)
+[Open3D DEBUG] ICP Iteration #20: Fitness 0.7475, RMSE 0.0630
+[Open3D DEBUG] Residual : 1.29e-03 (# of elements : 20339)
+[Open3D DEBUG] ICP Iteration #21: Fitness 0.7473, RMSE 0.0629
+[Open3D DEBUG] Residual : 1.29e-03 (# of elements : 20335)
+[Open3D DEBUG] ICP Iteration #22: Fitness 0.7473, RMSE 0.0629
+[Open3D DEBUG] Residual : 1.28e-03 (# of elements : 20334)
+[Open3D DEBUG] ICP Iteration #23: Fitness 0.7472, RMSE 0.0628
+[Open3D DEBUG] Residual : 1.28e-03 (# of elements : 20331)
+[Open3D DEBUG] ICP Iteration #24: Fitness 0.7471, RMSE 0.0627
+[Open3D DEBUG] Residual : 1.28e-03 (# of elements : 20329)
+[Open3D DEBUG] ICP Iteration #25: Fitness 0.7470, RMSE 0.0627
+[Open3D DEBUG] Residual : 1.27e-03 (# of elements : 20326)
+[Open3D DEBUG] ICP Iteration #26: Fitness 0.7469, RMSE 0.0626
+[Open3D DEBUG] Residual : 1.27e-03 (# of elements : 20325)
+[Open3D DEBUG] ICP Iteration #27: Fitness 0.7469, RMSE 0.0626
+[Open3D DEBUG] Residual : 1.27e-03 (# of elements : 20324)
+[Open3D DEBUG] ICP Iteration #28: Fitness 0.7469, RMSE 0.0626
+[Open3D DEBUG] Residual : 1.26e-03 (# of elements : 20323)
+[Open3D DEBUG] ICP Iteration #29: Fitness 0.7469, RMSE 0.0626
+[Open3D DEBUG] Residual : 1.26e-03 (# of elements : 20323)
+[Open3D DEBUG] ICP Iteration #0: Fitness 0.5852, RMSE 0.0139
+[Open3D DEBUG] Residual : 1.17e-04 (# of elements : 15924)
+[Open3D DEBUG] ICP Iteration #1: Fitness 0.6369, RMSE 0.0121
+[Open3D DEBUG] Residual : 7.15e-05 (# of elements : 17332)
+[Open3D DEBUG] ICP Iteration #2: Fitness 0.6395, RMSE 0.0102
+[Open3D DEBUG] Residual : 3.27e-05 (# of elements : 17402)
+[Open3D DEBUG] ICP Iteration #3: Fitness 0.6390, RMSE 0.0101
+[Open3D DEBUG] Residual : 3.13e-05 (# of elements : 17388)
+[Open3D DEBUG] ICP Iteration #4: Fitness 0.6392, RMSE 0.0101
+[Open3D DEBUG] Residual : 3.13e-05 (# of elements : 17392)
+[Open3D DEBUG] ICP Iteration #5: Fitness 0.6391, RMSE 0.0101
+[Open3D DEBUG] Residual : 3.13e-05 (# of elements : 17390)
+Build o3d.pipelines.registration.PoseGraph
+Apply point-to-plane ICP
+[Open3D DEBUG] ICP Iteration #0: Fitness 0.5669, RMSE 0.1655
+[Open3D DEBUG] Residual : 1.78e-02 (# of elements : 15427)
+[Open3D DEBUG] ICP Iteration #1: Fitness 0.6107, RMSE 0.1603
+[Open3D DEBUG] Residual : 1.72e-02 (# of elements : 16617)
+[Open3D DEBUG] ICP Iteration #2: Fitness 0.6706, RMSE 0.1484
+[Open3D DEBUG] Residual : 1.47e-02 (# of elements : 18249)
+[Open3D DEBUG] ICP Iteration #3: Fitness 0.7393, RMSE 0.1341
+[Open3D DEBUG] Residual : 9.62e-03 (# of elements : 20117)
+[Open3D DEBUG] ICP Iteration #4: Fitness 0.8061, RMSE 0.1313
+[Open3D DEBUG] Residual : 7.39e-03 (# of elements : 21934)
+[Open3D DEBUG] ICP Iteration #5: Fitness 0.8341, RMSE 0.1120
+[Open3D DEBUG] Residual : 5.13e-03 (# of elements : 22697)
+[Open3D DEBUG] ICP Iteration #6: Fitness 0.8784, RMSE 0.0993
+[Open3D DEBUG] Residual : 3.11e-03 (# of elements : 23901)
+[Open3D DEBUG] ICP Iteration #7: Fitness 0.9177, RMSE 0.0846
+[Open3D DEBUG] Residual : 1.47e-03 (# of elements : 24972)
+[Open3D DEBUG] ICP Iteration #8: Fitness 0.9376, RMSE 0.0795
+[Open3D DEBUG] Residual : 9.79e-04 (# of elements : 25512)
+[Open3D DEBUG] ICP Iteration #9: Fitness 0.9463, RMSE 0.0789
+[Open3D DEBUG] Residual : 9.53e-04 (# of elements : 25750)
+[Open3D DEBUG] ICP Iteration #10: Fitness 0.9491, RMSE 0.0788
+[Open3D DEBUG] Residual : 9.87e-04 (# of elements : 25827)
+[Open3D DEBUG] ICP Iteration #11: Fitness 0.9499, RMSE 0.0787
+[Open3D DEBUG] Residual : 1.00e-03 (# of elements : 25849)
+[Open3D DEBUG] ICP Iteration #12: Fitness 0.9503, RMSE 0.0787
+[Open3D DEBUG] Residual : 1.01e-03 (# of elements : 25858)
+[Open3D DEBUG] ICP Iteration #13: Fitness 0.9504, RMSE 0.0788
+[Open3D DEBUG] Residual : 1.01e-03 (# of elements : 25862)
+[Open3D DEBUG] ICP Iteration #14: Fitness 0.9505, RMSE 0.0788
+[Open3D DEBUG] Residual : 1.01e-03 (# of elements : 25863)
+[Open3D DEBUG] ICP Iteration #15: Fitness 0.9505, RMSE 0.0787
+[Open3D DEBUG] Residual : 1.01e-03 (# of elements : 25863)
+[Open3D DEBUG] ICP Iteration #16: Fitness 0.9505, RMSE 0.0788
+[Open3D DEBUG] Residual : 1.01e-03 (# of elements : 25863)
+[Open3D DEBUG] ICP Iteration #0: Fitness 0.6932, RMSE 0.0152
+[Open3D DEBUG] Residual : 1.42e-04 (# of elements : 18863)
+[Open3D DEBUG] ICP Iteration #1: Fitness 0.7057, RMSE 0.0106
+[Open3D DEBUG] Residual : 3.39e-05 (# of elements : 19203)
+[Open3D DEBUG] ICP Iteration #2: Fitness 0.7052, RMSE 0.0104
+[Open3D DEBUG] Residual : 3.06e-05 (# of elements : 19190)
+[Open3D DEBUG] ICP Iteration #3: Fitness 0.7054, RMSE 0.0104
+[Open3D DEBUG] Residual : 3.07e-05 (# of elements : 19195)
+[Open3D DEBUG] ICP Iteration #4: Fitness 0.7055, RMSE 0.0105
+[Open3D DEBUG] Residual : 3.07e-05 (# of elements : 19198)
+[Open3D DEBUG] ICP Iteration #5: Fitness 0.7055, RMSE 0.0105
+[Open3D DEBUG] Residual : 3.07e-05 (# of elements : 19197)
+Build o3d.pipelines.registration.PoseGraph
+Apply point-to-plane ICP
+[Open3D DEBUG] ICP Iteration #0: Fitness 0.7980, RMSE 0.1231
+[Open3D DEBUG] Residual : 1.23e-02 (# of elements : 15272)
+[Open3D DEBUG] ICP Iteration #1: Fitness 0.9232, RMSE 0.1132
+[Open3D DEBUG] Residual : 9.84e-03 (# of elements : 17668)
+[Open3D DEBUG] ICP Iteration #2: Fitness 0.9638, RMSE 0.0957
+[Open3D DEBUG] Residual : 4.76e-03 (# of elements : 18445)
+[Open3D DEBUG] ICP Iteration #3: Fitness 0.9648, RMSE 0.0865
+[Open3D DEBUG] Residual : 2.63e-03 (# of elements : 18464)
+[Open3D DEBUG] ICP Iteration #4: Fitness 0.9576, RMSE 0.0784
+[Open3D DEBUG] Residual : 1.34e-03 (# of elements : 18326)
+[Open3D DEBUG] ICP Iteration #5: Fitness 0.9506, RMSE 0.0755
+[Open3D DEBUG] Residual : 8.08e-04 (# of elements : 18191)
+[Open3D DEBUG] ICP Iteration #6: Fitness 0.9446, RMSE 0.0746
+[Open3D DEBUG] Residual : 5.87e-04 (# of elements : 18077)
+[Open3D DEBUG] ICP Iteration #7: Fitness 0.9400, RMSE 0.0740
+[Open3D DEBUG] Residual : 4.83e-04 (# of elements : 17989)
+[Open3D DEBUG] ICP Iteration #8: Fitness 0.9381, RMSE 0.0739
+[Open3D DEBUG] Residual : 4.41e-04 (# of elements : 17953)
+[Open3D DEBUG] ICP Iteration #9: Fitness 0.9373, RMSE 0.0737
+[Open3D DEBUG] Residual : 4.30e-04 (# of elements : 17937)
+[Open3D DEBUG] ICP Iteration #10: Fitness 0.9372, RMSE 0.0738
+[Open3D DEBUG] Residual : 4.29e-04 (# of elements : 17936)
+[Open3D DEBUG] ICP Iteration #11: Fitness 0.9372, RMSE 0.0739
+[Open3D DEBUG] Residual : 4.29e-04 (# of elements : 17936)
+[Open3D DEBUG] ICP Iteration #0: Fitness 0.7654, RMSE 0.0129
+[Open3D DEBUG] Residual : 9.10e-05 (# of elements : 14648)
+[Open3D DEBUG] ICP Iteration #1: Fitness 0.7605, RMSE 0.0109
+[Open3D DEBUG] Residual : 4.28e-05 (# of elements : 14553)
+[Open3D DEBUG] ICP Iteration #2: Fitness 0.7594, RMSE 0.0108
+[Open3D DEBUG] Residual : 4.23e-05 (# of elements : 14533)
+[Open3D DEBUG] ICP Iteration #3: Fitness 0.7592, RMSE 0.0108
+[Open3D DEBUG] Residual : 4.24e-05 (# of elements : 14528)
+Build o3d.pipelines.registration.PoseGraph
+</pre></div></div>
+</div>
+<p>Open3D uses the function <code class="docutils literal notranslate"><span class="pre">global_optimization</span></code> to perform pose graph optimization. Two types of optimization methods can be chosen: <code class="docutils literal notranslate"><span class="pre">GlobalOptimizationGaussNewton</span></code> or <code class="docutils literal notranslate"><span class="pre">GlobalOptimizationLevenbergMarquardt</span></code>. The latter is recommended since it has better convergence property. Class <code class="docutils literal notranslate"><span class="pre">GlobalOptimizationConvergenceCriteria</span></code> can be used to set the maximum number of iterations and various optimization parameters.</p>
+<p>Class <code class="docutils literal notranslate"><span class="pre">GlobalOptimizationOption</span></code> defines a couple of options. <code class="docutils literal notranslate"><span class="pre">max_correspondence_distance</span></code> decides the correspondence threshold. <code class="docutils literal notranslate"><span class="pre">edge_prune_threshold</span></code> is a threshold for pruning outlier edges. <code class="docutils literal notranslate"><span class="pre">reference_node</span></code> is the node id that is considered to be the global space.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Optimizing PoseGraph ...&quot;</span><span class="p">)</span>
+<span class="n">option</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">GlobalOptimizationOption</span><span class="p">(</span>
+    <span class="n">max_correspondence_distance</span><span class="o">=</span><span class="n">max_correspondence_distance_fine</span><span class="p">,</span>
+    <span class="n">edge_prune_threshold</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+    <span class="n">reference_node</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityContextManager</span><span class="p">(</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityLevel</span><span class="o">.</span><span class="n">Debug</span><span class="p">)</span> <span class="k">as</span> <span class="n">cm</span><span class="p">:</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">global_optimization</span><span class="p">(</span>
+        <span class="n">pose_graph</span><span class="p">,</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">GlobalOptimizationLevenbergMarquardt</span><span class="p">(),</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">GlobalOptimizationConvergenceCriteria</span><span class="p">(),</span>
+        <span class="n">option</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Optimizing PoseGraph ...
+[Open3D DEBUG] Validating PoseGraph - finished.
+[Open3D DEBUG] [GlobalOptimizationLM] Optimizing PoseGraph having 3 nodes and 3 edges.
+[Open3D DEBUG] Line process weight : 15.334500
+[Open3D DEBUG] [Initial     ] residual : 1.037615e+00, lambda : 2.960068e+00
+[Open3D DEBUG] [Iteration 00] residual : 2.034300e-01, valid edges : 1, time : 0.000 sec.
+[Open3D DEBUG] [Iteration 01] residual : 1.455356e-01, valid edges : 1, time : 0.000 sec.
+[Open3D DEBUG] Delta.norm() &lt; 1.000000e-06 * (x.norm() + 1.000000e-06)
+[Open3D DEBUG] [GlobalOptimizationLM] total time : 0.000 sec.
+[Open3D DEBUG] [GlobalOptimizationLM] Optimizing PoseGraph having 3 nodes and 3 edges.
+[Open3D DEBUG] Line process weight : 15.334500
+[Open3D DEBUG] [Initial     ] residual : 1.455332e-01, lambda : 3.051329e+00
+[Open3D DEBUG] Delta.norm() &lt; 1.000000e-06 * (x.norm() + 1.000000e-06)
+[Open3D DEBUG] [GlobalOptimizationLM] total time : 0.000 sec.
+[Open3D DEBUG] CompensateReferencePoseGraphNode : reference : 0
+</pre></div></div>
+</div>
+<p>The global optimization performs twice on the pose graph. The first pass optimizes poses for the original pose graph taking all edges into account and does its best to distinguish false alignments among uncertain edges. These false alignments have small line process weights, and they are pruned after the first pass. The second pass runs without them and produces a tight global alignment. In this example, all the edges are considered as true alignments, hence the second pass terminates
+immediately.</p>
+</div>
+<div class="section" id="Visualize-optimization">
+<h2>Visualize optimization<a class="headerlink" href="#Visualize-optimization" title="Permalink to this headline">¶</a></h2>
+<p>The transformed point clouds are listed and visualized using <code class="docutils literal notranslate"><span class="pre">draw_geometries</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Transform points and display&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">point_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pcds_down</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pose_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">point_id</span><span class="p">]</span><span class="o">.</span><span class="n">pose</span><span class="p">)</span>
+    <span class="n">pcds_down</span><span class="p">[</span><span class="n">point_id</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">pose_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">point_id</span><span class="p">]</span><span class="o">.</span><span class="n">pose</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">(</span><span class="n">pcds_down</span><span class="p">,</span>
+                                  <span class="n">zoom</span><span class="o">=</span><span class="mf">0.3412</span><span class="p">,</span>
+                                  <span class="n">front</span><span class="o">=</span><span class="p">[</span><span class="mf">0.4257</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2125</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8795</span><span class="p">],</span>
+                                  <span class="n">lookat</span><span class="o">=</span><span class="p">[</span><span class="mf">2.6172</span><span class="p">,</span> <span class="mf">2.0475</span><span class="p">,</span> <span class="mf">1.532</span><span class="p">],</span>
+                                  <span class="n">up</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.0694</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9768</span><span class="p">,</span> <span class="mf">0.2024</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Transform points and display
+[[ 1.00000000e+00  1.20596316e-19  1.08420217e-19 -1.73472348e-18]
+ [-9.61382395e-20  1.00000000e+00  1.08420217e-19 -8.67361738e-19]
+ [ 1.08420217e-19  0.00000000e+00  1.00000000e+00  0.00000000e+00]
+ [ 0.00000000e+00  0.00000000e+00  0.00000000e+00  1.00000000e+00]]
+[[ 0.84016209 -0.14644296  0.52218973  0.34786264]
+ [ 0.0061365   0.96535921  0.26085233 -0.39421642]
+ [-0.54230065 -0.21595382  0.81195686  1.73016434]
+ [ 0.          0.          0.          1.        ]]
+[[ 0.9627171  -0.07182071  0.26080179  0.37666506]
+ [-0.00193493  0.96225765  0.27213318 -0.48961689]
+ [-0.27050331 -0.2624919   0.92624293  1.29777557]
+ [ 0.          0.          0.          1.        ]]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_pipelines_multiway_registration_12_1.png" src="../../_images/tutorial_pipelines_multiway_registration_12_" />
+</div>
+</div>
+</div>
+<div class="section" id="Make-a-combined-point-cloud">
+<h2>Make a combined point cloud<a class="headerlink" href="#Make-a-combined-point-cloud" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">PointCloud</span></code> has a convenience operator <code class="docutils literal notranslate"><span class="pre">+</span></code> that can merge two point clouds into a single one. In the code below, the points are uniformly resampled using <code class="docutils literal notranslate"><span class="pre">voxel_down_sample</span></code> after merging. This is recommended post-processing after merging point clouds since it can relieve duplicated or over-densified points.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pcds</span> <span class="o">=</span> <span class="n">load_point_clouds</span><span class="p">(</span><span class="n">voxel_size</span><span class="p">)</span>
+<span class="n">pcd_combined</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">PointCloud</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">point_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pcds</span><span class="p">)):</span>
+    <span class="n">pcds</span><span class="p">[</span><span class="n">point_id</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">pose_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">point_id</span><span class="p">]</span><span class="o">.</span><span class="n">pose</span><span class="p">)</span>
+    <span class="n">pcd_combined</span> <span class="o">+=</span> <span class="n">pcds</span><span class="p">[</span><span class="n">point_id</span><span class="p">]</span>
+<span class="n">pcd_combined_down</span> <span class="o">=</span> <span class="n">pcd_combined</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="n">voxel_size</span><span class="o">=</span><span class="n">voxel_size</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_point_cloud</span><span class="p">(</span><span class="s2">&quot;multiway_registration.pcd&quot;</span><span class="p">,</span> <span class="n">pcd_combined_down</span><span class="p">)</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">pcd_combined_down</span><span class="p">],</span>
+                                  <span class="n">zoom</span><span class="o">=</span><span class="mf">0.3412</span><span class="p">,</span>
+                                  <span class="n">front</span><span class="o">=</span><span class="p">[</span><span class="mf">0.4257</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2125</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8795</span><span class="p">],</span>
+                                  <span class="n">lookat</span><span class="o">=</span><span class="p">[</span><span class="mf">2.6172</span><span class="p">,</span> <span class="mf">2.0475</span><span class="p">,</span> <span class="mf">1.532</span><span class="p">],</span>
+                                  <span class="n">up</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.0694</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.9768</span><span class="p">,</span> <span class="mf">0.2024</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/tutorial_pipelines_multiway_registration_14_0.png" src="../../_images/tutorial_pipelines_multiway_registration_14_" />
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle"><strong>Note:</strong></p>
+<p>Although this tutorial demonstrates multiway registration for point clouds, the same procedure can be applied to RGBD images. See <a class="reference internal" href="../reconstruction_syst/make_fragments.5d.delay"><span class="doc">Make fragments</span></a> for an example.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rgbd_integration.html" class="btn btn-neutral float-right" title="RGBD integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="global_registration.html" class="btn btn-neutral float-left" title="Global registration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/pipelines/multiway_registration.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:26:07 GMT -->
+</html>

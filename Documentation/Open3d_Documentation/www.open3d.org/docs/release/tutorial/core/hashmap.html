@@ -1,0 +1,1193 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/core/hashmap.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:46:28 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Hash map &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Dataset" href="../data/index.html" />
+    <link rel="prev" title="Tensor" href="tensor.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">Visualization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Core</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tensor.html">Tensor</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Hash map</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#A-simple-example">A simple example</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Insertion">Insertion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Query">Query</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Active-entries-in-the-hash-map">Active entries in the hash map</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Erase">Erase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Activate">Activate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Rehashing-and-reserve">Rehashing and reserve</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Multi-valued-hash-map">Multi-valued hash map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Hash-set">Hash set</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Core</a> &raquo;</li>
+        
+      <li>Hash map</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Hash-map">
+<h1>Hash map<a class="headerlink" href="#Hash-map" title="Permalink to this headline">¶</a></h1>
+<p>A hash map is a data structure that maps keys to values with amortized O(1) insertion, find, and deletion time. The map is unordered.</p>
+<p>Open3D allows parallel hashing on CPU and GPU with keys and values organized as Tensors, where we take a batch of keys and/or values as input.</p>
+<ul class="simple">
+<li><p>Keys: The Open3D hash map supports multi-dimensional keys. Due to precision issue, floating-point is not recommended to be regarded as keys. By default we support up to 6D coordinates in integer. For higher dimensions, you may modify the macros and compile from source in <a class="reference external" href="https://github.com/isl-org/Open3D/blob/master/cpp/open3d/core/hashmap/Dispatch.h">this file</a> within this snippet:</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define DIM_SWITCHER(DTYPE, DIM, ...)                                    \</span>
+<span class="cp">    if (DIM == 1) {                                                      \</span>
+<span class="cp">        INSTANTIATE_TYPES(DTYPE, 1)                                      \</span>
+<span class="cp">        return __VA_ARGS__();                                            \</span>
+<span class="cp">    } else if (DIM == 2) {                                               \</span>
+<span class="cp">        INSTANTIATE_TYPES(DTYPE, 2)                                      \</span>
+<span class="cp">        return __VA_ARGS__();                                            \</span>
+<span class="cp">    } else if (DIM == 3) {                                               \</span>
+<span class="cp">        INSTANTIATE_TYPES(DTYPE, 3)                                      \</span>
+<span class="cp">        return __VA_ARGS__();                                            \</span>
+<span class="cp">    } else if (DIM == 4) {                                               \</span>
+<span class="cp">        INSTANTIATE_TYPES(DTYPE, 4)                                      \</span>
+<span class="cp">        return __VA_ARGS__();                                            \</span>
+<span class="cp">    } else if (DIM == 5) {                                               \</span>
+<span class="cp">        INSTANTIATE_TYPES(DTYPE, 5)                                      \</span>
+<span class="cp">        return __VA_ARGS__();                                            \</span>
+<span class="cp">    } else if (DIM == 6) {                                               \</span>
+<span class="cp">        INSTANTIATE_TYPES(DTYPE, 6)                                      \</span>
+<span class="cp">        return __VA_ARGS__();                                            \</span>
+<span class="cp">    } else {                                                             \</span>
+<span class="cp">        utility::LogError(                                               \</span>
+<span class="cp">                &quot;Unsupported dim {}, please modify {} and compile from &quot; \</span>
+<span class="cp">                &quot;source&quot;,                                                \</span>
+<span class="cp">                DIM, __FILE__);                                          \</span>
+<span class="cp">    }</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Values: The Open3D hash map supports values in arbitrary dimensions and data types.</p></li>
+<li><p>Devices: Both CPU and CUDA are supported. The CPU hashmap is based on <a class="reference external" href="https://github.com/oneapi-src/oneTBB">TBB</a>, while the CUDA hash map is based upon <a class="reference external" href="https://github.com/stotko/stdgpu">stdgpu</a>.</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">open3d.core</span> <span class="k">as</span> <span class="nn">o3c</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">capacity</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="s1">&#39;cpu:0&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="A-simple-example">
+<h2>A simple example<a class="headerlink" href="#A-simple-example" title="Permalink to this headline">¶</a></h2>
+<p>We first create a simple hash map from integers to integers.</p>
+<p>We specify an initial estimated capacity. This capacity will be automatically adjusted when insertion occurs. Then we specify the element shape of keys and values, corresponding to the shape of each individual element.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hashmap</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">HashMap</span><span class="p">(</span><span class="n">capacity</span><span class="p">,</span>
+                      <span class="n">key_dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
+                      <span class="n">key_element_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,),</span>
+                      <span class="n">value_dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
+                      <span class="n">value_element_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,),</span>
+                      <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Insertion">
+<h3>Insertion<a class="headerlink" href="#Insertion" title="Permalink to this headline">¶</a></h3>
+<p>Next we show how to insert a batch of (key, value) pairs. You’ll need to prepare two tensors:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">keys</span></code> tensor contains all keys. - The <code class="docutils literal notranslate"><span class="pre">keys</span></code> tensor must be on the same device as the hash map. - The shape of the <code class="docutils literal notranslate"><span class="pre">keys</span></code> tensor is <code class="docutils literal notranslate"><span class="pre">key_elment_shape</span></code> with <code class="docutils literal notranslate"><span class="pre">N</span></code> prefixed to the front.</p>
+<p>For example 1. if <code class="docutils literal notranslate"><span class="pre">key_element_shape</span> <span class="pre">==</span> <span class="pre">()</span></code>, <code class="docutils literal notranslate"><span class="pre">keys.shape</span> <span class="pre">==</span> <span class="pre">(N,)</span></code>; 2. if <code class="docutils literal notranslate"><span class="pre">key_element_shape</span> <span class="pre">==</span> <span class="pre">(3,)</span></code>, <code class="docutils literal notranslate"><span class="pre">keys.shape</span> <span class="pre">==</span> <span class="pre">(N,</span> <span class="pre">3).</span></code>; 3. if <code class="docutils literal notranslate"><span class="pre">key_element_shape</span> <span class="pre">==</span> <span class="pre">(8,</span> <span class="pre">8,</span> <span class="pre">8)</span></code>, <code class="docutils literal notranslate"><span class="pre">keys.shape</span> <span class="pre">==</span> <span class="pre">(N,</span> <span class="pre">8,</span> <span class="pre">8,</span> <span class="pre">8).</span></code></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">vals</span></code> tensor contains all values. - The <code class="docutils literal notranslate"><span class="pre">vals</span></code> tensor must be on the same device as the hash map. - The shape of the <code class="docutils literal notranslate"><span class="pre">vals</span></code> tensor is <code class="docutils literal notranslate"><span class="pre">val_elment_shape</span></code> with <code class="docutils literal notranslate"><span class="pre">N</span></code> prefixed to the front.</p>
+<p>For example 1. if <code class="docutils literal notranslate"><span class="pre">val_elment_shape</span> <span class="pre">==</span> <span class="pre">()</span></code>, <code class="docutils literal notranslate"><span class="pre">vals.shape</span> <span class="pre">==</span> <span class="pre">(N,)</span></code>; 2. if <code class="docutils literal notranslate"><span class="pre">val_elment_shape</span> <span class="pre">==</span> <span class="pre">(3,)</span></code>, <code class="docutils literal notranslate"><span class="pre">vals.shape</span> <span class="pre">==</span> <span class="pre">(N,</span> <span class="pre">3).</span></code>; 3. if <code class="docutils literal notranslate"><span class="pre">val_elment_shape</span> <span class="pre">==</span> <span class="pre">(8,</span> <span class="pre">8,</span> <span class="pre">8)</span></code>, <code class="docutils literal notranslate"><span class="pre">vals.shape</span> <span class="pre">==</span> <span class="pre">(N,</span> <span class="pre">8,</span> <span class="pre">8,</span> <span class="pre">8).</span></code></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Prepare a batch of 7 key/values, each a int64 element</span>
+<span class="n">keys</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">400</span><span class="p">],</span> <span class="p">[</span><span class="mi">800</span><span class="p">],</span> <span class="p">[</span><span class="mi">300</span><span class="p">],</span> <span class="p">[</span><span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">]],</span>
+                  <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
+                  <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">vals</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+                  <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
+                  <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">buf_indices</span><span class="p">,</span> <span class="n">masks</span> <span class="o">=</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Here, <code class="docutils literal notranslate"><span class="pre">masks</span></code> indicates whether a (key, value) pair is successfully inserted. A mask of value <code class="docutils literal notranslate"><span class="pre">True</span></code> means the insertion is successful and <code class="docutils literal notranslate"><span class="pre">False</span></code> if the insertion is skipped.</p>
+<p>Unsuccessful insertion only happens when there are duplicated keys.</p>
+<p>If there are duplicated keys, it is guaranteed that only <strong>one</strong> of the duplicated keys and its corresponding value will be inserted. That is, for a set of duplicated keys, one and only one will get a <code class="docutils literal notranslate"><span class="pre">True</span></code> mask.</p>
+<p>Since the insertion runs in parallel, there is no guarantee <strong>which one</strong> of the duplicated keys will be inserted. That is, for a set of duplicated keys, we don’t know which key gets the <code class="docutils literal notranslate"><span class="pre">True</span></code> mask.</p>
+<p>Using advanced indexing, we can obtain which keys are inserted:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;masks: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">masks</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;inserted keys: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">keys</span><span class="p">[</span><span class="n">masks</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+masks:
+ [True True True True True False False]
+Tensor[shape={7}, stride={1}, Bool, CPU:0, 0x5571293a85a0]
+inserted keys:
+ [[100],
+ [200],
+ [400],
+ [800],
+ [300]]
+Tensor[shape={5, 1}, stride={1, 1}, Int64, CPU:0, 0x557128c4f760]
+</pre></div></div>
+</div>
+<p>Next, let’s look at the usage of <code class="docutils literal notranslate"><span class="pre">buf_indices</span></code>. In our hash map, keys and values are stored in contiguous buffer tensors that could be conveniently accessed by indices. Instead of returning iterators that are less friendly to vectorized programming, we return such buffer indices.</p>
+<div class="admonition note">
+<p>These indices are not necessarily the same as input indices due to concurrency. Also, the indices are by default stored in int32 due to the underlying implementations. A conversion to int64 is required for advanced indexing.</p>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">buf_keys</span> <span class="o">=</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">key_tensor</span><span class="p">()</span>
+<span class="n">buf_vals</span> <span class="o">=</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">value_tensor</span><span class="p">()</span>
+<span class="n">buf_indices</span> <span class="o">=</span> <span class="n">buf_indices</span><span class="p">[</span><span class="n">masks</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;buffer indices: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">buf_indices</span><span class="p">)</span>
+
+<span class="n">inserted_keys</span> <span class="o">=</span> <span class="n">buf_keys</span><span class="p">[</span><span class="n">buf_indices</span><span class="p">]</span>
+<span class="n">inserted_vals</span> <span class="o">=</span> <span class="n">buf_vals</span><span class="p">[</span><span class="n">buf_indices</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;inserted keys: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">inserted_keys</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;inserted values: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">inserted_vals</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+buffer indices:
+ [0 1 3 4 2]
+Tensor[shape={5}, stride={1}, Int64, CPU:0, 0x5571293ae6d0]
+inserted keys:
+ [[100],
+ [200],
+ [400],
+ [800],
+ [300]]
+Tensor[shape={5, 1}, stride={1, 1}, Int64, CPU:0, 0x5571284a73b0]
+inserted values:
+ [[1],
+ [2],
+ [4],
+ [8],
+ [3]]
+Tensor[shape={5, 1}, stride={1, 1}, Int64, CPU:0, 0x5571284a6f50]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Query">
+<h3>Query<a class="headerlink" href="#Query" title="Permalink to this headline">¶</a></h3>
+<p>The query operation follows the similar convention. Note as the operation is read-only, duplicate keys are allowed and will be returned properly.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">query_keys</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">1000</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">300</span><span class="p">],</span> <span class="p">[</span><span class="mi">200</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+                        <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
+                        <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">buf_indices</span><span class="p">,</span> <span class="n">masks</span> <span class="o">=</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">query_keys</span><span class="p">)</span>
+<span class="n">valid_keys</span> <span class="o">=</span> <span class="n">query_keys</span><span class="p">[</span><span class="n">masks</span><span class="p">]</span>
+<span class="n">buf_indices</span> <span class="o">=</span> <span class="n">buf_indices</span><span class="p">[</span><span class="n">masks</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+<span class="n">valid_vals</span> <span class="o">=</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">value_tensor</span><span class="p">()[</span><span class="n">buf_indices</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;found valid keys: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">valid_keys</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;found valid values: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">valid_vals</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+found valid keys:
+ [[100],
+ [300],
+ [200],
+ [100]]
+Tensor[shape={4, 1}, stride={1, 1}, Int64, CPU:0, 0x5571293a3ae0]
+found valid values:
+ [[1],
+ [3],
+ [2],
+ [1]]
+Tensor[shape={4, 1}, stride={1, 1}, Int64, CPU:0, 0x5571293ae6d0]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Active-entries-in-the-hash-map">
+<h3>Active entries in the hash map<a class="headerlink" href="#Active-entries-in-the-hash-map" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes we are interested in all the active entries. This can be achieved by:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">print_active_entries</span><span class="p">(</span><span class="n">hashmap</span><span class="p">):</span>
+    <span class="n">active_buf_indices</span> <span class="o">=</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">active_buf_indices</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+
+    <span class="n">active_keys</span> <span class="o">=</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">key_tensor</span><span class="p">()[</span><span class="n">active_buf_indices</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;all active keys:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">active_keys</span><span class="p">)</span>
+
+    <span class="n">active_vals</span> <span class="o">=</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">value_tensor</span><span class="p">()[</span><span class="n">active_buf_indices</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;all active values:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">active_vals</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Again, due to concurrency, the order is not guaranteed, but the key-value correspondence will be of course preserved.</p>
+</div>
+<div class="section" id="Erase">
+<h3>Erase<a class="headerlink" href="#Erase" title="Permalink to this headline">¶</a></h3>
+<p>We can similarly erase keys. The behavior is similar to insert:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">erase_keys</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">1000</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">masks</span> <span class="o">=</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">erase</span><span class="p">(</span><span class="n">erase_keys</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;erase masks:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">masks</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;erased keys:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">erase_keys</span><span class="p">[</span><span class="n">masks</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+erase masks:
+ [True False False]
+Tensor[shape={3}, stride={1}, Bool, CPU:0, 0x5571292dd430]
+erased keys:
+ [[100]]
+Tensor[shape={1, 1}, stride={1, 1}, Int64, CPU:0, 0x5571284a6a10]
+</pre></div></div>
+</div>
+<p>Now we can see that active entries have been changed:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">print_active_entries</span><span class="p">(</span><span class="n">hashmap</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+all active keys:
+ [[300],
+ [200],
+ [400],
+ [800]]
+Tensor[shape={4, 1}, stride={1, 1}, Int64, CPU:0, 0x5571293a9ad0]
+all active values:
+ [[3],
+ [2],
+ [4],
+ [8]]
+Tensor[shape={4, 1}, stride={1, 1}, Int64, CPU:0, 0x5571293b1d10]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Activate">
+<h3>Activate<a class="headerlink" href="#Activate" title="Permalink to this headline">¶</a></h3>
+<p>In some cases, we know a key is occupied, but do not know the associated value - we prefer to compute and modify it in-place afterwards. This can be achieved by a chain of operations:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">activate_keys</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">1000</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">buf_indices</span><span class="p">,</span> <span class="n">masks</span> <span class="o">=</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">activate_keys</span><span class="p">)</span>
+
+<span class="n">buf_vals</span> <span class="o">=</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">value_tensor</span><span class="p">()</span>
+<span class="c1"># Note the assigned tensor has to be strictly in the shape of (N, 1) due to broadcasting</span>
+<span class="n">buf_vals</span><span class="p">[</span><span class="n">buf_indices</span><span class="p">[</span><span class="n">masks</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">)]</span> \
+    <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+                 <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
+                 <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+
+<span class="n">print_active_entries</span><span class="p">(</span><span class="n">hashmap</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+all active keys:
+ [[300],
+ [1000],
+ [200],
+ [400],
+ [0],
+ [800]]
+Tensor[shape={6, 1}, stride={1, 1}, Int64, CPU:0, 0x5571284a6b00]
+all active values:
+ [[3],
+ [10],
+ [2],
+ [4],
+ [0],
+ [8]]
+Tensor[shape={6, 1}, stride={1, 1}, Int64, CPU:0, 0x5571284a6a60]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Rehashing-and-reserve">
+<h3>Rehashing and reserve<a class="headerlink" href="#Rehashing-and-reserve" title="Permalink to this headline">¶</a></h3>
+<p>Rehashing will be automatically triggered when the initial capacity is exceeded after multiple insertions, where the capacity of the hash map is doubled. Rehashing will change the location (i.e. buffer indices) of the inserted key-value pairs, so an update of the buffer indices in the downstream applications is required.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;size:&#39;</span><span class="p">,</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;capacity:&#39;</span><span class="p">,</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">capacity</span><span class="p">())</span>
+
+<span class="n">keys</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">700</span><span class="p">],</span> <span class="p">[</span><span class="mi">1200</span><span class="p">],</span> <span class="p">[</span><span class="mi">1500</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">vals</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">buf_indices</span><span class="p">,</span> <span class="n">masks</span> <span class="o">=</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;size:&#39;</span><span class="p">,</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;capacity:&#39;</span><span class="p">,</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">capacity</span><span class="p">())</span>
+<span class="n">print_active_entries</span><span class="p">(</span><span class="n">hashmap</span><span class="p">)</span>
+
+<span class="n">keys</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">1600</span><span class="p">],</span> <span class="p">[</span><span class="mi">1700</span><span class="p">],</span> <span class="p">[</span><span class="mi">1800</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">vals</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="p">[</span><span class="mi">18</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">buf_indices</span><span class="p">,</span> <span class="n">masks</span> <span class="o">=</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;size:&#39;</span><span class="p">,</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;capacity:&#39;</span><span class="p">,</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">capacity</span><span class="p">())</span>
+<span class="n">print_active_entries</span><span class="p">(</span><span class="n">hashmap</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+size: 6
+capacity: 10
+size: 9
+capacity: 10
+all active keys:
+ [[300],
+ [1500],
+ [700],
+ [1000],
+ [200],
+ [400],
+ [1200],
+ [0],
+ [800]]
+Tensor[shape={9, 1}, stride={1, 1}, Int64, CPU:0, 0x5571293b4d80]
+all active values:
+ [[3],
+ [-1],
+ [7],
+ [10],
+ [2],
+ [4],
+ [12],
+ [0],
+ [8]]
+Tensor[shape={9, 1}, stride={1, 1}, Int64, CPU:0, 0x5571293b64d0]
+size: 12
+capacity: 20
+all active keys:
+ [[1700],
+ [300],
+ [1500],
+ [700],
+ [1000],
+ [200],
+ [1800],
+ [400],
+ [1200],
+ [1600],
+ [0],
+ [800]]
+Tensor[shape={12, 1}, stride={1, 1}, Int64, CPU:0, 0x5571293b6410]
+all active values:
+ [[17],
+ [3],
+ [-1],
+ [7],
+ [10],
+ [2],
+ [18],
+ [4],
+ [12],
+ [16],
+ [0],
+ [8]]
+Tensor[shape={12, 1}, stride={1, 1}, Int64, CPU:0, 0x5571293b8250]
+</pre></div></div>
+</div>
+<p>Rehashing is slow, as it increases the hash map capacity, collects all the active entries, and insert them back to the hash map. If we know the capacity beforehand, we can pre-allocate a chunk of memory and avoid rehashing:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hashmap</span><span class="o">.</span><span class="n">reserve</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;size:&#39;</span><span class="p">,</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">size</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;capacity:&#39;</span><span class="p">,</span> <span class="n">hashmap</span><span class="o">.</span><span class="n">capacity</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+size: 12
+capacity: 100
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Multi-valued-hash-map">
+<h2>Multi-valued hash map<a class="headerlink" href="#Multi-valued-hash-map" title="Permalink to this headline">¶</a></h2>
+<p>In real-world applications, we want to map coordinates to complex data structures, e.g. a voxel position to its color and weight. This can be achieved by a multi-valued hash map.</p>
+<div class="admonition note">
+<p>This is not a multimap and does not allow duplicate keys. A multi-valued hash map can be constructed by</p>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mhashmap</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">HashMap</span><span class="p">(</span><span class="n">capacity</span><span class="p">,</span>
+                       <span class="n">key_dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
+                       <span class="n">key_element_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,),</span>
+                       <span class="n">value_dtypes</span><span class="o">=</span><span class="p">(</span><span class="n">o3c</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">o3c</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span>
+                       <span class="n">value_element_shapes</span><span class="o">=</span><span class="p">((</span><span class="mi">3</span><span class="p">,),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)),</span>
+                       <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">voxel_coords</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
+                          <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
+                          <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">voxel_colors</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+                          <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span>
+                          <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">voxel_weights</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mf">0.9</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">]],</span>
+                           <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+                           <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">mhashmap</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">voxel_coords</span><span class="p">,</span> <span class="p">(</span><span class="n">voxel_colors</span><span class="p">,</span> <span class="n">voxel_weights</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+([1 0 2]
+ Tensor[shape={3}, stride={1}, Int32, CPU:0, 0x5571293b83f0],
+ [True True True]
+ Tensor[shape={3}, stride={1}, Bool, CPU:0, 0x5571293bab60])
+</pre></div></div>
+</div>
+<p>We can then query and access by indices with a slightly different routine:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">query_coords</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">buf_indices</span><span class="p">,</span> <span class="n">masks</span> <span class="o">=</span> <span class="n">mhashmap</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">query_coords</span><span class="p">)</span>
+
+<span class="n">valid_keys</span> <span class="o">=</span> <span class="n">query_coords</span><span class="p">[</span><span class="n">masks</span><span class="p">]</span>
+<span class="n">buf_indices</span> <span class="o">=</span> <span class="n">buf_indices</span><span class="p">[</span><span class="n">masks</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+<span class="n">valid_colors</span> <span class="o">=</span> <span class="n">mhashmap</span><span class="o">.</span><span class="n">value_tensor</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="n">buf_indices</span><span class="p">]</span>
+<span class="n">valid_weights</span> <span class="o">=</span> <span class="n">mhashmap</span><span class="o">.</span><span class="n">value_tensor</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="n">buf_indices</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;found coordinates:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">valid_keys</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;found colors:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">valid_colors</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;found weights:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">valid_weights</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+found coordinates:
+ [[0 1 0]]
+Tensor[shape={1, 3}, stride={3, 1}, Int32, CPU:0, 0x5571293c47c0]
+found colors:
+ [[0 255 0]]
+Tensor[shape={1, 3}, stride={3, 1}, UInt8, CPU:0, 0x5571293c47a0]
+found weights:
+ [[0.9]]
+Tensor[shape={1, 1}, stride={1, 1}, Float32, CPU:0, 0x5571284a6540]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">print_active_multivalue_entries</span><span class="p">(</span><span class="n">mhashmap</span><span class="p">):</span>
+    <span class="n">active_buf_indices</span> <span class="o">=</span> <span class="n">mhashmap</span><span class="o">.</span><span class="n">active_buf_indices</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+
+    <span class="n">active_keys</span> <span class="o">=</span> <span class="n">mhashmap</span><span class="o">.</span><span class="n">key_tensor</span><span class="p">()[</span><span class="n">active_buf_indices</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;all active keys:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">active_keys</span><span class="p">)</span>
+
+    <span class="n">n_buffers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mhashmap</span><span class="o">.</span><span class="n">value_tensors</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_buffers</span><span class="p">):</span>
+        <span class="n">active_val_i</span> <span class="o">=</span> <span class="n">mhashmap</span><span class="o">.</span><span class="n">value_tensor</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="n">active_buf_indices</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;active value </span><span class="si">{}</span><span class="se">\n</span><span class="s1">:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">active_val_i</span><span class="p">)</span>
+
+
+<span class="n">print_active_multivalue_entries</span><span class="p">(</span><span class="n">mhashmap</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+all active keys:
+ [[0 1 0],
+ [3 4 1],
+ [-1 2 3]]
+Tensor[shape={3, 3}, stride={3, 1}, Int32, CPU:0, 0x5571293b1d40]
+active value 0
+: [[0 255 0],
+ [255 0 0],
+ [255 255 0]]
+Tensor[shape={3, 3}, stride={3, 1}, UInt8, CPU:0, 0x5571293c5610]
+active value 1
+: [[0.9],
+ [0.3],
+ [0.1]]
+Tensor[shape={3, 1}, stride={1, 1}, Float32, CPU:0, 0x5571293c56d0]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Hash-set">
+<h2>Hash set<a class="headerlink" href="#Hash-set" title="Permalink to this headline">¶</a></h2>
+<p>Hash set is a simplified hash map where we do not care about the values. It preserves most of the operations in a hash map, and could be useful for removing duplicates.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hashset</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">HashSet</span><span class="p">(</span><span class="n">capacity</span><span class="p">,</span>
+                      <span class="n">key_dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
+                      <span class="n">key_element_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,),</span>
+                      <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">keys</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
+                  <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">hashset</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+
+<span class="n">keys</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+    <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">hashset</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">print_active_keys</span><span class="p">(</span><span class="n">hashset</span><span class="p">):</span>
+    <span class="n">active_buf_indices</span> <span class="o">=</span> <span class="n">hashset</span><span class="o">.</span><span class="n">active_buf_indices</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">o3c</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="n">active_keys</span> <span class="o">=</span> <span class="n">hashset</span><span class="o">.</span><span class="n">key_tensor</span><span class="p">()[</span><span class="n">active_buf_indices</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;active keys:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">active_keys</span><span class="p">)</span>
+
+
+<span class="n">print_active_keys</span><span class="p">(</span><span class="n">hashset</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+active keys:
+ [[5],
+ [9],
+ [1],
+ [3],
+ [11],
+ [7]]
+Tensor[shape={6, 1}, stride={1, 1}, Int64, CPU:0, 0x5571284a6b00]
+</pre></div></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../data/index.html" class="btn btn-neutral float-right" title="Dataset" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tensor.html" class="btn btn-neutral float-left" title="Tensor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/core/hashmap.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:46:28 GMT -->
+</html>

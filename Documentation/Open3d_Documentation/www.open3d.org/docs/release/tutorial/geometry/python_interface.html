@@ -1,0 +1,1439 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/geometry/python_interface.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:23:03 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Python Interface &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Working with NumPy" href="working_with_numpy.html" />
+    <link rel="prev" title="Distance Queries" href="distance_queries.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Geometry</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pointcloud.html">Point cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh.html">Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rgbd_image.html">RGBD images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kdtree.html">KDTree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_io.html">File IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pointcloud_outlier_removal.3c.dela">Point cloud outlier removal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="voxelization.html">Voxelization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="octree.html">Octree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="surface_reconstruction.html">Surface reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transformation.html">Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mesh_deformation.html">Mesh deformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iss_keypoint_detector.html">Intrinsic shape signatures (ISS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ray_casting.html">Ray Casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distance_queries.html">Distance Queries</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Python Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Install-Open3D-Python-package">Install Open3D Python package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Install-Open3D-from-source">Install Open3D from source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Getting-started">Getting started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Using-built-in-help-function">Using built-in help function</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Browse-Open3D">Browse Open3D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Description-of-a-class-in-Open3D">Description of a class in Open3D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Description-of-a-function-in-Open3D">Description of a function in Open3D</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="working_with_numpy.html">Working with NumPy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Geometry</a> &raquo;</li>
+        
+      <li>Python Interface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Python-Interface">
+<h1>Python Interface<a class="headerlink" href="#Python-Interface" title="Permalink to this headline">¶</a></h1>
+<p>For the C++ interface, see <a class="reference external" href="../../cpp_api.html">here</a>.</p>
+<div class="section" id="Install-Open3D-Python-package">
+<h2>Install Open3D Python package<a class="headerlink" href="#Install-Open3D-Python-package" title="Permalink to this headline">¶</a></h2>
+<p>For installing Open3D Python package, see <a class="reference internal" href="../../getting_started.html"><span class="doc">here</span></a>.</p>
+</div>
+<div class="section" id="Install-Open3D-from-source">
+<h2>Install Open3D from source<a class="headerlink" href="#Install-Open3D-from-source" title="Permalink to this headline">¶</a></h2>
+<p>For installing from source, see <a class="reference internal" href="../../compilation.html"><span class="doc">here</span></a>.</p>
+</div>
+<div class="section" id="Getting-started">
+<h2>Getting started<a class="headerlink" href="#Getting-started" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial shows how to import the <code class="docutils literal notranslate"><span class="pre">open3d</span></code> module and use it to load and inspect a point cloud.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Using external Open3D-ML in /home/runner/work/Open3D/Open3D/Open3D-ML
+</pre></div></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle"><strong>Note:</strong></p>
+<p>Depending on the environment, the name of the Python library may not be <code class="docutils literal notranslate"><span class="pre">open3d.so</span></code>. Regardless of the file name, <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">open3d</span></code> should work.</p>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">sample_pcd_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">PCDPointCloud</span><span class="p">()</span>
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">sample_pcd_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pcd</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+PointCloud with 113662 points.
+</pre></div></div>
+</div>
+<p>This imports the <code class="docutils literal notranslate"><span class="pre">read_point_cloud</span></code> function from the <code class="docutils literal notranslate"><span class="pre">open3d</span></code> module. It reads a point cloud file and returns an instance of the <code class="docutils literal notranslate"><span class="pre">PointCloud</span></code> class. <code class="docutils literal notranslate"><span class="pre">print(pcd)</span></code> prints some brief information about the point cloud.</p>
+</div>
+<div class="section" id="Using-built-in-help-function">
+<h2>Using built-in help function<a class="headerlink" href="#Using-built-in-help-function" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Browse-Open3D">
+<h3>Browse Open3D<a class="headerlink" href="#Browse-Open3D" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">help(open3d)</span></code> prints a description of the <code class="docutils literal notranslate"><span class="pre">open3d</span></code> module.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">help</span><span class="p">(</span><span class="n">o3d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on package open3d:
+
+NAME
+    open3d
+
+DESCRIPTION
+    # ----------------------------------------------------------------------------
+    # -                        Open3D: www.open3d.org                            -
+    # ----------------------------------------------------------------------------
+    # Copyright (c) 2018-2023 www.open3d.org
+    # SPDX-License-Identifier: MIT
+    # ----------------------------------------------------------------------------
+
+PACKAGE CONTENTS
+    _build_config
+    app
+    examples (package)
+    ml (package)
+    visualization (package)
+    web_visualizer
+
+SUBMODULES
+    camera
+    core
+    cpu
+    data
+    geometry
+    io
+    pipelines
+    pybind
+    t
+    utility
+
+DATA
+    __DEVICE_API__ = &#39;cpu&#39;
+
+VERSION
+    0.17.0
+
+FILE
+    /opt/hostedtoolcache/Python/3.7.16/x64/lib/python3.7/site-packages/open3d/__init__.py
+
+
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Description-of-a-class-in-Open3D">
+<h3>Description of a class in Open3D<a class="headerlink" href="#Description-of-a-class-in-Open3D" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">help(open3d.PointCloud)</span></code> provides a description of the <code class="docutils literal notranslate"><span class="pre">PointCloud</span></code> class.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">help</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">PointCloud</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on class PointCloud in module open3d.cpu.pybind.geometry:
+
+class PointCloud(Geometry3D)
+ |  PointCloud class. A point cloud consists of point coordinates, and optionally point colors and point normals.
+ |
+ |  Method resolution order:
+ |      PointCloud
+ |      Geometry3D
+ |      Geometry
+ |      pybind11_builtins.pybind11_object
+ |      builtins.object
+ |
+ |  Methods defined here:
+ |
+ |  __add__(...)
+ |      __add__(self: open3d.cpu.pybind.geometry.PointCloud, arg0: open3d.cpu.pybind.geometry.PointCloud) -&gt; open3d.cpu.pybind.geometry.PointCloud
+ |
+ |  __copy__(...)
+ |      __copy__(self: open3d.cpu.pybind.geometry.PointCloud) -&gt; open3d.cpu.pybind.geometry.PointCloud
+ |
+ |  __deepcopy__(...)
+ |      __deepcopy__(self: open3d.cpu.pybind.geometry.PointCloud, arg0: dict) -&gt; open3d.cpu.pybind.geometry.PointCloud
+ |
+ |  __iadd__(...)
+ |      __iadd__(self: open3d.cpu.pybind.geometry.PointCloud, arg0: open3d.cpu.pybind.geometry.PointCloud) -&gt; open3d.cpu.pybind.geometry.PointCloud
+ |
+ |  __init__(...)
+ |      __init__(*args, **kwargs)
+ |      Overloaded function.
+ |
+ |      1. __init__(self: open3d.cpu.pybind.geometry.PointCloud) -&gt; None
+ |
+ |      Default constructor
+ |
+ |      2. __init__(self: open3d.cpu.pybind.geometry.PointCloud, arg0: open3d.cpu.pybind.geometry.PointCloud) -&gt; None
+ |
+ |      Copy constructor
+ |
+ |      3. __init__(self: open3d.cpu.pybind.geometry.PointCloud, points: open3d.cpu.pybind.utility.Vector3dVector) -&gt; None
+ |
+ |      Create a PointCloud from points
+ |
+ |  __repr__(...)
+ |      __repr__(self: open3d.cpu.pybind.geometry.PointCloud) -&gt; str
+ |
+ |  cluster_dbscan(...)
+ |      cluster_dbscan(self, eps, min_points, print_progress=False)
+ |      Cluster PointCloud using the DBSCAN algorithm  Ester et al., &#39;A Density-Based Algorithm for Discovering Clusters in Large Spatial Databases with Noise&#39;, 1996. Returns a list of point labels, -1 indicates noise according to the algorithm.
+ |
+ |      Args:
+ |          eps (float): Density parameter that is used to find neighbouring points.
+ |          min_points (int): Minimum number of points to form a cluster.
+ |          print_progress (bool, optional, default=False): If true the progress is visualized in the console.
+ |
+ |      Returns:
+ |          open3d.utility.IntVector
+ |
+ |  compute_convex_hull(...)
+ |      compute_convex_hull(self: open3d.cpu.pybind.geometry.PointCloud, joggle_inputs: bool = False) -&gt; Tuple[open3d::geometry::TriangleMesh, List[int]]
+ |
+ |
+ |      Computes the convex hull of the point cloud.
+ |
+ |      Args:
+ |           joggle_inputs (bool): If True allows the algorithm to add random noise to
+ |                the points to work around degenerate inputs. This adds the &#39;QJ&#39;
+ |                option to the qhull command.
+ |
+ |      Returns:
+ |           tuple(open3d.geometry.TriangleMesh, list): The triangle mesh of the convex
+ |           hull and the list of point indices that are part of the convex hull.
+ |
+ |  compute_mahalanobis_distance(...)
+ |      compute_mahalanobis_distance(self)
+ |      Function to compute the Mahalanobis distance for points in a point cloud. See: https://en.wikipedia.org/wiki/Mahalanobis_distance.
+ |
+ |      Returns:
+ |          open3d.utility.DoubleVector
+ |
+ |  compute_mean_and_covariance(...)
+ |      compute_mean_and_covariance(self)
+ |      Function to compute the mean and covariance matrix of a point cloud.
+ |
+ |      Returns:
+ |          Tuple[numpy.ndarray[numpy.float64[3, 1]], numpy.ndarray[numpy.float64[3, 3]]]
+ |
+ |  compute_nearest_neighbor_distance(...)
+ |      compute_nearest_neighbor_distance(self)
+ |      Function to compute the distance from a point to its nearest neighbor in the point cloud
+ |
+ |      Returns:
+ |          open3d.utility.DoubleVector
+ |
+ |  compute_point_cloud_distance(...)
+ |      compute_point_cloud_distance(self, target)
+ |      For each point in the source point cloud, compute the distance to the target point cloud.
+ |
+ |      Args:
+ |          target (open3d.geometry.PointCloud): The target point cloud.
+ |
+ |      Returns:
+ |          open3d.utility.DoubleVector
+ |
+ |  crop(...)
+ |      crop(*args, **kwargs)
+ |      Overloaded function.
+ |
+ |
+ |      1. crop(self, bounding_box)
+ |          Function to crop input pointcloud into output pointcloud
+ |
+ |      Args:
+ |          bounding_box (open3d.geometry.AxisAlignedBoundingBox): AxisAlignedBoundingBox to crop points
+ |
+ |      Returns:
+ |          open3d.geometry.PointCloud
+ |
+ |      2. crop(self, bounding_box)
+ |          Function to crop input pointcloud into output pointcloud
+ |
+ |      Args:
+ |          bounding_box (open3d.geometry.OrientedBoundingBox): AxisAlignedBoundingBox to crop points
+ |
+ |      Returns:
+ |          open3d.geometry.PointCloud
+ |
+ |  detect_planar_patches(...)
+ |      detect_planar_patches(self, normal_variance_threshold_deg=60, coplanarity_deg=75, outlier_ratio=0.75, min_plane_edge_length=0.0, min_num_points=0, search_param=KDTreeSearchParamKNN with knn = 30)
+ |      Detects planar patches in the point cloud using a robust statistics-based approach.
+ |
+ |      Returns:
+ |           A list of detected planar patches, represented as
+ |           OrientedBoundingBox objects, with the third column (z) of R indicating
+ |           the planar patch normal vector. The extent in the z direction is
+ |           non-zero so that the OrientedBoundingBox contains the points that
+ |           contribute to the plane detection.
+ |
+ |      Args:
+ |          normal_variance_threshold_deg (float, optional, default=60)
+ |          coplanarity_deg (float, optional, default=75)
+ |          outlier_ratio (float, optional, default=0.75): Maximum allowable ratio of outliers associated to a plane.
+ |          min_plane_edge_length (float, optional, default=0.0): Minimum edge length of plane&#39;s long edge before being rejected.
+ |          min_num_points (int, optional, default=0): Minimum number of points allowable for fitting planes.
+ |          search_param (open3d.geometry.KDTreeSearchParam, optional, default=KDTreeSearchParamKNN with knn = 30): The KDTree search parameters for neighborhood search.
+ |
+ |      Returns:
+ |          List[open3d.geometry.OrientedBoundingBox]
+ |
+ |  estimate_covariances(...)
+ |      estimate_covariances(self, search_param=KDTreeSearchParamKNN with knn = 30)
+ |      Function to compute the covariance matrix for each point in the point cloud
+ |
+ |      Args:
+ |          search_param (open3d.geometry.KDTreeSearchParam, optional, default=KDTreeSearchParamKNN with knn = 30): The KDTree search parameters for neighborhood search.
+ |
+ |      Returns:
+ |          None
+ |
+ |  estimate_normals(...)
+ |      estimate_normals(self, search_param=KDTreeSearchParamKNN with knn = 30, fast_normal_computation=True)
+ |      Function to compute the normals of a point cloud. Normals are oriented with respect to the input point cloud if normals exist
+ |
+ |      Args:
+ |          search_param (open3d.geometry.KDTreeSearchParam, optional, default=KDTreeSearchParamKNN with knn = 30): The KDTree search parameters for neighborhood search.
+ |          fast_normal_computation (bool, optional, default=True): If true, the normal estimation uses a non-iterative method to extract the eigenvector from the covariance matrix. This is faster, but is not as numerical stable.
+ |
+ |      Returns:
+ |          None
+ |
+ |  farthest_point_down_sample(...)
+ |      farthest_point_down_sample(self: open3d.cpu.pybind.geometry.PointCloud, num_samples: int) -&gt; open3d.cpu.pybind.geometry.PointCloud
+ |
+ |      Downsamples input pointcloud into output pointcloud with a set of points has farthest distance. The sample is performed by selecting the farthest point from previous selected points iteratively.
+ |
+ |  has_colors(...)
+ |      has_colors(self)
+ |      Returns ``True`` if the point cloud contains point colors.
+ |
+ |      Returns:
+ |          bool
+ |
+ |  has_covariances(...)
+ |      has_covariances(self: open3d.cpu.pybind.geometry.PointCloud) -&gt; bool
+ |
+ |      Returns ``True`` if the point cloud contains covariances.
+ |
+ |  has_normals(...)
+ |      has_normals(self)
+ |      Returns ``True`` if the point cloud contains point normals.
+ |
+ |      Returns:
+ |          bool
+ |
+ |  has_points(...)
+ |      has_points(self)
+ |      Returns ``True`` if the point cloud contains points.
+ |
+ |      Returns:
+ |          bool
+ |
+ |  hidden_point_removal(...)
+ |      hidden_point_removal(self, camera_location, radius)
+ |      Removes hidden points from a point cloud and returns a mesh of the remaining points. Based on Katz et al. &#39;Direct Visibility of Point Sets&#39;, 2007. Additional information about the choice of radius for noisy point clouds can be found in Mehra et. al. &#39;Visibility of Noisy Point Cloud Data&#39;, 2010.
+ |
+ |      Args:
+ |          camera_location (numpy.ndarray[numpy.float64[3, 1]]): All points not visible from that location will be removed
+ |          radius (float): The radius of the sperical projection
+ |
+ |      Returns:
+ |          Tuple[open3d.geometry.TriangleMesh, List[int]]
+ |
+ |  normalize_normals(...)
+ |      normalize_normals(self)
+ |      Normalize point normals to length 1.
+ |
+ |      Returns:
+ |          open3d.geometry.PointCloud
+ |
+ |  orient_normals_consistent_tangent_plane(...)
+ |      orient_normals_consistent_tangent_plane(self, k)
+ |      Function to orient the normals with respect to consistent tangent planes
+ |
+ |      Args:
+ |          k (int): Number of k nearest neighbors used in constructing the Riemannian graph used to propagate normal orientation.
+ |
+ |      Returns:
+ |          None
+ |
+ |  orient_normals_to_align_with_direction(...)
+ |      orient_normals_to_align_with_direction(self, orientation_reference=array([0., 0., 1.]))
+ |      Function to orient the normals of a point cloud
+ |
+ |      Args:
+ |          orientation_reference (numpy.ndarray[numpy.float64[3, 1]], optional, default=array([0., 0., 1.])): Normals are oriented with respect to orientation_reference.
+ |
+ |      Returns:
+ |          None
+ |
+ |  orient_normals_towards_camera_location(...)
+ |      orient_normals_towards_camera_location(self, camera_location=array([0., 0., 0.]))
+ |      Function to orient the normals of a point cloud
+ |
+ |      Args:
+ |          camera_location (numpy.ndarray[numpy.float64[3, 1]], optional, default=array([0., 0., 0.])): Normals are oriented with towards the camera_location.
+ |
+ |      Returns:
+ |          None
+ |
+ |  paint_uniform_color(...)
+ |      paint_uniform_color(self, color)
+ |      Assigns each point in the PointCloud the same color.
+ |
+ |      Args:
+ |          color (numpy.ndarray[numpy.float64[3, 1]]): RGB color for the PointCloud.
+ |
+ |      Returns:
+ |          open3d.geometry.PointCloud
+ |
+ |  random_down_sample(...)
+ |      random_down_sample(self, sampling_ratio)
+ |      Function to downsample input pointcloud into output pointcloud randomly. The sample is generated by randomly sampling the indexes from the point cloud.
+ |
+ |      Args:
+ |          sampling_ratio (float): Sampling ratio, the ratio of number of selected points to total number of points[0-1]
+ |
+ |      Returns:
+ |          open3d.geometry.PointCloud
+ |
+ |  remove_duplicated_points(...)
+ |      remove_duplicated_points(self)
+ |      Removes duplicated points, i.e., points that have identical coordinates. It also removes the corresponding attributes associated with the non-finite point such as normals, covariances and color entries. It doesn&#39;t re-computes these attributes after removing duplicated points.
+ |
+ |      Returns:
+ |          open3d.geometry.PointCloud
+ |
+ |  remove_non_finite_points(...)
+ |      remove_non_finite_points(self, remove_nan=True, remove_infinite=True)
+ |      Removes all points from the point cloud that have a nan entry, or infinite entries. It also removes the corresponding attributes associated with the non-finite point such as normals, covariances and color entries. It doesn&#39;t re-computes these attributes after removing non-finite points.
+ |
+ |      Args:
+ |          remove_nan (bool, optional, default=True): Remove NaN values from the PointCloud
+ |          remove_infinite (bool, optional, default=True): Remove infinite values from the PointCloud
+ |
+ |      Returns:
+ |          open3d.geometry.PointCloud
+ |
+ |  remove_radius_outlier(...)
+ |      remove_radius_outlier(self, nb_points, radius, print_progress=False)
+ |      Removes points that have neighbors less than nb_points in a sphere of a given radius
+ |
+ |      Args:
+ |          nb_points (int): Number of points within the radius.
+ |          radius (float): Radius of the sphere.
+ |          print_progress (bool, optional, default=False): Set to True to print progress bar.
+ |
+ |      Returns:
+ |          Tuple[open3d.geometry.PointCloud, List[int]]
+ |
+ |  remove_statistical_outlier(...)
+ |      remove_statistical_outlier(self, nb_neighbors, std_ratio, print_progress=False)
+ |      Removes points that are further away from their neighbors in average.
+ |
+ |      Args:
+ |          nb_neighbors (int): Number of neighbors around the target point.
+ |          std_ratio (float): Standard deviation ratio.
+ |          print_progress (bool, optional, default=False): Set to True to print progress bar.
+ |
+ |      Returns:
+ |          Tuple[open3d.geometry.PointCloud, List[int]]
+ |
+ |  segment_plane(...)
+ |      segment_plane(self, distance_threshold, ransac_n, num_iterations, probability=0.99999999)
+ |      Segments a plane in the point cloud using the RANSAC algorithm.
+ |
+ |      Args:
+ |          distance_threshold (float): Max distance a point can be from the plane model, and still be considered an inlier.
+ |          ransac_n (int): Number of initial points to be considered inliers in each iteration.
+ |          num_iterations (int): Number of iterations.
+ |          probability (float, optional, default=0.99999999): Expected probability of finding the optimal plane.
+ |
+ |      Returns:
+ |          Tuple[numpy.ndarray[numpy.float64[4, 1]], List[int]]
+ |
+ |  select_by_index(...)
+ |      select_by_index(self, indices, invert=False)
+ |      Function to select points from input pointcloud into output pointcloud.
+ |
+ |      Args:
+ |          indices (List[int]): Indices of points to be selected.
+ |          invert (bool, optional, default=False): Set to ``True`` to invert the selection of indices.
+ |
+ |      Returns:
+ |          open3d.geometry.PointCloud
+ |
+ |  uniform_down_sample(...)
+ |      uniform_down_sample(self, every_k_points)
+ |      Function to downsample input pointcloud into output pointcloud uniformly. The sample is performed in the order of the points with the 0-th point always chosen, not at random.
+ |
+ |      Args:
+ |          every_k_points (int): Sample rate, the selected point indices are [0, k, 2k, ...]
+ |
+ |      Returns:
+ |          open3d.geometry.PointCloud
+ |
+ |  voxel_down_sample(...)
+ |      voxel_down_sample(self, voxel_size)
+ |      Function to downsample input pointcloud into output pointcloud with a voxel. Normals and colors are averaged if they exist.
+ |
+ |      Args:
+ |          voxel_size (float): Voxel size to downsample into.
+ |
+ |      Returns:
+ |          open3d.geometry.PointCloud
+ |
+ |  voxel_down_sample_and_trace(...)
+ |      voxel_down_sample_and_trace(self, voxel_size, min_bound, max_bound, approximate_class=False)
+ |      Function to downsample using PointCloud.VoxelDownSample. Also records point cloud index before downsampling
+ |
+ |      Args:
+ |          voxel_size (float): Voxel size to downsample into.
+ |          min_bound (numpy.ndarray[numpy.float64[3, 1]]): Minimum coordinate of voxel boundaries
+ |          max_bound (numpy.ndarray[numpy.float64[3, 1]]): Maximum coordinate of voxel boundaries
+ |          approximate_class (bool, optional, default=False)
+ |
+ |      Returns:
+ |          Tuple[open3d.geometry.PointCloud, numpy.ndarray[numpy.int32[m, n]], List[open3d.utility.IntVector]]
+ |
+ |  ----------------------------------------------------------------------
+ |  Static methods defined here:
+ |
+ |  create_from_depth_image(...) from builtins.PyCapsule
+ |      create_from_depth_image(depth, intrinsic, extrinsic=(with default value), depth_scale=1000.0, depth_trunc=1000.0, stride=1, project_valid_depth_only=True)
+ |      Factory function to create a pointcloud from a depth image and a
+ |      camera. Given depth value d at (u, v) image coordinate, the corresponding 3d point is:
+ |
+ |          - z = d / depth_scale
+ |          - x = (u - cx) * z / fx
+ |          - y = (v - cy) * z / fy
+ |
+ |      Args:
+ |          depth (open3d.geometry.Image): The input depth image can be either a float image, or a uint16_t image.
+ |          intrinsic (open3d.camera.PinholeCameraIntrinsic): Intrinsic parameters of the camera.
+ |          extrinsic (numpy.ndarray[numpy.float64[4, 4]], optional) Default value:
+ |
+ |              array([[1., 0., 0., 0.],
+ |              [0., 1., 0., 0.],
+ |              [0., 0., 1., 0.],
+ |              [0., 0., 0., 1.]])
+ |          depth_scale (float, optional, default=1000.0): The depth is scaled by 1 / depth_scale.
+ |          depth_trunc (float, optional, default=1000.0): Truncated at depth_trunc distance.
+ |          stride (int, optional, default=1): Sampling factor to support coarse point cloud extraction.
+ |          project_valid_depth_only (bool, optional, default=True)
+ |
+ |      Returns:
+ |          open3d.geometry.PointCloud
+ |
+ |  create_from_rgbd_image(...) from builtins.PyCapsule
+ |      create_from_rgbd_image(image, intrinsic, extrinsic=(with default value), project_valid_depth_only=True)
+ |      Factory function to create a pointcloud from an RGB-D image and a camera. Given depth value d at (u, v) image coordinate, the corresponding 3d point is:
+ |
+ |          - z = d / depth_scale
+ |          - x = (u - cx) * z / fx
+ |          - y = (v - cy) * z / fy
+ |
+ |      Args:
+ |          image (open3d.geometry.RGBDImage): The input image.
+ |          intrinsic (open3d.camera.PinholeCameraIntrinsic): Intrinsic parameters of the camera.
+ |          extrinsic (numpy.ndarray[numpy.float64[4, 4]], optional) Default value:
+ |
+ |              array([[1., 0., 0., 0.],
+ |              [0., 1., 0., 0.],
+ |              [0., 0., 1., 0.],
+ |              [0., 0., 0., 1.]])
+ |          project_valid_depth_only (bool, optional, default=True)
+ |
+ |      Returns:
+ |          open3d.geometry.PointCloud
+ |
+ |  estimate_point_covariances(...) from builtins.PyCapsule
+ |      estimate_point_covariances(input, search_param=KDTreeSearchParamKNN with knn = 30)
+ |      Static function to compute the covariance matrix for each point in the given point cloud, doesn&#39;t change the input
+ |
+ |      Args:
+ |          input (open3d.geometry.PointCloud): The input point cloud.
+ |          search_param (open3d.geometry.KDTreeSearchParam, optional, default=KDTreeSearchParamKNN with knn = 30): The KDTree search parameters for neighborhood search.
+ |
+ |      Returns:
+ |          open3d.utility.Matrix3dVector
+ |
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |
+ |  colors
+ |      ``float64`` array of shape ``(num_points, 3)``, range ``[0, 1]`` , use ``numpy.asarray()`` to access data: RGB colors of points.
+ |
+ |  covariances
+ |      ``float64`` array of shape ``(num_points, 3, 3)``, use ``numpy.asarray()`` to access data: Points covariances.
+ |
+ |  normals
+ |      ``float64`` array of shape ``(num_points, 3)``, use ``numpy.asarray()`` to access data: Points normals.
+ |
+ |  points
+ |      ``float64`` array of shape ``(num_points, 3)``, use ``numpy.asarray()`` to access data: Points coordinates.
+ |
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from Geometry3D:
+ |
+ |  get_axis_aligned_bounding_box(...)
+ |      get_axis_aligned_bounding_box(self)
+ |      Returns an axis-aligned bounding box of the geometry.
+ |
+ |      Returns:
+ |          open3d.geometry.AxisAlignedBoundingBox
+ |
+ |  get_center(...)
+ |      get_center(self)
+ |      Returns the center of the geometry coordinates.
+ |
+ |      Returns:
+ |          numpy.ndarray[numpy.float64[3, 1]]
+ |
+ |  get_max_bound(...)
+ |      get_max_bound(self)
+ |      Returns max bounds for geometry coordinates.
+ |
+ |      Returns:
+ |          numpy.ndarray[numpy.float64[3, 1]]
+ |
+ |  get_min_bound(...)
+ |      get_min_bound(self)
+ |      Returns min bounds for geometry coordinates.
+ |
+ |      Returns:
+ |          numpy.ndarray[numpy.float64[3, 1]]
+ |
+ |  get_minimal_oriented_bounding_box(...)
+ |      get_minimal_oriented_bounding_box(self: open3d.cpu.pybind.geometry.Geometry3D, robust: bool = False) -&gt; open3d::geometry::OrientedBoundingBox
+ |
+ |
+ |      Returns the minimal oriented bounding box for the geometry.
+ |
+ |      Creates the oriented bounding box with the smallest volume.
+ |      The algorithm makes use of the fact that at least one edge of
+ |      the convex hull must be collinear with an edge of the minimum
+ |      bounding box: for each triangle in the convex hull, calculate
+ |      the minimal axis aligned box in the frame of that triangle.
+ |      at the end, return the box with the smallest volume
+ |
+ |      Args:
+ |           robust (bool): If set to true uses a more robust method which works in
+ |                degenerate cases but introduces noise to the points coordinates.
+ |
+ |      Returns:
+ |           open3d.geometry.OrientedBoundingBox: The oriented bounding box. The
+ |           bounding box is oriented such that its volume is minimized.
+ |
+ |  get_oriented_bounding_box(...)
+ |      get_oriented_bounding_box(self: open3d.cpu.pybind.geometry.Geometry3D, robust: bool = False) -&gt; open3d::geometry::OrientedBoundingBox
+ |
+ |
+ |      Returns the oriented bounding box for the geometry.
+ |
+ |      Computes the oriented bounding box based on the PCA of the convex hull.
+ |      The returned bounding box is an approximation to the minimal bounding box.
+ |
+ |      Args:
+ |           robust (bool): If set to true uses a more robust method which works in
+ |                degenerate cases but introduces noise to the points coordinates.
+ |
+ |      Returns:
+ |           open3d.geometry.OrientedBoundingBox: The oriented bounding box. The
+ |           bounding box is oriented such that the axes are ordered with respect to
+ |           the principal components.
+ |
+ |  rotate(...)
+ |      rotate(*args, **kwargs)
+ |      Overloaded function.
+ |
+ |
+ |      1. rotate(self, R)
+ |          Apply rotation to the geometry coordinates and normals.
+ |
+ |      Args:
+ |          R (numpy.ndarray[numpy.float64[3, 3]]): The rotation matrix
+ |
+ |      Returns:
+ |          open3d.geometry.Geometry3D
+ |
+ |      2. rotate(self, R, center)
+ |          Apply rotation to the geometry coordinates and normals.
+ |
+ |      Args:
+ |          R (numpy.ndarray[numpy.float64[3, 3]]): The rotation matrix
+ |          center (numpy.ndarray[numpy.float64[3, 1]]): Rotation center used for transformation.
+ |
+ |      Returns:
+ |          open3d.geometry.Geometry3D
+ |
+ |  scale(...)
+ |      scale(*args, **kwargs)
+ |      Overloaded function.
+ |
+ |
+ |      1. scale(self, scale, center)
+ |          Apply scaling to the geometry coordinates.
+ |
+ |      Args:
+ |          scale (float): The scale parameter that is multiplied to the points/vertices of the geometry.
+ |          center (numpy.ndarray[numpy.float64[3, 1]]): Scale center used for transformation.
+ |
+ |      Returns:
+ |          open3d.geometry.Geometry3D
+ |
+ |      2. scale(self, scale, center)
+ |          Apply scaling to the geometry coordinates.
+ |
+ |      Args:
+ |          scale (float): The scale parameter that is multiplied to the points/vertices of the geometry.
+ |          center (numpy.ndarray[numpy.float64[3, 1]]): Scale center used for transformation.
+ |
+ |      Returns:
+ |          open3d.geometry.Geometry3D
+ |
+ |  transform(...)
+ |      transform(self, arg0)
+ |      Apply transformation (4x4 matrix) to the geometry coordinates.
+ |
+ |      Args:
+ |          arg0 (numpy.ndarray[numpy.float64[4, 4]])
+ |
+ |      Returns:
+ |          open3d.geometry.Geometry3D
+ |
+ |  translate(...)
+ |      translate(self, translation, relative=True)
+ |      Apply translation to the geometry coordinates.
+ |
+ |      Args:
+ |          translation (numpy.ndarray[numpy.float64[3, 1]]): A 3D vector to transform the geometry
+ |          relative (bool, optional, default=True): If true, the translation vector is directly added to the geometry coordinates. Otherwise, the center is moved to the translation vector.
+ |
+ |      Returns:
+ |          open3d.geometry.Geometry3D
+ |
+ |  ----------------------------------------------------------------------
+ |  Static methods inherited from Geometry3D:
+ |
+ |  get_rotation_matrix_from_axis_angle(...) from builtins.PyCapsule
+ |      get_rotation_matrix_from_axis_angle(rotation: numpy.ndarray[numpy.float64[3, 1]]) -&gt; numpy.ndarray[numpy.float64[3, 3]]
+ |
+ |  get_rotation_matrix_from_quaternion(...) from builtins.PyCapsule
+ |      get_rotation_matrix_from_quaternion(rotation: numpy.ndarray[numpy.float64[4, 1]]) -&gt; numpy.ndarray[numpy.float64[3, 3]]
+ |
+ |  get_rotation_matrix_from_xyz(...) from builtins.PyCapsule
+ |      get_rotation_matrix_from_xyz(rotation: numpy.ndarray[numpy.float64[3, 1]]) -&gt; numpy.ndarray[numpy.float64[3, 3]]
+ |
+ |  get_rotation_matrix_from_xzy(...) from builtins.PyCapsule
+ |      get_rotation_matrix_from_xzy(rotation: numpy.ndarray[numpy.float64[3, 1]]) -&gt; numpy.ndarray[numpy.float64[3, 3]]
+ |
+ |  get_rotation_matrix_from_yxz(...) from builtins.PyCapsule
+ |      get_rotation_matrix_from_yxz(rotation: numpy.ndarray[numpy.float64[3, 1]]) -&gt; numpy.ndarray[numpy.float64[3, 3]]
+ |
+ |  get_rotation_matrix_from_yzx(...) from builtins.PyCapsule
+ |      get_rotation_matrix_from_yzx(rotation: numpy.ndarray[numpy.float64[3, 1]]) -&gt; numpy.ndarray[numpy.float64[3, 3]]
+ |
+ |  get_rotation_matrix_from_zxy(...) from builtins.PyCapsule
+ |      get_rotation_matrix_from_zxy(rotation: numpy.ndarray[numpy.float64[3, 1]]) -&gt; numpy.ndarray[numpy.float64[3, 3]]
+ |
+ |  get_rotation_matrix_from_zyx(...) from builtins.PyCapsule
+ |      get_rotation_matrix_from_zyx(rotation: numpy.ndarray[numpy.float64[3, 1]]) -&gt; numpy.ndarray[numpy.float64[3, 3]]
+ |
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from Geometry:
+ |
+ |  clear(...)
+ |      clear(self)
+ |      Clear all elements in the geometry.
+ |
+ |      Returns:
+ |          open3d.geometry.Geometry
+ |
+ |  dimension(...)
+ |      dimension(self)
+ |      Returns whether the geometry is 2D or 3D.
+ |
+ |      Returns:
+ |          int
+ |
+ |  get_geometry_type(...)
+ |      get_geometry_type(self)
+ |      Returns one of registered geometry types.
+ |
+ |      Returns:
+ |          open3d.geometry.Geometry.GeometryType
+ |
+ |  is_empty(...)
+ |      is_empty(self)
+ |      Returns ``True`` iff the geometry is empty.
+ |
+ |      Returns:
+ |          bool
+ |
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes inherited from Geometry:
+ |
+ |  HalfEdgeTriangleMesh = &lt;Type.HalfEdgeTriangleMesh: 7&gt;
+ |
+ |  Image = &lt;Type.Image: 8&gt;
+ |
+ |  LineSet = &lt;Type.LineSet: 4&gt;
+ |
+ |  PointCloud = &lt;Type.PointCloud: 1&gt;
+ |
+ |  RGBDImage = &lt;Type.RGBDImage: 9&gt;
+ |
+ |  TetraMesh = &lt;Type.TetraMesh: 10&gt;
+ |
+ |  TriangleMesh = &lt;Type.TriangleMesh: 6&gt;
+ |
+ |  Type = &lt;class &#39;open3d.cpu.pybind.geometry.Geometry.Type&#39;&gt;
+ |      Enum class for Geometry types.
+ |
+ |  Unspecified = &lt;Type.Unspecified: 0&gt;
+ |
+ |  VoxelGrid = &lt;Type.VoxelGrid: 2&gt;
+ |
+ |  ----------------------------------------------------------------------
+ |  Static methods inherited from pybind11_builtins.pybind11_object:
+ |
+ |  __new__(*args, **kwargs) from pybind11_builtins.pybind11_type
+ |      Create and return a new object.  See help(type) for accurate signature.
+
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Description-of-a-function-in-Open3D">
+<h3>Description of a function in Open3D<a class="headerlink" href="#Description-of-a-function-in-Open3D" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">help(open3d.read_point_cloud)</span></code> provides a description of the input arguments and return type of the <code class="docutils literal notranslate"><span class="pre">read_point_cloud</span></code> function.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">help</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on built-in function read_point_cloud in module open3d.cpu.pybind.io:
+
+read_point_cloud(...) method of builtins.PyCapsule instance
+    read_point_cloud(filename, format=&#39;auto&#39;, remove_nan_points=False, remove_infinite_points=False, print_progress=False)
+    Function to read PointCloud from file
+
+    Args:
+        filename (str): Path to file.
+        format (str, optional, default=&#39;auto&#39;): The format of the input file. When not specified or set as ``auto``, the format is inferred from file extension name.
+        remove_nan_points (bool, optional, default=False): If true, all points that include a NaN are removed from the PointCloud.
+        remove_infinite_points (bool, optional, default=False): If true, all points that include an infinite value are removed from the PointCloud.
+        print_progress (bool, optional, default=False): If set to true a progress bar is visualized in the console
+
+    Returns:
+        open3d.geometry.PointCloud
+
+</pre></div></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="working_with_numpy.html" class="btn btn-neutral float-right" title="Working with NumPy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="distance_queries.html" class="btn btn-neutral float-left" title="Distance Queries" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/geometry/python_interface.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:23:03 GMT -->
+</html>

@@ -1,0 +1,530 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.t.pipelines.slam.Model.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:08 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>open3d.t.pipelines.slam.Model &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="open3d.ml" href="open3d.ml.html" />
+    <link rel="prev" title="open3d.t.pipelines.slam.Frame" href="open3d.t.pipelines.slam.Frame.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="open3d.t.html">open3d.t</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="open3d.t.geometry.html">geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.t.io.html">io</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="open3d.t.pipelines.html">pipelines</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.pipelines.odometry.html">odometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.pipelines.registration.30b.delay">registration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.pipelines.slac.html">slac</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="open3d.t.pipelines.slam.html">slam</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="open3d.t.pipelines.slam.Frame.html">Frame</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Model</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="open3d.t.html">open3d.t</a> &raquo;</li>
+        
+          <li><a href="open3d.t.pipelines.html">open3d.t.pipelines</a> &raquo;</li>
+        
+          <li><a href="open3d.t.pipelines.slam.html">open3d.t.pipelines.slam</a> &raquo;</li>
+        
+      <li>open3d.t.pipelines.slam.Model</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="open3d-t-pipelines-slam-model">
+<h1>open3d.t.pipelines.slam.Model<a class="headerlink" href="#open3d-t-pipelines-slam-model" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="open3d.t.pipelines.slam.Model">
+<em class="property">class </em><code class="sig-prename descclassname">open3d.t.pipelines.slam.</code><code class="sig-name descname">Model</code><a class="headerlink" href="#open3d.t.pipelines.slam.Model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volumetric model for Dense SLAM.</p>
+<dl class="py method">
+<dt id="open3d.t.pipelines.slam.Model.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.pipelines.slam.Model.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>__init__(self, arg0)</dt><dd><p>Copy constructor</p>
+</dd>
+</dl>
+</li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>arg0</strong> (<a class="reference internal" href="#open3d.t.pipelines.slam.Model" title="open3d.t.pipelines.slam.Model"><em>open3d.t.pipelines.slam.Model</em></a>) – </p>
+</dd>
+</dl>
+<ol class="arabic simple" start="2">
+<li><p>__init__(self)</p></li>
+<li><dl class="simple">
+<dt>__init__(self, voxel_size, block_resolution=16,  block_count: int = 10000, transformation=(with default value), , device=CUDA:0)</dt><dd><p>Constructor of a VoxelBlockGrid</p>
+</dd>
+</dl>
+</li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>voxel_size</strong> (<em>float</em>) – The voxel size of the volume in meters.</p></li>
+<li><p><strong>(</strong><strong>int</strong> (<em>block_resolution</em>) – int = 10000): Resolution of local dense voxel blocks. By default 16 is used to create 16^3 voxel blocks.</p></li>
+<li><p><strong>optional</strong> – int = 10000): Resolution of local dense voxel blocks. By default 16 is used to create 16^3 voxel blocks.</p></li>
+<li><p><strong>default=16</strong> – int = 10000): Resolution of local dense voxel blocks. By default 16 is used to create 16^3 voxel blocks.</p></li>
+<li><p><strong>block_count</strong> – int = 10000): Resolution of local dense voxel blocks. By default 16 is used to create 16^3 voxel blocks.</p></li>
+<li><p><strong>transformation</strong> (<a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><em>open3d.core.Tensor</em></a><em>, </em><em>optional</em>) – <p>A 4x4 3D transformation matrix. Default value:</p>
+<blockquote>
+<div><p>[[1 0 0 0],
+[0 1 0 0],
+[0 0 1 0],
+[0 0 0 1]]
+Tensor[shape={4, 4}, stride={4, 1}, Float64</p>
+</div></blockquote>
+<p>()</p>
+</p></li>
+<li><p><strong>(</strong><strong>open3d.core.Device</strong> (<em>device</em>) – 0): The CPU or CUDA device used for the object.</p></li>
+<li><p><strong>optional</strong> – 0): The CPU or CUDA device used for the object.</p></li>
+<li><p><strong>default=CUDA</strong> – 0): The CPU or CUDA device used for the object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.pipelines.slam.Model.extract_pointcloud">
+<code class="sig-name descname">extract_pointcloud</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">weight_threshold</span><span class="o">=</span><span class="default_value">3.0</span></em>, <em class="sig-param"><span class="n">estimated_number</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.pipelines.slam.Model.extract_pointcloud" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract point cloud from the volumetric model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>weight_threshold</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=3.0</em>) – Weight threshold to filter outlier voxel blocks.</p></li>
+<li><p><strong>estimated_number</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=-1</em>) – Estimated number of surface points. Use -1 if no estimation is available.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.PointCloud</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.pipelines.slam.Model.extract_trianglemesh">
+<code class="sig-name descname">extract_trianglemesh</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">weight_threshold</span><span class="o">=</span><span class="default_value">3.0</span></em>, <em class="sig-param"><span class="n">estimated_number</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.pipelines.slam.Model.extract_trianglemesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract triangle mesh from the volumetric model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>weight_threshold</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=3.0</em>) – Weight threshold to filter outlier voxel blocks.</p></li>
+<li><p><strong>estimated_number</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=-1</em>) – Estimated number of surface points. Use -1 if no estimation is available.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.TriangleMesh</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.pipelines.slam.Model.get_current_frame_pose">
+<code class="sig-name descname">get_current_frame_pose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.pipelines.slam.Model</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.core.Tensor<a class="headerlink" href="#open3d.t.pipelines.slam.Model.get_current_frame_pose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.pipelines.slam.Model.get_hashmap">
+<code class="sig-name descname">get_hashmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.pipelines.slam.Model</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.core.HashMap<a class="headerlink" href="#open3d.t.pipelines.slam.Model.get_hashmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the underlying hash map from 3D coordinates to voxel blocks.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.pipelines.slam.Model.integrate">
+<code class="sig-name descname">integrate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">input_frame</span></em>, <em class="sig-param"><span class="n">depth_scale</span><span class="o">=</span><span class="default_value">1000.0</span></em>, <em class="sig-param"><span class="n">depth_max</span><span class="o">=</span><span class="default_value">3.0</span></em>, <em class="sig-param"><span class="n">trunc_voxel_multiplier</span><span class="o">=</span><span class="default_value">8.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.pipelines.slam.Model.integrate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integrate an input frame to a volume.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_frame</strong> (<a class="reference internal" href="open3d.t.pipelines.slam.Frame.html#open3d.t.pipelines.slam.Frame" title="open3d.t.pipelines.slam.Frame"><em>open3d.t.pipelines.slam.Frame</em></a>) – The frame that contains raw depth and optionally images with the same size from the input.</p></li>
+<li><p><strong>depth_scale</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1000.0</em>) – The scale factor to convert raw depth into meters.</p></li>
+<li><p><strong>depth_max</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=3.0</em>) – The max clipping depth to filter noisy observations too far.</p></li>
+<li><p><strong>trunc_voxel_multiplier</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=8.0</em>) – Truncation distance multiplier in voxel size for signed distance. For instance, –trunc_voxel_multiplier=8 with –voxel_size=0.006(m) creates a truncation distance of 0.048(m).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.pipelines.slam.Model.synthesize_model_frame">
+<code class="sig-name descname">synthesize_model_frame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">model_frame</span></em>, <em class="sig-param"><span class="n">depth_scale</span><span class="o">=</span><span class="default_value">1000.0</span></em>, <em class="sig-param"><span class="n">depth_min</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">depth_max</span><span class="o">=</span><span class="default_value">3.0</span></em>, <em class="sig-param"><span class="n">trunc_voxel_multiplier</span><span class="o">=</span><span class="default_value">8.0</span></em>, <em class="sig-param"><span class="n">enable_color</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">weight_threshold</span><span class="o">=</span><span class="default_value">- 1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.pipelines.slam.Model.synthesize_model_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Synthesize frame from the volumetric model using ray casting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_frame</strong> (<a class="reference internal" href="open3d.t.pipelines.slam.Frame.html#open3d.t.pipelines.slam.Frame" title="open3d.t.pipelines.slam.Frame"><em>open3d.t.pipelines.slam.Frame</em></a>) – The frame that contains ray casted depth and optionally color from the volumetric model.</p></li>
+<li><p><strong>depth_scale</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1000.0</em>) – The scale factor to convert raw depth into meters.</p></li>
+<li><p><strong>depth_min</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=0.1</em>) – The min clipping depth.</p></li>
+<li><p><strong>depth_max</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=3.0</em>) – The max clipping depth to filter noisy observations too far.</p></li>
+<li><p><strong>trunc_voxel_multiplier</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=8.0</em>) – Truncation distance multiplier in voxel size for signed distance. For instance, –trunc_voxel_multiplier=8 with –voxel_size=0.006(m) creates a truncation distance of 0.048(m).</p></li>
+<li><p><strong>enable_color</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=False</em>) – </p></li>
+<li><p><strong>weight_threshold</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=-1.0</em>) – Weight threshold to filter outlier voxel blocks.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.pipelines.slam.Model.track_frame_to_model">
+<code class="sig-name descname">track_frame_to_model</code><span class="sig-paren">(</span><em class="sig-param">self, input_frame, model_frame, depth_scale=1000.0, depth_max=3.0, depth_diff=0.07, method=&lt;Method.PointToPlane: 0&gt;, criteria=[OdometryConvergenceCriteria[max_iteration=6, relative_rmse=1.000000e-06, relative_fitness=1.000000e-06]., OdometryConvergenceCriteria[max_iteration=3, relative_rmse=1.000000e-06, relative_fitness=1.000000e-06]., OdometryConvergenceCriteria[max_iteration=1, relative_rmse=1.000000e-06, relative_fitness=1.000000e-06].]</em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.pipelines.slam.Model.track_frame_to_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Track input frame against raycasted frame from model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_frame</strong> (<a class="reference internal" href="open3d.t.pipelines.slam.Frame.html#open3d.t.pipelines.slam.Frame" title="open3d.t.pipelines.slam.Frame"><em>open3d.t.pipelines.slam.Frame</em></a>) – The frame that contains raw depth and optionally images with the same size from the input.</p></li>
+<li><p><strong>model_frame</strong> (<a class="reference internal" href="open3d.t.pipelines.slam.Frame.html#open3d.t.pipelines.slam.Frame" title="open3d.t.pipelines.slam.Frame"><em>open3d.t.pipelines.slam.Frame</em></a>) – The frame that contains ray casted depth and optionally color from the volumetric model.</p></li>
+<li><p><strong>depth_scale</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1000.0</em>) – The scale factor to convert raw depth into meters.</p></li>
+<li><p><strong>depth_max</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=3.0</em>) – The max clipping depth to filter noisy observations too far.</p></li>
+<li><p><strong>depth_diff</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=0.07</em>) – </p></li>
+<li><p><strong>(</strong><strong>open3d.t.pipelines.odometry.Method</strong> (<em>method</em>) – 0&gt;)</p></li>
+<li><p><strong>optional</strong> – 0&gt;)</p></li>
+<li><p><strong>default=&lt;Method.PointToPlane</strong> – 0&gt;)</p></li>
+<li><p><strong>criteria</strong> (<em>List</em><em>[</em><a class="reference internal" href="open3d.t.pipelines.odometry.OdometryConve#open3d.t.pipelines.odometry.OdometryConvergenceCriteria" title="open3d.t.pipelines.odometry.OdometryConvergenceCriteria"><em>open3d.t.pipelines.odometry.OdometryConvergenceCriteria</em></a><em>]</em><em>, </em><em>optional</em><em>, </em><em>default=</em><em>[</em><a class="reference internal" href="open3d.t.pipelines.odometry.OdometryConve#open3d.t.pipelines.odometry.OdometryConvergenceCriteria" title="open3d.t.pipelines.odometry.OdometryConvergenceCriteria"><em>OdometryConvergenceCriteria</em></a><em>[</em><em>max_iteration=6</em><em>, </em><em>relative_rmse=1.000000e-06</em><em>, </em><em>relative_fitness=1.000000e-06</em><em>]</em><em></em><em>, </em><a class="reference internal" href="open3d.t.pipelines.odometry.OdometryConve#open3d.t.pipelines.odometry.OdometryConvergenceCriteria" title="open3d.t.pipelines.odometry.OdometryConvergenceCriteria"><em>OdometryConvergenceCriteria</em></a><em>[</em><em>max_iteration=3</em><em>, </em><em>relative_rmse=1.000000e-06</em><em>, </em><em>relative_fitness=1.000000e-06</em><em>]</em><em></em><em>, </em><a class="reference internal" href="open3d.t.pipelines.odometry.OdometryConve#open3d.t.pipelines.odometry.OdometryConvergenceCriteria" title="open3d.t.pipelines.odometry.OdometryConvergenceCriteria"><em>OdometryConvergenceCriteria</em></a><em>[</em><em>max_iteration=1</em><em>, </em><em>relative_rmse=1.000000e-06</em><em>, </em><em>relative_fitness=1.000000e-06</em><em>]</em><em></em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.pipelines.odometry.OdometryResult</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.pipelines.slam.Model.update_frame_pose">
+<code class="sig-name descname">update_frame_pose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.pipelines.slam.Model</span></em>, <em class="sig-param"><span class="n">arg0</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">arg1</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#open3d.t.pipelines.slam.Model.update_frame_pose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.pipelines.slam.Model.frame_id">
+<em class="property">property </em><code class="sig-name descname">frame_id</code><a class="headerlink" href="#open3d.t.pipelines.slam.Model.frame_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current frame index in a sequence.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.pipelines.slam.Model.frustum_block_coords">
+<em class="property">property </em><code class="sig-name descname">frustum_block_coords</code><a class="headerlink" href="#open3d.t.pipelines.slam.Model.frustum_block_coords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Active block coordinates from prior integration</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.pipelines.slam.Model.transformation_frame_to_world">
+<em class="property">property </em><code class="sig-name descname">transformation_frame_to_world</code><a class="headerlink" href="#open3d.t.pipelines.slam.Model.transformation_frame_to_world" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the 4x4 transformation matrix from the current frame to the world frame.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.pipelines.slam.Model.voxel_grid">
+<em class="property">property </em><code class="sig-name descname">voxel_grid</code><a class="headerlink" href="#open3d.t.pipelines.slam.Model.voxel_grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the maintained VoxelBlockGrid.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="open3d.ml.html" class="btn btn-neutral float-right" title="open3d.ml" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="open3d.t.pipelines.slam.Frame.html" class="btn btn-neutral float-left" title="open3d.t.pipelines.slam.Frame" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.t.pipelines.slam.Model.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:08 GMT -->
+</html>

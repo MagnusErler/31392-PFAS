@@ -1,0 +1,625 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.t.geometry.Image.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:05 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>open3d.t.geometry.Image &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="open3d.t.geometry.InterpType" href="open3d.t.geometry.InterpType.html" />
+    <link rel="prev" title="open3d.t.geometry.Geometry" href="open3d.t.geometry.Geometry.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="open3d.t.html">open3d.t</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="open3d.t.geometry.html">geometry</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.AxisAlignedBoundingBox">AxisAlignedBoundingBox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.DrawableGeometry.122.de">DrawableGeometry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.Geometry.html">Geometry</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.InterpType.html">InterpType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.LineSet.html">LineSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.OrientedBoundingBox.126">OrientedBoundingBox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.PointCloud.html">PointCloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.RGBDImage.html">RGBDImage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.RaycastingScene.128.del">RaycastingScene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.TensorMap.html">TensorMap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.TriangleMesh.12b.delaye">TriangleMesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.geometry.VoxelBlockGrid.12c.dela">VoxelBlockGrid</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.t.io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.t.pipelines.html">pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="open3d.t.html">open3d.t</a> &raquo;</li>
+        
+          <li><a href="open3d.t.geometry.html">open3d.t.geometry</a> &raquo;</li>
+        
+      <li>open3d.t.geometry.Image</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="open3d-t-geometry-image">
+<h1>open3d.t.geometry.Image<a class="headerlink" href="#open3d-t-geometry-image" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="open3d.t.geometry.Image">
+<em class="property">class </em><code class="sig-prename descclassname">open3d.t.geometry.</code><code class="sig-name descname">Image</code><a class="headerlink" href="#open3d.t.geometry.Image" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Image class stores image with customizable rols, cols, channels, dtype and device.</p>
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.Image.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>__init__(self: open3d.cpu.pybind.t.geometry.Image, rows: int = 0, cols: int = 0, channels: int = 1, dtype: open3d.cpu.pybind.core.Dtype = Float32, device: open3d.cpu.pybind.core.Device = CPU:0) -&gt; None</p></li>
+</ol>
+<p>Row-major storage is used, similar to OpenCV. Use (row, col, channel) indexing order for image creation and accessing. In general, (r, c, ch) are the preferred variable names for consistency, and avoid using width, height, u, v, x, y for coordinates.</p>
+<ol class="arabic simple" start="2">
+<li><p>__init__(self: open3d.cpu.pybind.t.geometry.Image, tensor: open3d.cpu.pybind.core.Tensor) -&gt; None</p></li>
+</ol>
+<p>Construct from a tensor. The tensor won’t be copied and memory will be shared.</p>
+<ol class="arabic simple" start="3">
+<li><p>__init__(self: open3d.cpu.pybind.t.geometry.Image, arg0: open3d.cpu.pybind.t.geometry.Image) -&gt; None</p></li>
+</ol>
+<p>Copy constructor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.as_tensor">
+<code class="sig-name descname">as_tensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.Image</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.core.Tensor<a class="headerlink" href="#open3d.t.geometry.Image.as_tensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.Image.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear stored data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>open3d.t.geometry.Image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.clip_transform">
+<code class="sig-name descname">clip_transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.Image</span></em>, <em class="sig-param"><span class="n">scale</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">min_value</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">max_value</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">clip_fill</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.0</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.Image<a class="headerlink" href="#open3d.t.geometry.Image.clip_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preprocess a image of shape (rows, cols, channels=1), typically used for a depth image. UInt16 and Float32 Dtypes supported. Each pixel will be transformed by
+x = x / scale
+x = x &lt; min_value ? clip_fill : x
+x = x &gt; max_value ? clip_fill : x
+Use INF, NAN or 0.0 (default) for clip_fill</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.clone">
+<code class="sig-name descname">clone</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.Image</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.Image<a class="headerlink" href="#open3d.t.geometry.Image.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of the Image on the same device.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.colorize_depth">
+<code class="sig-name descname">colorize_depth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.Image</span></em>, <em class="sig-param"><span class="n">scale</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">min_value</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">max_value</span><span class="p">:</span> <span class="n">float</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.Image<a class="headerlink" href="#open3d.t.geometry.Image.colorize_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Colorize an input depth image (with Dtype UInt16 or Float32). The image values are divided by scale, then clamped within (min_value, max_value) and finally converted to a 3 channel UInt8 RGB image using the Turbo colormap as a lookup table.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.cpu">
+<code class="sig-name descname">cpu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.Image</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.Image<a class="headerlink" href="#open3d.t.geometry.Image.cpu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transfer the image to CPU. If the image is already on CPU, no copy will be performed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.create_normal_map">
+<code class="sig-name descname">create_normal_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.Image</span></em>, <em class="sig-param"><span class="n">invalid_fill</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.0</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.Image<a class="headerlink" href="#open3d.t.geometry.Image.create_normal_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a normal map of shape (rows, cols, channels=3) in Float32 from a vertex map of shape (rows, cols, channels=1) in Float32 using cross product of V(r, c+1)-V(r, c) and V(r+1, c)-V(r, c). The input vertex map is expected to be the output of create_vertex_map. You may need to start with a filtered depth  image (e.g. with filter_bilateral) to obtain good results.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.create_vertex_map">
+<code class="sig-name descname">create_vertex_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.Image</span></em>, <em class="sig-param"><span class="n">intrinsics</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em>, <em class="sig-param"><span class="n">invalid_fill</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.0</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.Image<a class="headerlink" href="#open3d.t.geometry.Image.create_vertex_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a vertex map of shape (rows, cols, channels=3) in Float32 from an image of shape (rows, cols, channels=1) in Float32 using unprojection. The input depth is expected to be the output of clip_transform.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.cuda">
+<code class="sig-name descname">cuda</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.Image</span></em>, <em class="sig-param"><span class="n">device_id</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.Image<a class="headerlink" href="#open3d.t.geometry.Image.cuda" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transfer the image to a CUDA device. If the image is already on the specified CUDA device, no copy will be performed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.dilate">
+<code class="sig-name descname">dilate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.Image</span></em>, <em class="sig-param"><span class="n">kernel_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">3</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.Image<a class="headerlink" href="#open3d.t.geometry.Image.dilate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new image after performing morphological dilation. Supported datatypes are UInt8, UInt16 and Float32 with {1, 3, 4} channels. An 8-connected neighborhood is used to create the dilation mask.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.filter">
+<code class="sig-name descname">filter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.Image</span></em>, <em class="sig-param"><span class="n">kernel</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.core.Tensor</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.Image<a class="headerlink" href="#open3d.t.geometry.Image.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new image after filtering with the given kernel.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.filter_bilateral">
+<code class="sig-name descname">filter_bilateral</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.Image</span></em>, <em class="sig-param"><span class="n">kernel_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">3</span></em>, <em class="sig-param"><span class="n">value_sigma</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">20.0</span></em>, <em class="sig-param"><span class="n">dist_sigma</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">10.0</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.Image<a class="headerlink" href="#open3d.t.geometry.Image.filter_bilateral" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new image after bilateral filtering.Note: CPU (IPP) and CUDA (NPP) versions are inconsistent: CPU uses a round kernel (radius = floor(kernel_size / 2)), while CUDA uses a square kernel (width = kernel_size). Make sure to tune parameters accordingly.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.filter_gaussian">
+<code class="sig-name descname">filter_gaussian</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.Image</span></em>, <em class="sig-param"><span class="n">kernel_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">3</span></em>, <em class="sig-param"><span class="n">sigma</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.Image<a class="headerlink" href="#open3d.t.geometry.Image.filter_gaussian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new image after Gaussian filtering. Possible kernel_size: odd numbers &gt;= 3 are supported.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.filter_sobel">
+<code class="sig-name descname">filter_sobel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.Image</span></em>, <em class="sig-param"><span class="n">kernel_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">3</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>open3d.cpu.pybind.t.geometry.Image<span class="p">, </span>open3d.cpu.pybind.t.geometry.Image<span class="p">]</span><a class="headerlink" href="#open3d.t.geometry.Image.filter_sobel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a pair of new gradient images (dx, dy) after Sobel filtering. Possible kernel_size: 3 and 5.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.from_legacy">
+<em class="property">static </em><code class="sig-name descname">from_legacy</code><span class="sig-paren">(</span><em class="sig-param">image_legacy: open3d.cpu.pybind.geometry.Image</em>, <em class="sig-param">device: open3d.cpu.pybind.core.Device = CPU:0</em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.Image<a class="headerlink" href="#open3d.t.geometry.Image.from_legacy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Image from a legacy Open3D Image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.get_max_bound">
+<code class="sig-name descname">get_max_bound</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.Image.get_max_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute max 2D coordinates for the data ({rows, cols}).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>open3d.core.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.get_min_bound">
+<code class="sig-name descname">get_min_bound</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.Image.get_min_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute min 2D coordinates for the data (always {0, 0}).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>open3d.core.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.is_empty">
+<code class="sig-name descname">is_empty</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.Image.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is any data stored?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.linear_transform">
+<code class="sig-name descname">linear_transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">0.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.Image.linear_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to linearly transform pixel intensities in place: image = scale * image + offset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scale</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=1.0</em>) – First multiply image pixel values with this factor. This should be positive for unsigned dtypes.</p></li>
+<li><p><strong>offset</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=0.0</em>) – Then add this factor to all image pixel values.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.Image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.pyrdown">
+<code class="sig-name descname">pyrdown</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.Image</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.Image<a class="headerlink" href="#open3d.t.geometry.Image.pyrdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new downsampled image with pyramid downsampling formed by a chained Gaussian filter (kernel_size = 5, sigma = 1.0) and a resize (ratio = 0.5) operation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.resize">
+<code class="sig-name descname">resize</code><span class="sig-paren">(</span><em class="sig-param">self: open3d.cpu.pybind.t.geometry.Image</em>, <em class="sig-param">sampling_rate: float = 0.5</em>, <em class="sig-param">interp_type: open3d.cpu.pybind.t.geometry.InterpType = &lt;InterpType.Nearest: 0&gt;</em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.Image<a class="headerlink" href="#open3d.t.geometry.Image.resize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new image after resizing with specified interpolation type. Downsample if sampling rate is &lt; 1. Upsample if sampling rate &gt; 1. Aspect ratio is always kept.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.rgb_to_gray">
+<code class="sig-name descname">rgb_to_gray</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.geometry.Image</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.Image<a class="headerlink" href="#open3d.t.geometry.Image.rgb_to_gray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a 3-channel RGB image to a new 1-channel Grayscale image by I = 0.299 * R + 0.587 * G + 0.114 * B.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.to">
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.Image.to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>to(self, device, copy=False)</dt><dd><p>Transfer the Image to a specified device.  A new image is always created if copy is true, else it is avoided when the original image is already on the target device.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<a class="reference internal" href="open3d.core.Device.html#open3d.core.Device" title="open3d.core.Device"><em>open3d.core.Device</em></a>) – </p></li>
+<li><p><strong>copy</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=False</em>) – If true, a new tensor is always created; if false, the copy is avoided when the original tensor already has the targeted dtype.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.Image</p>
+</dd>
+</dl>
+<ol class="arabic simple" start="2">
+<li><dl class="simple">
+<dt>to(self, dtype, copy=False, scale=None, offset=0.0)</dt><dd><p>Returns an Image with the specified Dtype.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dtype</strong> (<a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><em>open3d.core.Dtype</em></a>) – The targeted dtype to convert to.</p></li>
+<li><p><strong>copy</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=False</em>) – If true, a new tensor is always created; if false, the copy is avoided when the original tensor already has the targeted dtype.</p></li>
+<li><p><strong>scale</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Optional scale value. This is 1./255 for UInt8 -&gt; Float{32,64}, 1./65535 for UInt16 -&gt; Float{32,64} and 1 otherwise</p></li>
+<li><p><strong>offset</strong> (<em>float</em><em>, </em><em>optional</em><em>, </em><em>default=0.0</em>) – Optional shift value. Default 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.geometry.Image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.to_legacy">
+<code class="sig-name descname">to_legacy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.geometry.Image.to_legacy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert to legacy Image type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>open3d.geometry.Image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.channels">
+<em class="property">property </em><code class="sig-name descname">channels</code><a class="headerlink" href="#open3d.t.geometry.Image.channels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of channels of the image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.columns">
+<em class="property">property </em><code class="sig-name descname">columns</code><a class="headerlink" href="#open3d.t.geometry.Image.columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of columns of the image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.device">
+<em class="property">property </em><code class="sig-name descname">device</code><a class="headerlink" href="#open3d.t.geometry.Image.device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the device of the image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.dtype">
+<em class="property">property </em><code class="sig-name descname">dtype</code><a class="headerlink" href="#open3d.t.geometry.Image.dtype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get dtype of the image</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.is_cpu">
+<em class="property">property </em><code class="sig-name descname">is_cpu</code><a class="headerlink" href="#open3d.t.geometry.Image.is_cpu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the geometry is on CPU.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.is_cuda">
+<em class="property">property </em><code class="sig-name descname">is_cuda</code><a class="headerlink" href="#open3d.t.geometry.Image.is_cuda" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the geometry is on CUDA.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.geometry.Image.rows">
+<em class="property">property </em><code class="sig-name descname">rows</code><a class="headerlink" href="#open3d.t.geometry.Image.rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of rows of the image.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="open3d.t.geometry.InterpType.html" class="btn btn-neutral float-right" title="open3d.t.geometry.InterpType" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="open3d.t.geometry.Geometry.html" class="btn btn-neutral float-left" title="open3d.t.geometry.Geometry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.t.geometry.Image.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:05 GMT -->
+</html>

@@ -1,0 +1,453 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.core.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:24 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>open3d.core &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="open3d.core.Blob" href="open3d.core.Blob.html" />
+    <link rel="prev" title="open3d.camera.PinholeCameraTrajectory" href="open3d.camera.PinholeCameraTrajectory.90" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">open3d.core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.Blob.html">Blob</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.Device.html">Device</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.Dtype.html">Dtype</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.DynamicSizeVector.html">DynamicSizeVector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.HashMap.html">HashMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.HashSet.html">HashSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.Scalar.html">Scalar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.SizeVector.html">SizeVector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.Tensor.html">Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.addmm.html">addmm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.append.html">append</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.concatenate.html">concatenate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.det.html">det</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.inv.html">inv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.lstsq.html">lstsq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.lu.html">lu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.lu_ipiv.html">lu_ipiv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.matmul.html">matmul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.maximum.html">maximum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.minimum.html">minimum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.solve.html">solve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.svd.html">svd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.sycl_demo.html">sycl_demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.tril.html">tril</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.triu.html">triu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.triul.html">triul</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.core.nns.html">nns</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index-2.html">Docs</a> &raquo;</li>
+        
+      <li>open3d.core</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="open3d-core">
+<h1>open3d.core<a class="headerlink" href="#open3d-core" title="Permalink to this headline">¶</a></h1>
+<p><strong>Classes</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.core.Blob.html#open3d.core.Blob" title="open3d.core.Blob"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Blob</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.core.Device.html#open3d.core.Device" title="open3d.core.Device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Device</span></code></a></p></td>
+<td><p>Device context specifying device type and device id.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.core.Dtype.html#open3d.core.Dtype" title="open3d.core.Dtype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dtype</span></code></a></p></td>
+<td><p>Open3D data types.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.core.DynamicSizeVector.html#open3d.core.DynamicSizeVector" title="open3d.core.DynamicSizeVector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DynamicSizeVector</span></code></a></p></td>
+<td><p>A vector of integers for specifying shape, strides, etc.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.core.HashMap.html#open3d.core.HashMap" title="open3d.core.HashMap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HashMap</span></code></a></p></td>
+<td><p>A HashMap is an unordered map from key to value wrapped by Tensors.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.core.HashSet.html#open3d.core.HashSet" title="open3d.core.HashSet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HashSet</span></code></a></p></td>
+<td><p>A HashSet is an unordered set of keys wrapped by Tensors.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.core.Scalar.html#open3d.core.Scalar" title="open3d.core.Scalar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Scalar</span></code></a></p></td>
+<td><p>A Scalar can store one of {double, int64, bool}.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.core.SizeVector.html#open3d.core.SizeVector" title="open3d.core.SizeVector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SizeVector</span></code></a></p></td>
+<td><p>A vector of integers for specifying shape, strides, etc.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.core.Tensor.html#open3d.core.Tensor" title="open3d.core.Tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Tensor</span></code></a></p></td>
+<td><p>A Tensor is a view of a data Blob with shape, stride, data_ptr.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Functions</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.core.addmm.html#open3d.core.addmm" title="open3d.core.addmm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">addmm</span></code></a>(input, A, B, alpha, beta)</p></td>
+<td><p>Function to perform addmm of two 2D tensors with compatible shapes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.core.append.html#open3d.core.append" title="open3d.core.append"><code class="xref py py-obj docutils literal notranslate"><span class="pre">append</span></code></a>(self, values, axis)</p></td>
+<td><p>Appends the <cite>values</cite> tensor to the <cite>self</cite> tensor, along the given axis and returns a new tensor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.core.concatenate.html#open3d.core.concatenate" title="open3d.core.concatenate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concatenate</span></code></a>(tensors, axis)</p></td>
+<td><p>Concatenates the list of tensors in their order, along the given axis into a new tensor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.core.det.html#open3d.core.det" title="open3d.core.det"><code class="xref py py-obj docutils literal notranslate"><span class="pre">det</span></code></a>(A)</p></td>
+<td><p>Function to compute determinant of a 2D square tensor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.core.inv.html#open3d.core.inv" title="open3d.core.inv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inv</span></code></a>(A)</p></td>
+<td><p>Function to inverse a square 2D tensor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.core.lstsq.html#open3d.core.lstsq" title="open3d.core.lstsq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lstsq</span></code></a>(A, B)</p></td>
+<td><p>Function to solve X for a linear system AX = B where A is a full rank matrix.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.core.lu.html#open3d.core.lu" title="open3d.core.lu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lu</span></code></a>(A, permute_l)</p></td>
+<td><p>Function to compute LU factorisation of a square 2D tensor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.core.lu_ipiv.html#open3d.core.lu_ipiv" title="open3d.core.lu_ipiv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lu_ipiv</span></code></a>(A)</p></td>
+<td><p>Function to compute LU factorisation of a square 2D tensor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.core.matmul.html#open3d.core.matmul" title="open3d.core.matmul"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matmul</span></code></a>(A, B)</p></td>
+<td><p>Function to perform matrix multiplication of two 2D tensors with compatible shapes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.core.maximum.html#open3d.core.maximum" title="open3d.core.maximum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">maximum</span></code></a>(input, other)</p></td>
+<td><p>Computes the element-wise maximum of input and other.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.core.minimum.html#open3d.core.minimum" title="open3d.core.minimum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minimum</span></code></a>(input, other)</p></td>
+<td><p>Computes the element-wise minimum of input and other.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.core.solve.html#open3d.core.solve" title="open3d.core.solve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">solve</span></code></a>(A, B)</p></td>
+<td><p>Function to solve X for a linear system AX = B where A is a square matrix</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.core.svd.html#open3d.core.svd" title="open3d.core.svd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">svd</span></code></a>(A)</p></td>
+<td><p>Function to decompose A with A = U S VT.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.core.sycl_demo.html#open3d.core.sycl_demo" title="open3d.core.sycl_demo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sycl_demo</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.core.tril.html#open3d.core.tril" title="open3d.core.tril"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tril</span></code></a>(A, diagonal)</p></td>
+<td><p>Function to get lower triangular matrix, below diagonal</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.core.triu.html#open3d.core.triu" title="open3d.core.triu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">triu</span></code></a>(A, diagonal)</p></td>
+<td><p>Function to get upper triangular matrix, above diagonal</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.core.triul.html#open3d.core.triul" title="open3d.core.triul"><code class="xref py py-obj docutils literal notranslate"><span class="pre">triul</span></code></a>(A, diagonal)</p></td>
+<td><p>Function to get both upper and lower triangular matrix</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Modules</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">nns</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="open3d.core.Blob.html" class="btn btn-neutral float-right" title="open3d.core.Blob" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="open3d.camera.PinholeCameraTrajectory.90" class="btn btn-neutral float-left" title="open3d.camera.PinholeCameraTrajectory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.core.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:25 GMT -->
+</html>

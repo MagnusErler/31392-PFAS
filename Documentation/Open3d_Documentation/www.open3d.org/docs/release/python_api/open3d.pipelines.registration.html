@@ -1,0 +1,512 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.pipelines.registration.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:39 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>open3d.pipelines.registration &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="open3d.pipelines.registration.CauchyLoss" href="open3d.pipelines.registration.CauchyLoss" />
+    <link rel="prev" title="open3d.pipelines.odometry.compute_rgbd_odometry" href="open3d.pipelines.odometry.compute_rgbd_od" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="open3d.pipelines.html">open3d.pipelines</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="open3d.pipelines.color_map.html">color_map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.pipelines.integration.html">integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.pipelines.odometry.html">odometry</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">registration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.CauchyLoss">CauchyLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.Corresponde">CorrespondenceChecker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-2.Corresponde">CorrespondenceCheckerBasedOnDistance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-3.Corresponde">CorrespondenceCheckerBasedOnEdgeLength</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-4.Corresponde">CorrespondenceCheckerBasedOnNormal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.FastGlobalR">FastGlobalRegistrationOption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.Feature.108">Feature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.GMLoss.10e">GMLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.GlobalOptim">GlobalOptimizationConvergenceCriteria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-2.GlobalOptim">GlobalOptimizationGaussNewton</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-3.GlobalOptim">GlobalOptimizationLevenbergMarquardt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-4.GlobalOptim">GlobalOptimizationMethod</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-5.GlobalOptim">GlobalOptimizationOption</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.HuberLoss.1">HuberLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.ICPConverge">ICPConvergenceCriteria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.L1Loss.111">L1Loss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.L2Loss.112">L2Loss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.PoseGraph.1">PoseGraph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.PoseGraphEd">PoseGraphEdge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-2.PoseGraphEd">PoseGraphEdgeVector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.PoseGraphNo">PoseGraphNode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-2.PoseGraphNo">PoseGraphNodeVector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.RANSACConve">RANSACConvergenceCriteria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.Registratio">RegistrationResult</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.RobustKerne">RobustKernel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.Transformat">TransformationEstimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-2.Transformat">TransformationEstimationForColoredICP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-3.Transformat">TransformationEstimationForGeneralizedICP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-4.Transformat">TransformationEstimationPointToPlane</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-5.Transformat">TransformationEstimationPointToPoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.TukeyLoss.1">TukeyLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.compute_fpf">compute_fpfh_feature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.evaluate_re">evaluate_registration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.get_informa">get_information_matrix_from_point_clouds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration.global_opti">global_optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-2.registratio">registration_colored_icp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-3.registratio">registration_fgr_based_on_correspondence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-4.registratio">registration_fgr_based_on_feature_matching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-5.registratio">registration_generalized_icp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-6.registratio">registration_icp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-7.registratio">registration_ransac_based_on_correspondence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.pipelines.registration-8.registratio">registration_ransac_based_on_feature_matching</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="open3d.pipelines.html">open3d.pipelines</a> &raquo;</li>
+        
+      <li>open3d.pipelines.registration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="open3d-pipelines-registration">
+<h1>open3d.pipelines.registration<a class="headerlink" href="#open3d-pipelines-registration" title="Permalink to this headline">¶</a></h1>
+<p><strong>Classes</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration.CauchyLoss#open3d.pipelines.registration.CauchyLoss" title="open3d.pipelines.registration.CauchyLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CauchyLoss</span></code></a></p></td>
+<td><p>The loss <span class="math notranslate nohighlight">\(\rho(r)\)</span> for a given residual <code class="docutils literal notranslate"><span class="pre">r</span></code> is:</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration.Corresponde#open3d.pipelines.registration.CorrespondenceChecker" title="open3d.pipelines.registration.CorrespondenceChecker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CorrespondenceChecker</span></code></a></p></td>
+<td><p>Base class that checks if two (small) point clouds can be aligned.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration-2.Corresponde#open3d.pipelines.registration.CorrespondenceCheckerBasedOnDistance" title="open3d.pipelines.registration.CorrespondenceCheckerBasedOnDistance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CorrespondenceCheckerBasedOnDistance</span></code></a></p></td>
+<td><p>Class to check if aligned point clouds are close (less than specified threshold).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration-3.Corresponde#open3d.pipelines.registration.CorrespondenceCheckerBasedOnEdgeLength" title="open3d.pipelines.registration.CorrespondenceCheckerBasedOnEdgeLength"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CorrespondenceCheckerBasedOnEdgeLength</span></code></a></p></td>
+<td><p>Check if two point clouds build the polygons with similar edge lengths.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration-4.Corresponde#open3d.pipelines.registration.CorrespondenceCheckerBasedOnNormal" title="open3d.pipelines.registration.CorrespondenceCheckerBasedOnNormal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CorrespondenceCheckerBasedOnNormal</span></code></a></p></td>
+<td><p>Class to check if two aligned point clouds have similar normals.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration.FastGlobalR#open3d.pipelines.registration.FastGlobalRegistrationOption" title="open3d.pipelines.registration.FastGlobalRegistrationOption"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FastGlobalRegistrationOption</span></code></a></p></td>
+<td><p>Options for FastGlobalRegistration.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration.Feature.108#open3d.pipelines.registration.Feature" title="open3d.pipelines.registration.Feature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Feature</span></code></a></p></td>
+<td><p>Class to store featrues for registration.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration.GMLoss.10e#open3d.pipelines.registration.GMLoss" title="open3d.pipelines.registration.GMLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMLoss</span></code></a></p></td>
+<td><p>The loss <span class="math notranslate nohighlight">\(\rho(r)\)</span> for a given residual <code class="docutils literal notranslate"><span class="pre">r</span></code> is:</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration.GlobalOptim#open3d.pipelines.registration.GlobalOptimizationConvergenceCriteria" title="open3d.pipelines.registration.GlobalOptimizationConvergenceCriteria"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GlobalOptimizationConvergenceCriteria</span></code></a></p></td>
+<td><p>Convergence criteria of GlobalOptimization.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration-2.GlobalOptim#open3d.pipelines.registration.GlobalOptimizationGaussNewton" title="open3d.pipelines.registration.GlobalOptimizationGaussNewton"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GlobalOptimizationGaussNewton</span></code></a></p></td>
+<td><p>Global optimization with Gauss-Newton algorithm.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration-3.GlobalOptim#open3d.pipelines.registration.GlobalOptimizationLevenbergMarquardt" title="open3d.pipelines.registration.GlobalOptimizationLevenbergMarquardt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GlobalOptimizationLevenbergMarquardt</span></code></a></p></td>
+<td><p>Global optimization with Levenberg-Marquardt algorithm.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration-4.GlobalOptim#open3d.pipelines.registration.GlobalOptimizationMethod" title="open3d.pipelines.registration.GlobalOptimizationMethod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GlobalOptimizationMethod</span></code></a></p></td>
+<td><p>Base class for global optimization method.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration-5.GlobalOptim#open3d.pipelines.registration.GlobalOptimizationOption" title="open3d.pipelines.registration.GlobalOptimizationOption"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GlobalOptimizationOption</span></code></a></p></td>
+<td><p>Option for GlobalOptimization.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration.HuberLoss.1#open3d.pipelines.registration.HuberLoss" title="open3d.pipelines.registration.HuberLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HuberLoss</span></code></a></p></td>
+<td><p>The loss <span class="math notranslate nohighlight">\(\rho(r)\)</span> for a given residual <code class="docutils literal notranslate"><span class="pre">r</span></code> is:</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration.ICPConverge#open3d.pipelines.registration.ICPConvergenceCriteria" title="open3d.pipelines.registration.ICPConvergenceCriteria"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ICPConvergenceCriteria</span></code></a></p></td>
+<td><p>Class that defines the convergence criteria of ICP.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration.L1Loss.111#open3d.pipelines.registration.L1Loss" title="open3d.pipelines.registration.L1Loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">L1Loss</span></code></a></p></td>
+<td><p>The loss <span class="math notranslate nohighlight">\(\rho(r)\)</span> for a given residual <code class="docutils literal notranslate"><span class="pre">r</span></code> is given by:</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration.L2Loss.112#open3d.pipelines.registration.L2Loss" title="open3d.pipelines.registration.L2Loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">L2Loss</span></code></a></p></td>
+<td><p>The loss <span class="math notranslate nohighlight">\(\rho(r)\)</span> for a given residual <code class="docutils literal notranslate"><span class="pre">r</span></code> is given by:</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration.PoseGraph.1#open3d.pipelines.registration.PoseGraph" title="open3d.pipelines.registration.PoseGraph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PoseGraph</span></code></a></p></td>
+<td><p>Data structure defining the pose graph.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration.PoseGraphEd#open3d.pipelines.registration.PoseGraphEdge" title="open3d.pipelines.registration.PoseGraphEdge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PoseGraphEdge</span></code></a></p></td>
+<td><p>Edge of <code class="docutils literal notranslate"><span class="pre">PoseGraph</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration-2.PoseGraphEd#open3d.pipelines.registration.PoseGraphEdgeVector" title="open3d.pipelines.registration.PoseGraphEdgeVector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PoseGraphEdgeVector</span></code></a></p></td>
+<td><p>Vector of PoseGraphEdge</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration.PoseGraphNo#open3d.pipelines.registration.PoseGraphNode" title="open3d.pipelines.registration.PoseGraphNode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PoseGraphNode</span></code></a></p></td>
+<td><p>Node of <code class="docutils literal notranslate"><span class="pre">PoseGraph</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration-2.PoseGraphNo#open3d.pipelines.registration.PoseGraphNodeVector" title="open3d.pipelines.registration.PoseGraphNodeVector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PoseGraphNodeVector</span></code></a></p></td>
+<td><p>Vector of PoseGraphNode</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration.RANSACConve#open3d.pipelines.registration.RANSACConvergenceCriteria" title="open3d.pipelines.registration.RANSACConvergenceCriteria"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RANSACConvergenceCriteria</span></code></a></p></td>
+<td><p>Class that defines the convergence criteria of RANSAC.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration.Registratio#open3d.pipelines.registration.RegistrationResult" title="open3d.pipelines.registration.RegistrationResult"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RegistrationResult</span></code></a></p></td>
+<td><p>Class that contains the registration results.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration.RobustKerne#open3d.pipelines.registration.RobustKernel" title="open3d.pipelines.registration.RobustKernel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RobustKernel</span></code></a></p></td>
+<td><p>Base class that models a robust kernel for outlier rejection.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration.Transformat#open3d.pipelines.registration.TransformationEstimation" title="open3d.pipelines.registration.TransformationEstimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransformationEstimation</span></code></a></p></td>
+<td><p>Base class that estimates a transformation between two point clouds.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration-2.Transformat#open3d.pipelines.registration.TransformationEstimationForColoredICP" title="open3d.pipelines.registration.TransformationEstimationForColoredICP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransformationEstimationForColoredICP</span></code></a></p></td>
+<td><p>Class to estimate a transformation between two point clouds using color information</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration-3.Transformat#open3d.pipelines.registration.TransformationEstimationForGeneralizedICP" title="open3d.pipelines.registration.TransformationEstimationForGeneralizedICP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransformationEstimationForGeneralizedICP</span></code></a></p></td>
+<td><p>Class to estimate a transformation for Generalized ICP.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration-4.Transformat#open3d.pipelines.registration.TransformationEstimationPointToPlane" title="open3d.pipelines.registration.TransformationEstimationPointToPlane"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransformationEstimationPointToPlane</span></code></a></p></td>
+<td><p>Class to estimate a transformation for point to plane distance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration-5.Transformat#open3d.pipelines.registration.TransformationEstimationPointToPoint" title="open3d.pipelines.registration.TransformationEstimationPointToPoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransformationEstimationPointToPoint</span></code></a></p></td>
+<td><p>Class to estimate a transformation for point to point distance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration.TukeyLoss.1#open3d.pipelines.registration.TukeyLoss" title="open3d.pipelines.registration.TukeyLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TukeyLoss</span></code></a></p></td>
+<td><p>The loss <span class="math notranslate nohighlight">\(\rho(r)\)</span> for a given residual <code class="docutils literal notranslate"><span class="pre">r</span></code> is:</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Functions</strong></p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration.compute_fpf#open3d.pipelines.registration.compute_fpfh_feature" title="open3d.pipelines.registration.compute_fpfh_feature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_fpfh_feature</span></code></a>(input, search_param)</p></td>
+<td><p>Function to compute FPFH feature for a point cloud</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration.evaluate_re#open3d.pipelines.registration.evaluate_registration" title="open3d.pipelines.registration.evaluate_registration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate_registration</span></code></a>(source, target, …[, …])</p></td>
+<td><p>Function for evaluating registration between point clouds</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration.get_informa#open3d.pipelines.registration.get_information_matrix_from_point_clouds" title="open3d.pipelines.registration.get_information_matrix_from_point_clouds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_information_matrix_from_point_clouds</span></code></a>(…)</p></td>
+<td><p>Function for computing information matrix from transformation matrix</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration.global_opti#open3d.pipelines.registration.global_optimization" title="open3d.pipelines.registration.global_optimization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">global_optimization</span></code></a>(pose_graph, method, …)</p></td>
+<td><p>Function to optimize PoseGraph</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration-2.registratio#open3d.pipelines.registration.registration_colored_icp" title="open3d.pipelines.registration.registration_colored_icp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">registration_colored_icp</span></code></a>(source, target, …)</p></td>
+<td><p>Function for Colored ICP registration</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration-3.registratio#open3d.pipelines.registration.registration_fgr_based_on_correspondence" title="open3d.pipelines.registration.registration_fgr_based_on_correspondence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">registration_fgr_based_on_correspondence</span></code></a>(…)</p></td>
+<td><p>Function for fast global registration based on a set of correspondences</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration-4.registratio#open3d.pipelines.registration.registration_fgr_based_on_feature_matching" title="open3d.pipelines.registration.registration_fgr_based_on_feature_matching"><code class="xref py py-obj docutils literal notranslate"><span class="pre">registration_fgr_based_on_feature_matching</span></code></a>(…)</p></td>
+<td><p>Function for fast global registration based on feature matching</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration-5.registratio#open3d.pipelines.registration.registration_generalized_icp" title="open3d.pipelines.registration.registration_generalized_icp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">registration_generalized_icp</span></code></a>(source, target, …)</p></td>
+<td><p>Function for Generalized ICP registration</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration-6.registratio#open3d.pipelines.registration.registration_icp" title="open3d.pipelines.registration.registration_icp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">registration_icp</span></code></a>(source, target, …[, …])</p></td>
+<td><p>Function for ICP registration</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="open3d.pipelines.registration-7.registratio#open3d.pipelines.registration.registration_ransac_based_on_correspondence" title="open3d.pipelines.registration.registration_ransac_based_on_correspondence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">registration_ransac_based_on_correspondence</span></code></a>(…)</p></td>
+<td><p>Function for global RANSAC registration based on a set of correspondences</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="open3d.pipelines.registration-8.registratio#open3d.pipelines.registration.registration_ransac_based_on_feature_matching" title="open3d.pipelines.registration.registration_ransac_based_on_feature_matching"><code class="xref py py-obj docutils literal notranslate"><span class="pre">registration_ransac_based_on_feature_matching</span></code></a>(…)</p></td>
+<td><p>Function for global RANSAC registration based on feature matching</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="open3d.pipelines.registration.CauchyLoss" class="btn btn-neutral float-right" title="open3d.pipelines.registration.CauchyLoss" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="open3d.pipelines.odometry.compute_rgbd_od" class="btn btn-neutral float-left" title="open3d.pipelines.odometry.compute_rgbd_odometry" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.pipelines.registration.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:39 GMT -->
+</html>
