@@ -18,7 +18,7 @@ camera_mat = [[725, 0, 631, camera_pos[0]],
 [0, 0, 1, camera_pos[2]]]
 
 # Point of interest
-X,Y,Z = 1,1,4
+X,Y,Z = 1,1,5
 pos_glob = [X,Y,Z,1]
 
 # Find position in camera coordinates
