@@ -1,0 +1,501 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/visualization/headless_rendering.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:43:44 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Headless rendering &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="CPU (Software) Rendering" href="cpu_rendering.html" />
+    <link rel="prev" title="Non-blocking visualization" href="non_blocking_visualization.55" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Visualization</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="visualization.html">Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customized_visualization.53.d">Customized visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactive_visualization.54">Interactive visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="non_blocking_visualization.55">Non-blocking visualization</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Headless rendering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-osmesa">Install OSMesa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-virtualenv">Install virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-open3d-with-osmesa">Build Open3D with OSMesa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#test-headless-rendering">Test headless rendering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#possible-issues">Possible Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#headless-ubuntu-16-04">Headless Ubuntu 16.04</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compile-osmesa-from-source">Compile OSMesa from source</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cpu_rendering.html">CPU (Software) Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_visualizer.html">Web visualizer and Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensorboard_plugin.html">Open3D for TensorBoard</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Visualization</a> &raquo;</li>
+        
+      <li>Headless rendering</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="headless-rendering">
+<span id="id1"></span><h1>Headless rendering<a class="headerlink" href="#headless-rendering" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial explains how to render and save images from a terminal without any display device.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature is experimental; it was only tested with an Ubuntu 18.04 environment.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although Ubuntu 16.04 is no longer supported for Open3D, additional instructions are under <a class="reference internal" href="#headless-ubuntu1604"><span class="std std-ref">Headless Ubuntu 16.04</span></a>.</p>
+</div>
+<div class="section" id="install-osmesa">
+<h2>Install OSMesa<a class="headerlink" href="#install-osmesa" title="Permalink to this headline">¶</a></h2>
+<p>To generate a headless context, it is necessary to install <a class="reference external" href="https://www.mesa3d.org/osmesa.html">OSMesa</a>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>libosmesa6-dev
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-virtualenv">
+<span id="id2"></span><h2>Install virtualenv<a class="headerlink" href="#install-virtualenv" title="Permalink to this headline">¶</a></h2>
+<p>Create a virtual environment for Python.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>virtualenv<span class="w"> </span>python-pip
+$<span class="w"> </span>virtualenv<span class="w"> </span>-p<span class="w"> </span>/usr/bin/python3<span class="w"> </span>py3env
+$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>py3env/bin/activate
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>matplotlib
+</pre></div>
+</div>
+<p>This script installs and activates <code class="docutils literal notranslate"><span class="pre">py3env</span></code>. The necessary modules, <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, are installed in <code class="docutils literal notranslate"><span class="pre">py3env</span></code>.</p>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p>Anaconda users are recommended to use this configuration as <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">matplotlib</span></code> installs additional modules that are not based on OSMesa.
+This will result in <strong>segmentation fault error</strong> at runtime.</p>
+</div>
+</div>
+<div class="section" id="build-open3d-with-osmesa">
+<h2>Build Open3D with OSMesa<a class="headerlink" href="#build-open3d-with-osmesa" title="Permalink to this headline">¶</a></h2>
+<p>Let’s move to build a folder.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/Open3D/
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+</pre></div>
+</div>
+<p>In the next step, there are two cmake flags that need to be specified.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-DENABLE_HEADLESS_RENDERING=ON</span></code>: this flag informs glew and glfw should use <strong>OSMesa</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-DUSE_SYSTEM_GLEW=OFF</span> <span class="pre">-DUSE_SYSTEM_GLFW=OFF</span></code>: note that headless rendering only works with the <strong>glew 2.1</strong> and <strong>glfw 3.3-dev</strong> version.
+In most cases, these versions are not installed in vanilla Ubuntu systems.
+Use these CMake options to force to build glew 2.1 and glfw 3.3-dev from source included with Open3D.</p></li>
+<li><p>The Filament-based GUI implementation is not compatible with headless rendering, please set <code class="docutils literal notranslate"><span class="pre">-DBUILD_GUI=OFF</span></code>.</p></li>
+<li><p>With <code class="docutils literal notranslate"><span class="pre">-DBUILD_GUI=OFF</span></code> webRTC support must also be disabled <code class="docutils literal notranslate"><span class="pre">-DBUILD_WEBRTC=OFF</span></code>.</p></li>
+</ul>
+<p>As a result, the cmake command is the following</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>cmake<span class="w"> </span>-DENABLE_HEADLESS_RENDERING<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">                 </span>-DBUILD_GUI<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">                 </span>-DBUILD_WEBRTC<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">                 </span>-DUSE_SYSTEM_GLEW<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">                 </span>-DUSE_SYSTEM_GLFW<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">                 </span>..
+</pre></div>
+</div>
+<p>If cmake successfully generates makefiles, build Open3D.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>make<span class="w"> </span>install-pip-package
+</pre></div>
+</div>
+</div>
+<div class="section" id="test-headless-rendering">
+<span id="id3"></span><h2>Test headless rendering<a class="headerlink" href="#test-headless-rendering" title="Permalink to this headline">¶</a></h2>
+<p>As a final step, test a Python script that saves depth and surface normal sequences.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/Open3D/examples/python/visualization
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>python<span class="w"> </span>headless_rendering.py
+</pre></div>
+</div>
+<p>This should print the following:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Capture<span class="w"> </span>image<span class="w"> </span><span class="m">00000</span>
+Capture<span class="w"> </span>image<span class="w"> </span><span class="m">00001</span>
+Capture<span class="w"> </span>image<span class="w"> </span><span class="m">00002</span>
+Capture<span class="w"> </span>image<span class="w"> </span><span class="m">00003</span>
+Capture<span class="w"> </span>image<span class="w"> </span><span class="m">00004</span>
+Capture<span class="w"> </span>image<span class="w"> </span><span class="m">00005</span>
+:
+Capture<span class="w"> </span>image<span class="w"> </span><span class="m">00030</span>
+</pre></div>
+</div>
+<p>Rendered images are at ~/Open3D/examples/test_data/depth and the image folder.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">headless_rendering.py</span></code> saves png files.</div>
+<div class="line">This may take some time, so try to tweak the script for your purpose.</div>
+</div>
+</div>
+</div>
+<div class="section" id="possible-issues">
+<h2>Possible Issues<a class="headerlink" href="#possible-issues" title="Permalink to this headline">¶</a></h2>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<div class="line-block">
+<div class="line">If glew and glfw did not correctly link with OSMesa, it may crash with the following error.</div>
+<div class="line"><strong>GLFW Error: X11: The DISPLAY environment variable is missing. Failed to initialize GLFW</strong></div>
+</div>
+</div>
+<p>Try <code class="docutils literal notranslate"><span class="pre">cmake</span></code> with <code class="docutils literal notranslate"><span class="pre">-DUSE_SYSTEM_GLEW=OFF</span></code> and <code class="docutils literal notranslate"><span class="pre">-DUSE_SYSTEM_GLFW=OFF</span></code> flags.</p>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<div class="line-block">
+<div class="line">If OSMesa does not support GL 3.3 Core you will get the following error:</div>
+<div class="line"><strong>GLFW Error: OSMesa: Failed to create context</strong></div>
+</div>
+</div>
+<p>Open3D currently uses GL 3.3 Core Profile, if that is not supported you will get the above error.
+You can run</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/Open3D/build
+$<span class="w"> </span>bin/GLInfo
+</pre></div>
+</div>
+<p>to get GL information for your environment (with or without a screen).
+It will try and print various configurations, the second one is the one we use,
+it should look something like</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>Open3D<span class="w"> </span>INFO<span class="o">]</span><span class="w"> </span>TryGLVersion:<span class="w"> </span><span class="m">3</span>.3<span class="w">  </span>GLFW_OPENGL_CORE_PROFILE
+<span class="o">[</span>Open3D<span class="w"> </span>DEBUG<span class="o">]</span><span class="w"> </span>GL_VERSION:<span class="w">  </span><span class="m">3</span>.3<span class="w"> </span><span class="o">(</span>Core<span class="w"> </span>Profile<span class="o">)</span><span class="w"> </span>Mesa<span class="w"> </span><span class="m">19</span>.2.8
+<span class="o">[</span>Open3D<span class="w"> </span>DEBUG<span class="o">]</span><span class="w"> </span>GL_RENDERER:<span class="w"> </span>llvmpipe<span class="w"> </span><span class="o">(</span>LLVM<span class="w"> </span><span class="m">9</span>.0,<span class="w"> </span><span class="m">256</span><span class="w"> </span>bits<span class="o">)</span>
+<span class="o">[</span>Open3D<span class="w"> </span>DEBUG<span class="o">]</span><span class="w"> </span>GL_VENDOR:<span class="w">   </span>VMware,<span class="w"> </span>Inc.
+<span class="o">[</span>Open3D<span class="w"> </span>DEBUG<span class="o">]</span><span class="w"> </span>GL_SHADING_LANGUAGE_VERSION:<span class="w"> </span><span class="m">3</span>.30
+</pre></div>
+</div>
+<p>If instead you get</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>Open3D<span class="w"> </span>INFO<span class="o">]</span><span class="w"> </span>TryGLVersion:<span class="w"> </span><span class="m">3</span>.3<span class="w">  </span>GLFW_OPENGL_CORE_PROFILE
+<span class="o">[</span>Open3D<span class="w"> </span>WARNING<span class="o">]</span><span class="w"> </span>GLFW<span class="w"> </span>Error:<span class="w"> </span>OSMesa:<span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span>create<span class="w"> </span>context
+<span class="o">[</span>Open3D<span class="w"> </span>DEBUG<span class="o">]</span><span class="w"> </span>Failed<span class="w"> </span>to<span class="w"> </span>create<span class="w"> </span>window
+</pre></div>
+</div>
+<p>Then your OSMesa version might be too old.  Try to follow instructions below to <a class="reference internal" href="#compile-osmesa"><span class="std std-ref">Compile OSMesa from source</span></a> to build a newer version and see if that resolves your issue.</p>
+</div>
+<div class="section" id="headless-ubuntu-16-04">
+<span id="headless-ubuntu1604"></span><h2>Headless Ubuntu 16.04<a class="headerlink" href="#headless-ubuntu-16-04" title="Permalink to this headline">¶</a></h2>
+<p>For Ubuntu 16.04, a version of OSMesa needs to be built from source.
+First follow <a class="reference internal" href="#install-virtualenv"><span class="std std-ref">Install virtualenv</span></a> instructions above, then follow <a class="reference internal" href="#compile-osmesa"><span class="std std-ref">Compile OSMesa from source</span></a> instructions below.</p>
+</div>
+<div class="section" id="compile-osmesa-from-source">
+<span id="compile-osmesa"></span><h2>Compile OSMesa from source<a class="headerlink" href="#compile-osmesa-from-source" title="Permalink to this headline">¶</a></h2>
+<p>Here are instructions for compiling mesa-19.0.8, last version that still supported ./configure:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># install llvm-8</span>
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>llvm-8
+
+<span class="c1"># download OSMesa 19.0.8 release</span>
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>curl<span class="w"> </span>-O<span class="w"> </span>https://mesa.freedesktop.org/archive/mesa-19.0.8.tar.xz
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>tar<span class="w"> </span>xvf<span class="w"> </span>mesa-19.0.8.tar.xz
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>mesa-19.0.8
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span><span class="nv">LLVM_CONFIG</span><span class="o">=</span><span class="s2">&quot;/usr/bin/llvm-config-8&quot;</span><span class="w"> </span>./configure<span class="w"> </span>--prefix<span class="o">=</span><span class="nv">$HOME</span>/osmesa<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--disable-osmesa<span class="w"> </span>--disable-driglx-direct<span class="w"> </span>--disable-gbm<span class="w"> </span>--enable-dri<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--with-gallium-drivers<span class="o">=</span>swrast<span class="w"> </span>--enable-autotools<span class="w"> </span>--enable-llvm<span class="w"> </span>--enable-gallium-osmesa
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>make<span class="w"> </span>install
+<span class="c1"># this installed OSMesa libraries to $HOME/osmesa/lib; in order for Open3D to pick it up</span>
+<span class="c1"># LD_LIBRARY_PATH needs to be updated to include it:</span>
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/osmesa/lib:</span><span class="nv">$LD_LIBRARY_PATH</span><span class="s2">&quot;</span>
+<span class="c1"># this needs to be done for every shell, or you can add it to your .bashrc</span>
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/Open3D
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>mkdir<span class="w"> </span>build<span class="o">&amp;&amp;</span><span class="nb">cd</span><span class="w"> </span>build
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>cmake<span class="w"> </span>-DENABLE_HEADLESS_RENDERING<span class="o">=</span>ON<span class="w"> </span>-DUSE_SYSTEM_GLEW<span class="o">=</span>OFF<span class="w"> </span>-DUSE_SYSTEM_GLFW<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-DOSMESA_INCLUDE_DIR<span class="o">=</span><span class="nv">$HOME</span>/osmesa/include<span class="w"> </span>-DOSMESA_LIBRARY<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/osmesa/lib/libOSMesa.so&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>..
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+<span class="o">(</span>py3env<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>make<span class="w"> </span>install-pip-package
+</pre></div>
+</div>
+<p>Now you can follow the instructions under <a class="reference internal" href="#test-headless-rendering"><span class="std std-ref">Test headless rendering</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cpu_rendering.html" class="btn btn-neutral float-right" title="CPU (Software) Rendering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="non_blocking_visualization.55" class="btn btn-neutral float-left" title="Non-blocking visualization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/visualization/headless_rendering.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:43:44 GMT -->
+</html>

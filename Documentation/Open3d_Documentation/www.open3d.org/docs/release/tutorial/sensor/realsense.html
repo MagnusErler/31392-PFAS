@@ -1,0 +1,568 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/sensor/realsense.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:49:49 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RealSense with Open3D &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Reference" href="../reference.html" />
+    <link rel="prev" title="Azure Kinect with Open3D" href="azure_kinect.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Sensor</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="azure_kinect.html">Azure Kinect with Open3D</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RealSense with Open3D</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#obtaining-open3d-with-realsense-support">Obtaining Open3D with RealSense support</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#python">Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compile-from-source-c">Compile from source (C++)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#reading-from-realsense-bag-files">Reading from RealSense bag files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sample-realsense-bag-files">Sample RealSense bag files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#running-the-scene-reconstruction-pipeline">Running the scene reconstruction pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#realsense-camera-configuration-live-capture-processing-and-recording">RealSense camera configuration, live capture, processing and recording</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#realsense-camera-discovery">RealSense camera discovery</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#realsense-camera-configuration">RealSense camera configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#realsense-camera-capture-processing-and-recording">RealSense camera capture, processing and recording</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Sensor</a> &raquo;</li>
+        
+      <li>RealSense with Open3D</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="realsense-with-open3d">
+<span id="realsense"></span><h1>RealSense with Open3D<a class="headerlink" href="#realsense-with-open3d" title="Permalink to this headline">¶</a></h1>
+<p>RealSense (<code class="docutils literal notranslate"><span class="pre">librealsense</span></code> SDK v2) is integrated into Open3D (v0.12+) and you
+can use it through both C++ and Python APIs without a separate <code class="docutils literal notranslate"><span class="pre">librealsense</span></code>
+SDK installation on Linux, macOS and Windows. Older versions of Open3D support
+RealSense through a separate install of <code class="docutils literal notranslate"><span class="pre">librealsense</span></code> SDK v1 and
+<code class="docutils literal notranslate"><span class="pre">pyrealsense</span></code>.</p>
+<div class="section" id="obtaining-open3d-with-realsense-support">
+<h2>Obtaining Open3D with RealSense support<a class="headerlink" href="#obtaining-open3d-with-realsense-support" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="python">
+<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<p>Install Open3D from PyPI (a virtual environment is recommended):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>open3d
+</pre></div>
+</div>
+</div>
+<div class="section" id="compile-from-source-c">
+<h3>Compile from source (C++)<a class="headerlink" href="#compile-from-source-c" title="Permalink to this headline">¶</a></h3>
+<p>To build Open3D from source with RealSense support, set
+<code class="docutils literal notranslate"><span class="pre">BUILD_LIBREALSENSE=ON</span></code> at CMake config step. You can add other configuration
+options as well (e.g.: <code class="docutils literal notranslate"><span class="pre">BUILD_GUI=ON</span></code> and <code class="docutils literal notranslate"><span class="pre">BUILD_PYTHON_MODULE=ON</span></code> may be
+useful).</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-D<span class="w"> </span><span class="nv">BUILD_LIBREALSENSE</span><span class="o">=</span>ON<span class="w"> </span>-D<span class="w"> </span>&lt;OTHER_FLAGS&gt;<span class="w"> </span>/path/to/Open3D/source/
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="reading-from-realsense-bag-files">
+<h2>Reading from RealSense bag files<a class="headerlink" href="#reading-from-realsense-bag-files" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sample-realsense-bag-files">
+<h3>Sample RealSense bag files<a class="headerlink" href="#sample-realsense-bag-files" title="Permalink to this headline">¶</a></h3>
+<p>You con download sample RealSense bag datasets with this script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">examples</span><span class="o">/</span><span class="n">python</span><span class="o">/</span><span class="n">reconstruction_system</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">download_dataset</span><span class="o">.</span><span class="n">py</span> <span class="n">L515_test</span>
+</pre></div>
+</div>
+<p>Check the script for more RS bag datasets.</p>
+<p>Here is a C++ code snippet that shows how to read a RealSense bag file recorded
+with Open3D or the <code class="docutils literal notranslate"><span class="pre">realsense-viewer</span></code>. Note that general ROSbag files are not
+supported. See more details and available functionality (such as getting
+timestamps, aligning the depth stream to the color stream and getting intrinsic
+calibration) in the C++ API in the <a class="reference external" href="../../cpp_api/classopen3d_1_1t_1_1io_1_1_r_s_bag_reader.2f">RSBagReader documentation</a></p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;open3d/open3d.hpp&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">open3d</span><span class="p">;</span>
+<span class="n">t</span><span class="o">::</span><span class="n">io</span><span class="o">::</span><span class="n">RSBagReader</span><span class="w"> </span><span class="n">bag_reader</span><span class="p">;</span>
+<span class="n">bag_reader</span><span class="p">.</span><span class="n">Open</span><span class="p">(</span><span class="n">bag_filename</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">im_rgbd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bag_reader</span><span class="p">.</span><span class="n">NextFrame</span><span class="p">();</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">bag_reader</span><span class="p">.</span><span class="n">IsEOF</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// process im_rgbd.depth_ and im_rgbd.color_</span>
+<span class="w">    </span><span class="n">im_rgbd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bag_reader</span><span class="p">.</span><span class="n">NextFrame</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="n">bag_reader</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Here is the corresponding Python code:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="n">bag_reader</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">RSBagReader</span><span class="p">()</span>
+<span class="n">bag_reader</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">bag_filename</span><span class="p">)</span>
+<span class="n">im_rgbd</span> <span class="o">=</span> <span class="n">bag_reader</span><span class="o">.</span><span class="n">next_frame</span><span class="p">()</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">bag_reader</span><span class="o">.</span><span class="n">is_eof</span><span class="p">():</span>
+    <span class="c1"># process im_rgbd.depth and im_rgbd.color</span>
+    <span class="n">im_rgbd</span> <span class="o">=</span> <span class="n">bag_reader</span><span class="o">.</span><span class="n">next_frame</span><span class="p">()</span>
+
+<span class="n">bag_reader</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="c-rs-bag-file-viewer">
+<h4>C++ RS bag file viewer<a class="headerlink" href="#c-rs-bag-file-viewer" title="Permalink to this headline">¶</a></h4>
+<p>This C++ example that plays back the color and depth streams from a RealSense
+bag file. It also prints out metadata about the video streams in the file. Press
+[SPACE] to pause/resume and [ESC] to exit.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">RealSenseBagReader</span>
+<span class="nb">bin</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">RealSenseBagReader</span> <span class="o">--</span><span class="nb">input</span> <span class="n">L515_test</span><span class="o">.</span><span class="n">bag</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../../../storage.googleapis.com/open3d-bin/docs/images/RSbagviewer.jpg"><img alt="RealSenseBagReader example" class="align-center" src="../../../../../storage.googleapis.com/open3d-bin/docs/images/RSbagviewer.jpg" style="width: 800px;" /></a>
+</div>
+</div>
+<div class="section" id="running-the-scene-reconstruction-pipeline">
+<h3>Running the scene reconstruction pipeline<a class="headerlink" href="#running-the-scene-reconstruction-pipeline" title="Permalink to this headline">¶</a></h3>
+<p>You can provide an RS bag file directly to the reconstruction pipeline and
+colormap optimization pipelines. It will be automatically converted to a
+directory of depth and color frames and the camera intrinsics. Edit the
+<cite>examples/python/reconstruction_system/config/realsense.json</cite> file with the path
+to your RS bag file and leave <cite>path_intrinsic</cite> empty. Update other configuration
+parameters if needed (see the reconstruction pipeline documentation for more
+details, including other required packages):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">examples</span><span class="o">/</span><span class="n">python</span><span class="o">/</span><span class="n">reconstruction_system</span><span class="o">/</span>
+<span class="n">python</span> <span class="n">run_system</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">make</span> <span class="o">--</span><span class="n">register</span> <span class="o">--</span><span class="n">refine</span> <span class="o">--</span><span class="n">integrate</span> <span class="n">config</span><span class="o">/</span><span class="n">realsense</span><span class="o">.</span><span class="n">json</span>
+<span class="n">python</span> <span class="n">color_map_optimization_for_reconstruction_system</span><span class="o">.</span><span class="n">py</span>  <span class="o">--</span><span class="n">config</span> <span class="n">config</span><span class="o">/</span><span class="n">realsense</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>The reconstruction result below was obtained with the <code class="docutils literal notranslate"><span class="pre">L515_JackJack</span></code> dataset
+with the configuration changes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;path_dataset&quot;</span><span class="p">:</span> <span class="s2">&quot;/path/to/downloaded/L515_JackJack.bag&quot;</span>
+<span class="s2">&quot;depth_max&quot;</span><span class="p">:</span> <span class="mf">0.85</span><span class="p">,</span>
+<span class="s2">&quot;tsdf_cubic_size&quot;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span>
+<span class="s2">&quot;voxel_size&quot;</span><span class="p">:</span> <span class="mf">0.025</span><span class="p">,</span>
+<span class="s2">&quot;depth_diff_max&quot;</span><span class="p">:</span> <span class="mf">0.03</span>
+</pre></div>
+</div>
+<video width="800" controls
+src="https://storage.googleapis.com/open3d-bin/docs/images/JackJack_colormap_opt_result.mp4"
+type="video/mp4" autoplay>
+Scene reconstruction sample result with RealSense bag input data
+</video></div>
+</div>
+<div class="section" id="realsense-camera-configuration-live-capture-processing-and-recording">
+<h2>RealSense camera configuration, live capture, processing and recording<a class="headerlink" href="#realsense-camera-configuration-live-capture-processing-and-recording" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="realsense-camera-discovery">
+<h3>RealSense camera discovery<a class="headerlink" href="#realsense-camera-discovery" title="Permalink to this headline">¶</a></h3>
+<p>You can list all RealSense devices connected to the system and get their
+capabilities (supported resolutions, frame rates, etc.) with the code snippet
+below.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;open3d/open3d.hpp&gt;</span>
+<span class="n">open3d</span><span class="o">::</span><span class="n">t</span><span class="o">::</span><span class="n">io</span><span class="o">::</span><span class="n">RealSenseSensor</span><span class="o">::</span><span class="n">ListDevices</span><span class="p">();</span>
+</pre></div>
+</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">RealSenseSensor</span><span class="o">.</span><span class="n">list_devices</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Here is sample output when only one L515 camera is connected:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Open3D</span> <span class="n">INFO</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">Intel</span> <span class="n">RealSense</span> <span class="n">L515</span><span class="p">:</span> <span class="n">f0141095</span>
+<span class="p">[</span><span class="n">Open3D</span> <span class="n">INFO</span><span class="p">]</span>       <span class="n">color_format</span><span class="p">:</span> <span class="p">[</span><span class="n">RS2_FORMAT_BGR8</span> <span class="o">|</span> <span class="n">RS2_FORMAT_BGRA8</span> <span class="o">|</span> <span class="n">RS2_FORMAT_RGB8</span> <span class="o">|</span> <span class="n">RS2_FORMAT_RGBA8</span> <span class="o">|</span> <span class="n">RS2_FORMAT_Y16</span> <span class="o">|</span> <span class="n">RS2_FORMAT_YUYV</span><span class="p">]</span>
+<span class="p">[</span><span class="n">Open3D</span> <span class="n">INFO</span><span class="p">]</span>       <span class="n">color_resolution</span><span class="p">:</span> <span class="p">[</span><span class="mi">1280</span><span class="p">,</span><span class="mi">720</span> <span class="o">|</span> <span class="mi">1920</span><span class="p">,</span><span class="mi">1080</span> <span class="o">|</span> <span class="mi">960</span><span class="p">,</span><span class="mi">540</span><span class="p">]</span>
+<span class="p">[</span><span class="n">Open3D</span> <span class="n">INFO</span><span class="p">]</span>       <span class="n">color_fps</span><span class="p">:</span> <span class="p">[</span><span class="mi">15</span> <span class="o">|</span> <span class="mi">30</span> <span class="o">|</span> <span class="mi">6</span> <span class="o">|</span> <span class="mi">60</span><span class="p">]</span>
+<span class="p">[</span><span class="n">Open3D</span> <span class="n">INFO</span><span class="p">]</span>       <span class="n">depth_format</span><span class="p">:</span> <span class="p">[</span><span class="n">RS2_FORMAT_Z16</span><span class="p">]</span>
+<span class="p">[</span><span class="n">Open3D</span> <span class="n">INFO</span><span class="p">]</span>       <span class="n">depth_resolution</span><span class="p">:</span> <span class="p">[</span><span class="mi">1024</span><span class="p">,</span><span class="mi">768</span> <span class="o">|</span> <span class="mi">320</span><span class="p">,</span><span class="mi">240</span> <span class="o">|</span> <span class="mi">640</span><span class="p">,</span><span class="mi">480</span><span class="p">]</span>
+<span class="p">[</span><span class="n">Open3D</span> <span class="n">INFO</span><span class="p">]</span>       <span class="n">depth_fps</span><span class="p">:</span> <span class="p">[</span><span class="mi">30</span><span class="p">]</span>
+<span class="p">[</span><span class="n">Open3D</span> <span class="n">INFO</span><span class="p">]</span>       <span class="n">visual_preset</span><span class="p">:</span> <span class="p">[</span><span class="n">RS2_L500_VISUAL_PRESET_CUSTOM</span> <span class="o">|</span> <span class="n">RS2_L500_VISUAL_PRESET_DEFAULT</span> <span class="o">|</span> <span class="n">RS2_L500_VISUAL_PRESET_LOW_AMBIENT</span> <span class="o">|</span> <span class="n">RS2_L500_VISUAL_PRESET_MAX_RANGE</span> <span class="o">|</span> <span class="n">RS2_L500_VISUAL_PRESET_NO_AMBIENT</span> <span class="o">|</span> <span class="n">RS2_L500_VISUAL_PRESET_SHORT_RANGE</span><span class="p">]</span>
+<span class="p">[</span><span class="n">Open3D</span> <span class="n">INFO</span><span class="p">]</span> <span class="n">Open3D</span> <span class="n">only</span> <span class="n">supports</span> <span class="n">synchronized</span> <span class="n">color</span> <span class="ow">and</span> <span class="n">depth</span> <span class="n">capture</span> <span class="p">(</span><span class="n">color_fps</span> <span class="o">=</span> <span class="n">depth_fps</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>This data can also be obtained programmatically to configure a camera based on
+custom specifications (e.g.: resolution less than 720p) and to independently
+configure multiple cameras.</p>
+</div>
+<div class="section" id="realsense-camera-configuration">
+<h3>RealSense camera configuration<a class="headerlink" href="#realsense-camera-configuration" title="Permalink to this headline">¶</a></h3>
+<p>RealSense cameras can be configured with a simple <code class="docutils literal notranslate"><span class="pre">json</span></code> configuration file.
+See <a class="reference external" href="https://intelrealsense.github.io/librealsense/doxygen/rs__option_8h.html">RealSense documentation</a> for
+the set of configuration values. Supported configuration options will be depend
+on the device and other chosen options. Here are the options supported by
+Open3D:</p>
+<ul class="simple">
+<li><p><strong>serial</strong>: Pick a specific device, leave empty to pick the first available
+device.</p></li>
+<li><p><strong>color_format</strong>:  Pixel format for color frames.</p></li>
+<li><p><strong>color_resolution</strong>: (width, height): Leave 0 to let RealSense pick a
+supported width or height.</p></li>
+<li><p><strong>depth_format</strong>: Pixel format for depth frames.</p></li>
+<li><p><strong>depth_resolution</strong>: (width, height): Leave 0 to let RealSense pick a
+supported width or height.</p></li>
+<li><p><strong>fps</strong>: Common frame rate for both depth and color streams. Leave 0 to let
+RealSense pick a supported frame rate.</p></li>
+<li><p><strong>visual_preset</strong>: Controls depth computation on the device. Supported values
+are specific to product line (SR300, RS400, L500). Leave empty to pick the
+default.</p></li>
+</ul>
+<p>Here is an example <code class="docutils literal notranslate"><span class="pre">json</span></code> configuration file to capture 30fps, 540p color and
+480p depth video from any connected RealSense camera. The video width is picked
+by RealSense. We also set the <code class="docutils literal notranslate"><span class="pre">visual_preset</span></code> to
+<code class="docutils literal notranslate"><span class="pre">RS2_L500_VISUAL_PRESET_MAX_RANGE</span></code> to better capture far away objects.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;serial&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;color_format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RS2_FORMAT_RGB8&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;color_resolution&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0,540&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;depth_format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RS2_FORMAT_Z16&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;depth_resolution&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0,480&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;fps&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;30&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;visual_preset&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RS2_L500_VISUAL_PRESET_MAX_RANGE&quot;</span>
+<span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="realsense-camera-capture-processing-and-recording">
+<h3>RealSense camera capture, processing and recording<a class="headerlink" href="#realsense-camera-capture-processing-and-recording" title="Permalink to this headline">¶</a></h3>
+<p>The following code snippets show how to capture live RGBD video from a RealSense
+camera. They capture the first 150 frames and also record them to an RS bag
+file. The bag file can be played back with Open3D tools, realsense-viewer. You
+can also use ROS tools such as <a class="reference external" href="http://wiki.ros.org/rosbag">rosbag</a>, <a class="reference external" href="http://wiki.ros.org/rqt_bag">rqt_bag</a> and <a class="reference external" href="https://wiki.ros.org/rviz">rviz</a> to
+examine, play and modify the bag file. You can adapt the snippets to your needs
+by processing or displaying the frames after capture.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;open3d/open3d.hpp&gt;</span>
+<span class="n">open3d</span><span class="o">::</span><span class="n">t</span><span class="o">::</span><span class="n">io</span><span class="o">::</span><span class="n">RealSenseSensorConfig</span><span class="w"> </span><span class="n">rs_cfg</span><span class="p">;</span>
+<span class="n">open3d</span><span class="o">::</span><span class="n">io</span><span class="o">::</span><span class="n">ReadIJsonConvertible</span><span class="p">(</span><span class="n">config_filename</span><span class="p">,</span><span class="w"> </span><span class="n">rs_cfg</span><span class="p">);</span>
+<span class="n">RealSenseSensor</span><span class="w"> </span><span class="n">rs</span><span class="p">;</span>
+<span class="n">rs</span><span class="p">.</span><span class="n">InitSensor</span><span class="p">(</span><span class="n">rs_cfg</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">bag_filename</span><span class="p">);</span>
+<span class="n">rs</span><span class="p">.</span><span class="n">StartCapture</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span><span class="w">  </span><span class="c1">// true: start recording with capture</span>
+<span class="k">for</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">fid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">fid</span><span class="o">&lt;</span><span class="mi">150</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">fid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">im_rgbd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rs</span><span class="p">.</span><span class="n">CaptureFrame</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w">  </span><span class="c1">// wait for frames and align them</span>
+<span class="w">    </span><span class="c1">// process im_rgbd.depth_ and im_rgbd.color_</span>
+<span class="p">}</span>
+<span class="n">rs</span><span class="p">.</span><span class="n">StopCapture</span><span class="p">();</span>
+</pre></div>
+</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">cf</span><span class="p">:</span>
+    <span class="n">rs_cfg</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">RealSenseSensorConfig</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">cf</span><span class="p">))</span>
+
+<span class="n">rs</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">RealSenseSensor</span><span class="p">()</span>
+<span class="n">rs</span><span class="o">.</span><span class="n">init_sensor</span><span class="p">(</span><span class="n">rs_cfg</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">bag_filename</span><span class="p">)</span>
+<span class="n">rs</span><span class="o">.</span><span class="n">start_capture</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># true: start recording with capture</span>
+<span class="k">for</span> <span class="n">fid</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">150</span><span class="p">):</span>
+    <span class="n">im_rgbd</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">capture_frame</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># wait for frames and align them</span>
+    <span class="c1"># process im_rgbd.depth and im_rgbd.color</span>
+
+<span class="n">rs</span><span class="o">.</span><span class="n">stop_capture</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Note that for any real time application such as live capture and processing, it
+is important to complete frame processing in the frame interval (~33ms for 30fps
+recording). You may experience frame drops otherwise. For high resolution
+capture, you can defer frame alignment by setting <code class="docutils literal notranslate"><span class="pre">align_depth_to_color=false</span></code>
+during capture and performing it while reading the bad file instead.</p>
+<p>This is a complete C++ example that shows visualizing live capture and recording
+to a bag file. The recording can be paused / resumed with [SPACE]. Use [ESC] to
+stop capture and quit. You can download the
+<a class="reference external" href="https://github.com/isl-org/open3d_downloads/releases/download/20220301-data/rs_default_config.json">rs_default_config.json</a>
+and use this example to capture your own dataset:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">RealSenseRecorder</span>
+<span class="nb">bin</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">RealSenseRecorder</span> <span class="o">--</span><span class="n">config</span> <span class="o">../</span><span class="n">examples</span><span class="o">/</span><span class="n">test_data</span><span class="o">/</span><span class="n">rs_default_config</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">record</span> <span class="n">test_data</span><span class="o">.</span><span class="n">bag</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../../../storage.googleapis.com/open3d-bin/docs/images/RealSenseRecorder.jpg"><img alt="RealSenseRecorder example" class="align-center" src="../../../../../storage.googleapis.com/open3d-bin/docs/images/RealSenseRecorder.jpg" style="width: 800px;" /></a>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../reference.html" class="btn btn-neutral float-right" title="Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="azure_kinect.html" class="btn btn-neutral float-left" title="Azure Kinect with Open3D" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/sensor/realsense.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:51:49 GMT -->
+</html>

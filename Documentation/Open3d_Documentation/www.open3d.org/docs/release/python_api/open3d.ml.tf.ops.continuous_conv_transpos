@@ -1,0 +1,453 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.ml.tf.ops.continuous_conv_transpose.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:12 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>open3d.ml.tf.ops.continuous_conv_transpose &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="open3d.ml.tf.ops.continuous_conv_transpose_backprop_filter" href="open3d.ml.tf.ops-2.continuous_conv_transpos" />
+    <link rel="prev" title="open3d.ml.tf.ops.continuous_conv_backprop_filter" href="open3d.ml.tf.ops.continuous_conv_backprop" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="open3d.ml.html">open3d.ml</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="open3d.ml.tf.html">tf</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="open3d.ml.tf.dataloaders.html">dataloaders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.ml.tf.datasets.html">datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.ml.tf.layers.html">layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.ml.tf.models.html">models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.ml.tf.modules.html">modules</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="open3d.ml.tf.ops.html">ops</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.tf.ops.build_spatial_hash_table">build_spatial_hash_table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.tf.ops.continuous_conv.170.dela">continuous_conv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.tf.ops.continuous_conv_backprop">continuous_conv_backprop_filter</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">continuous_conv_transpose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.tf.ops-2.continuous_conv_transpos">continuous_conv_transpose_backprop_filter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.tf.ops.fixed_radius_search.186">fixed_radius_search</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.tf.ops.invert_neighbors_list.19">invert_neighbors_list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.tf.ops.knn_search.html">knn_search</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.tf.ops.nms.html">nms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.tf.ops.radius_search.1b1.delaye">radius_search</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.tf.ops.reduce_subarrays_sum.1c7">reduce_subarrays_sum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.tf.ops.voxel_pooling.1f1.delaye">voxel_pooling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.tf.ops.voxel_pooling_grad.1f3.d">voxel_pooling_grad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.tf.ops.voxelize.html">voxelize</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.ml.tf.pipelines.html">pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.ml.tf.vis.html">vis</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.ml.torch.html">torch</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="open3d.ml.html">open3d.ml</a> &raquo;</li>
+        
+          <li><a href="open3d.ml.tf.html">open3d.ml.tf</a> &raquo;</li>
+        
+          <li><a href="open3d.ml.tf.ops.html">open3d.ml.tf.ops</a> &raquo;</li>
+        
+      <li>open3d.ml.tf.ops.continuous_conv_transpose</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="open3d-ml-tf-ops-continuous-conv-transpose">
+<h1>open3d.ml.tf.ops.continuous_conv_transpose<a class="headerlink" href="#open3d-ml-tf-ops-continuous-conv-transpose" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="open3d.ml.tf.ops.continuous_conv_transpose">
+<code class="sig-prename descclassname">open3d.ml.tf.ops.</code><code class="sig-name descname">continuous_conv_transpose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filters</span></em>, <em class="sig-param"><span class="n">out_positions</span></em>, <em class="sig-param"><span class="n">out_importance</span></em>, <em class="sig-param"><span class="n">extents</span></em>, <em class="sig-param"><span class="n">offset</span></em>, <em class="sig-param"><span class="n">inp_positions</span></em>, <em class="sig-param"><span class="n">inp_features</span></em>, <em class="sig-param"><span class="n">inp_neighbors_index</span></em>, <em class="sig-param"><span class="n">inp_neighbors_importance_sum</span></em>, <em class="sig-param"><span class="n">inp_neighbors_row_splits</span></em>, <em class="sig-param"><span class="n">neighbors_index</span></em>, <em class="sig-param"><span class="n">neighbors_importance</span></em>, <em class="sig-param"><span class="n">neighbors_row_splits</span></em>, <em class="sig-param"><span class="n">output_type</span><span class="o">=</span><span class="default_value">tf.float32</span></em>, <em class="sig-param"><span class="n">align_corners</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">coordinate_mapping</span><span class="o">=</span><span class="default_value">'ball_to_cube_radial'</span></em>, <em class="sig-param"><span class="n">normalize</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">interpolation</span><span class="o">=</span><span class="default_value">'linear'</span></em>, <em class="sig-param"><span class="n">max_temp_mem_MB</span><span class="o">=</span><span class="default_value">64</span></em>, <em class="sig-param"><span class="n">debug</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.ml.tf.ops.continuous_conv_transpose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Continuous tranpose convolution of two pointclouds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filters</strong> – <p>A <cite>Tensor</cite>. Must be one of the following types: <cite>float32</cite>, <cite>float64</cite>, <cite>bfloat16</cite>.</p>
+<p>The filter parameters.
+The shape of the filter is [depth, height, width, in_ch, out_ch].
+The dimensions ‘depth’, ‘height’, ‘width’ define the spatial resolution of
+the filter. The spatial size of the filter is defined by the parameter
+‘extents’.</p>
+</p></li>
+<li><p><strong>out_positions</strong> – <p>A <cite>Tensor</cite>. Must be one of the following types: <cite>float32</cite>, <cite>float64</cite>.</p>
+<p>A 1D tensor with the 3D point positions of each output point.
+The coordinates for each point is a vector with format [x,y,z].</p>
+</p></li>
+<li><p><strong>out_importance</strong> – A <cite>Tensor</cite>. Must have the same type as <cite>filters</cite>.
+An optional scalar importance for each output point. The output features of
+each point will be multiplied with the corresponding value.
+The shape is [num input points]. Use a zero length Tensor to disable.</p></li>
+<li><p><strong>extents</strong> – A <cite>Tensor</cite>. Must have the same type as <cite>out_positions</cite>.
+The extent defines the spatial size of the filter for each input point.
+It is a 2D vector of the form [[x_size, y_size, z_size], ..].
+For ‘ball to cube’ coordinate mappings the extent defines the bounding box
+of the ball.
+Broadcasting is supported for all axes. E.g. providing only the extent for a
+single point as well as only providing ‘x_size’ is valid.</p></li>
+<li><p><strong>offset</strong> – A <cite>Tensor</cite>. Must have the same type as <cite>out_positions</cite>.
+A 1D tensor which defines the offset in voxel units to shift the input points.
+Offsets will be ignored if align_corners is True.</p></li>
+<li><p><strong>inp_positions</strong> – A <cite>Tensor</cite>. Must have the same type as <cite>out_positions</cite>.
+A 2D tensor with the 3D point positions of each input point.
+The coordinates for each point is a vector with format [x,y,z].</p></li>
+<li><p><strong>inp_features</strong> – A <cite>Tensor</cite>. Must have the same type as <cite>filters</cite>.
+A 2D tensor which stores a feature vector for each input point.</p></li>
+<li><p><strong>inp_neighbors_index</strong> – <p>A <cite>Tensor</cite>. Must be one of the following types: <cite>int32</cite>, <cite>int64</cite>.</p>
+<p>The inp_neighbors_index stores a list of indices of neighbors for each input point as nested lists.
+The start and end of each list can be computed using ‘inp_neighbors_row_splits’.</p>
+</p></li>
+<li><p><strong>inp_neighbors_importance_sum</strong> – <p>A <cite>Tensor</cite>. Must have the same type as <cite>filters</cite>.</p>
+<p>1D tensor of the same length as ‘inp_positions’ or zero length if
+neighbors_importance is empty. This is the sum of the values in
+‘neighbors_importance’ for each input point.</p>
+</p></li>
+<li><p><strong>inp_neighbors_row_splits</strong> – A <cite>Tensor</cite> of type <cite>int64</cite>.
+The exclusive prefix sum of the neighbor count for the input points including
+the total neighbor count as the last element. The size of this array is the
+number of input points + 1.</p></li>
+<li><p><strong>neighbors_index</strong> – <p>A <cite>Tensor</cite>. Must have the same type as <cite>inp_neighbors_index</cite>.</p>
+<p>The neighbors_index stores a list of indices of neighbors for each output point as nested lists.
+The start and end of each list can be computed using ‘neighbors_row_splits’.</p>
+</p></li>
+<li><p><strong>neighbors_importance</strong> – A <cite>Tensor</cite>. Must have the same type as <cite>filters</cite>.
+Tensor of the same shape as ‘neighbors_index’ with a scalar value that is used to scale
+the features of each neighbor.</p></li>
+<li><p><strong>neighbors_row_splits</strong> – A <cite>Tensor</cite> of type <cite>int64</cite>.
+The exclusive prefix sum of the neighbor count for the output points including
+the total neighbor count as the last element. The size of this array is the
+number of output points + 1.</p></li>
+<li><p><strong>output_type</strong> – An optional <cite>tf.DType</cite> from: <cite>tf.float32, tf.float64</cite>. Defaults to <cite>tf.float32</cite>.
+The type for the output.</p></li>
+<li><p><strong>align_corners</strong> – An optional <cite>bool</cite>. Defaults to <cite>True</cite>.
+If True the outer voxel centers of the filter grid are aligned with the boundary of the spatial shape.</p></li>
+<li><p><strong>coordinate_mapping</strong> – <p>An optional <cite>string</cite> from: <cite>“ball_to_cube_radial”, “ball_to_cube_volume_preserving”, “identity”</cite>. Defaults to <cite>“ball_to_cube_radial”</cite>.</p>
+<p>Defines how the relative positions of the neighbors are mapped before computing
+filter indices.
+For all mappings relative coordinates will be scaled with the inverse extent,
+i.e. the extent becomes a unit cube.
+After that one of the following mappings will be applied:</p>
+<blockquote>
+<div><p>’ball_to_cube_radial’: maps a unit ball to a unit cube by radial stretching.
+‘ball_to_cube_volume_preserving’: maps a unit ball to a unit cube preserving the volume.
+‘identity’: the identity mapping.</p>
+</div></blockquote>
+<p>Use ‘ball_to_cube_radial’ for a spherical or ellipsoidal filter window
+and ‘identity’ for a rectangular filter window.</p>
+</p></li>
+<li><p><strong>normalize</strong> – An optional <cite>bool</cite>. Defaults to <cite>False</cite>.
+If True the input feature values will be normalized using
+‘inp_neighbors_importance_sum’.</p></li>
+<li><p><strong>interpolation</strong> – <p>An optional <cite>string</cite> from: <cite>“linear”, “linear_border”, “nearest_neighbor”</cite>. Defaults to <cite>“linear”</cite>.</p>
+<p>If interpolation is ‘linear’ then each filter value lookup is a trilinear interpolation.
+If interpolation is ‘nearest_neighbor’ only the spatially closest value is considered.
+This makes the filter and therefore the convolution discontinuous.</p>
+</p></li>
+<li><p><strong>max_temp_mem_MB</strong> – An optional <cite>int</cite>. Defaults to <cite>64</cite>.
+Defines the maximum temporary memory in megabytes to be used for the GPU
+implementation. More memory means fewer kernel invocations. Note that the
+a minimum amount of temp memory will always be allocated even if this
+variable is set to 0.</p></li>
+<li><p><strong>debug</strong> – An optional <cite>bool</cite>. Defaults to <cite>False</cite>.</p></li>
+<li><p><strong>name</strong> – A name for the operation (optional).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <cite>Tensor</cite> of type <cite>output_type</cite>.
+A Tensor with the output feature vectors for each output point.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="open3d.ml.tf.ops-2.continuous_conv_transpos" class="btn btn-neutral float-right" title="open3d.ml.tf.ops.continuous_conv_transpose_backprop_filter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="open3d.ml.tf.ops.continuous_conv_backprop" class="btn btn-neutral float-left" title="open3d.ml.tf.ops.continuous_conv_backprop_filter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.ml.tf.ops.continuous_conv_transpose.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:12 GMT -->
+</html>

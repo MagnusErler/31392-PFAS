@@ -1,0 +1,454 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/visualization/non_blocking_visualization.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:41:33 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Non-blocking visualization &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Headless rendering" href="headless_rendering.html" />
+    <link rel="prev" title="Interactive visualization" href="interactive_visualization.54" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Visualization</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="visualization.html">Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customized_visualization.53.d">Customized visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactive_visualization.54">Interactive visualization</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Non-blocking visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#review-draw-geometries">Review draw_geometries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prepare-example-data">Prepare example data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initialize-visualizer-class">Initialize Visualizer class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transform-geometry-and-visualize-it">Transform geometry and visualize it</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="headless_rendering.html">Headless rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cpu_rendering.html">CPU (Software) Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web_visualizer.html">Web visualizer and Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensorboard_plugin.html">Open3D for TensorBoard</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Visualization</a> &raquo;</li>
+        
+      <li>Non-blocking visualization</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="non-blocking-visualization">
+<span id="id1"></span><h1>Non-blocking visualization<a class="headerlink" href="#non-blocking-visualization" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">draw_geometries()</span></code> is a useful function to get a quick overview of static geometries. However, this function holds a process until a visualization window is closed. This is not optimal when geometry is updated and needs to be visualized without closing the window. This tutorial introduces an example to customize the rendering loop.</p>
+<div class="section" id="review-draw-geometries">
+<h2>Review draw_geometries<a class="headerlink" href="#review-draw-geometries" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">draw_geometries</span></code> has the following rendering-loop (see <code class="docutils literal notranslate"><span class="pre">Visualizer::Run()</span></code> for the C++ implementation):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">while</span><span class="o">(</span><span class="nb">true</span><span class="o">)</span>:
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>geometry<span class="w"> </span>has<span class="w"> </span>changed<span class="o">)</span>:
+<span class="w">        </span>re-bind<span class="w"> </span>geometry<span class="w"> </span>to<span class="w"> </span>shaders
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>view<span class="w"> </span>parameters<span class="w"> </span>have<span class="w"> </span>changed<span class="o">)</span>:
+<span class="w">        </span>re-render<span class="w"> </span>the<span class="w"> </span>scene
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span>any<span class="w"> </span>user<span class="w"> </span>mouse/keyboard<span class="w"> </span>input<span class="o">)</span>:
+<span class="w">        </span>respond<span class="w"> </span>to<span class="w"> </span>it<span class="w"> </span>and<span class="w"> </span><span class="nb">set</span><span class="w"> </span>flags<span class="w"> </span><span class="k">for</span><span class="w"> </span>re-rendering
+</pre></div>
+</div>
+<p>Note that both binding geometry and rendering are costly operations, thus they are executed in a lazy way. There are two flags that control them individually. The functions <code class="docutils literal notranslate"><span class="pre">update_geometry</span></code> and <code class="docutils literal notranslate"><span class="pre">update_renderer</span></code> set these flags. After rebinding/rendering, these flags are cleared once again.</p>
+<p>This rendering loop can be readily customized. For example, a custom loop can be made in this way to visualize ICP registration:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vis</span> <span class="o">=</span> <span class="n">Visualizer</span><span class="p">()</span>
+<span class="n">vis</span><span class="o">.</span><span class="n">create_window</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">icp_iteration</span><span class="p">):</span>
+    <span class="c1"># do ICP single iteration</span>
+    <span class="c1"># transform geometry using ICP</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">update_geometry</span><span class="p">(</span><span class="n">geometry</span><span class="p">)</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">poll_events</span><span class="p">()</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">update_renderer</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The full script implementing this idea is displayed below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span>    <span class="n">target</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">flip_transform</span><span class="p">)</span>
+
+    <span class="n">vis</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">()</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">create_window</span><span class="p">()</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">add_geometry</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">add_geometry</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.05</span>
+    <span class="n">icp_iteration</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">save_image</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">icp_iteration</span><span class="p">):</span>
+        <span class="n">reg_p2l</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">registration_icp</span><span class="p">(</span>
+            <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">TransformationEstimationPointToPlane</span><span class="p">(),</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">ICPConvergenceCriteria</span><span class="p">(</span><span class="n">max_iteration</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">source</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">reg_p2l</span><span class="o">.</span><span class="n">transformation</span><span class="p">)</span>
+        <span class="n">vis</span><span class="o">.</span><span class="n">update_geometry</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+        <span class="n">vis</span><span class="o">.</span><span class="n">poll_events</span><span class="p">()</span>
+        <span class="n">vis</span><span class="o">.</span><span class="n">update_renderer</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">save_image</span><span class="p">:</span>
+            <span class="n">vis</span><span class="o">.</span><span class="n">capture_screen_image</span><span class="p">(</span><span class="s2">&quot;temp_</span><span class="si">%04d</span><span class="s2">.jpg&quot;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">destroy_window</span><span class="p">()</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">set_verbosity_level</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityLevel</span><span class="o">.</span><span class="n">Info</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+</div>
+<p>The following sections explain this script.</p>
+</div>
+<div class="section" id="prepare-example-data">
+<h2>Prepare example data<a class="headerlink" href="#prepare-example-data" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span>    <span class="n">save_image</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">icp_iteration</span><span class="p">):</span>
+        <span class="n">reg_p2l</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">registration_icp</span><span class="p">(</span>
+            <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">TransformationEstimationPointToPlane</span><span class="p">(),</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">ICPConvergenceCriteria</span><span class="p">(</span><span class="n">max_iteration</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">source</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">reg_p2l</span><span class="o">.</span><span class="n">transformation</span><span class="p">)</span>
+        <span class="n">vis</span><span class="o">.</span><span class="n">update_geometry</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+        <span class="n">vis</span><span class="o">.</span><span class="n">poll_events</span><span class="p">()</span>
+        <span class="n">vis</span><span class="o">.</span><span class="n">update_renderer</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">save_image</span><span class="p">:</span>
+</pre></div></td></tr></table></div>
+</div>
+<p>This part reads two point clouds and downsamples them. The source point cloud is intentionally transformed for the misalignment. Both point clouds are flipped for better visualization.</p>
+</div>
+<div class="section" id="initialize-visualizer-class">
+<h2>Initialize Visualizer class<a class="headerlink" href="#initialize-visualizer-class" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span>            <span class="n">vis</span><span class="o">.</span><span class="n">capture_screen_image</span><span class="p">(</span><span class="s2">&quot;temp_</span><span class="si">%04d</span><span class="s2">.jpg&quot;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">destroy_window</span><span class="p">()</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">set_verbosity_level</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityLevel</span><span class="o">.</span><span class="n">Info</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+</div>
+<p>These lines make an instance of the visualizer class, open a visualizer window, and add two geometries to the visualizer.</p>
+</div>
+<div class="section" id="transform-geometry-and-visualize-it">
+<h2>Transform geometry and visualize it<a class="headerlink" href="#transform-geometry-and-visualize-it" title="Permalink to this headline">¶</a></h2>
+<p>This script calls <code class="docutils literal notranslate"><span class="pre">registration_icp</span></code> for every iteration. Note that it explicitly forces only one ICP iteration via <code class="docutils literal notranslate"><span class="pre">ICPConvergenceCriteria(max_iteration</span> <span class="pre">=</span> <span class="pre">1)</span></code>. This is a trick to retrieve a slight pose update from a single ICP iteration. After ICP, source geometry is transformed accordingly.</p>
+<p>The next part of the script is the core of this tutorial. <code class="docutils literal notranslate"><span class="pre">update_geometry</span></code> informs the <code class="docutils literal notranslate"><span class="pre">vis</span></code> that the related geometries are updated. Finally, the visualizer renders a new frame by calling <code class="docutils literal notranslate"><span class="pre">poll_events</span></code> and <code class="docutils literal notranslate"><span class="pre">update_renderer</span></code>. After any for-loop iterations, <code class="docutils literal notranslate"><span class="pre">destroy_window</span></code> closes the window.</p>
+<p>The result looks like the image below.</p>
+<a class="reference internal image-reference" href="../../_images/visualize_icp_iteration.gif"><img alt="../../_images/visualize_icp_iteration.gif" src="../../_images/visualize_icp_iteration.gif" style="width: 400px;" /></a>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="headless_rendering.html" class="btn btn-neutral float-right" title="Headless rendering" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="interactive_visualization.54" class="btn btn-neutral float-left" title="Interactive visualization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/visualization/non_blocking_visualization.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:42:35 GMT -->
+</html>

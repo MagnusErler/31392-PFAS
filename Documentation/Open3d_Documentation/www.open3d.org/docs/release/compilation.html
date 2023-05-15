@@ -1,0 +1,727 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/compilation.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:16 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Build from source &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Link Open3D in C++ projects" href="cpp_project.html" />
+    <link rel="prev" title="Getting started" href="getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Build from source</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#system-requirements">System requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloning-open3d">Cloning Open3D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ubuntu-macos">Ubuntu/macOS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-dependencies">1. Install dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-python-environments">2. Setup Python environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#config">3. Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build">4. Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install">5. Install</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setup-python-binding-environments">1. Setup Python binding environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">2. Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">3. Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">4. Install</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#compilation-options">Compilation options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#openmp">OpenMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filament">Filament</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ml-module">ML Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#webrtc-remote-visualization">WebRTC remote visualization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#linux-and-macos">Linux and macOS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">Windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#unit-test">Unit test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#caching-compilation-with-ccache">Caching compilation with ccache</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ubuntu-18-04-20-04">Ubuntu 18.04, 20.04</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ubuntu-22-04">Ubuntu 22.04+</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#macos">macOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring-ccache-statistics">Monitoring ccache statistics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index-2.html">Docs</a> &raquo;</li>
+        
+      <li>Build from source</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="build-from-source">
+<span id="compilation"></span><h1>Build from source<a class="headerlink" href="#build-from-source" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="system-requirements">
+<span id="compiler-version"></span><h2>System requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>C++14 compiler:</p>
+<ul>
+<li><p>Ubuntu 18.04+: GCC 5+, Clang 7+</p></li>
+<li><p>macOS 10.15+: XCode 8.0+</p></li>
+<li><p>Windows 10 (64-bit): Visual Studio 2019+</p></li>
+</ul>
+</li>
+<li><p>CMake: 3.19+</p>
+<ul>
+<li><p>Ubuntu (18.04 / 20.04):</p>
+<ul>
+<li><p>Install with <code class="docutils literal notranslate"><span class="pre">apt-get</span></code>: see <a class="reference external" href="https://apt.kitware.com/">official APT repository</a></p></li>
+<li><p>Install with <code class="docutils literal notranslate"><span class="pre">snap</span></code>: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">snap</span> <span class="pre">install</span> <span class="pre">cmake</span> <span class="pre">--classic</span></code></p></li>
+<li><p>Install with <code class="docutils literal notranslate"><span class="pre">pip</span></code> (run inside a Python virtualenv): <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">cmake</span></code></p></li>
+</ul>
+</li>
+<li><p>macOS: Install with Homebrew: <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">cmake</span></code></p></li>
+<li><p>Windows: Download from: <a class="reference external" href="https://cmake.org/download/">CMake download page</a></p></li>
+</ul>
+</li>
+<li><p>CUDA 10.1+ (optional): Open3D supports GPU acceleration of an increasing number
+of operations through CUDA on Linux. We recommend using CUDA 11.0 for the
+best compatibility with recent GPUs and optional external dependencies such
+as Tensorflow or PyTorch. Please see the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html">official documentation</a> to
+install the CUDA toolkit from Nvidia.</p></li>
+<li><p>Ccache 4.0+ (optional, recommended): ccache is a compiler cache that can
+speed up the compilation process by avoiding recompilation of the same
+source code. Please refer to <a class="reference internal" href="#ccache"><span class="std std-ref">Caching compilation with ccache</span></a> for installation guides.</p></li>
+</ul>
+</div>
+<div class="section" id="cloning-open3d">
+<h2>Cloning Open3D<a class="headerlink" href="#cloning-open3d" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/isl-org/Open3D
+</pre></div>
+</div>
+</div>
+<div class="section" id="ubuntu-macos">
+<span id="compilation-unix"></span><h2>Ubuntu/macOS<a class="headerlink" href="#ubuntu-macos" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-dependencies">
+<span id="compilation-unix-dependencies"></span><h3>1. Install dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only needed for Ubuntu</span>
+util/install_deps_ubuntu.sh
+</pre></div>
+</div>
+</div>
+<div class="section" id="setup-python-environments">
+<span id="compilation-unix-python"></span><h3>2. Setup Python environments<a class="headerlink" href="#setup-python-environments" title="Permalink to this headline">¶</a></h3>
+<p>Activate the Python <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code> or Conda environment. Check
+<code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">python</span></code> to ensure that it shows the desired Python executable.
+Alternatively, set the CMake flag <code class="docutils literal notranslate"><span class="pre">-DPython3_ROOT=/path/to/python</span></code>
+to specify the path to the Python installation.</p>
+<p>If Python binding is not needed, you can turn it off by <code class="docutils literal notranslate"><span class="pre">-DBUILD_PYTHON_MODULE=OFF</span></code>.</p>
+</div>
+<div class="section" id="config">
+<span id="compilation-unix-config"></span><h3>3. Config<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..
+</pre></div>
+</div>
+<p>You can specify <code class="docutils literal notranslate"><span class="pre">-DCMAKE_INSTALL_PREFIX=$HOME/open3d_install</span></code> to control the
+installation directory of <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code>. In the absence of
+<code class="docutils literal notranslate"><span class="pre">CMAKE_INSTALL_PREFIX</span></code>, Open3D will be installed to a system location where
+<code class="docutils literal notranslate"><span class="pre">sudo</span></code> may be required.</p>
+<p>For more build options, see <a class="reference internal" href="#compilation-options"><span class="std std-ref">Compilation options</span></a> and the root
+<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>.</p>
+</div>
+<div class="section" id="build">
+<span id="compilation-unix-build"></span><h3>4. Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># On Ubuntu</span>
+make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+
+<span class="c1"># On macOS</span>
+make<span class="w"> </span>-j<span class="k">$(</span>sysctl<span class="w"> </span>-n<span class="w"> </span>hw.physicalcpu<span class="k">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="install">
+<span id="compilation-unix-install"></span><h3>5. Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h3>
+<p>To install Open3D C++ library:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>install
+</pre></div>
+</div>
+<p>To link a C++ project against the Open3D C++ library, please refer to
+<a class="reference internal" href="cpp_project.html#cplusplus-example-project"><span class="std std-ref">Link Open3D in C++ projects</span></a>.</p>
+<p>To install Open3D Python library, build one of the following options:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Activate the virtualenv first</span>
+<span class="c1"># Install pip package in the current python environment</span>
+make<span class="w"> </span>install-pip-package
+
+<span class="c1"># Create Python package in build/lib</span>
+make<span class="w"> </span>python-package
+
+<span class="c1"># Create pip wheel in build/lib</span>
+<span class="c1"># This creates a .whl file that you can install manually.</span>
+make<span class="w"> </span>pip-package
+</pre></div>
+</div>
+<p>Finally, verify the python installation with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import open3d&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="windows">
+<span id="compilation-windows"></span><h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="setup-python-binding-environments">
+<h3>1. Setup Python binding environments<a class="headerlink" href="#setup-python-binding-environments" title="Permalink to this headline">¶</a></h3>
+<p>Most steps are the steps for Ubuntu: <a class="reference internal" href="#compilation-unix-python"><span class="std std-ref">2. Setup Python environments</span></a>.
+Instead of <code class="docutils literal notranslate"><span class="pre">which</span></code>, check the Python path with <code class="docutils literal notranslate"><span class="pre">where</span> <span class="pre">python</span></code>.</p>
+</div>
+<div class="section" id="id1">
+<h3>2. Config<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">mkdir</span> build
+<span class="k">cd</span> build
+
+<span class="p">:</span><span class="c1">: Specify the generator based on your Visual Studio version</span>
+<span class="p">:</span><span class="c1">: If CMAKE_INSTALL_PREFIX is a system folder, admin access is needed for installation</span>
+cmake -G <span class="s2">&quot;Visual Studio 16 2019&quot;</span> -A x64 -DCMAKE_INSTALL_PREFIX=<span class="s2">&quot;&lt;open3d_install_directory&gt;&quot;</span> ..
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>3. Build<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>cmake --build . --config Release --target ALL_BUILD
+</pre></div>
+</div>
+<p>Alternatively, you can open the <code class="docutils literal notranslate"><span class="pre">Open3D.sln</span></code> project with Visual Studio and
+build the same target.</p>
+</div>
+<div class="section" id="id3">
+<h3>4. Install<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>To install Open3D C++ library, build the <code class="docutils literal notranslate"><span class="pre">INSTALL</span></code> target in terminal or
+in Visual Studio.</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>cmake --build . --config Release --target INSTALL
+</pre></div>
+</div>
+<p>To link a C++ project against the Open3D C++ library, please refer to
+<a class="reference internal" href="cpp_project.html#cplusplus-example-project"><span class="std std-ref">Link Open3D in C++ projects</span></a>.</p>
+<p>To install Open3D Python library, build the corresponding python installation
+targets in terminal or Visual Studio.</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="c1">: Activate the virtualenv first</span>
+<span class="p">:</span><span class="c1">: Install pip package in the current python environment</span>
+cmake --build . --config Release --target install-pip-package
+
+<span class="p">:</span><span class="c1">: Create Python package in build/lib</span>
+cmake --build . --config Release --target python-package
+
+<span class="p">:</span><span class="c1">: Create pip package in build/lib</span>
+<span class="p">:</span><span class="c1">: This creates a .whl file that you can install manually.</span>
+cmake --build . --config Release --target pip-package
+</pre></div>
+</div>
+<p>Finally, verify the Python installation with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import open3d; print(open3d)&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="compilation-options">
+<span id="id4"></span><h2>Compilation options<a class="headerlink" href="#compilation-options" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="openmp">
+<h3>OpenMP<a class="headerlink" href="#openmp" title="Permalink to this headline">¶</a></h3>
+<p>We automatically detect if the C++ compiler supports OpenMP and compile Open3D
+with it if the compilation option <code class="docutils literal notranslate"><span class="pre">WITH_OPENMP</span></code> is <code class="docutils literal notranslate"><span class="pre">ON</span></code>.
+OpenMP can greatly accelerate computation on a multi-core CPU.</p>
+<p>The default LLVM compiler on OS X does not support OpenMP.
+A workaround is to install a C++ compiler with OpenMP support, such as <code class="docutils literal notranslate"><span class="pre">gcc</span></code>,
+then use it to compile Open3D. For example, starting from a clean build
+directory, run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>gcc<span class="w"> </span>--without-multilib
+cmake<span class="w"> </span>-DCMAKE_C_COMPILER<span class="o">=</span>gcc-6<span class="w"> </span>-DCMAKE_CXX_COMPILER<span class="o">=</span>g++-6<span class="w"> </span>..
+make<span class="w"> </span>-j
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This workaround has some compatibility issues with the source code of
+GLFW included in <code class="docutils literal notranslate"><span class="pre">3rdparty</span></code>.
+Make sure Open3D is linked against GLFW installed on the OS.</p>
+</div>
+</div>
+<div class="section" id="filament">
+<h3>Filament<a class="headerlink" href="#filament" title="Permalink to this headline">¶</a></h3>
+<p>The visualization module depends on the Filament rendering engine and, by default,
+Open3D uses a prebuilt version of it. You can also build Filament from source
+by setting <code class="docutils literal notranslate"><span class="pre">BUILD_FILAMENT_FROM_SOURCE=ON</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Whereas Open3D only requires a C++14 compiler, Filament needs a C++17 compiler
+and only supports Clang 7+, the most recent version of Xcode, and Visual Studio 2019,
+see <a class="reference external" href="https://github.com/google/filament/blob/main/BUILDING.md">their building instructions</a>.
+Make sure to use one of these compiler if you build Open3D with <code class="docutils literal notranslate"><span class="pre">BUILD_FILAMENT_FROM_SOURCE=ON</span></code>.</p>
+</div>
+</div>
+<div class="section" id="ml-module">
+<h3>ML Module<a class="headerlink" href="#ml-module" title="Permalink to this headline">¶</a></h3>
+<p>The ML module consists of primitives like operators and layers as well as high
+level code for models and pipelines. To build the operators and layers, set
+<code class="docutils literal notranslate"><span class="pre">BUILD_PYTORCH_OPS=ON</span></code> and/or <code class="docutils literal notranslate"><span class="pre">BUILD_TENSORFLOW_OPS=ON</span></code>.  Don’t forget to also
+enable <code class="docutils literal notranslate"><span class="pre">BUILD_CUDA_MODULE=ON</span></code> for GPU support. To include the models and
+pipelines from Open3D-ML in the python package, set <code class="docutils literal notranslate"><span class="pre">BUNDLE_OPEN3D_ML=ON</span></code> and
+<code class="docutils literal notranslate"><span class="pre">OPEN3D_ML_ROOT</span></code> to the Open3D-ML repository. You can directly download
+Open3D-ML from GitHub during the build with
+<code class="docutils literal notranslate"><span class="pre">OPEN3D_ML_ROOT=https://github.com/isl-org/Open3D-ML.git</span></code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Compiling PyTorch ops with CUDA 11 and PyTorch &lt; 1.9 may have
+stability issues. See <a class="reference external" href="https://github.com/isl-org/Open3D/issues/3324">Open3D issue #3324</a>
+and <a class="reference external" href="https://github.com/pytorch/pytorch/issues/52663">PyTorch issue #52663</a>
+for more information on this problem. Official PyTorch wheels 1.9 and later
+do not have this problem.</p>
+<p>We recommend to compile Pytorch from source
+with compile flags <code class="docutils literal notranslate"><span class="pre">-Xcompiler</span> <span class="pre">-fno-gnu-unique</span></code> or use the <a class="reference external" href="https://github.com/isl-org/open3d_downloads/releases/tag/torch1.8.2">PyTorch 1.8.2
+wheels from Open3D.</a>
+To reproduce the Open3D PyTorch 1.8.2 wheels see the builder repository <a class="reference external" href="https://github.com/isl-org/pytorch_builder">here.</a></p>
+</div>
+<p>The following example shows the command for building the ops with GPU support
+for all supported ML frameworks and bundling the high level Open3D-ML code.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># In the build directory</span>
+cmake<span class="w"> </span>-DBUILD_CUDA_MODULE<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DGLIBCXX_USE_CXX11_ABI<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DBUILD_PYTORCH_OPS<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DBUILD_TENSORFLOW_OPS<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DBUNDLE_OPEN3D_ML<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DOPEN3D_ML_ROOT<span class="o">=</span>https://github.com/isl-org/Open3D-ML.git<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>..
+<span class="c1"># Install the python wheel with pip</span>
+make<span class="w"> </span>-j<span class="w"> </span>install-pip-package
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On Linux, importing Python libraries compiled with different CXX ABI may
+cause segfaults in regex. <a class="reference external" href="https://stackoverflow.com/q/51382355/1255535">https://stackoverflow.com/q/51382355/1255535</a>. By
+default, PyTorch and TensorFlow Python releases use the older CXX ABI; while
+when compiled from source, the newer CXX11 ABI is enabled by default.</p>
+<p>When releasing Open3D as a Python package, we set
+<code class="docutils literal notranslate"><span class="pre">-DGLIBCXX_USE_CXX11_ABI=OFF</span></code> and compile all dependencies from source,
+in order to ensure compatibility with PyTorch and TensorFlow Python releases.</p>
+<p>If you build PyTorch or TensorFlow from source or if you run into ABI
+compatibility issues with them, please:</p>
+<ol class="arabic">
+<li><p>Check PyTorch and TensorFlow ABI with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch._C._GLIBCXX_USE_CXX11_ABI)&quot;</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import tensorflow; print(tensorflow.__cxx11_abi_flag__)&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Configure Open3D to compile all dependencies from source
+with the corresponding ABI version obtained from step 1.</p></li>
+</ol>
+<p>After installation of the Python package, you can check Open3D ABI version
+with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import open3d; print(open3d.pybind._GLIBCXX_USE_CXX11_ABI)&quot;</span>
+</pre></div>
+</div>
+<p>To build Open3D with CUDA support, configure with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_CUDA_MODULE<span class="o">=</span>ON<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>&lt;open3d_install_directory&gt;<span class="w"> </span>..
+</pre></div>
+</div>
+<p>Please note that CUDA support is work in progress and experimental. For building
+Open3D with CUDA support, ensure that CUDA is properly installed by running following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvidia-smi<span class="w">      </span><span class="c1"># Prints CUDA-enabled GPU information</span>
+nvcc<span class="w"> </span>-V<span class="w">         </span><span class="c1"># Prints compiler version</span>
+</pre></div>
+</div>
+<p>If you see an output similar to <code class="docutils literal notranslate"><span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code>, you can install CUDA toolkit
+by following the <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html">official
+documentation.</a></p>
+</div>
+</div>
+<div class="section" id="webrtc-remote-visualization">
+<h3>WebRTC remote visualization<a class="headerlink" href="#webrtc-remote-visualization" title="Permalink to this headline">¶</a></h3>
+<p>We provide pre-built binaries of the <a class="reference external" href="https://webrtc.org/">WebRTC library</a> to
+build Open3D with remote visualization. Currently, Linux, macOS and Windows are
+supported for <code class="docutils literal notranslate"><span class="pre">x86_64</span></code> architecture. If you wish to use a different version of
+WebRTC or build for a different configuration or platform, please see the
+<a class="reference external" href="https://webrtc.googlesource.com/src/+/refs/heads/master/docs/native-code/development/index.md">official WebRTC documentation</a>
+and the Open3D build scripts.</p>
+<div class="section" id="linux-and-macos">
+<h4>Linux and macOS<a class="headerlink" href="#linux-and-macos" title="Permalink to this headline">¶</a></h4>
+<p>Please see the build script <code class="docutils literal notranslate"><span class="pre">3rdparty/webrtc/webrtc_build.sh</span></code>. For Linux, you
+can also use the provided <code class="docutils literal notranslate"><span class="pre">3rdparty/webrtc/Dockerfile.webrtc</span></code> for building.</p>
+</div>
+<div class="section" id="id6">
+<h4>Windows<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>We provide Windows MSVC static libraries built in Release and Debug mode built with
+the static Windows runtime. This corresponds to building with the <code class="docutils literal notranslate"><span class="pre">/MT</span></code> and
+<code class="docutils literal notranslate"><span class="pre">/MTd</span></code> options respectively. For the build procedure, please see
+<code class="docutils literal notranslate"><span class="pre">.github/workflows/webrtc.yml</span></code>. Other configurations are not supported.</p>
+</div>
+</div>
+</div>
+<div class="section" id="unit-test">
+<h2>Unit test<a class="headerlink" href="#unit-test" title="Permalink to this headline">¶</a></h2>
+<p>To build and run C++ unit tests:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-DBUILD_UNIT_TESTS<span class="o">=</span>ON<span class="w"> </span>..
+make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+./bin/tests
+</pre></div>
+</div>
+<p>To run Python unit tests:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Activate virtualenv first</span>
+pip<span class="w"> </span>install<span class="w"> </span>pytest
+make<span class="w"> </span>install-pip-package<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+pytest<span class="w"> </span>../python/test
+</pre></div>
+</div>
+</div>
+<div class="section" id="caching-compilation-with-ccache">
+<span id="ccache"></span><h2>Caching compilation with ccache<a class="headerlink" href="#caching-compilation-with-ccache" title="Permalink to this headline">¶</a></h2>
+<p>ccache is a compiler cache that can speed up the compilation process by avoiding
+recompilation of the same source code. It can significantly speed up
+recompilation of Open3D on Linux/macOS, even if you clear the <code class="docutils literal notranslate"><span class="pre">build</span></code>
+directory. You’ll need ccache 4.0+ to cache both C++ and CUDA compilations.</p>
+<p>After installing <code class="docutils literal notranslate"><span class="pre">ccache</span></code>, simply reconfigure and recompile the Open3D
+library. Open3D’s CMake script can detect and use it automatically. You don’t
+need to setup additional paths except for the <code class="docutils literal notranslate"><span class="pre">ccache</span></code> program itself.</p>
+<div class="section" id="ubuntu-18-04-20-04">
+<h3>Ubuntu 18.04, 20.04<a class="headerlink" href="#ubuntu-18-04-20-04" title="Permalink to this headline">¶</a></h3>
+<p>If you install <code class="docutils literal notranslate"><span class="pre">ccache</span></code> via <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">ccache</span></code>, the 3.x version will
+be installed. To cache CUDA compilations, you’ll need the 4.0+ version. Here, we
+demonstrate one way to setup <code class="docutils literal notranslate"><span class="pre">ccache</span></code> by compiling it from source, installing
+it to <code class="docutils literal notranslate"><span class="pre">${HOME}/bin</span></code>, and adding <code class="docutils literal notranslate"><span class="pre">${HOME}/bin</span></code> to <code class="docutils literal notranslate"><span class="pre">${PATH}</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ccache/ccache.git
+<span class="nb">cd</span><span class="w"> </span>ccache
+git<span class="w"> </span>checkout<span class="w"> </span>v4.6<span class="w"> </span>-b<span class="w"> </span><span class="m">4</span>.6
+
+<span class="c1"># Build</span>
+mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>-DZSTD_FROM_INTERNET<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DHIREDIS_FROM_INTERNET<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>..
+make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+make<span class="w"> </span>install<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+
+<span class="c1"># Add ${HOME}/bin to ${PATH} in your ~/.bashrc</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;PATH=</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/bin:</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+
+<span class="c1"># Restart the terminal now, or source ~/.bashrc</span>
+<span class="nb">source</span><span class="w"> </span>~/.bashrc
+
+<span class="c1"># Verify `ccache` has been installed correctly</span>
+which<span class="w"> </span>ccache
+ccache<span class="w"> </span>--version
+</pre></div>
+</div>
+</div>
+<div class="section" id="ubuntu-22-04">
+<h3>Ubuntu 22.04+<a class="headerlink" href="#ubuntu-22-04" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ccache
+</pre></div>
+</div>
+</div>
+<div class="section" id="macos">
+<h3>macOS<a class="headerlink" href="#macos" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>ccache
+</pre></div>
+</div>
+</div>
+<div class="section" id="monitoring-ccache-statistics">
+<h3>Monitoring ccache statistics<a class="headerlink" href="#monitoring-ccache-statistics" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ccache<span class="w"> </span>-s
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cpp_project.html" class="btn btn-neutral float-right" title="Link Open3D in C++ projects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/compilation.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:16 GMT -->
+</html>

@@ -1,0 +1,500 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/docker.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:17 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Docker &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Geometry" href="tutorial/geometry/index.html" />
+    <link rel="prev" title="ARM support" href="arm.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arm.html">ARM support</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Docker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install-and-run-open3d-apps-in-docker">Install and run Open3D apps in docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#headless-rendering">Headless rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-open3d-in-docker">Building Open3D in Docker</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index-2.html">Docs</a> &raquo;</li>
+        
+      <li>Docker</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="docker">
+<span id="id1"></span><h1>Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h1>
+<p>Docker provides a convenient way to build, install and run applications isolated
+from the rest of your system. You do not need to change software versions on
+your system or install new software, except the Docker engine itself.</p>
+<p>First, install Docker following the <a class="reference external" href="https://docs.docker.com/get-docker/">official guide</a>.
+Also, complete the <a class="reference external" href="https://docs.docker.com/engine/install/linux-postinstall/">post-installation steps for Linux</a>.
+Make sure that <code class="docutils literal notranslate"><span class="pre">docker</span></code> can be executed without root privileges. To verify
+Docker is installed correctly, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># You should be able to run this without sudo.</span>
+docker<span class="w"> </span>run<span class="w"> </span>hello-world
+</pre></div>
+</div>
+<div class="section" id="install-and-run-open3d-apps-in-docker">
+<h2>Install and run Open3D apps in docker<a class="headerlink" href="#install-and-run-open3d-apps-in-docker" title="Permalink to this headline">¶</a></h2>
+<p>You can install and run Open3D applications from a docker container.</p>
+<p>For Python application, you will need to install a minimum set of dependencies.
+For more details please see <a class="reference external" href="https://github.com/isl-org/Open3D/issues/3388">this issue</a>. A minimal <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code> for
+Python applications looks like this:</p>
+<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="c"># This could also be another Ubuntu or Debian based distribution</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">ubuntu:22.04</span>
+
+<span class="c"># Install Open3D system dependencies and pip</span>
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>--no-install-recommends<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libegl1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libgl1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libgomp1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>python3-pip<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+
+<span class="c"># Install Open3D from the PyPI repositories</span>
+<span class="k">RUN</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--upgrade<span class="w"> </span>open3d
+</pre></div>
+</div>
+<p>If you have an NVIDIA GPU and want to use it for computation (<code class="docutils literal notranslate"><span class="pre">CUDA</span></code>) or
+visualization, follow these <a class="reference external" href="https://docs.docker.com/config/containers/resource_constraints/#gpu">directions.</a></p>
+<p>To run GUI applications from the docker container, add these options to the
+<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> command line to ensure that docker has access to the:</p>
+<ol class="arabic simple">
+<li><p>GPU:</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>Intel (Mesa drivers): <code class="docutils literal notranslate"><span class="pre">--device=/dev/dri:/dev/dri</span></code> or <code class="docutils literal notranslate"><span class="pre">--device=/dev/dri/card0:/dev/dri/card0</span> <span class="pre">--device=/dev/dri/renderD128:/dev/dri/renderD128</span></code>, depending on your hardware.</p></li>
+<li><p>NVIDIA: <code class="docutils literal notranslate"><span class="pre">--gpus</span> <span class="pre">'all,&quot;capabilities=compute,utility,graphics&quot;'</span></code></p></li>
+<li><p>No GPU (CPU rendering): <code class="docutils literal notranslate"><span class="pre">--env</span> <span class="pre">OPEN3D_CPU_RENDERING=true</span></code> on Ubuntu 18.04. Later versions automaticaly select CPU rendering if a GPU is not available.</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>X server: <code class="docutils literal notranslate"><span class="pre">-v</span> <span class="pre">/tmp/.X11-unix:/tmp/.X11-unix</span> <span class="pre">-e</span> <span class="pre">DISPLAY</span></code></p></li>
+</ol>
+<p>For example, the following commands will build and run the docker container with
+the Open3D viewer application, and provide access to the current directory as
+<code class="docutils literal notranslate"><span class="pre">/root</span></code>.  Once the docker image is built, you can run the container from any
+folder that contains data you wish to visualize.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>open3d-viewer-docker<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>open3d-viewer-docker
+<span class="c1"># Download Open3D viewer deb package.</span>
+wget<span class="w"> </span>https://github.com/isl-org/Open3D/releases/download/v0.17.0/open3d-app-0.17.0-Ubuntu.deb
+<span class="c1"># Build docker image in folder containing Open3D deb package.</span>
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>open3d-viewer<span class="w"> </span>-f-<span class="w"> </span>.<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">FROM ubuntu:20.04</span>
+<span class="s">COPY open3d*.deb /root/</span>
+<span class="s">RUN apt-get update \</span>
+<span class="s">    &amp;&amp; apt-get install --yes /root/open3d*.deb \</span>
+<span class="s">    &amp;&amp; rm -rf /var/lib/apt/lists/*</span>
+<span class="s">ENTRYPOINT [&quot;Open3D&quot;]</span>
+<span class="s">EOF</span>
+
+<span class="c1"># Allow local X11 connections</span>
+xhost<span class="w"> </span>local:root
+<span class="c1"># Run Open3D viewer docker image with the Intel GPU</span>
+docker<span class="w"> </span>run<span class="w"> </span>--device<span class="o">=</span>/dev/dri:/dev/dri<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span>/tmp/.X11-unix:/tmp/.X11-unix<span class="w"> </span>-e<span class="w"> </span>DISPLAY<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>:/root<span class="w"> </span>open3d-viewer:latest
+<span class="c1"># Run Open3D viewer docker image with the NVIDIA GPU</span>
+docker<span class="w"> </span>run<span class="w">  </span>--gpus<span class="w"> </span><span class="s1">&#39;all,&quot;capabilities=compute,utility,graphics&quot;&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span>/tmp/.X11-unix:/tmp/.X11-unix<span class="w"> </span>-e<span class="w"> </span>DISPLAY<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>:/root<span class="w"> </span>open3d-viewer:latest
+<span class="c1"># Run Open3D viewer docker image without a GPU (CPU rendering)</span>
+docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span>/tmp/.X11-unix:/tmp/.X11-unix<span class="w"> </span>-e<span class="w"> </span>DISPLAY<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>:/root<span class="w"> </span>open3d-viewer:latest
+</pre></div>
+</div>
+<p>Also see the <a class="reference external" href="http://wiki.ros.org/docker/Tutorials/Hardware Acceleration">docker tutorial for ROS</a> for more
+information. Note that differences in hardware, OS drivers and OS packages may
+require you to modify these instructions.</p>
+</div>
+<div class="section" id="headless-rendering">
+<h2>Headless rendering<a class="headerlink" href="#headless-rendering" title="Permalink to this headline">¶</a></h2>
+<p>If a GUI display server (X11 or Wayland) is not available (either in the docker
+container or the host OS), Open3D can still be used for headless rendering. In
+Ubuntu 20.04+ (with Mesa version 20.2+) this requires configuring the Mesa
+driver with an environment variable (<code class="docutils literal notranslate"><span class="pre">EGL_PLATFORM=surfaceless</span></code>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>open3d-headless-docker<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>open3d-headless-docker
+wget<span class="w"> </span>https://raw.githubusercontent.com/isl-org/Open3D/v0.17.0/examples/python/visualization/render_to_image.py
+<span class="c1"># Build docker image</span>
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>open3d-headless<span class="w"> </span>-f-<span class="w"> </span>.<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">FROM ubuntu:20.04</span>
+<span class="s">RUN apt-get update \</span>
+<span class="s">    &amp;&amp; apt-get install --yes --no-install-recommends \</span>
+<span class="s">    libegl1 libgl1 libgomp1 python3-pip \</span>
+<span class="s">    &amp;&amp; rm -rf /var/lib/apt/lists/*</span>
+
+<span class="s"># Install Open3D from the PyPI repositories</span>
+<span class="s">RUN python3 -m pip install --no-cache-dir --upgrade pip &amp;&amp; \</span>
+<span class="s">    python3 -m pip install --no-cache-dir --upgrade open3d==0.17.0</span>
+
+<span class="s"># Configure Mesa EGL for headless rendering</span>
+<span class="s">ENV EGL_PLATFORM=surfaceless</span>
+<span class="s">WORKDIR /root/</span>
+<span class="s">ENTRYPOINT [&quot;python3&quot;, &quot;/root/render_to_image.py&quot;]</span>
+<span class="s">EOF</span>
+
+<span class="c1"># Run headless rendering example with Intel GPU</span>
+docker<span class="w"> </span>run<span class="w"> </span>--device<span class="o">=</span>/dev/dri:/dev/dri<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>:/root<span class="w"> </span>open3d-headless:latest
+<span class="c1"># Run headless rendering example with Nvidia GPU</span>
+docker<span class="w"> </span>run<span class="w">  </span>--gpus<span class="w"> </span><span class="s1">&#39;all,&quot;capabilities=compute,utility,graphics&quot;&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>:/root<span class="w"> </span>open3d-headless:latest
+<span class="c1"># Run headless rendering example without GPU (CPU rendering)</span>
+docker<span class="w"> </span>run<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>:/root<span class="w"> </span>open3d-headless:latest
+</pre></div>
+</div>
+<p>In Ubuntu 18.04, we need to install some additional dependencies. Here is an
+example Ubuntu / Debian based docker file that runs the <code class="docutils literal notranslate"><span class="pre">render_to_image.py</span></code>
+rendering example.  Other (old) Linux (e.g. RHEL) distributions will need
+different dependency packages.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>open3d-headless-docker<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>open3d-headless-docker
+wget<span class="w"> </span>https://raw.githubusercontent.com/isl-org/Open3D/v0.17.0/examples/python/visualization/render_to_image.py
+<span class="c1"># Build docker image</span>
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>open3d-headless<span class="w"> </span>-f-<span class="w"> </span>.<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">FROM ubuntu:18.04</span>
+<span class="s">RUN apt-get update \</span>
+<span class="s">    &amp;&amp; apt-get install --yes --no-install-recommends \</span>
+<span class="s">    libgl1 libgomp1 python3-pip \</span>
+<span class="s">    libdrm2 libedit2 libexpat1 libgcc-s1 libglapi-mesa libllvm10 libx11-xcb1 \</span>
+<span class="s">    libxcb-dri2-0 libxcb-glx0 libxcb-shm0 libxcb-xfixes0 libxfixes3 \</span>
+<span class="s">    libxxf86vm1 \</span>
+<span class="s">    &amp;&amp; rm -rf /var/lib/apt/lists/*</span>
+
+<span class="s"># Install Open3D from the PyPI repositories</span>
+<span class="s">RUN python3 -m pip install --no-cache-dir --upgrade pip &amp;&amp; \</span>
+<span class="s">    python3 -m pip install --no-cache-dir --upgrade open3d==0.17.0</span>
+
+<span class="s">WORKDIR /root/</span>
+<span class="s">ENTRYPOINT [&quot;python3&quot;, &quot;/root/render_to_image.py&quot;]</span>
+<span class="s">EOF</span>
+
+<span class="c1"># Run headless rendering example with Intel GPU</span>
+docker<span class="w"> </span>run<span class="w"> </span>--device<span class="o">=</span>/dev/dri:/dev/dri<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>:/root<span class="w"> </span>open3d-headless:latest
+<span class="c1"># Run headless rendering example with Nvidia GPU</span>
+docker<span class="w"> </span>run<span class="w">  </span>--gpus<span class="w"> </span><span class="s1">&#39;all,&quot;capabilities=compute,utility,graphics&quot;&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>:/root<span class="w"> </span>open3d-headless:latest
+<span class="c1"># Run headless rendering example without GPU (CPU rendering)</span>
+docker<span class="w"> </span>run<span class="w">  </span>--env<span class="w"> </span><span class="nv">OPEN3D_CPU_RENDERING</span><span class="o">=</span><span class="nb">true</span><span class="w">  </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>:/root<span class="w"> </span>open3d-headless:latest
+</pre></div>
+</div>
+<p>After running one of these commands, there will be two offscreen rendered images
+<code class="docutils literal notranslate"><span class="pre">test.png</span></code> and <code class="docutils literal notranslate"><span class="pre">test2.png</span></code> in the <code class="docutils literal notranslate"><span class="pre">open3d-headless-docker</span></code> folder.</p>
+</div>
+<div class="section" id="building-open3d-in-docker">
+<h2>Building Open3D in Docker<a class="headerlink" href="#building-open3d-in-docker" title="Permalink to this headline">¶</a></h2>
+<p>If your current system does not support the minimum system requirements for
+building Open3D or if you have different versions of Open3D dependencies
+installed, you can build Open3D from source in docker without interfering with
+your system. This may be the case for older OS such as Ubuntu 16.04 or CentOS 7.
+We provide docker build scripts and dockerfiles to build Python wheels in
+various configurations. You can choose between different versions of Python,
+hardware architectures (AMD64, ARM64, CUDA) and developer vs release modes. Some
+sample configuration options available are shown below.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>docker
+
+./docker_build.sh<span class="w"> </span>cuda_wheel_py38_dev<span class="w">   </span><span class="c1"># Python 3.8, AMD64, CUDA with MKL, developer mode</span>
+./docker_build.sh<span class="w"> </span>openblas-amd64-py310<span class="w">  </span><span class="c1"># Python 3.10, AMD64 with OpenBLAS instead of MKL, release mode</span>
+./docker_build.sh<span class="w"> </span>openblas-arm64-py37<span class="w">   </span><span class="c1"># Python 3.7, ARM64 with OpenBLAS, release mode</span>
+</pre></div>
+</div>
+<p>Run <code class="docutils literal notranslate"><span class="pre">./docker_build.sh</span></code> without arguments to get a list of all available build
+configurations.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorial/geometry/index.html" class="btn btn-neutral float-right" title="Geometry" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="arm.html" class="btn btn-neutral float-left" title="ARM support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/docker.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:17 GMT -->
+</html>

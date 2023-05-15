@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/visualization/cpu_rendering.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:44:51 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CPU (Software) Rendering &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Web visualizer and Jupyter" href="web_visualizer.html" />
+    <link rel="prev" title="Headless rendering" href="headless_rendering.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Visualization</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="visualization.html">Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customized_visualization.53.d">Customized visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactive_visualization.54">Interactive visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="non_blocking_visualization.55">Non-blocking visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="headless_rendering.html">Headless rendering</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CPU (Software) Rendering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#headless-cpu-rendering">Headless CPU Rendering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interactive-cpu-rendering">Interactive CPU Rendering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="web_visualizer.html">Web visualizer and Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensorboard_plugin.html">Open3D for TensorBoard</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Visualization</a> &raquo;</li>
+        
+      <li>CPU (Software) Rendering</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="cpu-software-rendering">
+<span id="cpu-rendering"></span><h1>CPU (Software) Rendering<a class="headerlink" href="#cpu-software-rendering" title="Permalink to this headline">¶</a></h1>
+<p>Open3D’s new visualization functionality (<code class="xref py py-class docutils literal notranslate"><span class="pre">O3DVisualizer</span></code> class,
+<code class="xref py py-func docutils literal notranslate"><span class="pre">draw()</span></code> function and <code class="xref py py-mod docutils literal notranslate"><span class="pre">open3d.visualization.gui</span></code> and
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">open3d.visualization.rendering</span></code> modules) requires a recent GPU with
+support for OpenGL 4.1 or higher. This is not available in certain situations:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>GPU is too old to support OpenGL 4.1.</p></li>
+<li><p>No GPU is available, for example on cloud servers that do not have any GPU
+(integrated or discrete) installed, or in a docker container that does not
+have access to the host GPU. This is often the case for many cloud based
+Jupyter notebooks such as Google Colab, Kaggle, etc.</p></li>
+<li><p>A GPU is available, but it only supports computation, not graphics. This
+is a common scenario for cloud based Jupyter notebooks deployed in docker
+containers.</p></li>
+</ul>
+</div></blockquote>
+<p>Open3D supports CPU or software rendering in such situations. Note that this
+usually produces slower and less responsive rendering, so a GPU is recommended.
+Currently, this is available only for Linux. There are two separate ways to
+use CPU rendering depending on whether interactive or headless rendering is
+desired. Both methods are described below.</p>
+<div class="section" id="headless-cpu-rendering">
+<h2>Headless CPU Rendering<a class="headerlink" href="#headless-cpu-rendering" title="Permalink to this headline">¶</a></h2>
+<p>For Python code, you can enable CPU rendering for headless rendering when using
+the :class: <cite>.OffscreenRenderer</cite> for a process by setting an environment
+variable  before importing Open3D:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>- ``EGL_PLATFORM=surfaceless`` for Ubuntu 20.04+ (Mesa v20.2 or newer)
+- ``OPEN3D_CPU_RENDERING=true`` for Ubuntu 18.04 (Mesa older than v20.2).
+</pre></div>
+</div>
+<p>Here are the different ways to do that:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># from the command line (Ubuntu 20.04+)</span>
+<span class="nv">EGL_PLATFORM</span><span class="o">=</span>surfaceless<span class="w"> </span>python<span class="w"> </span>examples/python/visualization/render_to_image.py
+<span class="c1"># or Ubuntu 18.04</span>
+<span class="nv">OPEN3D_CPU_RENDERING</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span>python<span class="w"> </span>examples/python/visualization/render_to_image.py
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># In Python code</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;EGL_PLATFORM&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;surfaceless&#39;</span>   <span class="c1"># Ubunu 20.04+</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;OPEN3D_CPU_RENDERING&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;true&#39;</span>  <span class="c1"># Ubuntu 18.04</span>
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+
+<span class="c1"># In a Jupyter notebook</span>
+<span class="o">%</span><span class="n">env</span> <span class="n">EGL_PLATFORM</span> <span class="n">surfaceless</span>   <span class="c1"># Ubuntu 20.04+</span>
+<span class="o">%</span><span class="n">env</span> <span class="n">OPEN3D_CPU_RENDERING</span> <span class="n">true</span>  <span class="c1"># Ubuntu 18.04</span>
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Setting the environment variable after importing <code class="docutils literal notranslate"><span class="pre">open3d</span></code> will not work,
+even if <code class="docutils literal notranslate"><span class="pre">open3d</span></code> is re-imported. In this case, if no usable GPU is present, the
+Python interpreter or Jupyter kernel will crash when visualization functions are
+used.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method will <strong>not</strong> work for interactive rendering scripts such
+as <code class="docutils literal notranslate"><span class="pre">examples/python/visualization/draw.py</span></code>. For interactive rendering see
+the next section.</p>
+</div>
+</div>
+<div class="section" id="interactive-cpu-rendering">
+<h2>Interactive CPU Rendering<a class="headerlink" href="#interactive-cpu-rendering" title="Permalink to this headline">¶</a></h2>
+<p>The method for enabling interactive CPU rendering depends on your system:</p>
+<ol class="arabic">
+<li><p><strong>You use Mesa drivers v20.2 or higher.</strong> This is the case for all
+Intel GPUs and some AMD and Nvidia GPUs. You should be running a recent Linux
+OS, such as Ubuntu 20.04. Check your Mesa version from your package manager
+(e.g. run <code class="docutils literal notranslate"><span class="pre">dpkg</span> <span class="pre">-s</span> <span class="pre">libglx-mesa0</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">Version</span></code> in Debian or Ubuntu). In this
+case, you can switch to CPU rendering by simply setting an environment
+variable before starting your application. For example, start the Open3D
+visualizer app in CPU rendering mode with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">LIBGL_ALWAYS_SOFTWARE</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span>Open3D
+</pre></div>
+</div>
+<p>Or for Python code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">LIBGL_ALWAYS_SOFTWARE</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span>python<span class="w"> </span>examples/python/visualization/draw.py
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Mesa drivers must be in use for this method to work; just having
+them installed is not sufficient. You can check the drivers in use with the
+<code class="docutils literal notranslate"><span class="pre">glxinfo</span></code> command.</p>
+</div>
+<ol class="arabic" start="2">
+<li><p><strong>You use Nvidia or AMD drivers or old Mesa drivers (&lt; v20.2).</strong>  We provide
+the Mesa software rendering library binary for download <a class="reference external" href="https://github.com/isl-org/open3d_downloads/releases/download/mesa-libgl/mesa_libGL_22.0.tar.xz">here</a>.
+This is automatically downloaded to
+<cite>build/_deps/download_mesa_libgl-src/libGL.so.1.5.0</cite> when you build Open3D
+from source. The prebuilt version works on Ubuntu 18.04 and Ubuntu 20.04. If
+you want to use CPU rendering all the time, install this library to
+<code class="docutils literal notranslate"><span class="pre">/usr/local/lib</span></code> or <code class="docutils literal notranslate"><span class="pre">$HOME/.local/lib</span></code> and <em>prepend</em> it to your
+<code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$HOME</span>/.local/lib:<span class="nv">$LD_LIBRARY_PATH</span>
+</pre></div>
+</div>
+<p>For occasional use, you can instead launch a program with CPU rendering with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">LD_PRELOAD</span><span class="o">=</span><span class="nv">$HOME</span>/.local/lib/libGL.so.1.5.0<span class="w"> </span>Open3D
+</pre></div>
+</div>
+<p>Or with Python code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">LD_PRELOAD</span><span class="o">=</span><span class="nv">$HOME</span>/.local/lib/libGL.so.1.5.0<span class="w"> </span>python
+examples/python/visualization/draw.py
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="web_visualizer.html" class="btn btn-neutral float-right" title="Web visualizer and Jupyter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="headless_rendering.html" class="btn btn-neutral float-left" title="Headless rendering" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/visualization/cpu_rendering.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:44:51 GMT -->
+</html>

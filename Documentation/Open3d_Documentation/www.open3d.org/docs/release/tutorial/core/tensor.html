@@ -1,0 +1,1735 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/core/tensor.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:46:13 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tensor &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Hash map" href="hashmap.html" />
+    <link rel="prev" title="Core" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">Visualization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Core</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tensor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Tensor-creation">Tensor creation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Properties-of-a-tensor">Properties of a tensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Copy-&amp;-device-transfer">Copy &amp; device transfer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Data-Types">Data Types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Type-casting">Type casting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Numpy-I/O-with-direct-memory-map">Numpy I/O with direct memory map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#PyTorch-I/O-with-DLPack-memory-map">PyTorch I/O with DLPack memory map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Binary-element-wise-operation:">Binary element-wise operation:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Unary-element-wise-operation:">Unary element-wise operation:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Reduction:">Reduction:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Slicing,-indexing,-getitem,-and-setitem">Slicing, indexing, getitem, and setitem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Advanced-indexing">Advanced indexing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Combining-advanced-and-basic-indexing">Combining advanced and basic indexing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Boolean-array-indexing">Boolean array indexing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Logical-operations">Logical operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Comparison-Operations">Comparison Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Nonzero-operations">Nonzero operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Pickle-support">Pickle support</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hashmap.html">Hash map</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Core</a> &raquo;</li>
+        
+      <li>Tensor</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">open3d.core</span> <span class="k">as</span> <span class="nn">o3c</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Tensor">
+<h1>Tensor<a class="headerlink" href="#Tensor" title="Permalink to this headline">¶</a></h1>
+<p>Tensor is a “view” of a data Blob with shape, stride, and a data pointer. It is a multidimensional and homogeneous matrix containing elements of single data type. It is used in Open3D to perform numerical operations. It supports GPU operations as well.</p>
+<div class="section" id="Tensor-creation">
+<h2>Tensor creation<a class="headerlink" href="#Tensor-creation" title="Permalink to this headline">¶</a></h2>
+<p>Tensor can be created from list, numpy array, another tensor. A tensor of specific data type and device can be constructed by passing a <code class="docutils literal notranslate"><span class="pre">o3c.Dtype</span></code> and/or <code class="docutils literal notranslate"><span class="pre">o3c.Device</span></code> to a constructor. If not passed, the default data type is inferred from the data, and the default device is CPU. Note that while creating tensor from a list or numpy array, the underlying memory is not shared and a copy is created.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Tensor from list.</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Created from list:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+
+<span class="c1"># Tensor from Numpy.</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Created from numpy array:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+
+<span class="c1"># Dtype and inferred from list.</span>
+<span class="n">a_float</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Default dtype and device:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a_float</span><span class="p">))</span>
+
+<span class="c1"># Specify dtype.</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Dtype</span><span class="o">.</span><span class="n">Float64</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Specified data type:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+
+<span class="c1"># Specify device.</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span> <span class="n">device</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="s2">&quot;CUDA:0&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Specified device:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Created from list:
+[0 1 2]
+Tensor[shape={3}, stride={1}, Int64, CPU:0, 0x55d0575a48f0]
+
+Created from numpy array:
+[0 1 2]
+Tensor[shape={3}, stride={1}, Int64, CPU:0, 0x55d056caa8d0]
+
+Default dtype and device:
+[0.0 1.0 2.0]
+Tensor[shape={3}, stride={1}, Float64, CPU:0, 0x55d05759c330]
+
+Specified data type:
+[0.0 1.0 2.0]
+Tensor[shape={3}, stride={1}, Float64, CPU:0, 0x55d057568ca0]
+
+Specified device:
+[0 1 2]
+Tensor[shape={3}, stride={1}, Int64, CUDA:0, 0x7f40ff000000]
+</pre></div></div>
+</div>
+<p>Tensor can also be created from another tensor by invoking the copy constructor. This is a shallow copy, the data_ptr will be copied but the memory it points to will not be copied.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Shallow copy constructor.</span>
+<span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">src</span>
+<span class="n">src</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">10</span>
+
+<span class="c1"># Changes in one will get reflected in other.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Source tensor:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">src</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Target tensor:</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dst</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Source tensor:
+[11 2 3]
+Tensor[shape={3}, stride={1}, Int64, CPU:0, 0x55d057b157a0]
+
+Target tensor:
+[11 2 3]
+Tensor[shape={3}, stride={1}, Int64, CPU:0, 0x55d057b157a0]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Properties-of-a-tensor">
+<h2>Properties of a tensor<a class="headerlink" href="#Properties-of-a-tensor" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">)))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Dtype</span><span class="o">.</span><span class="n">Float64</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="s2">&quot;CUDA:0&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;a.shape: </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;a.strides: </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">strides</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;a.dtype: </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;a.device: </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;a.ndim: </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a.shape: SizeVector[2, 3, 4]
+a.strides: SizeVector[12, 4, 1]
+a.dtype: Float64
+a.device: CUDA:0
+a.ndim: 3
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Copy-&amp;-device-transfer">
+<h2>Copy &amp; device transfer<a class="headerlink" href="#Copy-&-device-transfer" title="Permalink to this headline">¶</a></h2>
+<p>We can transfer tensors across host and multiple devices.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Host -&gt; Device.</span>
+<span class="n">a_cpu</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">a_gpu</span> <span class="o">=</span> <span class="n">a_cpu</span><span class="o">.</span><span class="n">cuda</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a_gpu</span><span class="p">)</span>
+
+<span class="c1"># Device -&gt; Host.</span>
+<span class="n">a_gpu</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="s2">&quot;CUDA:0&quot;</span><span class="p">))</span>
+<span class="n">a_cpu</span> <span class="o">=</span> <span class="n">a_gpu</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a_cpu</span><span class="p">)</span>
+
+<span class="c1"># Device -&gt; another Device.</span>
+<span class="n">a_gpu_0</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="s2">&quot;CUDA:0&quot;</span><span class="p">))</span>
+<span class="n">a_gpu_1</span> <span class="o">=</span> <span class="n">a_gpu_0</span><span class="o">.</span><span class="n">cuda</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a_gpu_1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0 1 2]
+Tensor[shape={3}, stride={1}, Int64, CUDA:0, 0x7f40ff000000]
+[0 1 2]
+Tensor[shape={3}, stride={1}, Int64, CPU:0, 0x55d05c254780]
+[0 1 2]
+Tensor[shape={3}, stride={1}, Int64, CUDA:0, 0x7f40ff000000]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Data-Types">
+<h2>Data Types<a class="headerlink" href="#Data-Types" title="Permalink to this headline">¶</a></h2>
+<p>Open3D defines several scalar tensor data types.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 47%" />
+<col style="width: 36%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data type</p></th>
+<th class="head"><p>dtype</p></th>
+<th class="head"><p>byte_size</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Uninitialized Tensor</p></td>
+<td><p>o3c.Dtype.Undefined</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>32-bit floating point</p></td>
+<td><p>o3c.Dtype.Float32</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-even"><td><p>64-bit floating point</p></td>
+<td><p>o3c.Dtype.Float64</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-odd"><td><p>8-bit integer (signed)</p></td>
+<td><p>o3c.Dtype.Int8</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>16-bit integer (signed)</p></td>
+<td><p>o3c.Dtype.Int16</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>32-bit integer (signed)</p></td>
+<td><p>o3c.Dtype.Int32</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-even"><td><p>64-bit integer (signed)</p></td>
+<td><p>o3c.Dtype.Int64</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-odd"><td><p>8-bit integer (unsigned)</p></td>
+<td><p>o3c.Dtype.UInt8</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>16-bit integer (unsigned)</p></td>
+<td><p>o3c.Dtype.UInt16</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>32-bit integer (unsigned)</p></td>
+<td><p>o3c.Dtype.UInt32</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-even"><td><p>64-bit integer (unsigned)</p></td>
+<td><p>o3c.Dtype.UInt64</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-odd"><td><p>Boolean</p></td>
+<td><p>o3c.Dtype.Bool</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="Type-casting">
+<h3>Type casting<a class="headerlink" href="#Type-casting" title="Permalink to this headline">¶</a></h3>
+<p>We can cast tensor’s data type. Forced casting might result in data loss.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># E.g. float -&gt; int</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">o3c</span><span class="o">.</span><span class="n">Dtype</span><span class="o">.</span><span class="n">Int32</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0.1 1.5 2.7]
+Tensor[shape={3}, stride={1}, Float64, CPU:0, 0x55d056510450]
+[0 1 2]
+Tensor[shape={3}, stride={1}, Int32, CPU:0, 0x55d0565104d0]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># E.g. int -&gt; float</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">o3c</span><span class="o">.</span><span class="n">Dtype</span><span class="o">.</span><span class="n">Float32</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1 2 3]
+Tensor[shape={3}, stride={1}, Int64, CPU:0, 0x55d0565103c0]
+[1.0 2.0 3.0]
+Tensor[shape={3}, stride={1}, Float32, CPU:0, 0x55d05c9cddd0]
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Numpy-I/O-with-direct-memory-map">
+<h2>Numpy I/O with direct memory map<a class="headerlink" href="#Numpy-I/O-with-direct-memory-map" title="Permalink to this headline">¶</a></h2>
+<p>Tensors created by passing numpy array to the constructor(<code class="docutils literal notranslate"><span class="pre">o3c.Tensor(np.array(...)</span></code>) do not share memory with the numpy array. To have shared memory, you can use <code class="docutils literal notranslate"><span class="pre">o3c.Tensor.from_numpy(...)</span></code> and <code class="docutils literal notranslate"><span class="pre">o3c.Tensor.numpy(...)</span></code>. Changes in either of them will get reflected in other.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Using constructor.</span>
+<span class="n">np_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">5</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="n">o3_a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np_a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;np_a: </span><span class="si">{</span><span class="n">np_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;o3_a: </span><span class="si">{</span><span class="n">o3_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="c1"># Changes to numpy array will not reflect as memory is not shared.</span>
+<span class="n">np_a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">100</span>
+<span class="n">o3_a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">200</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;np_a: </span><span class="si">{</span><span class="n">np_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;o3_a: </span><span class="si">{</span><span class="n">o3_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np_a: [1 1 1 1 1]
+o3_a: [1 1 1 1 1]
+Tensor[shape={5}, stride={1}, Int32, CPU:0, 0x55d057b15480]
+
+np_a: [101   1   1   1   1]
+o3_a: [1 201 1 1 1]
+Tensor[shape={5}, stride={1}, Int32, CPU:0, 0x55d057b15480]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># From numpy.</span>
+<span class="n">np_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">5</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="n">o3_a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np_a</span><span class="p">)</span>
+
+<span class="c1"># Changes to numpy array reflects on open3d Tensor and vice versa.</span>
+<span class="n">np_a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">100</span>
+<span class="n">o3_a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">200</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;np_a: </span><span class="si">{</span><span class="n">np_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;o3_a: </span><span class="si">{</span><span class="n">o3_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np_a: [101 201   1   1   1]
+o3_a: [101 201 1 1 1]
+Tensor[shape={5}, stride={1}, Int32, CPU:0, 0x55d057b15a60]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># To numpy.</span>
+<span class="n">o3_a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Dtype</span><span class="o">.</span><span class="n">Int32</span><span class="p">)</span>
+<span class="n">np_a</span> <span class="o">=</span> <span class="n">o3_a</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+<span class="c1"># Changes to numpy array reflects on open3d Tensor and vice versa.</span>
+<span class="n">np_a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">100</span>
+<span class="n">o3_a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">200</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;np_a: </span><span class="si">{</span><span class="n">np_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;o3_a: </span><span class="si">{</span><span class="n">o3_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># For CUDA Tensor, call cpu() before calling numpy().</span>
+<span class="n">o3_a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="s2">&quot;CUDA:0&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">o3_a.cpu().numpy(): </span><span class="si">{</span><span class="n">o3_a</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+np_a: [101 201   1   1   1]
+o3_a: [101 201 1 1 1]
+Tensor[shape={5}, stride={1}, Int32, CPU:0, 0x55d056cc3d30]
+
+o3_a.cpu().numpy(): [1 1 1 1 1]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="PyTorch-I/O-with-DLPack-memory-map">
+<h2>PyTorch I/O with DLPack memory map<a class="headerlink" href="#PyTorch-I/O-with-DLPack-memory-map" title="Permalink to this headline">¶</a></h2>
+<p>We can convert tensors from/to DLManagedTensor.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.utils.dlpack</span>
+
+<span class="c1"># From PyTorch</span>
+<span class="n">th_a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">5</span><span class="p">,))</span><span class="o">.</span><span class="n">cuda</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">o3_a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="o">.</span><span class="n">from_dlpack</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">dlpack</span><span class="o">.</span><span class="n">to_dlpack</span><span class="p">(</span><span class="n">th_a</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;th_a: </span><span class="si">{</span><span class="n">th_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;o3_a: </span><span class="si">{</span><span class="n">o3_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="c1"># Changes to PyTorch array reflects on open3d Tensor and vice versa</span>
+<span class="n">th_a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">o3_a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;th_a: </span><span class="si">{</span><span class="n">th_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;o3_a: </span><span class="si">{</span><span class="n">o3_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+th_a: tensor([1., 1., 1., 1., 1.], device=&#39;cuda:0&#39;)
+o3_a: [1.0 1.0 1.0 1.0 1.0]
+Tensor[shape={5}, stride={1}, Float32, CUDA:0, 0x7f409be00000]
+
+th_a: tensor([100., 200.,   1.,   1.,   1.], device=&#39;cuda:0&#39;)
+o3_a: [100.0 200.0 1.0 1.0 1.0]
+Tensor[shape={5}, stride={1}, Float32, CUDA:0, 0x7f409be00000]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># To PyTorch</span>
+<span class="n">o3_a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="s2">&quot;CUDA:0&quot;</span><span class="p">))</span>
+<span class="n">th_a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">dlpack</span><span class="o">.</span><span class="n">from_dlpack</span><span class="p">(</span><span class="n">o3_a</span><span class="o">.</span><span class="n">to_dlpack</span><span class="p">())</span>
+<span class="n">o3_a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="o">.</span><span class="n">from_dlpack</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">dlpack</span><span class="o">.</span><span class="n">to_dlpack</span><span class="p">(</span><span class="n">th_a</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;th_a: </span><span class="si">{</span><span class="n">th_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;o3_a: </span><span class="si">{</span><span class="n">o3_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="c1"># Changes to PyTorch array reflects on open3d Tensor and vice versa</span>
+<span class="n">th_a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">o3_a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;th_a: </span><span class="si">{</span><span class="n">th_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;o3_a: </span><span class="si">{</span><span class="n">o3_a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+th_a: tensor([1, 1, 1, 1, 1], device=&#39;cuda:0&#39;)
+o3_a: [1 1 1 1 1]
+Tensor[shape={5}, stride={1}, Int64, CUDA:0, 0x7f40ff000200]
+
+th_a: tensor([100, 200,   1,   1,   1], device=&#39;cuda:0&#39;)
+o3_a: [100 200 1 1 1]
+Tensor[shape={5}, stride={1}, Int64, CUDA:0, 0x7f40ff000200]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Binary-element-wise-operation:">
+<h2>Binary element-wise operation:<a class="headerlink" href="#Binary-element-wise-operation:" title="Permalink to this headline">¶</a></h2>
+<p>Supported element-wise binary operations are: 1. <code class="docutils literal notranslate"><span class="pre">Add(+)</span></code> 2. <code class="docutils literal notranslate"><span class="pre">Sub(-)</span></code> 3. <code class="docutils literal notranslate"><span class="pre">Mul(*)</span></code> 4. <code class="docutils literal notranslate"><span class="pre">Div(/)</span></code> 5. <code class="docutils literal notranslate"><span class="pre">Add_(+=)</span></code> 6. <code class="docutils literal notranslate"><span class="pre">Sub_(-=)</span></code> 7. <code class="docutils literal notranslate"><span class="pre">Mul_(*=)</span></code> 8. <code class="docutils literal notranslate"><span class="pre">Div_(/=)</span></code></p>
+<p>Note that the operands have to be of same Device, dtype and Broadcast compatible.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Dtype</span><span class="o">.</span><span class="n">Float32</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Dtype</span><span class="o">.</span><span class="n">Float32</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a + b = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a - b = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a * b = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a / b = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a + b = [3.0 3.0 3.0]
+Tensor[shape={3}, stride={1}, Float32, CPU:0, 0x55d0573a0ed0]
+a - b = [-1.0 -1.0 -1.0]
+Tensor[shape={3}, stride={1}, Float32, CPU:0, 0x55d05ed01410]
+a * b = [2.0 2.0 2.0]
+Tensor[shape={3}, stride={1}, Float32, CPU:0, 0x55d05ed0a180]
+a / b = [0.5 0.5 0.5]
+Tensor[shape={3}, stride={1}, Float32, CPU:0, 0x55d05ed013f0]
+</pre></div></div>
+</div>
+<p>Broadcasting follows the same numpy broadcasting rule as given <a class="reference external" href="https://numpy.org/doc/stable/user/basics.broadcasting.html">here</a>. Automatic type casting is done in a way to avoid data loss.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Automatic broadcasting.</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Dtype</span><span class="o">.</span><span class="n">Float32</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Dtype</span><span class="o">.</span><span class="n">Float32</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a + b = </span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">))</span>
+
+<span class="c1"># Automatic type casting.</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a + 1 = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Float + Int -&gt; Float.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a + True = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="kc">True</span><span class="p">))</span>  <span class="c1"># Float + Bool -&gt; Float.</span>
+
+<span class="c1"># Inplace.</span>
+<span class="n">a</span> <span class="o">-=</span> <span class="kc">True</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a + b =
+[[2.0 2.0 2.0],
+ [2.0 2.0 2.0]]
+Tensor[shape={2, 3}, stride={3, 1}, Float32, CPU:0, 0x55d05ed0a440]
+
+a + 1 = [2.0 2.0 2.0]
+Tensor[shape={3}, stride={1}, Float32, CPU:0, 0x55d05ed0baa0]
+a + True = [2.0 2.0 2.0]
+Tensor[shape={3}, stride={1}, Float32, CPU:0, 0x55d0565103e0]
+a = [0.0 0.0 0.0]
+Tensor[shape={3}, stride={1}, Float32, CPU:0, 0x55d05c2547a0]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Unary-element-wise-operation:">
+<h2>Unary element-wise operation:<a class="headerlink" href="#Unary-element-wise-operation:" title="Permalink to this headline">¶</a></h2>
+<p>Supported unary element-wise operations are: 1. <code class="docutils literal notranslate"><span class="pre">sqrt</span></code>, <code class="docutils literal notranslate"><span class="pre">sqrt_</span></code>(inplace)) 2. <code class="docutils literal notranslate"><span class="pre">sin</span></code>, <code class="docutils literal notranslate"><span class="pre">sin_</span></code> 3. <code class="docutils literal notranslate"><span class="pre">cos</span></code>, <code class="docutils literal notranslate"><span class="pre">cos_</span></code> 4. <code class="docutils literal notranslate"><span class="pre">neg</span></code>, <code class="docutils literal notranslate"><span class="pre">neg_</span></code> 5. <code class="docutils literal notranslate"><span class="pre">exp</span></code>, <code class="docutils literal notranslate"><span class="pre">exp_</span></code> 6. <code class="docutils literal notranslate"><span class="pre">abs</span></code>, <code class="docutils literal notranslate"><span class="pre">abs_</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Dtype</span><span class="o">.</span><span class="n">Float32</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a.sqrt = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a.sin = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">sin</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a.cos = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">cos</span><span class="p">()))</span>
+
+<span class="c1"># Inplace operation</span>
+<span class="n">a</span><span class="o">.</span><span class="n">sqrt_</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a = [4.0 9.0 16.0]
+Tensor[shape={3}, stride={1}, Float32, CPU:0, 0x55d05ed01410]
+
+a.sqrt = [2.0 3.0 4.0]
+Tensor[shape={3}, stride={1}, Float32, CPU:0, 0x55d0beec40a0]
+
+a.sin = [-0.756802 0.412118 -0.287903]
+Tensor[shape={3}, stride={1}, Float32, CPU:0, 0x55d056510330]
+
+a.cos = [-0.653644 -0.91113 -0.957659]
+Tensor[shape={3}, stride={1}, Float32, CPU:0, 0x55d05ed013d0]
+
+[2.0 3.0 4.0]
+Tensor[shape={3}, stride={1}, Float32, CPU:0, 0x55d05ed01410]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Reduction:">
+<h2>Reduction:<a class="headerlink" href="#Reduction:" title="Permalink to this headline">¶</a></h2>
+<p>Open3D supports following reduction operations. 1. <code class="docutils literal notranslate"><span class="pre">sum</span></code> - returns a tensor with sum of values over a given axis. 2. <code class="docutils literal notranslate"><span class="pre">mean</span></code> - returns a tensor with mean of values over a given axis. 3. <code class="docutils literal notranslate"><span class="pre">prod</span></code> - returns a tensor with product of values over a given axis. 4. <code class="docutils literal notranslate"><span class="pre">min</span></code> - returns a tensor of minimum values along a given axis. 5. <code class="docutils literal notranslate"><span class="pre">max</span></code> - returns a tensor of maximum values along a given axis. 6. <code class="docutils literal notranslate"><span class="pre">argmin</span></code> - returns a tensor of minimum value indices over a given axis. 7. <code class="docutils literal notranslate"><span class="pre">argmax</span></code> - returns a
+tensor of maximum value indices over a given axis.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a.sum = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a.min = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">min</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a.ArgMax = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">argmax</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a.sum = 276
+Tensor[shape={}, stride={}, Int64, CPU:0, 0x55d056cc3d50]
+
+a.min = 0
+Tensor[shape={}, stride={}, Int64, CPU:0, 0x55d0beec4080]
+
+a.ArgMax = 23
+Tensor[shape={}, stride={}, Int64, CPU:0, 0x55d05ed0a440]
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># With specified dimension.</span>
+<span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Along dim=0</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Along dim=(0, 2)</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))))</span>
+
+<span class="c1"># Retention of reduced dimension.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape without retention : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape with retention : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Along dim=0
+[[12 14 16 18],
+ [20 22 24 26],
+ [28 30 32 34]]
+Tensor[shape={3, 4}, stride={4, 1}, Int64, CPU:0, 0x55d08bffade0]
+Along dim=(0, 2)
+[60 92 124]
+Tensor[shape={3}, stride={1}, Int64, CPU:0, 0x55d0583dd120]
+
+Shape without retention : SizeVector[3]
+Shape with retention : SizeVector[1, 3, 1]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Slicing,-indexing,-getitem,-and-setitem">
+<h2>Slicing, indexing, getitem, and setitem<a class="headerlink" href="#Slicing,-indexing,-getitem,-and-setitem" title="Permalink to this headline">¶</a></h2>
+<p>Basic slicing is done by passing an integer, slice object(<code class="docutils literal notranslate"><span class="pre">start:stop:step</span></code>), index array or boolean array. Slicing and indexing produce a view of the tensor. Hence any change in it will also get reflected in the original tensor.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a = </span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+
+<span class="c1"># Indexing __getitem__.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a[1, 2] = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>
+
+<span class="c1"># Slicing __getitem__.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a[1:] = </span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+
+<span class="c1"># slice object.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a[:, 0:3:2, :] = </span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]))</span>
+
+<span class="c1"># Combined __getitem__</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a[:-1, 0:3:2, 2] = </span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a =
+[[[0 1 2 3],
+  [4 5 6 7],
+  [8 9 10 11]],
+ [[12 13 14 15],
+  [16 17 18 19],
+  [20 21 22 23]]]
+Tensor[shape={2, 3, 4}, stride={12, 4, 1}, Int64, CPU:0, 0x55d05ed03150]
+
+a[1, 2] = [20 21 22 23]
+Tensor[shape={4}, stride={1}, Int64, CPU:0, 0x55d05ed031f0]
+
+a[1:] =
+[[[12 13 14 15],
+  [16 17 18 19],
+  [20 21 22 23]]]
+Tensor[shape={1, 3, 4}, stride={12, 4, 1}, Int64, CPU:0, 0x55d05ed031b0]
+
+a[:, 0:3:2, :] =
+[[[0 1 2 3],
+  [8 9 10 11]],
+ [[12 13 14 15],
+  [20 21 22 23]]]
+Tensor[shape={2, 2, 4}, stride={12, 8, 1}, Int64, CPU:0, 0x55d05ed03150]
+
+a[:-1, 0:3:2, 2] =
+[[2 10]]
+Tensor[shape={1, 2}, stride={12, 8}, Int64, CPU:0, 0x55d05ed03160]
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+
+<span class="c1"># Changes get reflected.</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;b = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a = </span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+b = [[102 110]]
+Tensor[shape={1, 2}, stride={12, 8}, Int64, CPU:0, 0x55d05ed01160]
+
+a =
+[[[0 1 102 3],
+  [4 5 6 7],
+  [8 9 110 11]],
+ [[12 13 14 15],
+  [16 17 18 19],
+  [20 21 22 23]]]
+Tensor[shape={2, 3, 4}, stride={12, 4, 1}, Int64, CPU:0, 0x55d05ed01150]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+
+<span class="c1"># Example __setitem__</span>
+<span class="n">a</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[[0 1 102 3],
+  [4 5 106 7],
+  [8 9 110 11]],
+ [[12 13 114 15],
+  [16 17 118 19],
+  [20 21 122 23]]]
+Tensor[shape={2, 3, 4}, stride={12, 4, 1}, Int64, CPU:0, 0x55d0573a0ed0]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Advanced-indexing">
+<h2>Advanced indexing<a class="headerlink" href="#Advanced-indexing" title="Permalink to this headline">¶</a></h2>
+<p>Advanced indexing is triggered while passing an index array or a boolean array or their combination with integer/slice object. Note that advanced indexing always returns a copy of the data (contrast with basic slicing that returns a view). ### Integer array indexing Integer array indexing allows selection of arbitrary items in the tensor based on their dimensional index. Indexes passed should be broadcast compatible.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+
+<span class="c1"># Along each dimension, a specific element is selected.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a[[0, 1], [1, 2], [1, 0]] = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]))</span>
+
+<span class="c1"># Changes not reflected as it is a copy.</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;b = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a[[0, 0], [0, 1], [1, 1]] = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a[[0, 1], [1, 2], [1, 0]] = [5 20]
+Tensor[shape={2}, stride={1}, Int64, CPU:0, 0x55d05ed06570]
+
+b = [101 5]
+Tensor[shape={2}, stride={1}, Int64, CPU:0, 0x55d05ed093e0]
+
+a[[0, 0], [0, 1], [1, 1]] = [1 5]
+Tensor[shape={2}, stride={1}, Int64, CPU:0, 0x55d05758e690]
+</pre></div></div>
+</div>
+<div class="section" id="Combining-advanced-and-basic-indexing">
+<h3>Combining advanced and basic indexing<a class="headerlink" href="#Combining-advanced-and-basic-indexing" title="Permalink to this headline">¶</a></h3>
+<p>When there is at least one slice(<code class="docutils literal notranslate"><span class="pre">:</span></code>), ellipse(<code class="docutils literal notranslate"><span class="pre">...</span></code>), or newaxis in the index, then the behaviour can be more complicated. It is like concatenating the indexing result for each advanced index element. Under the advanced indexing mode, some preprocessing is done before sending to the advanced indexing engine. 1. Specific index positions are converted to a Indextensor with the specified index. 2. If slice is non-full slice, then we slice the tensor first, then use full slice for advanced
+indexing engine.</p>
+<p><code class="docutils literal notranslate"><span class="pre">dst</span> <span class="pre">=</span> <span class="pre">src[1,</span> <span class="pre">0:2,</span> <span class="pre">[1,</span> <span class="pre">2]]</span></code> is done in two steps: <code class="docutils literal notranslate"><span class="pre">temp</span> <span class="pre">=</span> <span class="pre">src[:,</span> <span class="pre">0:2,</span> <span class="pre">:]</span></code> <code class="docutils literal notranslate"><span class="pre">dst</span> <span class="pre">=</span> <span class="pre">temp[[1],</span> <span class="pre">:,</span> <span class="pre">[1,</span> <span class="pre">2]]</span></code></p>
+<p>There are two parts to the indexing operation, the subspace defined by the basic indexing, and the subspace from the advanced indexing part.</p>
+<ol class="arabic simple">
+<li><p>The advanced indexes are separated by a slice, Ellipse, or newaxis. For example <code class="docutils literal notranslate"><span class="pre">x[arr1,</span> <span class="pre">:,</span> <span class="pre">arr2]</span></code>.</p></li>
+<li><p>The advanced indexes are all next to each other. For example <code class="docutils literal notranslate"><span class="pre">x[...,</span> <span class="pre">arr1,</span> <span class="pre">arr2,</span> <span class="pre">:]</span></code>, but not <code class="docutils literal notranslate"><span class="pre">x[arr1,</span> <span class="pre">:,</span> <span class="pre">1]</span></code> since <code class="docutils literal notranslate"><span class="pre">1</span></code> is an advanced index here.</p></li>
+</ol>
+<p>In the first case, the dimensions resulting from the advanced indexing operation come first in the result array, and the subspace dimensions after that. In the second case, the dimensions from the advanced indexing operations are inserted into the result array at the same spot as they were in the initial array.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a[1, 0:2, [1, 2]] = </span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]))</span>
+
+<span class="c1"># Subtle difference in selection and advanced indexing.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a[(0, 1)] = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a[[0, 1] = </span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]))</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">120</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)))</span>
+
+<span class="c1"># Interleaving slice and advanced indexing.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a[1, [[1, 2], [2, 1]], 0:4:2, [3, 4]] = </span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a[1, 0:2, [1, 2]] =
+[[13 17],
+ [14 18]]
+Tensor[shape={2, 2}, stride={2, 1}, Int64, CPU:0, 0x55d05eceb810]
+
+a[(0, 1)] = [4 5 6 7]
+Tensor[shape={4}, stride={1}, Int64, CPU:0, 0x55d05ed01170]
+
+a[[0, 1] =
+[[[0 1 2 3],
+  [4 5 6 7],
+  [8 9 10 11]],
+ [[12 13 14 15],
+  [16 17 18 19],
+  [20 21 22 23]]]
+Tensor[shape={2, 3, 4}, stride={12, 4, 1}, Int64, CPU:0, 0x55d05ed03150]
+
+a[1, [[1, 2], [2, 1]], 0:4:2, [3, 4]] =
+[[[83 93],
+  [104 114]],
+ [[103 113],
+  [84 94]]]
+Tensor[shape={2, 2, 2}, stride={4, 2, 1}, Int64, CPU:0, 0x55d056caa290]
+
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Boolean-array-indexing">
+<h3>Boolean array indexing<a class="headerlink" href="#Boolean-array-indexing" title="Permalink to this headline">¶</a></h3>
+<p>Advanced indexing gets triggered when we pass a boolean array as an index, or it is returned from comparison operators. Boolean array should have exactly as many dimensions as it is supposed to work with.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+
+<span class="c1"># Add constant to all negative numbers.</span>
+<span class="n">a</span><span class="p">[</span><span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">20</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a = [1 -1 -2 3]
+Tensor[shape={4}, stride={1}, Int64, CPU:0, 0x55d05eceb810]
+
+a = [1 19 18 3]
+Tensor[shape={4}, stride={1}, Int64, CPU:0, 0x55d05eceb810]
+
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Logical-operations">
+<h2>Logical operations<a class="headerlink" href="#Logical-operations" title="Permalink to this headline">¶</a></h2>
+<p>Open3D supports following logical operators: 1. <code class="docutils literal notranslate"><span class="pre">logical_and</span></code> - returns tensor with element wise logical AND. 2. <code class="docutils literal notranslate"><span class="pre">logical_or</span></code> - returns tensor with element wise logical OR. 3. <code class="docutils literal notranslate"><span class="pre">logical_xor</span></code> - returns tensor with element wise logical XOR. 4. <code class="docutils literal notranslate"><span class="pre">logical_not</span></code> - returns tensor with element wise logical NOT. 5. <code class="docutils literal notranslate"><span class="pre">all</span></code> - returns true if all elements in the tensor are true. 6. <code class="docutils literal notranslate"><span class="pre">any</span></code> - returns true if any element in the tensor is true. 7. <code class="docutils literal notranslate"><span class="pre">allclose</span></code> - returns true if two tensors are element
+wise equal within a tolerance. 8. <code class="docutils literal notranslate"><span class="pre">isclose</span></code> - returns tensor with element wise <code class="docutils literal notranslate"><span class="pre">allclose</span></code> operation. 9. <code class="docutils literal notranslate"><span class="pre">issame</span></code> - returns true if and only if two tensors are same(even same underlying memory).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]))</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">]))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a AND b = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">b</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a OR b = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">b</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a XOR b = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">logical_xor</span><span class="p">(</span><span class="n">b</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NOT a = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">logical_not</span><span class="p">()))</span>
+
+<span class="c1"># Only works for boolean tensors.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a.any = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">any</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a.all = </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">all</span><span class="p">()))</span>
+
+<span class="c1"># If tensor is not boolean, 0 will be treated as False, while non-zero as true.</span>
+<span class="c1"># The tensor will be filled with 0 or 1 casted to tensor&#39;s dtype.</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]))</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;c AND d = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">d</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a AND b = [True False False False]
+Tensor[shape={4}, stride={1}, Bool, CPU:0, 0x55d05757ad90]
+a OR b = [True True True False]
+Tensor[shape={4}, stride={1}, Bool, CPU:0, 0x55d05ed0a1a0]
+a XOR b = [False True True False]
+Tensor[shape={4}, stride={1}, Bool, CPU:0, 0x55d0bedd9040]
+NOT a = [False True False True]
+Tensor[shape={4}, stride={1}, Bool, CPU:0, 0x55d0bf0c0c50]
+
+a.any = True
+a.all = False
+
+c AND d = [False False True False]
+Tensor[shape={4}, stride={1}, Bool, CPU:0, 0x55d0bf0c0c50]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Dtype</span><span class="o">.</span><span class="n">Float64</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.99999</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]))</span>
+
+<span class="c1"># Throws exception if the device/dtype is not same.</span>
+<span class="c1"># Returns false if the shape is not same.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;allclose : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">b</span><span class="p">)))</span>
+
+<span class="c1"># Throws exception if the device/dtype/shape is not same.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;isclose : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">b</span><span class="p">)))</span>
+
+<span class="c1"># Returns false if the device/dtype/shape/ is not same.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;issame : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">issame</span><span class="p">(</span><span class="n">b</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+allclose : True
+isclose : [True True True True]
+Tensor[shape={4}, stride={1}, Bool, CPU:0, 0x55d0bedd9040]
+issame : False
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Comparison-Operations">
+<h2>Comparison Operations<a class="headerlink" href="#Comparison-Operations" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a &gt; b = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a &gt;= b = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span> <span class="o">&gt;=</span> <span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a &lt; b = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a &lt;= b = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a == b = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a != b = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span> <span class="o">!=</span> <span class="n">b</span><span class="p">))</span>
+
+<span class="c1"># Throws exception if device/dtype is not shape.</span>
+<span class="c1"># If shape is not same, then tensors should be broadcast compatible.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a &gt; b = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a &gt; b = [False True False]
+Tensor[shape={3}, stride={1}, Bool, CPU:0, 0x55d05ed04b10]
+a &gt;= b = [True True False]
+Tensor[shape={3}, stride={1}, Bool, CPU:0, 0x55d0a7cdbf60]
+a &lt; b = [False False True]
+Tensor[shape={3}, stride={1}, Bool, CPU:0, 0x55d056caa2e0]
+a &lt;= b = [True False True]
+Tensor[shape={3}, stride={1}, Bool, CPU:0, 0x55d0565103e0]
+a == b = [True False False]
+Tensor[shape={3}, stride={1}, Bool, CPU:0, 0x55d05ed0a1a0]
+a != b = [False True True]
+Tensor[shape={3}, stride={1}, Bool, CPU:0, 0x55d0bf3f40e0]
+a &gt; b = [False True False]
+Tensor[shape={3}, stride={1}, Bool, CPU:0, 0x55d05ed01130]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Nonzero-operations">
+<h2>Nonzero operations<a class="headerlink" href="#Nonzero-operations" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>When <code class="docutils literal notranslate"><span class="pre">as_tuple</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>(default), it returns a tensor indices of the elements that are non-zero. Each row in the result contains the indices of a non-zero element in the input. If the input has <span class="math notranslate nohighlight">\(n\)</span> dimensions, then the resulting tensor is of size <span class="math notranslate nohighlight">\((z x n)\)</span>, where <span class="math notranslate nohighlight">\(z\)</span> is the total number of non-zero elements in the input tensor.</p></li>
+<li><p>When <code class="docutils literal notranslate"><span class="pre">as_tuple</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, it returns a tuple of 1D tensors, one for each dimension in input, each containing the indices of all non-zero elements of input. If the input has <span class="math notranslate nohighlight">\(n\)</span> dimension, then the resulting tuple contains <span class="math notranslate nohighlight">\(n\)</span> tensors of size <span class="math notranslate nohighlight">\(z\)</span>, where <span class="math notranslate nohighlight">\(z\)</span> is the total number of non-zero elements in the input tensor.</p></li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a = </span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a.nonzero() = </span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a.nonzero(as_tuple = 1) = </span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">as_tuple</span><span class="o">=</span><span class="mi">1</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+a =
+[[3 0 0],
+ [0 4 0],
+ [5 6 0]]
+Tensor[shape={3, 3}, stride={3, 1}, Int64, CPU:0, 0x55d056510470]
+
+a.nonzero() =
+[[0 1 2 2]
+Tensor[shape={4}, stride={1}, Int64, CPU:0, 0x55d05ed0a290], [0 1 0 1]
+Tensor[shape={4}, stride={1}, Int64, CPU:0, 0x55d0bf3f4090]]
+
+a.nonzero(as_tuple = 1) =
+[[0 1 2 2],
+ [0 1 0 1]]
+Tensor[shape={2, 4}, stride={4, 1}, Int64, CPU:0, 0x55d05758e690]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Pickle-support">
+<h2>Pickle support<a class="headerlink" href="#Pickle-support" title="Permalink to this headline">¶</a></h2>
+<p>Since Open3D v0.16.0, tensor can be serialized and deserialized using pickle. This is useful for saving and loading tensors to/from disk.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After serialization: </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">path</span><span class="p">:</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;tensor&#39;</span><span class="p">)</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">))</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After deserialization: </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Pickle tensor on GPU.</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">o3c</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="s1">&#39;cuda:0&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After serialization: </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">path</span><span class="p">:</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;tensor&#39;</span><span class="p">)</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">))</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;After deserialization: </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Pickle non-contiguous tensor.</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">o3c</span><span class="o">.</span><span class="n">Tensor</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">100</span><span class="p">))</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Contiguous: </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">is_contiguous</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">path</span><span class="p">:</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;tensor&#39;</span><span class="p">)</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">))</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Contiguous: </span><span class="si">{</span><span class="n">b</span><span class="o">.</span><span class="n">is_contiguous</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+After serialization: [1 2 3 4]
+Tensor[shape={4}, stride={1}, Int64, CPU:0, 0x559b079046e0]
+
+After deserialization: [1 2 3 4]
+Tensor[shape={4}, stride={1}, Int64, CPU:0, 0x559b06ba7fc0]
+
+After serialization: [1 2 3 4]
+Tensor[shape={4}, stride={1}, Int64, CUDA:0, 0x302000000]
+
+After deserialization: [1 2 3 4]
+Tensor[shape={4}, stride={1}, Int64, CUDA:0, 0x302000200]
+
+Contiguous: False
+
+Contiguous: True
+
+</pre></div></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="hashmap.html" class="btn btn-neutral float-right" title="Hash map" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Core" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/core/tensor.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:46:13 GMT -->
+</html>

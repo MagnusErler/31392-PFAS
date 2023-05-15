@@ -1,0 +1,1291 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/data/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:20 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Dataset &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Reconstruction system" href="../reconstruction_system/index.html" />
+    <link rel="prev" title="Hash map" href="../core/hashmap.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dataset</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pointcloud">PointCloud</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pcdpointcloud">PCDPointCloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plypointcloud">PLYPointCloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#eaglepointcloud">EaglePointCloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#livingroompointclouds">LivingRoomPointClouds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#officepointclouds">OfficePointClouds</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#trianglemesh">TriangleMesh</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bunnymesh">BunnyMesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#armadillomesh">ArmadilloMesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#knotmesh">KnotMesh</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#trianglemodel-with-prb-texture">TriangleModel with PRB texture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#monkeymodel">MonkeyModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#swordmodel">SwordModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cratemodel">CrateModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flighthelmetmodel">FlightHelmetModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#avocadomodel">AvocadoModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#damagedhelmetmodel">DamagedHelmetModel</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#texture-material-images">Texture material images</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#metaltexture">MetalTexture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#paintedplastertexture">PaintedPlasterTexture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tilestexture">TilesTexture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#terrazzotexture">TerrazzoTexture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#woodtexture">WoodTexture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#woodfloortexture">WoodFloorTexture</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#image">Image</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#juneauimage">JuneauImage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#rgbdimage">RGBDImage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sampleredwoodrgbdimages">SampleRedwoodRGBDImages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#samplefountainrgbdimages">SampleFountainRGBDImages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#samplenyurgbdimage">SampleNYURGBDImage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#samplesunrgbdimage">SampleSUNRGBDImage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sampletumrgbdimage">SampleTUMRGBDImage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loungergbdimages">LoungeRGBDImages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bedroomrgbdimages">BedroomRGBDImages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#demo">Demo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#demoicppointclouds">DemoICPPointClouds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#democoloredicppointclouds">DemoColoredICPPointClouds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#democroppointcloud">DemoCropPointCloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#demofeaturematchingpointclouds">DemoFeatureMatchingPointClouds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#demoposegraphoptimization">DemoPoseGraphOptimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#redwoodindoorlivingroom1">RedwoodIndoorLivingRoom1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#redwoodindoorlivingroom2">RedwoodIndoorLivingRoom2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#redwoodindooroffice1">RedwoodIndoorOffice1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#redwoodindooroffice2">RedwoodIndoorOffice2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+      <li>Dataset</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="dataset">
+<span id="id1"></span><h1>Dataset<a class="headerlink" href="#dataset" title="Permalink to this headline">¶</a></h1>
+<p>Open3D comes with a built-in dataset module for convenient access to commonly
+used example datasets. These datasets will be downloaded automatically from the
+internet.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">EaglePointCloud</span><span class="p">()</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">pcd</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;open3d/Open3D.h&quot;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">open3d</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">data</span><span class="o">::</span><span class="n">EaglePointCloud</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">pcd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPath</span><span class="p">());</span>
+<span class="w">    </span><span class="n">visualization</span><span class="o">::</span><span class="n">Draw</span><span class="p">({</span><span class="n">pcd</span><span class="p">});</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Datasets are downloaded can cached automatically. The default data root is
+<code class="docutils literal notranslate"><span class="pre">~/open3d_data</span></code>. Data will be downloaded to <code class="docutils literal notranslate"><span class="pre">~/open3d_data/download</span></code>
+and extracted to <code class="docutils literal notranslate"><span class="pre">~/open3d_data/extract</span></code>.</p></li>
+<li><p>Optionally, you can change the default data root. This can be done by setting
+the environment variable <code class="docutils literal notranslate"><span class="pre">OPEN3D_DATA_ROOT</span></code> or passing the <code class="docutils literal notranslate"><span class="pre">data_root</span></code>
+argument when constructing a dataset object.</p></li>
+</ul>
+<div class="section" id="pointcloud">
+<h2>PointCloud<a class="headerlink" href="#pointcloud" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pcdpointcloud">
+<h3>PCDPointCloud<a class="headerlink" href="#pcdpointcloud" title="Permalink to this headline">¶</a></h3>
+<p>Colored point cloud of a living room from the Redwood dataset in PCD format.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">PCDPointCloud</span><span class="p">()</span>
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">PCDPointCloud</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPath</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="plypointcloud">
+<h3>PLYPointCloud<a class="headerlink" href="#plypointcloud" title="Permalink to this headline">¶</a></h3>
+<p>Colored point cloud of a living room from the Redwood dataset in PLY format.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">PLYPointCloud</span><span class="p">()</span>
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">PLYPointCloud</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPath</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="eaglepointcloud">
+<h3>EaglePointCloud<a class="headerlink" href="#eaglepointcloud" title="Permalink to this headline">¶</a></h3>
+<p>Eagle colored point cloud.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">EaglePointCloud</span><span class="p">()</span>
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">EaglePointCloud</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPath</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="livingroompointclouds">
+<h3>LivingRoomPointClouds<a class="headerlink" href="#livingroompointclouds" title="Permalink to this headline">¶</a></h3>
+<p>57 point clouds of binary PLY format from the Redwood RGB-D Dataset.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">LivingRoomPointClouds</span><span class="p">()</span>
+<span class="n">pcds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">pcd_path</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">paths</span><span class="p">:</span>
+    <span class="n">pcds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">pcd_path</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">LivingRoomPointClouds</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">geometry</span><span class="o">::</span><span class="n">PointCloud</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">pcds</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">pcd_path</span><span class="o">:</span><span class="w"> </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPaths</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">pcds</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">pcd_path</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="officepointclouds">
+<h3>OfficePointClouds<a class="headerlink" href="#officepointclouds" title="Permalink to this headline">¶</a></h3>
+<p>53 point clouds of binary PLY format from Redwood RGB-D Dataset.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">OfficePointClouds</span><span class="p">()</span>
+<span class="n">pcds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">pcd_path</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">paths</span><span class="p">:</span>
+    <span class="n">pcds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">pcd_path</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">OfficePointClouds</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">geometry</span><span class="o">::</span><span class="n">PointCloud</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">pcds</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">pcd_path</span><span class="o">:</span><span class="w"> </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPaths</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">pcds</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">pcd_path</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="trianglemesh">
+<h2>TriangleMesh<a class="headerlink" href="#trianglemesh" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="bunnymesh">
+<h3>BunnyMesh<a class="headerlink" href="#bunnymesh" title="Permalink to this headline">¶</a></h3>
+<p>The bunny triangle mesh from Stanford in PLY format.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">BunnyMesh</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateMeshFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPath</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="armadillomesh">
+<h3>ArmadilloMesh<a class="headerlink" href="#armadillomesh" title="Permalink to this headline">¶</a></h3>
+<p>The armadillo mesh from Stanford in PLY format.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ArmadilloMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">ArmadilloMesh</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateMeshFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPath</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="knotmesh">
+<h3>KnotMesh<a class="headerlink" href="#knotmesh" title="Permalink to this headline">¶</a></h3>
+<p>A 3D Mobius knot mesh in PLY format.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">KnotMesh</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">KnotMesh</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateMeshFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPath</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="trianglemodel-with-prb-texture">
+<h2>TriangleModel with PRB texture<a class="headerlink" href="#trianglemodel-with-prb-texture" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="monkeymodel">
+<h3>MonkeyModel<a class="headerlink" href="#monkeymodel" title="Permalink to this headline">¶</a></h3>
+<p>The monkey model with PRB texture.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">MonkeyModel</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_model</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">BunnyMesh</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="n">visualization</span><span class="o">::</span><span class="n">rendering</span><span class="o">::</span><span class="n">TriangleMeshModel</span><span class="w"> </span><span class="n">model</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">ReadTriangleModel</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPath</span><span class="p">(),</span><span class="w"> </span><span class="n">model</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="swordmodel">
+<h3>SwordModel<a class="headerlink" href="#swordmodel" title="Permalink to this headline">¶</a></h3>
+<p>The sword model with PRB texture.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">SwordModel</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_model</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">SwordModel</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="n">visualization</span><span class="o">::</span><span class="n">rendering</span><span class="o">::</span><span class="n">TriangleMeshModel</span><span class="w"> </span><span class="n">model</span><span class="p">;</span>
+<span class="n">io</span><span class="o">::</span><span class="n">ReadTriangleModel</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPath</span><span class="p">(),</span><span class="w"> </span><span class="n">model</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cratemodel">
+<h3>CrateModel<a class="headerlink" href="#cratemodel" title="Permalink to this headline">¶</a></h3>
+<p>The crate model with PRB texture.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CrateModel</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_model</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">CrateModel</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="n">visualization</span><span class="o">::</span><span class="n">rendering</span><span class="o">::</span><span class="n">TriangleMeshModel</span><span class="w"> </span><span class="n">model</span><span class="p">;</span>
+<span class="n">io</span><span class="o">::</span><span class="n">ReadTriangleModel</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPath</span><span class="p">(),</span><span class="w"> </span><span class="n">model</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="flighthelmetmodel">
+<h3>FlightHelmetModel<a class="headerlink" href="#flighthelmetmodel" title="Permalink to this headline">¶</a></h3>
+<p>The flight helmet gltf model with PRB texture.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">FlightHelmetModel</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_model</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">FlightHelmetModel</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="n">visualization</span><span class="o">::</span><span class="n">rendering</span><span class="o">::</span><span class="n">TriangleMeshModel</span><span class="w"> </span><span class="n">model</span><span class="p">;</span>
+<span class="n">io</span><span class="o">::</span><span class="n">ReadTriangleModel</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPath</span><span class="p">(),</span><span class="w"> </span><span class="n">model</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="avocadomodel">
+<h3>AvocadoModel<a class="headerlink" href="#avocadomodel" title="Permalink to this headline">¶</a></h3>
+<p>The Avocado glb model with PNG format embedded textures.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">AvocadoModel</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_model</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">AvocadoModel</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="n">visualization</span><span class="o">::</span><span class="n">rendering</span><span class="o">::</span><span class="n">TriangleMeshModel</span><span class="w"> </span><span class="n">model</span><span class="p">;</span>
+<span class="n">io</span><span class="o">::</span><span class="n">ReadTriangleModel</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPath</span><span class="p">(),</span><span class="w"> </span><span class="n">model</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="damagedhelmetmodel">
+<h3>DamagedHelmetModel<a class="headerlink" href="#damagedhelmetmodel" title="Permalink to this headline">¶</a></h3>
+<p>The damaged helmet glb model with JPG format embedded textures.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DamagedHelmetModel</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_model</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">DamagedHelmetModel</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="n">visualization</span><span class="o">::</span><span class="n">rendering</span><span class="o">::</span><span class="n">TriangleMeshModel</span><span class="w"> </span><span class="n">model</span><span class="p">;</span>
+<span class="n">io</span><span class="o">::</span><span class="n">ReadTriangleModel</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPath</span><span class="p">(),</span><span class="w"> </span><span class="n">model</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="texture-material-images">
+<h2>Texture material images<a class="headerlink" href="#texture-material-images" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="metaltexture">
+<h3>MetalTexture<a class="headerlink" href="#metaltexture" title="Permalink to this headline">¶</a></h3>
+<p>Albedo, normal, roughness and metallic texture files for metal based material.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mat_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">MetalTexture</span><span class="p">()</span>
+
+<span class="n">mat</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">rendering</span><span class="o">.</span><span class="n">MaterialRecord</span><span class="p">()</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="s2">&quot;defaultLit&quot;</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">albedo_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">albedo_texture_path</span><span class="p">)</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">normal_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">normal_texture_path</span><span class="p">)</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">roughness_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">roughness_texture_path</span><span class="p">)</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">metallic_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">metallic_texture_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">MetalTexture</span><span class="w"> </span><span class="n">mat_data</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">mat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">visualization</span><span class="o">::</span><span class="n">rendering</span><span class="o">::</span><span class="n">MaterialRecord</span><span class="p">();</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">shader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;defaultUnlit&quot;</span><span class="p">;</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">albedo_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">albedo_texture_path</span><span class="p">);</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">normal_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">normal_texture_path</span><span class="p">);</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">roughness_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">roughness_texture_path</span><span class="p">);</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">metallic_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">metallic_texture_path</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="paintedplastertexture">
+<h3>PaintedPlasterTexture<a class="headerlink" href="#paintedplastertexture" title="Permalink to this headline">¶</a></h3>
+<p>Albedo, normal and roughness texture files for painted plaster based material.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mat_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">PaintedPlasterTexture</span><span class="p">()</span>
+
+<span class="n">mat</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">rendering</span><span class="o">.</span><span class="n">MaterialRecord</span><span class="p">()</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="s2">&quot;defaultLit&quot;</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">albedo_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">albedo_texture_path</span><span class="p">)</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">normal_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">normal_texture_path</span><span class="p">)</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">roughness_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">roughness_texture_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">PaintedPlasterTexture</span><span class="w"> </span><span class="n">mat_data</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">mat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">visualization</span><span class="o">::</span><span class="n">rendering</span><span class="o">::</span><span class="n">MaterialRecord</span><span class="p">();</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">shader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;defaultUnlit&quot;</span><span class="p">;</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">albedo_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">albedo_texture_path</span><span class="p">);</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">normal_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">normal_texture_path</span><span class="p">);</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">roughness_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">roughness_texture_path</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tilestexture">
+<h3>TilesTexture<a class="headerlink" href="#tilestexture" title="Permalink to this headline">¶</a></h3>
+<p>Albedo, normal and roughness texture files for tiles based material.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mat_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TilesTexture</span><span class="p">()</span>
+
+<span class="n">mat</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">rendering</span><span class="o">.</span><span class="n">MaterialRecord</span><span class="p">()</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="s2">&quot;defaultLit&quot;</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">albedo_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">albedo_texture_path</span><span class="p">)</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">normal_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">normal_texture_path</span><span class="p">)</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">roughness_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">roughness_texture_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">TilesTexture</span><span class="w"> </span><span class="n">mat_data</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">mat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">visualization</span><span class="o">::</span><span class="n">rendering</span><span class="o">::</span><span class="n">MaterialRecord</span><span class="p">();</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">shader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;defaultUnlit&quot;</span><span class="p">;</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">albedo_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">albedo_texture_path</span><span class="p">);</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">normal_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">normal_texture_path</span><span class="p">);</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">roughness_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">roughness_texture_path</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="terrazzotexture">
+<h3>TerrazzoTexture<a class="headerlink" href="#terrazzotexture" title="Permalink to this headline">¶</a></h3>
+<p>Albedo, normal and roughness texture files for terrazzo based material.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mat_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TerrazzoTexture</span><span class="p">()</span>
+
+<span class="n">mat</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">rendering</span><span class="o">.</span><span class="n">MaterialRecord</span><span class="p">()</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="s2">&quot;defaultLit&quot;</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">albedo_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">albedo_texture_path</span><span class="p">)</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">normal_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">normal_texture_path</span><span class="p">)</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">roughness_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">roughness_texture_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">TerrazzoTexture</span><span class="w"> </span><span class="n">mat_data</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">mat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">visualization</span><span class="o">::</span><span class="n">rendering</span><span class="o">::</span><span class="n">MaterialRecord</span><span class="p">();</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">shader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;defaultUnlit&quot;</span><span class="p">;</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">albedo_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">albedo_texture_path</span><span class="p">);</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">normal_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">normal_texture_path</span><span class="p">);</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">roughness_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">roughness_texture_path</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="woodtexture">
+<h3>WoodTexture<a class="headerlink" href="#woodtexture" title="Permalink to this headline">¶</a></h3>
+<p>Albedo, normal and roughness texture files for wood based material.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mat_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">WoodTexture</span><span class="p">()</span>
+
+<span class="n">mat</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">rendering</span><span class="o">.</span><span class="n">MaterialRecord</span><span class="p">()</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="s2">&quot;defaultLit&quot;</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">albedo_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">albedo_texture_path</span><span class="p">)</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">normal_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">normal_texture_path</span><span class="p">)</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">roughness_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">roughness_texture_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">WoodTexture</span><span class="w"> </span><span class="n">mat_data</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">mat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">visualization</span><span class="o">::</span><span class="n">rendering</span><span class="o">::</span><span class="n">MaterialRecord</span><span class="p">();</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">shader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;defaultUnlit&quot;</span><span class="p">;</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">albedo_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">albedo_texture_path</span><span class="p">);</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">normal_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">normal_texture_path</span><span class="p">);</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">roughness_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">roughness_texture_path</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="woodfloortexture">
+<h3>WoodFloorTexture<a class="headerlink" href="#woodfloortexture" title="Permalink to this headline">¶</a></h3>
+<p>Albedo, normal and roughness texture files for wooden floor based material.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mat_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">WoodFloorTexture</span><span class="p">()</span>
+
+<span class="n">mat</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">rendering</span><span class="o">.</span><span class="n">MaterialRecord</span><span class="p">()</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">shader</span> <span class="o">=</span> <span class="s2">&quot;defaultLit&quot;</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">albedo_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">albedo_texture_path</span><span class="p">)</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">normal_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">normal_texture_path</span><span class="p">)</span>
+<span class="n">mat</span><span class="o">.</span><span class="n">roughness_img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">mat_data</span><span class="o">.</span><span class="n">roughness_texture_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">WoodFloorTexture</span><span class="w"> </span><span class="n">mat_data</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">mat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">visualization</span><span class="o">::</span><span class="n">rendering</span><span class="o">::</span><span class="n">MaterialRecord</span><span class="p">();</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">shader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;defaultUnlit&quot;</span><span class="p">;</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">albedo_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">albedo_texture_path</span><span class="p">);</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">normal_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">normal_texture_path</span><span class="p">);</span>
+<span class="n">mat</span><span class="p">.</span><span class="n">roughness_img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">mat_data</span><span class="p">.</span><span class="n">roughness_texture_path</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="image">
+<h2>Image<a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="juneauimage">
+<h3>JuneauImage<a class="headerlink" href="#juneauimage" title="Permalink to this headline">¶</a></h3>
+<p>The RGB image <code class="docutils literal notranslate"><span class="pre">JuneauImage.jpg</span></code> file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">img_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">JuneauImage</span><span class="p">()</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">img_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">JuneauImage</span><span class="w"> </span><span class="n">img_data</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">img_data</span><span class="p">.</span><span class="n">path</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="rgbdimage">
+<h2>RGBDImage<a class="headerlink" href="#rgbdimage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sampleredwoodrgbdimages">
+<h3>SampleRedwoodRGBDImages<a class="headerlink" href="#sampleredwoodrgbdimages" title="Permalink to this headline">¶</a></h3>
+<p>Sample set of 5 color images, 5 depth images from the Redwood RGBD
+living-room1 dataset. It also contains a camera trajectory log, a camera
+odometry log, an rgbd match file, and a point cloud reconstruction obtained from
+TSDF.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">SampleRedwoodRGBDImages</span><span class="p">()</span>
+
+<span class="n">rgbd_images</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">)):</span>
+    <span class="n">color_raw</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">color_paths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">depth_raw</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">rgbd_image</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+                                               <span class="n">color_raw</span><span class="p">,</span> <span class="n">depth_raw</span><span class="p">)</span>
+    <span class="n">rgbd_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rgbd_image</span><span class="p">)</span>
+
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">reconstruction_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">SampleRedwoodRGBDImages</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">rgbd_images</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetDepthPaths</span><span class="p">().</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">color_raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">depth_raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetDepthPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">rgbd_image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">::</span><span class="n">CreateFromColorAndDepth</span><span class="p">(</span>
+<span class="w">            </span><span class="o">*</span><span class="n">color_raw</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">depth_raw</span><span class="p">,</span>
+<span class="w">            </span><span class="cm">/*depth_scale =*/</span><span class="mf">1000.0</span><span class="p">,</span>
+<span class="w">            </span><span class="cm">/*depth_trunc =*/</span><span class="mf">3.0</span><span class="p">,</span>
+<span class="w">            </span><span class="cm">/*convert_rgb_to_intensity =*/</span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="n">rgbd_images</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">rgbd_image</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetReconstructionPath</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="samplefountainrgbdimages">
+<h3>SampleFountainRGBDImages<a class="headerlink" href="#samplefountainrgbdimages" title="Permalink to this headline">¶</a></h3>
+<p>Sample set of 33 color and depth images from the Fountain RGBD dataset.
+It also contains camera poses at key frames log and mesh reconstruction.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">SampleFountainRGBDImages</span><span class="p">()</span>
+
+<span class="n">rgbd_images</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">)):</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">color_paths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">rgbd_image</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+                       <span class="n">color</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">convert_rgb_to_intensity</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">rgbd_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rgbd_image</span><span class="p">)</span>
+
+<span class="n">camera_trajectory</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_pinhole_camera_trajectory</span><span class="p">(</span>
+                          <span class="n">dataset</span><span class="o">.</span><span class="n">keyframe_poses_log_path</span><span class="p">)</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">reconstruction_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">SampleFountainRGBDImages</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">rgbd_images</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetDepthPaths</span><span class="p">().</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">color_raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">depth_raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetDepthPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">rgbd_image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">::</span><span class="n">CreateFromColorAndDepth</span><span class="p">(</span>
+<span class="w">            </span><span class="o">*</span><span class="n">color_raw</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">depth_raw</span><span class="p">,</span>
+<span class="w">            </span><span class="cm">/*depth_scale =*/</span><span class="mf">1000.0</span><span class="p">,</span>
+<span class="w">            </span><span class="cm">/*depth_trunc =*/</span><span class="mf">3.0</span><span class="p">,</span>
+<span class="w">            </span><span class="cm">/*convert_rgb_to_intensity =*/</span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="n">rgbd_images</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">rgbd_image</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">camera</span><span class="o">::</span><span class="n">PinholeCameraTrajectory</span><span class="w"> </span><span class="n">camera_trajectory</span><span class="p">;</span>
+<span class="n">io</span><span class="o">::</span><span class="n">ReadPinholeCameraTrajectory</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetKeyframePosesLogPath</span><span class="p">(),</span>
+<span class="w">                                </span><span class="n">camera_trajectory</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateMeshFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetReconstructionPath</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="samplenyurgbdimage">
+<h3>SampleNYURGBDImage<a class="headerlink" href="#samplenyurgbdimage" title="Permalink to this headline">¶</a></h3>
+<p>Color image <code class="docutils literal notranslate"><span class="pre">NYU_color.ppm</span></code> and depth image <code class="docutils literal notranslate"><span class="pre">NYU_depth.pgm</span></code> sample from NYU
+RGBD dataset.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.image</span> <span class="k">as</span> <span class="nn">mpimg</span>
+
+<span class="k">def</span> <span class="nf">read_nyu_pgm</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s1">&#39;&gt;&#39;</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">buffer</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">header</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">maxval</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+            <span class="sa">b</span><span class="s2">&quot;(^P5\s(?:\s*#.*[</span><span class="se">\r\n</span><span class="s2">])*&quot;</span>
+            <span class="sa">b</span><span class="s2">&quot;(\d+)\s(?:\s*#.*[</span><span class="se">\r\n</span><span class="s2">])*&quot;</span>
+            <span class="sa">b</span><span class="s2">&quot;(\d+)\s(?:\s*#.*[</span><span class="se">\r\n</span><span class="s2">])*&quot;</span>
+            <span class="sa">b</span><span class="s2">&quot;(\d+)\s(?:\s*#.*[</span><span class="se">\r\n</span><span class="s2">]\s)*)&quot;</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not a raw PGM file: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span>
+                        <span class="n">dtype</span><span class="o">=</span><span class="n">byteorder</span> <span class="o">+</span> <span class="s1">&#39;u2&#39;</span><span class="p">,</span>
+                        <span class="n">count</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">width</span><span class="p">)</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span><span class="p">),</span>
+                        <span class="n">offset</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">header</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">height</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span><span class="p">)))</span>
+    <span class="n">img_out</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;u2&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">img_out</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">SampleNYURGBDImage</span><span class="p">()</span>
+<span class="n">color_raw</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">color_path</span><span class="p">)</span>
+<span class="n">depth_raw</span> <span class="o">=</span> <span class="n">read_nyu_pgm</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">depth_path</span><span class="p">)</span>
+<span class="n">color</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">color_raw</span><span class="p">)</span>
+<span class="n">depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">depth_raw</span><span class="p">)</span>
+<span class="n">rgbd_image</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_nyu_format</span><span class="p">(</span>
+    <span class="n">color</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">convert_rgb_to_intensity</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="samplesunrgbdimage">
+<h3>SampleSUNRGBDImage<a class="headerlink" href="#samplesunrgbdimage" title="Permalink to this headline">¶</a></h3>
+<p>Color image <code class="docutils literal notranslate"><span class="pre">SUN_color.jpg</span></code> and depth image <code class="docutils literal notranslate"><span class="pre">SUN_depth.png</span></code> sample from SUN
+RGBD dataset.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">SampleSUNRGBDImage</span><span class="p">()</span>
+<span class="n">color_raw</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">color_path</span><span class="p">)</span>
+<span class="n">depth_raw</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">depth_path</span><span class="p">)</span>
+<span class="n">rgbd_image</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_sun_format</span><span class="p">(</span>
+    <span class="n">color_raw</span><span class="p">,</span> <span class="n">depth_raw</span><span class="p">,</span> <span class="n">convert_rgb_to_intensity</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">SampleSUNRGBDImage</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">color_raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPath</span><span class="p">());</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">depth_raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetDepthPath</span><span class="p">());</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">rgbd_image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">::</span><span class="n">CreateFromSUNFormat</span><span class="p">(</span>
+<span class="w">    </span><span class="o">*</span><span class="n">color_raw</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">depth_raw</span><span class="p">,</span><span class="w"> </span><span class="cm">/*convert_rgb_to_intensity =*/</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="sampletumrgbdimage">
+<h3>SampleTUMRGBDImage<a class="headerlink" href="#sampletumrgbdimage" title="Permalink to this headline">¶</a></h3>
+<p>Color image <code class="docutils literal notranslate"><span class="pre">TUM_color.png</span></code> and depth image <code class="docutils literal notranslate"><span class="pre">TUM_depth.png</span></code> sample from TUM
+RGBD dataset.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">SampleTUMRGBDImage</span><span class="p">()</span>
+<span class="n">color_raw</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">color_path</span><span class="p">)</span>
+<span class="n">depth_raw</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">depth_path</span><span class="p">)</span>
+<span class="n">rgbd_image</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_tum_format</span><span class="p">(</span>
+    <span class="n">color_raw</span><span class="p">,</span> <span class="n">depth_raw</span><span class="p">,</span> <span class="n">convert_rgb_to_intensity</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">SampleTUMRGBDImage</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">color_raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPath</span><span class="p">());</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">depth_raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetDepthPath</span><span class="p">());</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">rgbd_image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">::</span><span class="n">CreateFromTUMFormat</span><span class="p">(</span>
+<span class="w">    </span><span class="o">*</span><span class="n">color_raw</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">depth_raw</span><span class="p">,</span><span class="w"> </span><span class="cm">/*convert_rgb_to_intensity =*/</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loungergbdimages">
+<h3>LoungeRGBDImages<a class="headerlink" href="#loungergbdimages" title="Permalink to this headline">¶</a></h3>
+<p>Lounge RGBD dataset from Stanford containing <code class="docutils literal notranslate"><span class="pre">color</span></code> and <code class="docutils literal notranslate"><span class="pre">depth</span></code>
+sequence of 3000 images, along with <code class="docutils literal notranslate"><span class="pre">camera</span> <span class="pre">trajectory</span></code> and <code class="docutils literal notranslate"><span class="pre">reconstruction</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">LoungeRGBDImages</span><span class="p">()</span>
+
+<span class="n">rgbd_images</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">)):</span>
+    <span class="n">color_raw</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">color_paths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">depth_raw</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">rgbd_image</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+                                               <span class="n">color_raw</span><span class="p">,</span> <span class="n">depth_raw</span><span class="p">)</span>
+    <span class="n">rgbd_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rgbd_image</span><span class="p">)</span>
+
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">reconstruction_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">LoungeRGBDImages</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">rgbd_images</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetDepthPaths</span><span class="p">().</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">color_raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">depth_raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetDepthPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">rgbd_image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">::</span><span class="n">CreateFromColorAndDepth</span><span class="p">(</span>
+<span class="w">            </span><span class="o">*</span><span class="n">color_raw</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">depth_raw</span><span class="p">,</span>
+<span class="w">            </span><span class="cm">/*depth_scale =*/</span><span class="mf">1000.0</span><span class="p">,</span>
+<span class="w">            </span><span class="cm">/*depth_trunc =*/</span><span class="mf">3.0</span><span class="p">,</span>
+<span class="w">            </span><span class="cm">/*convert_rgb_to_intensity =*/</span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="n">rgbd_images</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">rgbd_image</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateTriangleMeshFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetReconstructionPath</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="bedroomrgbdimages">
+<h3>BedroomRGBDImages<a class="headerlink" href="#bedroomrgbdimages" title="Permalink to this headline">¶</a></h3>
+<p>Bedroom RGBD dataset from Redwood containing <code class="docutils literal notranslate"><span class="pre">color</span></code> and <code class="docutils literal notranslate"><span class="pre">depth</span></code>
+sequence of 21931 images, along with <code class="docutils literal notranslate"><span class="pre">camera</span> <span class="pre">trajectory</span></code> and <code class="docutils literal notranslate"><span class="pre">reconstruction</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BedroomRGBDImages</span><span class="p">()</span>
+
+<span class="n">rgbd_images</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">)):</span>
+    <span class="n">color_raw</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">color_paths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">depth_raw</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">rgbd_image</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+                                               <span class="n">color_raw</span><span class="p">,</span> <span class="n">depth_raw</span><span class="p">)</span>
+    <span class="n">rgbd_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rgbd_image</span><span class="p">)</span>
+
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">reconstruction_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">BedroomRGBDImages</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">rgbd_images</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetDepthPaths</span><span class="p">().</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">color_raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">depth_raw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetDepthPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">rgbd_image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">::</span><span class="n">CreateFromColorAndDepth</span><span class="p">(</span>
+<span class="w">            </span><span class="o">*</span><span class="n">color_raw</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">depth_raw</span><span class="p">,</span>
+<span class="w">            </span><span class="cm">/*depth_scale =*/</span><span class="mf">1000.0</span><span class="p">,</span>
+<span class="w">            </span><span class="cm">/*depth_trunc =*/</span><span class="mf">3.0</span><span class="p">,</span>
+<span class="w">            </span><span class="cm">/*convert_rgb_to_intensity =*/</span><span class="nb">false</span><span class="p">);</span>
+<span class="w">    </span><span class="n">rgbd_images</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">rgbd_image</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">mesh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateTriangleMeshFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetReconstructionPath</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="demo">
+<h2>Demo<a class="headerlink" href="#demo" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="demoicppointclouds">
+<h3>DemoICPPointClouds<a class="headerlink" href="#demoicppointclouds" title="Permalink to this headline">¶</a></h3>
+<p>3 point cloud fragments of binary PCD format, from living-room1 scene of Redwood
+RGB-D dataset. This data is used for ICP demo.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DemoICPPointClouds</span><span class="p">()</span>
+<span class="n">pcd0</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">pcd1</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">pcd2</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">DemoICPPointClouds</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPaths</span><span class="p">()[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPaths</span><span class="p">()[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPaths</span><span class="p">()[</span><span class="mi">2</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="democoloredicppointclouds">
+<h3>DemoColoredICPPointClouds<a class="headerlink" href="#democoloredicppointclouds" title="Permalink to this headline">¶</a></h3>
+<p>2 point cloud fragments of binary PCD format, from apartment scene of Redwood
+RGB-D dataset. This data is used for Colored-ICP demo.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DemoColoredICPPointClouds</span><span class="p">()</span>
+<span class="n">pcd0</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">pcd1</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">DemoColoredICPPointClouds</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPaths</span><span class="p">()[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPaths</span><span class="p">()[</span><span class="mi">1</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="democroppointcloud">
+<h3>DemoCropPointCloud<a class="headerlink" href="#democroppointcloud" title="Permalink to this headline">¶</a></h3>
+<p>Point cloud and <code class="docutils literal notranslate"><span class="pre">cropped.json</span></code> (a saved selected polygon volume file).
+This data is used for point cloud crop demo.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DemoCropPointCloud</span><span class="p">()</span>
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">point_cloud_path</span><span class="p">)</span>
+<span class="n">vol</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">read_selection_polygon_volume</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">cropped_json_path</span><span class="p">)</span>
+<span class="n">chair</span> <span class="o">=</span> <span class="n">vol</span><span class="o">.</span><span class="n">crop_point_cloud</span><span class="p">(</span><span class="n">pcd</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">DemoCropPointCloud</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPointCloudPath</span><span class="p">());</span>
+<span class="n">visualization</span><span class="o">::</span><span class="n">SelectionPolygonVolume</span><span class="w"> </span><span class="n">vol</span><span class="p">;</span>
+<span class="n">io</span><span class="o">::</span><span class="n">ReadIJsonConvertible</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetCroppedJSONPath</span><span class="p">(),</span><span class="w"> </span><span class="n">vol</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">chair</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vol</span><span class="p">.</span><span class="n">CropPointCloud</span><span class="p">(</span><span class="o">*</span><span class="n">pcd</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="demofeaturematchingpointclouds">
+<h3>DemoFeatureMatchingPointClouds<a class="headerlink" href="#demofeaturematchingpointclouds" title="Permalink to this headline">¶</a></h3>
+<p>Sample set of 2 point cloud fragments and their respective FPFH features and
+L32D features. This data is used for point cloud feature matching demo.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DemoFeatureMatchingPointClouds</span><span class="p">()</span>
+
+<span class="n">pcd0</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">point_cloud_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">pcd1</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">point_cloud_paths</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">fpfh_feature0</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_feature</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">fpfh_feature_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">fpfh_feature1</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_feature</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">fpfh_feature_paths</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">l32d_feature0</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_feature</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">l32d_feature_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">l32d_feature1</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_feature</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">l32d_feature_paths</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">DemoFeatureMatchingPointClouds</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPointCloudPaths</span><span class="p">()[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPointCloudPaths</span><span class="p">()[</span><span class="mi">1</span><span class="p">]);</span>
+
+<span class="n">pipelines</span><span class="o">::</span><span class="n">registration</span><span class="o">::</span><span class="n">Feature</span><span class="w"> </span><span class="n">fpfh_feature0</span><span class="p">,</span><span class="w"> </span><span class="n">fpfh_feature1</span><span class="p">;</span>
+<span class="n">io</span><span class="o">::</span><span class="n">ReadFeature</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetFPFHFeaturePaths</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">fpfh_feature0</span><span class="p">);</span>
+<span class="n">io</span><span class="o">::</span><span class="n">ReadFeature</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetFPFHFeaturePaths</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">fpfh_feature1</span><span class="p">);</span>
+
+<span class="n">pipelines</span><span class="o">::</span><span class="n">registration</span><span class="o">::</span><span class="n">Feature</span><span class="w"> </span><span class="n">l32d_feature0</span><span class="p">,</span><span class="w"> </span><span class="n">l32d_feature1</span><span class="p">;</span>
+<span class="n">io</span><span class="o">::</span><span class="n">ReadFeature</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetL32DFeaturePaths</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">l32d_feature0</span><span class="p">);</span>
+<span class="n">io</span><span class="o">::</span><span class="n">ReadFeature</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetL32DFeaturePaths</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">l32d_feature1</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="demoposegraphoptimization">
+<h3>DemoPoseGraphOptimization<a class="headerlink" href="#demoposegraphoptimization" title="Permalink to this headline">¶</a></h3>
+<p>Sample fragment pose graph, and global pose graph. This data is used for pose
+graph optimization demo.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DemoPoseGraphOptimization</span><span class="p">()</span>
+<span class="n">pose_graph_fragment</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_pose_graph</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">pose_graph_fragment_path</span><span class="p">)</span>
+<span class="n">pose_graph_global</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_pose_graph</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">pose_graph_global_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">DemoPoseGraphOptimization</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pose_graph_fragment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePoseGraphFromFile</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPoseGraphFragmentPath</span><span class="p">());</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">pose_graph_global</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePoseGraphFromFile</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPoseGraphGlobalPath</span><span class="p">());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="redwoodindoorlivingroom1">
+<h3>RedwoodIndoorLivingRoom1<a class="headerlink" href="#redwoodindoorlivingroom1" title="Permalink to this headline">¶</a></h3>
+<p>The living room 1 scene of the Redwood indoor dataset (Augmented ICL-NUIM
+Dataset). The dataset contains a dense point cloud, a rgb sequence, a clean
+depth sequence, a noisy depth sequence, an oni file, and camera trajectory.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">RedwoodIndoorLivingRoom1</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">Path</span><span class="p">(</span><span class="n">gt_download_dir</span><span class="p">)</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span>
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">point_cloud_path</span><span class="p">)</span>
+
+<span class="n">im_rgbds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">color_path</span><span class="p">,</span> <span class="n">depth_path</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">color_paths</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">):</span>
+    <span class="n">im_color</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">color_path</span><span class="p">)</span>
+    <span class="n">im_depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">depth_path</span><span class="p">)</span>
+    <span class="n">im_rgbd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+        <span class="n">im_color</span><span class="p">,</span> <span class="n">im_depth</span><span class="p">)</span>
+    <span class="n">im_rgbds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">)</span>
+
+<span class="n">im_noisy_rgbds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">color_path</span><span class="p">,</span> <span class="n">depth_path</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">color_paths</span><span class="p">,</span>
+                                  <span class="n">dataset</span><span class="o">.</span><span class="n">noisy_depth_paths</span><span class="p">):</span>
+    <span class="n">im_color</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">color_path</span><span class="p">)</span>
+    <span class="n">im_depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">depth_path</span><span class="p">)</span>
+    <span class="n">im_rgbd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+        <span class="n">im_color</span><span class="p">,</span> <span class="n">im_depth</span><span class="p">)</span>
+    <span class="n">im_noisy_rgbds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">RedwoodIndoorLivingRoom1</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPointCloudPath</span><span class="p">());</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">im_rgbds</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">().</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_depth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetDepthPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_rgbd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">::</span><span class="n">CreateFromColorAndDepth</span><span class="p">(</span><span class="o">*</span><span class="n">im_color</span><span class="p">,</span>
+<span class="w">                                                                </span><span class="o">*</span><span class="n">im_depth</span><span class="p">);</span>
+<span class="w">    </span><span class="n">im_rgbds</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">im_noisy_rgbds</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">().</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_depth</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetNoisyDepthPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_rgbd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">::</span><span class="n">CreateFromColorAndDepth</span><span class="p">(</span><span class="o">*</span><span class="n">im_color</span><span class="p">,</span>
+<span class="w">                                                                </span><span class="o">*</span><span class="n">im_depth</span><span class="p">);</span>
+<span class="w">    </span><span class="n">im_noisy_rgbds</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="redwoodindoorlivingroom2">
+<h3>RedwoodIndoorLivingRoom2<a class="headerlink" href="#redwoodindoorlivingroom2" title="Permalink to this headline">¶</a></h3>
+<p>The living room 2 scene of the Redwood indoor dataset (Augmented ICL-NUIM
+Dataset). The dataset contains a dense point cloud, a rgb sequence, a clean
+depth sequence, a noisy depth sequence, an oni file, and camera trajectory.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">RedwoodIndoorLivingRoom2</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">Path</span><span class="p">(</span><span class="n">gt_download_dir</span><span class="p">)</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span>
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">point_cloud_path</span><span class="p">)</span>
+
+<span class="n">im_rgbds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">color_path</span><span class="p">,</span> <span class="n">depth_path</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">color_paths</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">):</span>
+    <span class="n">im_color</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">color_path</span><span class="p">)</span>
+    <span class="n">im_depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">depth_path</span><span class="p">)</span>
+    <span class="n">im_rgbd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+        <span class="n">im_color</span><span class="p">,</span> <span class="n">im_depth</span><span class="p">)</span>
+    <span class="n">im_rgbds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">)</span>
+
+<span class="n">im_noisy_rgbds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">color_path</span><span class="p">,</span> <span class="n">depth_path</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">color_paths</span><span class="p">,</span>
+                                  <span class="n">dataset</span><span class="o">.</span><span class="n">noisy_depth_paths</span><span class="p">):</span>
+    <span class="n">im_color</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">color_path</span><span class="p">)</span>
+    <span class="n">im_depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">depth_path</span><span class="p">)</span>
+    <span class="n">im_rgbd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+        <span class="n">im_color</span><span class="p">,</span> <span class="n">im_depth</span><span class="p">)</span>
+    <span class="n">im_noisy_rgbds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">RedwoodIndoorLivingRoom2</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPointCloudPath</span><span class="p">());</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">im_rgbds</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">().</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_depth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetDepthPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_rgbd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">::</span><span class="n">CreateFromColorAndDepth</span><span class="p">(</span><span class="o">*</span><span class="n">im_color</span><span class="p">,</span>
+<span class="w">                                                                </span><span class="o">*</span><span class="n">im_depth</span><span class="p">);</span>
+<span class="w">    </span><span class="n">im_rgbds</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">im_noisy_rgbds</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">().</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_depth</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetNoisyDepthPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_rgbd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">::</span><span class="n">CreateFromColorAndDepth</span><span class="p">(</span><span class="o">*</span><span class="n">im_color</span><span class="p">,</span>
+<span class="w">                                                                </span><span class="o">*</span><span class="n">im_depth</span><span class="p">);</span>
+<span class="w">    </span><span class="n">im_noisy_rgbds</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="redwoodindooroffice1">
+<h3>RedwoodIndoorOffice1<a class="headerlink" href="#redwoodindooroffice1" title="Permalink to this headline">¶</a></h3>
+<p>The office 1 scene of the Redwood indoor dataset (Augmented ICL-NUIM
+Dataset). The dataset contains a dense point cloud, a rgb sequence, a clean
+depth sequence, a noisy depth sequence, an oni file, and camera trajectory.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">RedwoodIndoorOffice1</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">Path</span><span class="p">(</span><span class="n">gt_download_dir</span><span class="p">)</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span>
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">point_cloud_path</span><span class="p">)</span>
+
+<span class="n">im_rgbds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">color_path</span><span class="p">,</span> <span class="n">depth_path</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">color_paths</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">):</span>
+    <span class="n">im_color</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">color_path</span><span class="p">)</span>
+    <span class="n">im_depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">depth_path</span><span class="p">)</span>
+    <span class="n">im_rgbd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+        <span class="n">im_color</span><span class="p">,</span> <span class="n">im_depth</span><span class="p">)</span>
+    <span class="n">im_rgbds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">)</span>
+
+<span class="n">im_noisy_rgbds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">color_path</span><span class="p">,</span> <span class="n">depth_path</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">color_paths</span><span class="p">,</span>
+                                  <span class="n">dataset</span><span class="o">.</span><span class="n">noisy_depth_paths</span><span class="p">):</span>
+    <span class="n">im_color</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">color_path</span><span class="p">)</span>
+    <span class="n">im_depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">depth_path</span><span class="p">)</span>
+    <span class="n">im_rgbd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+        <span class="n">im_color</span><span class="p">,</span> <span class="n">im_depth</span><span class="p">)</span>
+    <span class="n">im_noisy_rgbds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">RedwoodIndoorOffice1</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPointCloudPath</span><span class="p">());</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">im_rgbds</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">().</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_depth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetDepthPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_rgbd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">::</span><span class="n">CreateFromColorAndDepth</span><span class="p">(</span><span class="o">*</span><span class="n">im_color</span><span class="p">,</span>
+<span class="w">                                                                </span><span class="o">*</span><span class="n">im_depth</span><span class="p">);</span>
+<span class="w">    </span><span class="n">im_rgbds</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">im_noisy_rgbds</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">().</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_depth</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetNoisyDepthPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_rgbd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">::</span><span class="n">CreateFromColorAndDepth</span><span class="p">(</span><span class="o">*</span><span class="n">im_color</span><span class="p">,</span>
+<span class="w">                                                                </span><span class="o">*</span><span class="n">im_depth</span><span class="p">);</span>
+<span class="w">    </span><span class="n">im_noisy_rgbds</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="redwoodindooroffice2">
+<h3>RedwoodIndoorOffice2<a class="headerlink" href="#redwoodindooroffice2" title="Permalink to this headline">¶</a></h3>
+<p>The office 2 scene of the Redwood indoor dataset (Augmented ICL-NUIM
+Dataset). The dataset contains a dense point cloud, a rgb sequence, a clean
+depth sequence, a noisy depth sequence, an oni file, and camera trajectory.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">RedwoodIndoorOffice2</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">Path</span><span class="p">(</span><span class="n">gt_download_dir</span><span class="p">)</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span>
+<span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">point_cloud_path</span><span class="p">)</span>
+
+<span class="n">im_rgbds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">color_path</span><span class="p">,</span> <span class="n">depth_path</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">color_paths</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">):</span>
+    <span class="n">im_color</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">color_path</span><span class="p">)</span>
+    <span class="n">im_depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">depth_path</span><span class="p">)</span>
+    <span class="n">im_rgbd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+        <span class="n">im_color</span><span class="p">,</span> <span class="n">im_depth</span><span class="p">)</span>
+    <span class="n">im_rgbds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">)</span>
+
+<span class="n">im_noisy_rgbds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">color_path</span><span class="p">,</span> <span class="n">depth_path</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">color_paths</span><span class="p">,</span>
+                                  <span class="n">dataset</span><span class="o">.</span><span class="n">noisy_depth_paths</span><span class="p">):</span>
+    <span class="n">im_color</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">color_path</span><span class="p">)</span>
+    <span class="n">im_depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">depth_path</span><span class="p">)</span>
+    <span class="n">im_rgbd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+        <span class="n">im_color</span><span class="p">,</span> <span class="n">im_depth</span><span class="p">)</span>
+    <span class="n">im_noisy_rgbds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">::</span><span class="n">RedwoodIndoorOffice2</span><span class="w"> </span><span class="n">dataset</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">pcd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreatePointCloudFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetPointCloudPath</span><span class="p">());</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">im_rgbds</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">().</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_depth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetDepthPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_rgbd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">::</span><span class="n">CreateFromColorAndDepth</span><span class="p">(</span><span class="o">*</span><span class="n">im_color</span><span class="p">,</span>
+<span class="w">                                                                </span><span class="o">*</span><span class="n">im_depth</span><span class="p">);</span>
+<span class="w">    </span><span class="n">im_rgbds</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">im_noisy_rgbds</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">().</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetColorPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_depth</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="n">io</span><span class="o">::</span><span class="n">CreateImageFromFile</span><span class="p">(</span><span class="n">dataset</span><span class="p">.</span><span class="n">GetNoisyDepthPaths</span><span class="p">()[</span><span class="n">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">im_rgbd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">geometry</span><span class="o">::</span><span class="n">RGBDImage</span><span class="o">::</span><span class="n">CreateFromColorAndDepth</span><span class="p">(</span><span class="o">*</span><span class="n">im_color</span><span class="p">,</span>
+<span class="w">                                                                </span><span class="o">*</span><span class="n">im_depth</span><span class="p">);</span>
+<span class="w">    </span><span class="n">im_noisy_rgbds</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">im_rgbd</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../reconstruction_system/index.html" class="btn btn-neutral float-right" title="Reconstruction system" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../core/hashmap.html" class="btn btn-neutral float-left" title="Hash map" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/data/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:20 GMT -->
+</html>

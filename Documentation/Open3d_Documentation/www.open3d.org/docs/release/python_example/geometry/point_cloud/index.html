@@ -1,0 +1,1550 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/python_example/geometry/point_cloud/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:51:50 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Point Cloud &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Ray Casting" href="../ray_casting/index.html" />
+    <link rel="prev" title="Octree" href="../octree/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../camera/index.html">Camera</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Geometry</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../kd_tree/index.html">KD Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../octree/index.html">Octree</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Point Cloud</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-bounding-box-py">point_cloud_bounding_box.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-convex-hull-py">point_cloud_convex_hull.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-crop-py">point_cloud_crop.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-dbscan-clustering-py">point_cloud_dbscan_clustering.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-distance-py">point_cloud_distance.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-farthest-point-sampling-py">point_cloud_farthest_point_sampling.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-hidden-point-removal-py">point_cloud_hidden_point_removal.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-iss-keypoint-detector-py">point_cloud_iss_keypoint_detector.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-normal-estimation-py">point_cloud_normal_estimation.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-outlier-removal-radius-py">point_cloud_outlier_removal_radius.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-outlier-removal-statistical-py">point_cloud_outlier_removal_statistical.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-paint-py">point_cloud_paint.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-plane-segmentation-py">point_cloud_plane_segmentation.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-to-depth-py">point_cloud_to_depth.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-to-rgbd-py">point_cloud_to_rgbd.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-transformation-py">point_cloud_transformation.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-voxel-downsampling-py">point_cloud_voxel_downsampling.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#point-cloud-with-numpy-py">point_cloud_with_numpy.py</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ray_casting/index.html">Ray Casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rgbd/index.html">RGBD Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../triangle_mes/index.6a.delaye">Triangle Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../voxel_grid/index.html">Voxel Grid</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Geometry</a> &raquo;</li>
+        
+      <li>Point Cloud</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="point-cloud">
+<h1>Point Cloud<a class="headerlink" href="#point-cloud" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="point-cloud-bounding-box-py">
+<h2>point_cloud_bounding_box.py<a class="headerlink" href="#point-cloud-bounding-box-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">sample_ply_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">PLYPointCloud</span><span class="p">()</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">sample_ply_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="c1"># Flip it, otherwise the pointcloud will be upside down.</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">transform</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pcd</span><span class="p">)</span>
+    <span class="n">axis_aligned_bounding_box</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">get_axis_aligned_bounding_box</span><span class="p">()</span>
+    <span class="n">axis_aligned_bounding_box</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">oriented_bounding_box</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">get_oriented_bounding_box</span><span class="p">()</span>
+    <span class="n">oriented_bounding_box</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;Displaying axis_aligned_bounding_box in red and oriented bounding box in green ...&quot;</span>
+    <span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">pcd</span><span class="p">,</span> <span class="n">axis_aligned_bounding_box</span><span class="p">,</span> <span class="n">oriented_bounding_box</span><span class="p">])</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-convex-hull-py">
+<h2>point_cloud_convex_hull.py<a class="headerlink" href="#point-cloud-convex-hull-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Displaying pointcloud with convex hull ...&quot;</span><span class="p">)</span>
+    <span class="n">bunny</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+    <span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">bunny</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+
+    <span class="n">pcl</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">sample_points_poisson_disk</span><span class="p">(</span><span class="n">number_of_points</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+    <span class="n">hull</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pcl</span><span class="o">.</span><span class="n">compute_convex_hull</span><span class="p">()</span>
+    <span class="n">hull_ls</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">LineSet</span><span class="o">.</span><span class="n">create_from_triangle_mesh</span><span class="p">(</span><span class="n">hull</span><span class="p">)</span>
+    <span class="n">hull_ls</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">pcl</span><span class="p">,</span> <span class="n">hull_ls</span><span class="p">])</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-crop-py">
+<h2>point_cloud_crop.py<a class="headerlink" href="#point-cloud-crop-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Load a ply point cloud, crop it, and render it&quot;</span><span class="p">)</span>
+    <span class="n">sample_ply_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DemoCropPointCloud</span><span class="p">()</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">sample_ply_data</span><span class="o">.</span><span class="n">point_cloud_path</span><span class="p">)</span>
+    <span class="n">vol</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">read_selection_polygon_volume</span><span class="p">(</span>
+        <span class="n">sample_ply_data</span><span class="o">.</span><span class="n">cropped_json_path</span><span class="p">)</span>
+    <span class="n">chair</span> <span class="o">=</span> <span class="n">vol</span><span class="o">.</span><span class="n">crop_point_cloud</span><span class="p">(</span><span class="n">pcd</span><span class="p">)</span>
+    <span class="c1"># Flip the pointclouds, otherwise they will be upside down.</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">transform</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+    <span class="n">chair</span><span class="o">.</span><span class="n">transform</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Displaying original pointcloud ...&quot;</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Displaying cropped pointcloud&quot;</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">chair</span><span class="p">])</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-dbscan-clustering-py">
+<h2>point_cloud_dbscan_clustering.py<a class="headerlink" href="#point-cloud-dbscan-clustering-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">sample_ply_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">PLYPointCloud</span><span class="p">()</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">sample_ply_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="c1"># Flip it, otherwise the pointcloud will be upside down.</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">transform</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+    <span class="k">with</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityContextManager</span><span class="p">(</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityLevel</span><span class="o">.</span><span class="n">Debug</span><span class="p">)</span> <span class="k">as</span> <span class="n">cm</span><span class="p">:</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="n">pcd</span><span class="o">.</span><span class="n">cluster_dbscan</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">min_points</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">print_progress</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+    <span class="n">max_label</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;point cloud has </span><span class="si">{</span><span class="n">max_label</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> clusters&quot;</span><span class="p">)</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;tab20&quot;</span><span class="p">)(</span><span class="n">labels</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_label</span> <span class="k">if</span> <span class="n">max_label</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">colors</span><span class="p">[</span><span class="n">labels</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span><span class="n">colors</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-distance-py">
+<h2>point_cloud_distance.py<a class="headerlink" href="#point-cloud-distance-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">sample_ply_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DemoCropPointCloud</span><span class="p">()</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">sample_ply_data</span><span class="o">.</span><span class="n">point_cloud_path</span><span class="p">)</span>
+    <span class="n">vol</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">read_selection_polygon_volume</span><span class="p">(</span>
+        <span class="n">sample_ply_data</span><span class="o">.</span><span class="n">cropped_json_path</span><span class="p">)</span>
+    <span class="n">chair</span> <span class="o">=</span> <span class="n">vol</span><span class="o">.</span><span class="n">crop_point_cloud</span><span class="p">(</span><span class="n">pcd</span><span class="p">)</span>
+
+    <span class="n">chair</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Displaying the two point clouds used for calculating distance ...&quot;</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">pcd</span><span class="p">,</span> <span class="n">chair</span><span class="p">])</span>
+
+    <span class="n">dists</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">compute_point_cloud_distance</span><span class="p">(</span><span class="n">chair</span><span class="p">)</span>
+    <span class="n">dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dists</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Printing average distance between the two point clouds ...&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">dists</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-farthest-point-sampling-py">
+<h2>point_cloud_farthest_point_sampling.py<a class="headerlink" href="#point-cloud-farthest-point-sampling-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># Load bunny data.</span>
+    <span class="n">bunny</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">bunny</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+
+    <span class="c1"># Get 1000 samples from original point cloud and paint to green.</span>
+    <span class="n">pcd_down</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">farthest_point_down_sample</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="n">pcd_down</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">pcd</span><span class="p">,</span> <span class="n">pcd_down</span><span class="p">])</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-hidden-point-removal-py">
+<h2>point_cloud_hidden_point_removal.py<a class="headerlink" href="#point-cloud-hidden-point-removal-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="c1"># Convert mesh to a point cloud and estimate dimensions.</span>
+    <span class="n">armadillo_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ArmadilloMesh</span><span class="p">()</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span>
+        <span class="n">armadillo_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">sample_points_poisson_disk</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+    <span class="n">diameter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pcd</span><span class="o">.</span><span class="n">get_max_bound</span><span class="p">())</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pcd</span><span class="o">.</span><span class="n">get_min_bound</span><span class="p">()))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Displaying input point cloud ...&quot;</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">pcd</span><span class="p">],</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="c1"># Define parameters used for hidden_point_removal.</span>
+    <span class="n">camera</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">diameter</span><span class="p">]</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="n">diameter</span> <span class="o">*</span> <span class="mi">100</span>
+
+    <span class="c1"># Get all points that are visible from given view point.</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">pt_map</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">hidden_point_removal</span><span class="p">(</span><span class="n">camera</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Displaying point cloud after hidden point removal ...&quot;</span><span class="p">)</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">select_by_index</span><span class="p">(</span><span class="n">pt_map</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">pcd</span><span class="p">],</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-iss-keypoint-detector-py">
+<h2>point_cloud_iss_keypoint_detector.py<a class="headerlink" href="#point-cloud-iss-keypoint-detector-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># Compute ISS Keypoints on armadillo pointcloud.</span>
+    <span class="n">armadillo_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ArmadilloMesh</span><span class="p">()</span>
+    <span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">armadillo_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">PointCloud</span><span class="p">()</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">vertices</span>
+
+    <span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">keypoints</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">keypoint</span><span class="o">.</span><span class="n">compute_iss_keypoints</span><span class="p">(</span><span class="n">pcd</span><span class="p">)</span>
+    <span class="n">toc</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">*</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">tic</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ISS Computation took </span><span class="si">{:.0f}</span><span class="s2"> [ms]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">toc</span><span class="p">))</span>
+
+    <span class="n">mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+    <span class="n">mesh</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+    <span class="n">keypoints</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">keypoints</span><span class="p">,</span> <span class="n">mesh</span><span class="p">],</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-normal-estimation-py">
+<h2>point_cloud_normal_estimation.py<a class="headerlink" href="#point-cloud-normal-estimation-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">bunny</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">BunnyMesh</span><span class="p">()</span>
+    <span class="n">gt_mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">bunny</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">gt_mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">gt_mesh</span><span class="o">.</span><span class="n">sample_points_poisson_disk</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+    <span class="c1"># Invalidate existing normals.</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">normals</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Displaying input pointcloud ...&quot;</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">pcd</span><span class="p">],</span> <span class="n">point_show_normal</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">pcd</span><span class="o">.</span><span class="n">estimate_normals</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Displaying pointcloud with normals ...&quot;</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">pcd</span><span class="p">],</span> <span class="n">point_show_normal</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Printing the normal vectors ...&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pcd</span><span class="o">.</span><span class="n">normals</span><span class="p">))</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-outlier-removal-radius-py">
+<h2>point_cloud_outlier_removal_radius.py<a class="headerlink" href="#point-cloud-outlier-removal-radius-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="k">def</span> <span class="nf">display_inlier_outlier</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="n">ind</span><span class="p">):</span>
+    <span class="n">inlier_cloud</span> <span class="o">=</span> <span class="n">cloud</span><span class="o">.</span><span class="n">select_by_index</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+    <span class="n">outlier_cloud</span> <span class="o">=</span> <span class="n">cloud</span><span class="o">.</span><span class="n">select_by_index</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Showing outliers (red) and inliers (gray): &quot;</span><span class="p">)</span>
+    <span class="n">outlier_cloud</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">inlier_cloud</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">])</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">inlier_cloud</span><span class="p">,</span> <span class="n">outlier_cloud</span><span class="p">])</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">ptcloud_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">PLYPointCloud</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Load a ply point cloud, print it, and render it&quot;</span><span class="p">)</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">ptcloud_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">get_rotation_matrix_from_xyz</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downsample the point cloud with a voxel of 0.02&quot;</span><span class="p">)</span>
+    <span class="n">voxel_down_pcd</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="n">voxel_size</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">voxel_down_pcd</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Radius oulier removal&quot;</span><span class="p">)</span>
+    <span class="n">cl</span><span class="p">,</span> <span class="n">ind</span> <span class="o">=</span> <span class="n">voxel_down_pcd</span><span class="o">.</span><span class="n">remove_radius_outlier</span><span class="p">(</span><span class="n">nb_points</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">display_inlier_outlier</span><span class="p">(</span><span class="n">voxel_down_pcd</span><span class="p">,</span> <span class="n">ind</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-outlier-removal-statistical-py">
+<h2>point_cloud_outlier_removal_statistical.py<a class="headerlink" href="#point-cloud-outlier-removal-statistical-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="k">def</span> <span class="nf">display_inlier_outlier</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="n">ind</span><span class="p">):</span>
+    <span class="n">inlier_cloud</span> <span class="o">=</span> <span class="n">cloud</span><span class="o">.</span><span class="n">select_by_index</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+    <span class="n">outlier_cloud</span> <span class="o">=</span> <span class="n">cloud</span><span class="o">.</span><span class="n">select_by_index</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Showing outliers (red) and inliers (gray): &quot;</span><span class="p">)</span>
+    <span class="n">outlier_cloud</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">inlier_cloud</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">])</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">inlier_cloud</span><span class="p">,</span> <span class="n">outlier_cloud</span><span class="p">])</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">ptcloud_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">PLYPointCloud</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Load a ply point cloud, print it, and render it&quot;</span><span class="p">)</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">ptcloud_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">get_rotation_matrix_from_xyz</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downsample the point cloud with a voxel of 0.02&quot;</span><span class="p">)</span>
+    <span class="n">voxel_down_pcd</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="n">voxel_size</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">voxel_down_pcd</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Statistical oulier removal&quot;</span><span class="p">)</span>
+    <span class="n">cl</span><span class="p">,</span> <span class="n">ind</span> <span class="o">=</span> <span class="n">voxel_down_pcd</span><span class="o">.</span><span class="n">remove_statistical_outlier</span><span class="p">(</span><span class="n">nb_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                                                        <span class="n">std_ratio</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+    <span class="n">display_inlier_outlier</span><span class="p">(</span><span class="n">voxel_down_pcd</span><span class="p">,</span> <span class="n">ind</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-paint-py">
+<h2>point_cloud_paint.py<a class="headerlink" href="#point-cloud-paint-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Load a ply point cloud, print it, and render it&quot;</span><span class="p">)</span>
+    <span class="n">sample_ply_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">PLYPointCloud</span><span class="p">()</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">sample_ply_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="c1"># Flip it, otherwise the pointcloud will be upside down.</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">transform</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pcd</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Paint pointcloud&quot;</span><span class="p">)</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.706</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-plane-segmentation-py">
+<h2>point_cloud_plane_segmentation.py<a class="headerlink" href="#point-cloud-plane-segmentation-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="n">sample_pcd_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">PCDPointCloud</span><span class="p">()</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">sample_pcd_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="c1"># Flip it, otherwise the pointcloud will be upside down.</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">transform</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+    <span class="n">plane_model</span><span class="p">,</span> <span class="n">inliers</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">segment_plane</span><span class="p">(</span><span class="n">distance_threshold</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+                                             <span class="n">ransac_n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                             <span class="n">num_iterations</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">plane_model</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plane equation: </span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">x + </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">y + </span><span class="si">{</span><span class="n">c</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">z + </span><span class="si">{</span><span class="n">d</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> = 0&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Displaying pointcloud with planar points in red ...&quot;</span><span class="p">)</span>
+    <span class="n">inlier_cloud</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">select_by_index</span><span class="p">(</span><span class="n">inliers</span><span class="p">)</span>
+    <span class="n">inlier_cloud</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">outlier_cloud</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">select_by_index</span><span class="p">(</span><span class="n">inliers</span><span class="p">,</span> <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">inlier_cloud</span><span class="p">,</span> <span class="n">outlier_cloud</span><span class="p">])</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-to-depth-py">
+<h2>point_cloud_to_depth.py<a class="headerlink" href="#point-cloud-to-depth-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">tum_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">SampleTUMRGBDImage</span><span class="p">()</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">tum_data</span><span class="o">.</span><span class="n">depth_path</span><span class="p">)</span>
+    <span class="n">intrinsic</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mf">535.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">320.1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">539.2</span><span class="p">,</span> <span class="mf">247.6</span><span class="p">],</span>
+                                 <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">PointCloud</span><span class="o">.</span><span class="n">create_from_depth_image</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span>
+                                                            <span class="n">intrinsic</span><span class="p">,</span>
+                                                            <span class="n">depth_scale</span><span class="o">=</span><span class="mf">5000.0</span><span class="p">,</span>
+                                                            <span class="n">depth_max</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+    <span class="n">depth_reproj</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">project_to_depth_image</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span>
+                                              <span class="mi">480</span><span class="p">,</span>
+                                              <span class="n">intrinsic</span><span class="p">,</span>
+                                              <span class="n">depth_scale</span><span class="o">=</span><span class="mf">5000.0</span><span class="p">,</span>
+                                              <span class="n">depth_max</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">depth</span><span class="o">.</span><span class="n">to_legacy</span><span class="p">()))</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">depth_reproj</span><span class="o">.</span><span class="n">to_legacy</span><span class="p">()))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-to-rgbd-py">
+<h2>point_cloud_to_rgbd.py<a class="headerlink" href="#point-cloud-to-rgbd-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="s1">&#39;CPU:0&#39;</span><span class="p">)</span>
+    <span class="n">tum_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">SampleTUMRGBDImage</span><span class="p">()</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">tum_data</span><span class="o">.</span><span class="n">depth_path</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">tum_data</span><span class="o">.</span><span class="n">color_path</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+    <span class="n">intrinsic</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([[</span><span class="mf">535.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">320.1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">539.2</span><span class="p">,</span> <span class="mf">247.6</span><span class="p">],</span>
+                                 <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+    <span class="n">rgbd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">depth</span><span class="p">)</span>
+
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">PointCloud</span><span class="o">.</span><span class="n">create_from_rgbd_image</span><span class="p">(</span><span class="n">rgbd</span><span class="p">,</span>
+                                                           <span class="n">intrinsic</span><span class="p">,</span>
+                                                           <span class="n">depth_scale</span><span class="o">=</span><span class="mf">5000.0</span><span class="p">,</span>
+                                                           <span class="n">depth_max</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+    <span class="n">rgbd_reproj</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">project_to_rgbd_image</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span>
+                                            <span class="mi">480</span><span class="p">,</span>
+                                            <span class="n">intrinsic</span><span class="p">,</span>
+                                            <span class="n">depth_scale</span><span class="o">=</span><span class="mf">5000.0</span><span class="p">,</span>
+                                            <span class="n">depth_max</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rgbd_reproj</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">to_legacy</span><span class="p">()))</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rgbd_reproj</span><span class="o">.</span><span class="n">depth</span><span class="o">.</span><span class="n">to_legacy</span><span class="p">()))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-transformation-py">
+<h2>point_cloud_transformation.py<a class="headerlink" href="#point-cloud-transformation-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+
+<span class="k">def</span> <span class="nf">translate</span><span class="p">():</span>
+    <span class="n">armadillo_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ArmadilloMesh</span><span class="p">()</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span>
+        <span class="n">armadillo_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">sample_points_poisson_disk</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+    <span class="n">pcd_tx</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pcd</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">((</span><span class="mi">150</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">pcd_ty</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pcd</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Displaying original and translated geometries ...&#39;</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Original Geometry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="n">pcd</span>
+    <span class="p">},</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Translated (in X) Geometry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="n">pcd_tx</span>
+    <span class="p">},</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Translated (in Y) Geometry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="n">pcd_ty</span>
+    <span class="p">}],</span>
+                           <span class="n">show_ui</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">rotate</span><span class="p">():</span>
+    <span class="n">armadillo_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ArmadilloMesh</span><span class="p">()</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span>
+        <span class="n">armadillo_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">sample_points_poisson_disk</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+    <span class="n">pcd_r</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pcd</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">((</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">get_rotation_matrix_from_xyz</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">pcd_r</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Displaying original and rotated geometries ...&#39;</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Original Geometry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="n">pcd</span>
+    <span class="p">},</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Rotated Geometry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="n">pcd_r</span>
+    <span class="p">}],</span>
+                           <span class="n">show_ui</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">scale</span><span class="p">():</span>
+    <span class="n">armadillo_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ArmadilloMesh</span><span class="p">()</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span>
+        <span class="n">armadillo_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">sample_points_poisson_disk</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+    <span class="n">pcd_s</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pcd</span><span class="p">)</span><span class="o">.</span><span class="n">translate</span><span class="p">((</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">pcd_s</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">pcd_s</span><span class="o">.</span><span class="n">get_center</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Displaying original and scaled geometries ...&#39;</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Original Geometry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="n">pcd</span>
+    <span class="p">},</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Scaled Geometry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="n">pcd_s</span>
+    <span class="p">}],</span>
+                           <span class="n">show_ui</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">transform</span><span class="p">():</span>
+    <span class="n">armadillo_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ArmadilloMesh</span><span class="p">()</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span>
+        <span class="n">armadillo_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">sample_points_poisson_disk</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">T</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">get_rotation_matrix_from_xyz</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">150</span>
+    <span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">200</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">pcd_t</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pcd</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Displaying original and transformed geometries ...&#39;</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Original Geometry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="n">pcd</span>
+    <span class="p">},</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Transformed Geometry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="n">pcd_t</span>
+    <span class="p">}],</span>
+                           <span class="n">show_ui</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="n">translate</span><span class="p">()</span>
+    <span class="n">rotate</span><span class="p">()</span>
+    <span class="n">scale</span><span class="p">()</span>
+    <span class="n">transform</span><span class="p">()</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-voxel-downsampling-py">
+<h2>point_cloud_voxel_downsampling.py<a class="headerlink" href="#point-cloud-voxel-downsampling-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Load a ply point cloud, print it, and render it&quot;</span><span class="p">)</span>
+    <span class="n">sample_ply_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">PLYPointCloud</span><span class="p">()</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">sample_ply_data</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="c1"># Flip it, otherwise the pointcloud will be upside down.</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">transform</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pcd</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downsample the point cloud with a voxel of 0.05&quot;</span><span class="p">)</span>
+    <span class="n">downpcd</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="n">voxel_size</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">downpcd</span><span class="p">])</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="point-cloud-with-numpy-py">
+<h2>point_cloud_with_numpy.py<a class="headerlink" href="#point-cloud-with-numpy-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># Generate some n x 3 matrix using a variant of sync function.</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
+    <span class="n">mesh_x</span><span class="p">,</span> <span class="n">mesh_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sinc</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">mesh_x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">mesh_y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+    <span class="n">z_norm</span> <span class="o">=</span> <span class="p">(</span><span class="n">z</span> <span class="o">-</span> <span class="n">z</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">z</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+    <span class="n">xyz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">mesh_x</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="n">xyz</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">mesh_x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">xyz</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">mesh_y</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">xyz</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">z_norm</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Printing numpy array used to make Open3D pointcloud ...&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">xyz</span><span class="p">)</span>
+
+    <span class="c1"># Pass xyz to Open3D.o3d.geometry.PointCloud and visualize.</span>
+    <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">PointCloud</span><span class="p">()</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span><span class="n">xyz</span><span class="p">)</span>
+    <span class="c1"># Add color and estimate normals for better visualization.</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">estimate_normals</span><span class="p">()</span>
+    <span class="n">pcd</span><span class="o">.</span><span class="n">orient_normals_consistent_tangent_plane</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Displaying Open3D pointcloud made using numpy array ...&quot;</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
+
+    <span class="c1"># Convert Open3D.o3d.geometry.PointCloud to numpy array.</span>
+    <span class="n">xyz_converted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pcd</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Printing numpy array made using Open3D pointcloud ...&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">xyz_converted</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../ray_casting/index.html" class="btn btn-neutral float-right" title="Ray Casting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../octree/index.html" class="btn btn-neutral float-left" title="Octree" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/python_example/geometry/point_cloud/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:51:50 GMT -->
+</html>

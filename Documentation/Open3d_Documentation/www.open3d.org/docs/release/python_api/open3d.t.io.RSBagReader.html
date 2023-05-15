@@ -1,0 +1,472 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.t.io.RSBagReader.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:06 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>open3d.t.io.RSBagReader &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="open3d.t.io.RealSenseSensor" href="open3d.t.io.RealSenseSensor.html" />
+    <link rel="prev" title="open3d.t.io.RGBDVideoReader" href="open3d.t.io.RGBDVideoReader.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="open3d.t.html">open3d.t</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="open3d.t.geometry.html">geometry</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="open3d.t.io.html">io</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.io.DepthNoiseSimulator.12d.delay">DepthNoiseSimulator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.io.RGBDSensor.html">RGBDSensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.io.RGBDVideoMetadata.html">RGBDVideoMetadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.io.RGBDVideoReader.html">RGBDVideoReader</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">RSBagReader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.io.RealSenseSensor.html">RealSenseSensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.io.RealSenseSensorConfig.12f.del">RealSenseSensorConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.io.RealSenseValidConfigs.130.del">RealSenseValidConfigs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.io.SensorType.html">SensorType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.io.read_image.html">read_image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.io.read_point_cloud.html">read_point_cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.io.read_triangle_mesh.1c4.delaye">read_triangle_mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.io.write_image.html">write_image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.io.write_point_cloud.html">write_point_cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.t.io.write_triangle_mesh.204.delay">write_triangle_mesh</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="open3d.t.pipelines.html">pipelines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="open3d.t.html">open3d.t</a> &raquo;</li>
+        
+          <li><a href="open3d.t.io.html">open3d.t.io</a> &raquo;</li>
+        
+      <li>open3d.t.io.RSBagReader</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="open3d-t-io-rsbagreader">
+<h1>open3d.t.io.RSBagReader<a class="headerlink" href="#open3d-t-io-rsbagreader" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="open3d.t.io.RSBagReader">
+<em class="property">class </em><code class="sig-prename descclassname">open3d.t.io.</code><code class="sig-name descname">RSBagReader</code><a class="headerlink" href="#open3d.t.io.RSBagReader" title="Permalink to this definition">¶</a></dt>
+<dd><dl>
+<dt>RealSense Bag file reader.</dt><dd><blockquote>
+<div><p>Only the first color and depth streams from the bag file will be read.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>The streams must have the same frame rate.</p></li>
+<li><p>The color stream must have RGB 8 bit (RGB8/BGR8) pixel format</p></li>
+<li><p>The depth stream must have 16 bit unsigned int (Z16) pixel format</p></li>
+</ul>
+</dd>
+</dl>
+<p>The output is synchronized color and depth frame pairs with the depth frame aligned to the color frame. Unsynchronized frames will be dropped. With alignment, the depth and color frames have the same  viewpoint and resolution. See format documentation <a class="reference external" href="https://intelrealsense.github.io/librealsense/doxygen/rs__sensor_8h.html#ae04b7887ce35d16dbd9d2d295d23aac7">here</a></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>A few frames may be dropped if user code takes a long time (&gt;10 frame intervals) to process a frame.</p>
+</div>
+<dl class="py method">
+<dt id="open3d.t.io.RSBagReader.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.io.RSBagReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>__init__(self)</p></li>
+<li><p>__init__(self, buffer_size=32)</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>buffer_size</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=32</em>) – Size of internal frame buffer, increase this if you experience frame drops.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.io.RSBagReader.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.io.RSBagReader</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#open3d.t.io.RSBagReader.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the opened RS bag playback.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.io.RSBagReader.create">
+<em class="property">static </em><code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.io.RSBagReader.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create RGBD video reader based on filename</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Path to the RGBD video file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>open3d.t.io.RGBDVideoReader</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.io.RSBagReader.get_timestamp">
+<code class="sig-name descname">get_timestamp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.io.RSBagReader</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#open3d.t.io.RSBagReader.get_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get current timestamp (in us).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.io.RSBagReader.is_eof">
+<code class="sig-name descname">is_eof</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.io.RSBagReader</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#open3d.t.io.RSBagReader.is_eof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the RS bag file is all read.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.io.RSBagReader.is_opened">
+<code class="sig-name descname">is_opened</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.io.RSBagReader</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#open3d.t.io.RSBagReader.is_opened" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the RS bag file  is opened.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.io.RSBagReader.next_frame">
+<code class="sig-name descname">next_frame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span><span class="p">:</span> <span class="n">open3d.cpu.pybind.t.io.RSBagReader</span></em><span class="sig-paren">)</span> &#x2192; open3d.cpu.pybind.t.geometry.RGBDImage<a class="headerlink" href="#open3d.t.io.RSBagReader.next_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get next frame from the RS bag playback and returns the RGBD object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.io.RSBagReader.open">
+<code class="sig-name descname">open</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.io.RSBagReader.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open an RS bag playback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Path to the RGBD video file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.io.RSBagReader.save_frames">
+<code class="sig-name descname">save_frames</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">frame_path</span></em>, <em class="sig-param"><span class="n">start_time_us</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">end_time_us</span><span class="o">=</span><span class="default_value">18446744073709551615</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.io.RSBagReader.save_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save synchronized and aligned individual frames to subfolders.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>frame_path</strong> (<em>str</em>) – Frames will be stored in stream subfolders ‘color’ and ‘depth’ here. The intrinsic camera calibration for the color stream will be saved in ‘intrinsic.json’</p></li>
+<li><p><strong>start_time_us</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=0</em>) – Start saving frames from this time (us)</p></li>
+<li><p><strong>end_time_us</strong> (<em>int</em><em>, </em><em>optional</em><em>, </em><em>default=18446744073709551615</em>) – (default video length) Save frames till this time (us)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.io.RSBagReader.seek_timestamp">
+<code class="sig-name descname">seek_timestamp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">timestamp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.t.io.RSBagReader.seek_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Seek to the timestamp (in us).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>timestamp</strong> (<em>int</em>) – Timestamp in the video (usec).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="open3d.t.io.RSBagReader.metadata">
+<em class="property">property </em><code class="sig-name descname">metadata</code><a class="headerlink" href="#open3d.t.io.RSBagReader.metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get metadata of the RS bag playback.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="open3d.t.io.RealSenseSensor.html" class="btn btn-neutral float-right" title="open3d.t.io.RealSenseSensor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="open3d.t.io.RGBDVideoReader.html" class="btn btn-neutral float-left" title="open3d.t.io.RGBDVideoReader" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.t.io.RSBagReader.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:06 GMT -->
+</html>

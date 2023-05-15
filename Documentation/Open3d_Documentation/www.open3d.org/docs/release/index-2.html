@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:51:51 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Open3D: A Modern Library for 3D Data Processing &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Open3D: A Modern Library for 3D Data Processing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<a class="reference internal image-reference" href="_images/open3d_logo_horizontal.png"><img alt="Open3D logo" class="align-center" src="_images/open3d_logo_horizontal.png" style="width: 320px;" /></a>
+<hr class="docutils" />
+<div class="section" id="open3d-a-modern-library-for-3d-data-processing">
+<h1>Open3D: A Modern Library for 3D Data Processing<a class="headerlink" href="#open3d-a-modern-library-for-3d-data-processing" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/geometry/index.html">Geometry</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/pointcloud.html">Point cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/mesh.html">Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/rgbd_image.html">RGBD images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/kdtree.html">KDTree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/file_io.html">File IO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/pointcloud_outlier_removal.3c.dela">Point cloud outlier removal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/voxelization.html">Voxelization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/octree.html">Octree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/surface_reconstruction.html">Surface reconstruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/transformation.html">Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/mesh_deformation.html">Mesh deformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/iss_keypoint_detector.html">Intrinsic shape signatures (ISS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/ray_casting.html">Ray Casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/distance_queries.html">Distance Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/python_interface.html">Python Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/geometry/working_with_numpy.html">Working with NumPy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/t_geometry/index.html">Geometry (Tensor)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/t_geometry/pointcloud.html">PointCloud</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/pipelines/index.html">Pipelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/pipelines/icp_registration.html">ICP registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/pipelines/robust_kernels.html">Robust kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/pipelines/colored_pointcloud_registration.4">Colored point cloud registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/pipelines/global_registration.html">Global registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/pipelines/multiway_registration.html">Multiway registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/pipelines/rgbd_integration.html">RGBD integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/pipelines/rgbd_odometry.html">RGBD Odometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/pipelines/color_map_optimization.html">Color Map Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/t_pipelines/index.html">Pipelines (Tensor)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/t_pipelines/t_icp_registration.html">ICP registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/t_pipelines/t_robust_kernel.html">Robust Kernel</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/visualization/index.html">Visualization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/visualization/visualization.html">Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/visualization/customized_visualization.53.d">Customized visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/visualization/interactive_visualization.54">Interactive visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/visualization/non_blocking_visualization.55">Non-blocking visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/visualization/headless_rendering.html">Headless rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/visualization/cpu_rendering.html">CPU (Software) Rendering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/visualization/web_visualizer.html">Web visualizer and Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/visualization/tensorboard_plugin.html">Open3D for TensorBoard</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/core/index.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/core/tensor.html">Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/core/hashmap.html">Hash map</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/data/index.html">Dataset</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/data/index.html#pointcloud">PointCloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/data/index.html#trianglemesh">TriangleMesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/data/index.html#trianglemodel-with-prb-texture">TriangleModel with PRB texture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/data/index.html#texture-material-images">Texture material images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/data/index.html#image">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/data/index.html#rgbdimage">RGBDImage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/data/index.html#demo">Demo</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/reconstruction_system/index.html">Reconstruction system</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/reconstruction_syst/system_overview.5c.dela">System overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/reconstruction_syst/make_fragments.5d.delay">Make fragments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/reconstruction_syst/register_fragments.5e.d">Register fragments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/reconstruction_syst/refine_registration.5f">Refine registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/reconstruction_syst/integrate_scene.60.dela">Integrate scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/reconstruction_syst/capture_your_own_datase">Capture your own dataset</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/t_reconstruction_system/index.html#quick-start">Quick start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/t_reconstruction_system/index.html#capture-your-own-dataset">Capture your own dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/t_reconstruction_system/index.html#getting-started-with-online-reconstruction-system">Getting started with online reconstruction system</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/sensor/index.html">Sensor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/sensor/azure_kinect.html">Azure Kinect with Open3D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/sensor/realsense.html">RealSense with Open3D</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/reference.html">Reference</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cpp_api.html">C++ documentation</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python_example/camera/index.html">Camera</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python_example/camera/index.html#camera-trajectory-py">camera_trajectory.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/geometry/index.html">Geometry</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python_example/geometry/image/index.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/geometry/kd_tree/index.html">KD Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/geometry/octree/index.html">Octree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/geometry/point_cloud/index.html">Point Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/geometry/ray_casting/index.html">Ray Casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/geometry/rgbd/index.html">RGBD Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/geometry/triangle_mes/index.6a.delaye">Triangle Mesh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/geometry/voxel_grid/index.html">Voxel Grid</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/io/index.html">IO</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python_example/io/index.html#image-io-py">image_io.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/io/index.html#point-cloud-io-py">point_cloud_io.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/io/index.html#realsense-io-py">realsense_io.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/io/index.html#triangle-mesh-io-py">triangle_mesh_io.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/pipelines/index.html">Pipelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python_example/pipelines/index.html#colored-icp-registration-py">colored_icp_registration.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/pipelines/index.html#icp-registration-py">icp_registration.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/pipelines/index.html#multiway-registration-py">multiway_registration.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/pipelines/index.html#pose-graph-optimization-py">pose_graph_optimization.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/pipelines/index.html#registration-fgr-py">registration_fgr.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/pipelines/index.html#registration-ransac-py">registration_ransac.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/pipelines/index.html#rgbd-integration-uniform-py">rgbd_integration_uniform.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/pipelines/index.html#rgbd-odometry-py">rgbd_odometry.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/pipelines/index.html#robust-icp-py">robust_icp.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/utility/index.html">Utility</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python_example/utility/index.html#vector-py">vector.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/visualization/index.html">Visualization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#add-geometry-py">add_geometry.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#all-widgets-py">all_widgets.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#customized-visualization-py">customized_visualization.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#customized-visualization-key-action-py">customized_visualization_key_action.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#demo-scene-py">demo_scene.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#draw-py">draw.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#draw-webrtc-py">draw_webrtc.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#headless-rendering-py">headless_rendering.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#interactive-visualization-py">interactive_visualization.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#line-width-py">line_width.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#load-save-viewpoint-py">load_save_viewpoint.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#mitsuba-material-estimation-py">mitsuba_material_estimation.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#mouse-and-point-coord-py">mouse_and_point_coord.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#multiple-windows-py">multiple_windows.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#non-blocking-visualization-py">non_blocking_visualization.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#non-english-py">non_english.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#online-processing-py">online_processing.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#remove-geometry-py">remove_geometry.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#render-to-image-py">render_to_image.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#tensorboard-pytorch-py">tensorboard_pytorch.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#tensorboard-tensorflow-py">tensorboard_tensorflow.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#text3d-py">text3d.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#textured-mesh-py">textured_mesh.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#textured-model-py">textured_model.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#to-mitsuba-py">to_mitsuba.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#video-py">video.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_example/visualization/index.html#vis-gui-py">vis_gui.py</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:51:51 GMT -->
+</html>

@@ -1,0 +1,560 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/getting_started.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:16 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting started &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Build from source" href="compilation.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python">Python</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pip-pypi">Pip (PyPI)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#development-version-pip">Development version (pip)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#try-it">Try it</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#troubleshooting">Troubleshooting:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#running-open3d-tutorials">Running Open3D tutorials</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#c">C++</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Try it</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index-2.html">Docs</a> &raquo;</li>
+        
+      <li>Getting started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="getting-started">
+<span id="id1"></span><h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="python">
+<span id="install-open3d-python"></span><h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p>Open3D Python packages are distributed via
+<a class="reference external" href="https://pypi.org/project/open3d/">PyPI</a>.</p>
+<p>Supported Python versions:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><p>3.7</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>3.8</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>3.9</p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p>3.10</p></li>
+</ul>
+</td></tr></table>
+<p>Supported operating systems:</p>
+<ul class="simple">
+<li><p>Ubuntu 18.04+</p></li>
+<li><p>macOS 10.15+</p></li>
+<li><p>Windows 10+ (64-bit)</p></li>
+</ul>
+<p>If you have other Python versions or operating systems, please refer to
+<a class="reference internal" href="compilation.html#compilation"><span class="std std-ref">Build from source</span></a> and compile Open3D from source.</p>
+<div class="section" id="pip-pypi">
+<h3>Pip (PyPI)<a class="headerlink" href="#pip-pypi" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>open3d<span class="w">        </span><span class="c1"># or</span>
+pip<span class="w"> </span>install<span class="w"> </span>open3d-cpu<span class="w">    </span><span class="c1"># Smaller CPU only wheel on x86_64 Linux (since v0.17+)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please upgrade your <code class="docutils literal notranslate"><span class="pre">pip</span></code> to a version &gt;=20.3 to install Open3D in Linux,
+e.g. with</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-U</span> <span class="pre">pip&gt;=20.3</span></code></p>
+</div></blockquote>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In general, we recommend using a
+<a class="reference external" href="https://docs.python-guide.org/dev/virtualenvs/">virtual environment</a>
+or <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">conda environment</a>.
+Otherwise, depending on the configurations, you may need <code class="docutils literal notranslate"><span class="pre">pip3</span></code>  for
+Python 3, or the <code class="docutils literal notranslate"><span class="pre">--user</span></code> option to avoid permission issues. For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>open3d
+<span class="c1"># or</span>
+pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>open3d
+<span class="c1"># or</span>
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>open3d
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="development-version-pip">
+<h3>Development version (pip)<a class="headerlink" href="#development-version-pip" title="Permalink to this headline">¶</a></h3>
+<p>To test the latest features in Open3D, download and install the development
+version (<code class="docutils literal notranslate"><span class="pre">HEAD</span></code> of <code class="docutils literal notranslate"><span class="pre">master</span></code> branch):</p>
+<table class="colwidths-auto docutils align-default">
+<tbody>
+<tr class="row-odd"><th class="stub"><p>Linux</p></th>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d-0.17.0-cp37-cp37m-manylinux_2_27_x86_64.whl">Python 3.7</a></p></td>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d-0.17.0-cp38-cp38-manylinux_2_27_x86_64.whl">Python 3.8</a></p></td>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d-0.17.0-cp39-cp39-manylinux_2_27_x86_64.whl">Python 3.9</a></p></td>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d-0.17.0-cp310-cp310-manylinux_2_27_x86_64.whl">Python 3.10</a></p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Linux (CPU)</p></th>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d_cpu-0.17.0-cp37-cp37m-manylinux_2_27_x86_64.whl">Python 3.7</a></p></td>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d_cpu-0.17.0-cp38-cp38-manylinux_2_27_x86_64.whl">Python 3.8</a></p></td>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d_cpu-0.17.0-cp39-cp39-manylinux_2_27_x86_64.whl">Python 3.9</a></p></td>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d_cpu-0.17.0-cp310-cp310-manylinux_2_27_x86_64.whl">Python 3.10</a></p></td>
+</tr>
+<tr class="row-odd"><th class="stub"><p>MacOS</p></th>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d-0.17.0-cp37-cp37m-macosx_10_15_x86_64.whl">Python 3.7</a></p></td>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d-0.17.0-cp38-cp38-macosx_10_15_x86_64.whl">Python 3.8</a></p></td>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d-0.17.0-cp39-cp39-macosx_10_15_x86_64.whl">Python 3.9</a></p></td>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d-0.17.0-cp310-cp310-macosx_10_15_x86_64.whl">Python 3.10</a></p></td>
+</tr>
+<tr class="row-even"><th class="stub"><p>Windows</p></th>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d-0.17.0-cp37-cp37m-win_amd64.whl">Python 3.7</a></p></td>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d-0.17.0-cp38-cp38-win_amd64.whl">Python 3.8</a></p></td>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d-0.17.0-cp39-cp39-win_amd64.whl">Python 3.9</a></p></td>
+<td><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/python-wheels/open3d-0.17.0-cp310-cp310-win_amd64.whl">Python 3.10</a></p></td>
+</tr>
+</tbody>
+</table>
+<p>Please use these links from the <a class="reference external" href="http://www.open3d.org/docs/latest/getting_started.html">latest version of this page</a> only. You can also
+install the latest development version directly with pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--trusted-host<span class="w"> </span>www.open3d.org<span class="w"> </span>-f<span class="w"> </span>http://www.open3d.org/docs/latest/getting_started.html<span class="w"> </span>open3d
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The development wheels for Linux are named according to PEP600. Please
+use <code class="docutils literal notranslate"><span class="pre">pip</span></code> version &gt;=20.3 to install them. The wheels are not yet fully
+PEP600 compliant.</p>
+</div>
+</div>
+<div class="section" id="try-it">
+<h3>Try it<a class="headerlink" href="#try-it" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify installation</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import open3d as o3d; print(o3d.__version__)&quot;</span>
+
+<span class="c1"># Python API</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import open3d as o3d; \</span>
+<span class="s2">           mesh = o3d.geometry.TriangleMesh.create_sphere(); \</span>
+<span class="s2">           mesh.compute_vertex_normals(); \</span>
+<span class="s2">           o3d.visualization.draw(mesh, raw_mode=True)&quot;</span>
+
+<span class="c1"># Open3D CLI</span>
+open3d<span class="w"> </span>example<span class="w"> </span>visualization/draw
+</pre></div>
+</div>
+<p>If everything works, congratulations, now Open3D has been successfully installed!</p>
+<div class="section" id="troubleshooting">
+<h4>Troubleshooting:<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h4>
+<p>If you get an error when importing Open3D, enable detailed Python warnings to
+help troubleshoot the issue:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-W<span class="w"> </span>default<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import open3d as o3d&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="running-open3d-tutorials">
+<h3>Running Open3D tutorials<a class="headerlink" href="#running-open3d-tutorials" title="Permalink to this headline">¶</a></h3>
+<p>A complete set of Python tutorials and testing data will also be copied to
+demonstrate the usage of Open3D Python interface. See <code class="docutils literal notranslate"><span class="pre">examples/python</span></code> for
+all Python examples.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Open3D’s Python tutorial utilizes some external packages: <code class="docutils literal notranslate"><span class="pre">numpy</span></code>,
+<code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, <code class="docutils literal notranslate"><span class="pre">opencv-python</span></code>. OpenCV is only used for reconstruction
+system. Please read <code class="docutils literal notranslate"><span class="pre">util/install-deps-python.sh</span></code> for installing these
+packages.</p>
+</div>
+</div>
+</div>
+<div class="section" id="c">
+<span id="install-open3d-c"></span><h2>C++<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h2>
+<p>To get started with using Open3D in your C++ applications, you can download a
+binary package archive from <a class="reference external" href="https://github.com/isl-org/Open3D/releases">Github releases</a> (since <cite>v0.15</cite>). These binary
+package archives contain the Open3D shared library built with all supported
+features and are available for the main supported platforms. Also, the latest
+development version (<code class="docutils literal notranslate"><span class="pre">HEAD</span></code> of <code class="docutils literal notranslate"><span class="pre">master</span></code> branch) binary package archives are
+provided here <a class="footnote-reference brackets" href="#id4" id="id2">1</a>:</p>
+<dl class="field-list">
+<dt class="field-odd">Linux (Ubuntu 18.04+ or glibc 2.27+ <a class="footnote-reference brackets" href="#id5" id="id3">2</a>)</dt>
+<dd class="field-odd"><table class="hlist"><tr><td><ul class="simple">
+<li><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/devel/open3d-devel-linux-x86_64-cxx11-abi-0.17.0.tar.xz">x86_64 (CXX11 ABI)</a></p></li>
+<li><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/devel/open3d-devel-linux-x86_64-cxx11-abi-cuda-0.17.0.tar.xz">x86_64 (CXX11 ABI) with CUDA 11.x</a></p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/devel/open3d-devel-linux-x86_64-pre-cxx11-abi-0.17.0.tar.xz">x86_64 (pre CXX11 ABI)</a></p></li>
+<li><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/devel/open3d-devel-linux-x86_64-pre-cxx11-abi-cuda-0.17.0.tar.xz">x86_64 (pre CXX11 ABI) with CUDA 11.x</a></p></li>
+</ul>
+</td></tr></table>
+</dd>
+<dt class="field-even">MacOSX v10.15+</dt>
+<dd class="field-even"><table class="hlist"><tr><td><ul class="simple">
+<li><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/devel/open3d-devel-darwin-x86_64-0.17.0.tar.xz">x86_64</a></p></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</dd>
+<dt class="field-odd">Windows 10+</dt>
+<dd class="field-odd"><table class="hlist"><tr><td><ul class="simple">
+<li><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/devel/open3d-devel-windows-amd64-0.17.0.zip">x86_64 Release</a></p></li>
+</ul>
+</td><td><ul class="simple">
+<li><p><a class="reference external" href="https://storage.googleapis.com/open3d-releases-master/devel/open3d-devel-windows-amd64-0.17.0-dbg.zip">x86_64 Debug</a></p></li>
+</ul>
+</td></tr></table>
+</dd>
+</dl>
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p>Please use these links from the <a class="reference external" href="http://www.open3d.org/docs/latest/getting_started.html">latest version of this page</a>
+only.</p>
+</dd>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>To check the <cite>glibc</cite> version on your system, run <code class="code docutils literal notranslate"><span class="pre">ldd</span> <span class="pre">--version</span></code>.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In Linux, do not link code with different CXX11 ABIs, since this will
+most likely cause linker errors or crashes. Most system libraries in recent
+Linux versions (e.g. if the OS came with GCC versions 5+) use the CXX11 ABI,
+while PyTorch and Tensorflow libraries typically use the pre CXX11 ABI.</p>
+</div>
+<p>If you need a subset of features, or a custom build configuration, please refer
+to <a class="reference internal" href="compilation.html#compilation"><span class="std std-ref">Build from source</span></a> and compile Open3D from source.</p>
+<div class="section" id="id6">
+<h3>Try it<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>Extract the archive and move the contents to a local folder (such as
+<code class="docutils literal notranslate"><span class="pre">$HOME/Documents/Open3D_install</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Linux / MacOSX:                       Windows:
+Open3D_install                        Open3D_install
+├── include                           ├── bin
+│   └── open3d                        │   └── Open3D.dll
+│       ├── core                      ├── CMake
+│       ├── ...                       │   ├── Open3DConfig.cmake
+│       ├── Open3DConfig.h            │   ├── ...
+│       ├── Open3D.h                  ├── include
+│       ├── ...                       │   └── open3d
+└── lib                               │       ├── core
+    ├── cmake                         │       ├── ...
+    │   └── Open3D                    │       ├── Open3DConfig.h
+    │        ├── ...                  │       ├── Open3D.h
+    ├── libOpen3D.so                  │       ├── ...
+    ├── open3d_tf_ops.so              └── lib
+    └── open3d_torch_ops.so               └── Open3D.lib
+</pre></div>
+</div>
+<p>Some files may be absent in the case of unsupported functionality. To use Open3D
+with your programs through <cite>cmake</cite>, add <code class="docutils literal notranslate"><span class="pre">-D</span>
+<span class="pre">Open3D_ROOT=$HOME/Documents/Open3D_install</span></code> to your CMake configure command
+line. See the following example CMake projects for reference:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/isl-org/open3d-cmake-find-package">Find Pre-Installed Open3D Package in CMake</a></p></li>
+<li><p><a class="reference external" href="https://github.com/isl-org/open3d-cmake-external-project">Use Open3D as a CMake External Project</a></p></li>
+</ul>
+<p>The C++ code examples in the <code class="docutils literal notranslate"><span class="pre">examples/cpp</span></code> folder of the repository illustrate
+a lot of the functionality available in Open3D and are a good place to start
+using Open3D in your projects.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="compilation.html" class="btn btn-neutral float-right" title="Build from source" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/getting_started.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:16 GMT -->
+</html>

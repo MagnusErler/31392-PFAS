@@ -1,0 +1,36 @@
+HTTrack3.49-2+htsswf+htsjava launched on Sun, 14 May 2023 12:07:30 at http://www.open3d.org/docs/release/ +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" http://www.open3d.org/docs/release/ -O1 "C:\Users\larsd\OneDrive - Danmarks Tekniske Universitet\DTU\Kandidat 4. Semester\34759 Perception for Autonomous Systems\Documentation\Open3d_Documentation" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+12:13:06	Warning: 	file not stored in cache due to bogus state (incomplete type with OK (200), size 20502): www.open3d.org/docs/release/python_api/open3d.data.DemoICPPointClouds.html
+12:51:50	Warning: 	File not parsed, looks like binary: www.open3d.org/docs/release/_static/fonts/fontawesome-webfont.woff2?v=4.7.0
+12:51:50	Warning: 	File not parsed, looks like binary: www.open3d.org/docs/release/_static/fonts/Lato/lato-regular.woff2
+12:51:50	Warning: 	File not parsed, looks like binary: www.open3d.org/docs/release/_static/fonts/Lato/lato-bold.woff2
+12:51:51	Warning: 	File not parsed, looks like binary: www.open3d.org/docs/release/_static/fonts/Lato/lato-bolditalic.woff2
+12:51:51	Warning: 	File not parsed, looks like binary: www.open3d.org/docs/release/_static/fonts/Lato/lato-italic.woff2
+12:51:51	Error: 	"Not Found" (404) at link www.open3d.org/docs/release/_static/fonts/RobotoSlab/roboto-slab.eot (from www.open3d.org/docs/release/_static/css/theme.css)
+12:51:51	Warning: 	File not parsed, looks like binary: www.open3d.org/docs/release/_static/fonts/RobotoSlab/roboto-slab-v7-regular.woff2
+12:51:51	Warning: 	File not parsed, looks like binary: www.open3d.org/docs/release/_static/fonts/RobotoSlab/roboto-slab-v7-bold.woff2
+12:52:39	Error: 	"Not Found" (404) at link www.open3d.org/docs/release/tutorial/geometry/visualization.ipynb (from www.open3d.org/docs/release/tutorial/geometry/pointcloud.html)
+12:52:39	Error: 	"Not Found" (404) at link www.open3d.org/docs/release/tutorial/t_geometry/file_io.ipynb (from www.open3d.org/docs/release/tutorial/t_geometry/pointcloud.html)
+12:52:39	Error: 	"Not Found" (404) at link www.open3d.org/docs/release/tutorial/t_geometry/visualization.ipynb (from www.open3d.org/docs/release/tutorial/t_geometry/pointcloud.html)
+12:52:39	Error: 	"Not Found" (404) at link www.open3d.org/docs/release/tutorial/pipelines/pointcloud.ipynb (from www.open3d.org/docs/release/tutorial/pipelines/icp_registration.html)
+12:52:39	Error: 	"Not Found" (404) at link www.open3d.org/docs/release/tutorial/icp_registration.ipynb (from www.open3d.org/docs/release/tutorial/pipelines/global_registration.html)
+12:52:39	Error: 	"Not Found" (404) at link www.open3d.org/docs/release/tutorial/pipelines/rgbd_image.ipynb (from www.open3d.org/docs/release/tutorial/pipelines/rgbd_odometry.html)
+12:52:39	Error: 	"Not Found" (404) at link www.open3d.org/docs/release/tutorial/visualization/mesh.ipynb (from www.open3d.org/docs/release/tutorial/visualization/visualization.html)
+12:52:39	Warning: 	Found for https://github.com/isl-org/Open3D-ML/raw/f7f567389bdc9e8b5e8dc1c93a93a92f9f1d95b2/docs/images/tensorboard_small_scale.gif
+12:52:39	Warning: 	Warning moved treated for https://github.com/isl-org/Open3D-ML/raw/f7f567389bdc9e8b5e8dc1c93a93a92f9f1d95b2/docs/images/tensorboard_small_scale.gif (real one is https://raw.githubusercontent.com/isl-org/Open3D-ML/f7f567389bdc9e8b5e8dc1c93a93a92f9f1d95b2/docs/images/tensorboard_small_scale.gif)
+12:52:39	Warning: 	Found for https://github.com/isl-org/Open3D-ML/raw/f7f567389bdc9e8b5e8dc1c93a93a92f9f1d95b2/docs/images/tensorboard_monkey.jpg
+12:52:39	Warning: 	Warning moved treated for https://github.com/isl-org/Open3D-ML/raw/f7f567389bdc9e8b5e8dc1c93a93a92f9f1d95b2/docs/images/tensorboard_monkey.jpg (real one is https://raw.githubusercontent.com/isl-org/Open3D-ML/f7f567389bdc9e8b5e8dc1c93a93a92f9f1d95b2/docs/images/tensorboard_monkey.jpg)
+12:52:44	Error: 	"Not Found" (404) at link www.open3d.org/docs/release/cpp_api/TeX/AMSmath.js (from www.open3d.org/docs/release/cpp_api/index.html)
+12:52:48	Error: 	"Not Found" (404) at link www.open3d.org/docs/release/cpp_api/search.php (from www.open3d.org/docs/release/cpp_api/index.html)
+12:53:07	Warning: 	file not stored in cache due to bogus state (incomplete type with OK (200), size 10685): www.open3d.org/docs/release/cpp_api/_triangle_mesh_buffers_8cpp.html
+12:54:09	Warning: 	file not stored in cache due to bogus state (incomplete type with OK (200), size 61097): www.open3d.org/docs/release/cpp_api/geometry_2_image_8h_source.html
+13:02:55	Warning: 	file not stored in cache due to bogus state (incomplete type with OK (200), size 50425): www.open3d.org/docs/release/cpp_api/_torch_helper_8h.html
+
+HTTrack Website Copier/3.49-2 mirror complete in 57 minutes 48 seconds : 3569 links scanned, 3556 files written (133103693 bytes overall) [80410701 bytes received at 23186 bytes/sec], 67853044 bytes transferred using HTTP compression in 2890 files, ratio 17%, 10.1 requests per connection
+(10 errors, 15 warnings, 0 messages)

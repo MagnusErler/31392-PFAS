@@ -1,0 +1,467 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.ml.torch.ops.continuous_conv.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:11 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>open3d.ml.torch.ops.continuous_conv &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="open3d.ml.torch.ops.continuous_conv_transpose" href="open3d.ml.torch.ops.continuous_conv_trans" />
+    <link rel="prev" title="open3d.ml.torch.ops.build_spatial_hash_table" href="open3d.ml.torch.ops.build_spatial_hash_ta" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="open3d.ml.html">open3d.ml</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="open3d.ml.tf.html">tf</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="open3d.ml.torch.html">torch</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="open3d.ml.torch.classes.html">classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.ml.torch.dataloaders.html">dataloaders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.ml.torch.datasets.html">datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.ml.torch.layers.html">layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.ml.torch.models.html">models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.ml.torch.modules.html">modules</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="open3d.ml.torch.ops.html">ops</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.torch.ops.build_spatial_hash_ta">build_spatial_hash_table</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">continuous_conv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.torch.ops.continuous_conv_trans">continuous_conv_transpose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.torch.ops.fixed_radius_search.1">fixed_radius_search</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.torch.ops.invert_neighbors_list">invert_neighbors_list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.torch.ops.knn_search.19f.delaye">knn_search</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.torch.ops.nms.html">nms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.torch.ops.radius_search.1b2.del">radius_search</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.torch.ops.reduce_subarrays_sum">reduce_subarrays_sum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.torch.ops.voxel_pooling.1f2.del">voxel_pooling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="open3d.ml.torch.ops.voxelize.html">voxelize</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.ml.torch.pipelines.html">pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="open3d.ml.torch.vis.html">vis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="open3d.ml.html">open3d.ml</a> &raquo;</li>
+        
+          <li><a href="open3d.ml.torch.html">open3d.ml.torch</a> &raquo;</li>
+        
+          <li><a href="open3d.ml.torch.ops.html">open3d.ml.torch.ops</a> &raquo;</li>
+        
+      <li>open3d.ml.torch.ops.continuous_conv</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="open3d-ml-torch-ops-continuous-conv">
+<h1>open3d.ml.torch.ops.continuous_conv<a class="headerlink" href="#open3d-ml-torch-ops-continuous-conv" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="open3d.ml.torch.ops.continuous_conv">
+<code class="sig-prename descclassname">open3d.ml.torch.ops.</code><code class="sig-name descname">continuous_conv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filters</span></em>, <em class="sig-param"><span class="n">out_positions</span></em>, <em class="sig-param"><span class="n">extents</span></em>, <em class="sig-param"><span class="n">offset</span></em>, <em class="sig-param"><span class="n">inp_positions</span></em>, <em class="sig-param"><span class="n">inp_features</span></em>, <em class="sig-param"><span class="n">inp_importance</span></em>, <em class="sig-param"><span class="n">neighbors_index</span></em>, <em class="sig-param"><span class="n">neighbors_importance</span></em>, <em class="sig-param"><span class="n">neighbors_row_splits</span></em>, <em class="sig-param"><span class="n">align_corners</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">coordinate_mapping</span><span class="o">=</span><span class="default_value">'ball_to_cube_radial'</span></em>, <em class="sig-param"><span class="n">normalize</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">interpolation</span><span class="o">=</span><span class="default_value">'linear'</span></em>, <em class="sig-param"><span class="n">max_temp_mem_MB</span><span class="o">=</span><span class="default_value">64</span></em><span class="sig-paren">)</span><a class="headerlink" href="#open3d.ml.torch.ops.continuous_conv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Continuous convolution of two pointclouds.</p>
+<p>This op computes the features for the forward pass.
+This example shows how to use this op:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">open3d.ml.tf</span> <span class="k">as</span> <span class="nn">ml3d</span>
+
+<span class="n">filters</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">16</span><span class="p">])</span>
+
+<span class="n">inp_positions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">inp_features</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="p">])</span>
+<span class="n">out_positions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="n">nsearch</span> <span class="o">=</span> <span class="n">ml3d</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">FixedRadiusSearch</span><span class="p">()</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mf">1.2</span>
+<span class="n">neighbors</span> <span class="o">=</span> <span class="n">nsearch</span><span class="p">(</span><span class="n">inp_positions</span><span class="p">,</span> <span class="n">out_positions</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+
+<span class="n">ml3d</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">continuous_conv</span><span class="p">(</span><span class="n">filters</span><span class="p">,</span>
+                         <span class="n">out_positions</span><span class="p">,</span>
+                         <span class="n">extents</span><span class="o">=</span><span class="p">[[</span><span class="mi">2</span><span class="o">*</span><span class="n">radius</span><span class="p">]],</span>
+                         <span class="n">offset</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                         <span class="n">inp_positions</span><span class="o">=</span><span class="n">inp_positions</span><span class="p">,</span>
+                         <span class="n">inp_features</span><span class="o">=</span><span class="n">inp_features</span><span class="p">,</span>
+                         <span class="n">inp_importance</span><span class="o">=</span><span class="p">[],</span>
+                         <span class="n">neighbors_index</span><span class="o">=</span><span class="n">neighbors</span><span class="o">.</span><span class="n">neighbors_index</span><span class="p">,</span>
+                         <span class="n">neighbors_row_splits</span><span class="o">=</span><span class="n">neighbors</span><span class="o">.</span><span class="n">neighbors_row_splits</span><span class="p">,</span>
+                         <span class="n">neighbors_importance</span><span class="o">=</span><span class="p">[]</span>
+                        <span class="p">)</span>
+
+<span class="c1"># or with pytorch</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">open3d.ml.torch</span> <span class="k">as</span> <span class="nn">ml3d</span>
+
+<span class="n">filters</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">16</span><span class="p">])</span>
+
+<span class="n">inp_positions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">inp_features</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="p">])</span>
+<span class="n">out_positions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+
+<span class="n">nsearch</span> <span class="o">=</span> <span class="n">ml3d</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">FixedRadiusSearch</span><span class="p">()</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mf">1.2</span>
+<span class="n">neighbors</span> <span class="o">=</span> <span class="n">nsearch</span><span class="p">(</span><span class="n">inp_positions</span><span class="p">,</span> <span class="n">out_positions</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+
+<span class="n">ml3d</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">continuous_conv</span><span class="p">(</span><span class="n">filters</span><span class="p">,</span>
+                         <span class="n">out_positions</span><span class="p">,</span>
+                         <span class="n">extents</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">([[</span><span class="mi">2</span><span class="o">*</span><span class="n">radius</span><span class="p">]]),</span>
+                         <span class="n">offset</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span>
+                         <span class="n">inp_positions</span><span class="o">=</span><span class="n">inp_positions</span><span class="p">,</span>
+                         <span class="n">inp_features</span><span class="o">=</span><span class="n">inp_features</span><span class="p">,</span>
+                         <span class="n">inp_importance</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">([]),</span>
+                         <span class="n">neighbors_index</span><span class="o">=</span><span class="n">neighbors</span><span class="o">.</span><span class="n">neighbors_index</span><span class="p">,</span>
+                         <span class="n">neighbors_row_splits</span><span class="o">=</span><span class="n">neighbors</span><span class="o">.</span><span class="n">neighbors_row_splits</span><span class="p">,</span>
+                         <span class="n">neighbors_importance</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">([]),</span>
+                        <span class="p">)</span>
+</pre></div>
+</div>
+<dl>
+<dt>align_corners: If True the outer voxel centers of the filter grid are aligned</dt><dd><p>with the boundary of the spatial shape.</p>
+</dd>
+<dt>coordinate_mapping: Defines how the relative positions of the neighbors are</dt><dd><p>mapped before computing filter indices.
+For all mappings relative coordinates will be scaled with the inverse extent,
+i.e. the extent becomes a unit cube.
+After that one of the following mappings will be applied:</p>
+<blockquote>
+<div><p>“ball_to_cube_radial”: maps a unit ball to a unit cube by radial stretching.
+“ball_to_cube_volume_preserving”: maps a unit ball to a unit cube preserving the volume.
+“identity”: the identity mapping.</p>
+</div></blockquote>
+<p>Use “ball_to_cube_radial” for a spherical or ellipsoidal filter window
+and “identity” for a rectangular filter window.</p>
+</dd>
+<dt>normalize: If True the output feature values will be normalized using the sum</dt><dd><p>for <strong>neighbors_importance</strong> for each output point.</p>
+</dd>
+<dt>interpolation: If interpolation is “linear” then each filter value lookup is a</dt><dd><p>trilinear interpolation. If interpolation is “nearest_neighbor” only the
+spatially closest value is considered. This makes the filter and therefore
+the convolution discontinuous.</p>
+</dd>
+<dt>max_temp_mem_MB: Defines the maximum temporary memory in megabytes to be used</dt><dd><p>for the GPU implementation. More memory means fewer kernel invocations. Note
+that the a minimum amount of temp memory will always be allocated even if
+this variable is set to 0.</p>
+</dd>
+<dt>filters: The filter parameters. The shape of the filter is</dt><dd><p>[depth, height, width, in_ch, out_ch]. The dimensions ‘depth’, ‘height’,
+‘width’ define the spatial resolution of the filter. The spatial size of the
+filter is defined by the parameter ‘extents’.</p>
+</dd>
+<dt>out_positions: A 2D tensor with the 3D point positions of each output point.</dt><dd><p>The coordinates for each point is a vector with format [x,y,z].</p>
+</dd>
+<dt>extents: The extent defines the spatial size of the filter for each output</dt><dd><p>point.  It is a 2D vector of the form [[x_size, y_size, z_size], ..].
+For ‘ball to cube’ coordinate mappings the extent defines the bounding box
+of the ball.
+Broadcasting is supported for all axes. E.g. providing only the extent for a
+single point as well as only providing ‘x_size’ is valid.</p>
+</dd>
+<dt>offset: A 1D tensor which defines the offset in voxel units to shift the input</dt><dd><p>points. Offsets will be ignored if align_corners is True.</p>
+</dd>
+<dt>inp_positions: A 2D tensor with the 3D point positions of each input point.</dt><dd><p>The coordinates for each point is a vector with format [x,y,z].</p>
+</dd>
+</dl>
+<p>inp_features: A 2D tensor which stores a feature vector for each input point.</p>
+<dl class="simple">
+<dt>inp_importance: An optional scalar importance for each input point. The</dt><dd><p>features of each point will be multiplied with the corresponding value. The
+shape is [num input points]. Use a zero length Tensor to disable.</p>
+</dd>
+<dt>neighbors_index: The neighbors_index stores a list of indices of neighbors for</dt><dd><p>each output point as nested lists. The start and end of each list can be
+computed using ‘neighbors_row_splits’.</p>
+</dd>
+<dt>neighbors_importance: Tensor of the same shape as ‘neighbors_index’ with a</dt><dd><p>scalar value that is used to scale the features of each neighbor. Use a
+zero length Tensor to weigh each neighbor with 1.</p>
+</dd>
+<dt>neighbors_row_splits: The exclusive prefix sum of the neighbor count for the</dt><dd><p>output points including the total neighbor count as the last element. The
+size of this array is the number of output points + 1.</p>
+</dd>
+</dl>
+<p>output_type: The type for the output.</p>
+<p>out_features: A Tensor with the output feature vectors for each output point.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="open3d.ml.torch.ops.continuous_conv_trans" class="btn btn-neutral float-right" title="open3d.ml.torch.ops.continuous_conv_transpose" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="open3d.ml.torch.ops.build_spatial_hash_ta" class="btn btn-neutral float-left" title="open3d.ml.torch.ops.build_spatial_hash_table" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/python_api/open3d.ml.torch.ops.continuous_conv.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:11 GMT -->
+</html>

@@ -1,0 +1,1647 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/python_example/pipelines/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:39 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Pipelines &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Utility" href="../utility/index.html" />
+    <link rel="prev" title="IO" href="../io/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/t_reconstruction_system/index.html">Reconstruction system (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io/index.html">IO</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Pipelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#colored-icp-registration-py">colored_icp_registration.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#icp-registration-py">icp_registration.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multiway-registration-py">multiway_registration.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pose-graph-optimization-py">pose_graph_optimization.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#registration-fgr-py">registration_fgr.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#registration-ransac-py">registration_ransac.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rgbd-integration-uniform-py">rgbd_integration_uniform.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rgbd-odometry-py">rgbd_odometry.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#robust-icp-py">robust_icp.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+      <li>Pipelines</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="pipelines">
+<h1>Pipelines<a class="headerlink" href="#pipelines" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="colored-icp-registration-py">
+<h2>colored_icp_registration.py<a class="headerlink" href="#colored-icp-registration-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;ICP variant that uses both geometry and color for registration&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+
+<span class="k">def</span> <span class="nf">draw_registration_result</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">transformation</span><span class="p">):</span>
+    <span class="n">source_temp</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">source_temp</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">transformation</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">source_temp</span><span class="p">,</span> <span class="n">target</span><span class="p">])</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Load two point clouds and show initial pose ...&quot;</span><span class="p">)</span>
+<span class="n">ply_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DemoColoredICPPointClouds</span><span class="p">()</span>
+<span class="n">source</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">ply_data</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">ply_data</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># Draw initial alignment.</span>
+    <span class="n">current_transformation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="c1"># draw_registration_result(source, target, current_transformation)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">current_transformation</span><span class="p">)</span>
+
+    <span class="c1"># Colored pointcloud registration.</span>
+    <span class="c1"># This is implementation of following paper:</span>
+    <span class="c1"># J. Park, Q.-Y. Zhou, V. Koltun,</span>
+    <span class="c1"># Colored Point Cloud Registration Revisited, ICCV 2017.</span>
+    <span class="n">voxel_radius</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">]</span>
+    <span class="n">max_iter</span> <span class="o">=</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">14</span><span class="p">]</span>
+    <span class="n">current_transformation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Colored point cloud registration ...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">scale</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="nb">iter</span> <span class="o">=</span> <span class="n">max_iter</span><span class="p">[</span><span class="n">scale</span><span class="p">]</span>
+        <span class="n">radius</span> <span class="o">=</span> <span class="n">voxel_radius</span><span class="p">[</span><span class="n">scale</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">([</span><span class="nb">iter</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">scale</span><span class="p">])</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1. Downsample with a voxel size </span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">radius</span><span class="p">)</span>
+        <span class="n">source_down</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+        <span class="n">target_down</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="n">radius</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2. Estimate normal&quot;</span><span class="p">)</span>
+        <span class="n">source_down</span><span class="o">.</span><span class="n">estimate_normals</span><span class="p">(</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">KDTreeSearchParamHybrid</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">radius</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">max_nn</span><span class="o">=</span><span class="mi">30</span><span class="p">))</span>
+        <span class="n">target_down</span><span class="o">.</span><span class="n">estimate_normals</span><span class="p">(</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">KDTreeSearchParamHybrid</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">radius</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">max_nn</span><span class="o">=</span><span class="mi">30</span><span class="p">))</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3. Applying colored point cloud registration&quot;</span><span class="p">)</span>
+        <span class="n">result_icp</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">registration_colored_icp</span><span class="p">(</span>
+            <span class="n">source_down</span><span class="p">,</span> <span class="n">target_down</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">current_transformation</span><span class="p">,</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">TransformationEstimationForColoredICP</span><span class="p">(),</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">ICPConvergenceCriteria</span><span class="p">(</span>
+                <span class="n">relative_fitness</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">relative_rmse</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">max_iteration</span><span class="o">=</span><span class="nb">iter</span><span class="p">))</span>
+        <span class="n">current_transformation</span> <span class="o">=</span> <span class="n">result_icp</span><span class="o">.</span><span class="n">transformation</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">result_icp</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># draw_registration_result(source, target, result_icp.transformation)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">current_transformation</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="icp-registration-py">
+<h2>icp_registration.py<a class="headerlink" href="#icp-registration-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;ICP (Iterative Closest Point) registration algorithm&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+
+<span class="k">def</span> <span class="nf">draw_registration_result</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">transformation</span><span class="p">):</span>
+    <span class="n">source_temp</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">target_temp</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+    <span class="n">source_temp</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.706</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">target_temp</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.651</span><span class="p">,</span> <span class="mf">0.929</span><span class="p">])</span>
+    <span class="n">source_temp</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">transformation</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">source_temp</span><span class="p">,</span> <span class="n">target_temp</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">point_to_point_icp</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">trans_init</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Apply point-to-point ICP&quot;</span><span class="p">)</span>
+    <span class="n">reg_p2p</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">registration_icp</span><span class="p">(</span>
+        <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">trans_init</span><span class="p">,</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">TransformationEstimationPointToPoint</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">reg_p2p</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Transformation is:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">reg_p2p</span><span class="o">.</span><span class="n">transformation</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">draw_registration_result</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">reg_p2p</span><span class="o">.</span><span class="n">transformation</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">point_to_plane_icp</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">trans_init</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Apply point-to-plane ICP&quot;</span><span class="p">)</span>
+    <span class="n">reg_p2l</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">registration_icp</span><span class="p">(</span>
+        <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">trans_init</span><span class="p">,</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">TransformationEstimationPointToPlane</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">reg_p2l</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Transformation is:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">reg_p2l</span><span class="o">.</span><span class="n">transformation</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">draw_registration_result</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">reg_p2l</span><span class="o">.</span><span class="n">transformation</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">pcd_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DemoICPPointClouds</span><span class="p">()</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">pcd_data</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">pcd_data</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.02</span>
+    <span class="n">trans_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="mf">0.862</span><span class="p">,</span> <span class="mf">0.011</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.507</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+                             <span class="p">[</span><span class="o">-</span><span class="mf">0.139</span><span class="p">,</span> <span class="mf">0.967</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.215</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span>
+                             <span class="p">[</span><span class="mf">0.487</span><span class="p">,</span> <span class="mf">0.255</span><span class="p">,</span> <span class="mf">0.835</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.4</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
+    <span class="n">draw_registration_result</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">trans_init</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initial alignment&quot;</span><span class="p">)</span>
+    <span class="n">evaluation</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">evaluate_registration</span><span class="p">(</span>
+        <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">trans_init</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">evaluation</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">point_to_point_icp</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">trans_init</span><span class="p">)</span>
+    <span class="n">point_to_plane_icp</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">trans_init</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="multiway-registration-py">
+<h2>multiway_registration.py<a class="headerlink" href="#multiway-registration-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">  1</span>
+<span class="normal">  2</span>
+<span class="normal">  3</span>
+<span class="normal">  4</span>
+<span class="normal">  5</span>
+<span class="normal">  6</span>
+<span class="normal">  7</span>
+<span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;Align multiple pieces of geometry in a global space&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="k">def</span> <span class="nf">load_point_clouds</span><span class="p">(</span><span class="n">voxel_size</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="n">pcd_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DemoICPPointClouds</span><span class="p">()</span>
+    <span class="n">pcds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">pcd_data</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">pcd_down</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="n">voxel_size</span><span class="o">=</span><span class="n">voxel_size</span><span class="p">)</span>
+        <span class="n">pcds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pcd_down</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pcds</span>
+
+
+<span class="k">def</span> <span class="nf">pairwise_registration</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">max_correspondence_distance_coarse</span><span class="p">,</span>
+                          <span class="n">max_correspondence_distance_fine</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Apply point-to-plane ICP&quot;</span><span class="p">)</span>
+    <span class="n">icp_coarse</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">registration_icp</span><span class="p">(</span>
+        <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">max_correspondence_distance_coarse</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">TransformationEstimationPointToPlane</span><span class="p">())</span>
+    <span class="n">icp_fine</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">registration_icp</span><span class="p">(</span>
+        <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">max_correspondence_distance_fine</span><span class="p">,</span>
+        <span class="n">icp_coarse</span><span class="o">.</span><span class="n">transformation</span><span class="p">,</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">TransformationEstimationPointToPlane</span><span class="p">())</span>
+    <span class="n">transformation_icp</span> <span class="o">=</span> <span class="n">icp_fine</span><span class="o">.</span><span class="n">transformation</span>
+    <span class="n">information_icp</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">get_information_matrix_from_point_clouds</span><span class="p">(</span>
+        <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">max_correspondence_distance_fine</span><span class="p">,</span>
+        <span class="n">icp_fine</span><span class="o">.</span><span class="n">transformation</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">transformation_icp</span><span class="p">,</span> <span class="n">information_icp</span>
+
+
+<span class="k">def</span> <span class="nf">full_registration</span><span class="p">(</span><span class="n">pcds</span><span class="p">,</span> <span class="n">max_correspondence_distance_coarse</span><span class="p">,</span>
+                      <span class="n">max_correspondence_distance_fine</span><span class="p">):</span>
+    <span class="n">pose_graph</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">PoseGraph</span><span class="p">()</span>
+    <span class="n">odometry</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">pose_graph</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">PoseGraphNode</span><span class="p">(</span><span class="n">odometry</span><span class="p">))</span>
+    <span class="n">n_pcds</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pcds</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">source_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_pcds</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">target_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">source_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_pcds</span><span class="p">):</span>
+            <span class="n">transformation_icp</span><span class="p">,</span> <span class="n">information_icp</span> <span class="o">=</span> <span class="n">pairwise_registration</span><span class="p">(</span>
+                <span class="n">pcds</span><span class="p">[</span><span class="n">source_id</span><span class="p">],</span> <span class="n">pcds</span><span class="p">[</span><span class="n">target_id</span><span class="p">],</span>
+                <span class="n">max_correspondence_distance_coarse</span><span class="p">,</span>
+                <span class="n">max_correspondence_distance_fine</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Build o3d.pipelines.registration.PoseGraph&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">target_id</span> <span class="o">==</span> <span class="n">source_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># odometry case</span>
+                <span class="n">odometry</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">transformation_icp</span><span class="p">,</span> <span class="n">odometry</span><span class="p">)</span>
+                <span class="n">pose_graph</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">PoseGraphNode</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">odometry</span><span class="p">)))</span>
+                <span class="n">pose_graph</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">PoseGraphEdge</span><span class="p">(</span><span class="n">source_id</span><span class="p">,</span>
+                                                             <span class="n">target_id</span><span class="p">,</span>
+                                                             <span class="n">transformation_icp</span><span class="p">,</span>
+                                                             <span class="n">information_icp</span><span class="p">,</span>
+                                                             <span class="n">uncertain</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># loop closure case</span>
+                <span class="n">pose_graph</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">PoseGraphEdge</span><span class="p">(</span><span class="n">source_id</span><span class="p">,</span>
+                                                             <span class="n">target_id</span><span class="p">,</span>
+                                                             <span class="n">transformation_icp</span><span class="p">,</span>
+                                                             <span class="n">information_icp</span><span class="p">,</span>
+                                                             <span class="n">uncertain</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">pose_graph</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">voxel_size</span> <span class="o">=</span> <span class="mf">0.02</span>
+    <span class="n">pcds_down</span> <span class="o">=</span> <span class="n">load_point_clouds</span><span class="p">(</span><span class="n">voxel_size</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">pcds_down</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Full registration ...&quot;</span><span class="p">)</span>
+    <span class="n">max_correspondence_distance_coarse</span> <span class="o">=</span> <span class="n">voxel_size</span> <span class="o">*</span> <span class="mi">15</span>
+    <span class="n">max_correspondence_distance_fine</span> <span class="o">=</span> <span class="n">voxel_size</span> <span class="o">*</span> <span class="mf">1.5</span>
+    <span class="k">with</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityContextManager</span><span class="p">(</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityLevel</span><span class="o">.</span><span class="n">Debug</span><span class="p">)</span> <span class="k">as</span> <span class="n">cm</span><span class="p">:</span>
+        <span class="n">pose_graph</span> <span class="o">=</span> <span class="n">full_registration</span><span class="p">(</span><span class="n">pcds_down</span><span class="p">,</span>
+                                       <span class="n">max_correspondence_distance_coarse</span><span class="p">,</span>
+                                       <span class="n">max_correspondence_distance_fine</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Optimizing PoseGraph ...&quot;</span><span class="p">)</span>
+    <span class="n">option</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">GlobalOptimizationOption</span><span class="p">(</span>
+        <span class="n">max_correspondence_distance</span><span class="o">=</span><span class="n">max_correspondence_distance_fine</span><span class="p">,</span>
+        <span class="n">edge_prune_threshold</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+        <span class="n">reference_node</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityContextManager</span><span class="p">(</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityLevel</span><span class="o">.</span><span class="n">Debug</span><span class="p">)</span> <span class="k">as</span> <span class="n">cm</span><span class="p">:</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">global_optimization</span><span class="p">(</span>
+            <span class="n">pose_graph</span><span class="p">,</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">GlobalOptimizationLevenbergMarquardt</span><span class="p">(),</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">GlobalOptimizationConvergenceCriteria</span><span class="p">(),</span>
+            <span class="n">option</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Transform points and display&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">point_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pcds_down</span><span class="p">)):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">pose_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">point_id</span><span class="p">]</span><span class="o">.</span><span class="n">pose</span><span class="p">)</span>
+        <span class="n">pcds_down</span><span class="p">[</span><span class="n">point_id</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">pose_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">point_id</span><span class="p">]</span><span class="o">.</span><span class="n">pose</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">pcds_down</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="pose-graph-optimization-py">
+<h2>pose_graph_optimization.py<a class="headerlink" href="#pose-graph-optimization-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">set_verbosity_level</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityLevel</span><span class="o">.</span><span class="n">Debug</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;Parameters for o3d.pipelines.registration.PoseGraph optimization ...&quot;</span><span class="p">)</span>
+    <span class="n">method</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">GlobalOptimizationLevenbergMarquardt</span><span class="p">()</span>
+    <span class="n">criteria</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">GlobalOptimizationConvergenceCriteria</span><span class="p">(</span>
+    <span class="p">)</span>
+    <span class="n">option</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">GlobalOptimizationOption</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">criteria</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">option</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;Optimizing Fragment o3d.pipelines.registration.PoseGraph using open3d ...&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">pose_graph_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DemoPoseGraphOptimization</span><span class="p">()</span>
+    <span class="n">pose_graph_fragment</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_pose_graph</span><span class="p">(</span>
+        <span class="n">pose_graph_data</span><span class="o">.</span><span class="n">pose_graph_fragment_path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pose_graph_fragment</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">global_optimization</span><span class="p">(</span><span class="n">pose_graph_fragment</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span>
+                                                   <span class="n">criteria</span><span class="p">,</span> <span class="n">option</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_pose_graph</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;pose_graph_example_fragment_optimized.json&#39;</span><span class="p">),</span>
+        <span class="n">pose_graph_fragment</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;Optimizing Global o3d.pipelines.registration.PoseGraph using open3d ...&quot;</span>
+    <span class="p">)</span>
+    <span class="n">pose_graph_global</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_pose_graph</span><span class="p">(</span>
+        <span class="n">pose_graph_data</span><span class="o">.</span><span class="n">pose_graph_global_path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pose_graph_global</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">global_optimization</span><span class="p">(</span><span class="n">pose_graph_global</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span>
+                                                   <span class="n">criteria</span><span class="p">,</span> <span class="n">option</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_pose_graph</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;pose_graph_example_global_optimized.json&#39;</span><span class="p">),</span>
+        <span class="n">pose_graph_global</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="registration-fgr-py">
+<h2>registration_fgr.py<a class="headerlink" href="#registration-fgr-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+
+<span class="kn">import</span> <span class="nn">argparse</span>
+
+
+<span class="k">def</span> <span class="nf">preprocess_point_cloud</span><span class="p">(</span><span class="n">pcd</span><span class="p">,</span> <span class="n">voxel_size</span><span class="p">):</span>
+    <span class="n">pcd_down</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="n">voxel_size</span><span class="p">)</span>
+    <span class="n">pcd_down</span><span class="o">.</span><span class="n">estimate_normals</span><span class="p">(</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">KDTreeSearchParamHybrid</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">voxel_size</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">,</span>
+                                             <span class="n">max_nn</span><span class="o">=</span><span class="mi">30</span><span class="p">))</span>
+    <span class="n">pcd_fpfh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">compute_fpfh_feature</span><span class="p">(</span>
+        <span class="n">pcd_down</span><span class="p">,</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">KDTreeSearchParamHybrid</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">voxel_size</span> <span class="o">*</span> <span class="mf">5.0</span><span class="p">,</span>
+                                             <span class="n">max_nn</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">pcd_down</span><span class="p">,</span> <span class="n">pcd_fpfh</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">pcd_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DemoICPPointClouds</span><span class="p">()</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="s1">&#39;Global point cloud registration example with RANSAC&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                        <span class="n">default</span><span class="o">=</span><span class="n">pcd_data</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;path to src point cloud&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;dst&#39;</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                        <span class="n">default</span><span class="o">=</span><span class="n">pcd_data</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                        <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;path to dst point cloud&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--voxel_size&#39;</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+                        <span class="n">default</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;voxel size in meter used to downsample inputs&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--distance_multiplier&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;multipler used to compute distance threshold&#39;</span>
+        <span class="s1">&#39;between correspondences.&#39;</span>
+        <span class="s1">&#39;Threshold is computed by voxel_size * distance_multiplier.&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--max_iterations&#39;</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+                        <span class="n">default</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;number of max FGR iterations&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--max_tuples&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;max number of accepted tuples for correspondence filtering&#39;</span><span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="n">voxel_size</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">voxel_size</span>
+    <span class="n">distance_threshold</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">distance_multiplier</span> <span class="o">*</span> <span class="n">voxel_size</span>
+
+    <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">set_verbosity_level</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityLevel</span><span class="o">.</span><span class="n">Debug</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reading inputs&#39;</span><span class="p">)</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">src</span><span class="p">)</span>
+    <span class="n">dst</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downsampling inputs&#39;</span><span class="p">)</span>
+    <span class="n">src_down</span><span class="p">,</span> <span class="n">src_fpfh</span> <span class="o">=</span> <span class="n">preprocess_point_cloud</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">voxel_size</span><span class="p">)</span>
+    <span class="n">dst_down</span><span class="p">,</span> <span class="n">dst_fpfh</span> <span class="o">=</span> <span class="n">preprocess_point_cloud</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">voxel_size</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running FGR&#39;</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">registration_fgr_based_on_feature_matching</span><span class="p">(</span>
+        <span class="n">src_down</span><span class="p">,</span> <span class="n">dst_down</span><span class="p">,</span> <span class="n">src_fpfh</span><span class="p">,</span> <span class="n">dst_fpfh</span><span class="p">,</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">FastGlobalRegistrationOption</span><span class="p">(</span>
+            <span class="n">maximum_correspondence_distance</span><span class="o">=</span><span class="n">distance_threshold</span><span class="p">,</span>
+            <span class="n">iteration_number</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">max_iterations</span><span class="p">,</span>
+            <span class="n">maximum_tuple_count</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">max_tuples</span><span class="p">))</span>
+
+    <span class="n">src</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">dst</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">src</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">transformation</span><span class="p">),</span> <span class="n">dst</span><span class="p">])</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="registration-ransac-py">
+<h2>registration_ransac.py<a class="headerlink" href="#registration-ransac-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span>
+<span class="normal">97</span>
+<span class="normal">98</span>
+<span class="normal">99</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+
+<span class="kn">import</span> <span class="nn">argparse</span>
+
+
+<span class="k">def</span> <span class="nf">preprocess_point_cloud</span><span class="p">(</span><span class="n">pcd</span><span class="p">,</span> <span class="n">voxel_size</span><span class="p">):</span>
+    <span class="n">pcd_down</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="n">voxel_size</span><span class="p">)</span>
+    <span class="n">pcd_down</span><span class="o">.</span><span class="n">estimate_normals</span><span class="p">(</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">KDTreeSearchParamHybrid</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">voxel_size</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">,</span>
+                                             <span class="n">max_nn</span><span class="o">=</span><span class="mi">30</span><span class="p">))</span>
+    <span class="n">pcd_fpfh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">compute_fpfh_feature</span><span class="p">(</span>
+        <span class="n">pcd_down</span><span class="p">,</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">KDTreeSearchParamHybrid</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">voxel_size</span> <span class="o">*</span> <span class="mf">5.0</span><span class="p">,</span>
+                                             <span class="n">max_nn</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">pcd_down</span><span class="p">,</span> <span class="n">pcd_fpfh</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">pcd_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DemoICPPointClouds</span><span class="p">()</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="s1">&#39;Global point cloud registration example with RANSAC&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                        <span class="n">default</span><span class="o">=</span><span class="n">pcd_data</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;path to src point cloud&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;dst&#39;</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                        <span class="n">default</span><span class="o">=</span><span class="n">pcd_data</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                        <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;path to dst point cloud&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--voxel_size&#39;</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+                        <span class="n">default</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;voxel size in meter used to downsample inputs&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--distance_multiplier&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;multipler used to compute distance threshold&#39;</span>
+        <span class="s1">&#39;between correspondences.&#39;</span>
+        <span class="s1">&#39;Threshold is computed by voxel_size * distance_multiplier.&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--max_iterations&#39;</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+                        <span class="n">default</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;number of max RANSAC iterations&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--confidence&#39;</span><span class="p">,</span>
+                        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+                        <span class="n">default</span><span class="o">=</span><span class="mf">0.999</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;RANSAC confidence&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--mutual_filter&#39;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;whether to use mutual filter for putative correspondences&#39;</span><span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="n">voxel_size</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">voxel_size</span>
+    <span class="n">distance_threshold</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">distance_multiplier</span> <span class="o">*</span> <span class="n">voxel_size</span>
+
+    <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">set_verbosity_level</span><span class="p">(</span><span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">VerbosityLevel</span><span class="o">.</span><span class="n">Debug</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reading inputs&#39;</span><span class="p">)</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">src</span><span class="p">)</span>
+    <span class="n">dst</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">dst</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downsampling inputs&#39;</span><span class="p">)</span>
+    <span class="n">src_down</span><span class="p">,</span> <span class="n">src_fpfh</span> <span class="o">=</span> <span class="n">preprocess_point_cloud</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">voxel_size</span><span class="p">)</span>
+    <span class="n">dst_down</span><span class="p">,</span> <span class="n">dst_fpfh</span> <span class="o">=</span> <span class="n">preprocess_point_cloud</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">voxel_size</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running RANSAC&#39;</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">registration_ransac_based_on_feature_matching</span><span class="p">(</span>
+        <span class="n">src_down</span><span class="p">,</span>
+        <span class="n">dst_down</span><span class="p">,</span>
+        <span class="n">src_fpfh</span><span class="p">,</span>
+        <span class="n">dst_fpfh</span><span class="p">,</span>
+        <span class="n">mutual_filter</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">mutual_filter</span><span class="p">,</span>
+        <span class="n">max_correspondence_distance</span><span class="o">=</span><span class="n">distance_threshold</span><span class="p">,</span>
+        <span class="n">estimation_method</span><span class="o">=</span><span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span>
+        <span class="n">TransformationEstimationPointToPoint</span><span class="p">(</span><span class="kc">False</span><span class="p">),</span>
+        <span class="n">ransac_n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">checkers</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">CorrespondenceCheckerBasedOnEdgeLength</span><span class="p">(</span>
+                <span class="mf">0.9</span><span class="p">),</span>
+            <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">CorrespondenceCheckerBasedOnDistance</span><span class="p">(</span>
+                <span class="n">distance_threshold</span><span class="p">)</span>
+        <span class="p">],</span>
+        <span class="n">criteria</span><span class="o">=</span><span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">RANSACConvergenceCriteria</span><span class="p">(</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">max_iterations</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">confidence</span><span class="p">))</span>
+
+    <span class="n">src</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">dst</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">src</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">transformation</span><span class="p">),</span> <span class="n">dst</span><span class="p">])</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="rgbd-integration-uniform-py">
+<h2>rgbd_integration_uniform.py<a class="headerlink" href="#rgbd-integration-uniform-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
+
+<span class="n">pyexample_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pyexample_path</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">open3d_example</span> <span class="kn">import</span> <span class="n">read_trajectory</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">rgbd_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">SampleRedwoodRGBDImages</span><span class="p">()</span>
+    <span class="n">camera_poses</span> <span class="o">=</span> <span class="n">read_trajectory</span><span class="p">(</span><span class="n">rgbd_data</span><span class="o">.</span><span class="n">odometry_log_path</span><span class="p">)</span>
+    <span class="n">camera_intrinsics</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">PinholeCameraIntrinsic</span><span class="p">(</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">PinholeCameraIntrinsicParameters</span><span class="o">.</span><span class="n">PrimeSenseDefault</span><span class="p">)</span>
+    <span class="n">volume</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">integration</span><span class="o">.</span><span class="n">UniformTSDFVolume</span><span class="p">(</span>
+        <span class="n">length</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+        <span class="n">resolution</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+        <span class="n">sdf_trunc</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span>
+        <span class="n">color_type</span><span class="o">=</span><span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">integration</span><span class="o">.</span><span class="n">TSDFVolumeColorType</span><span class="o">.</span><span class="n">RGB8</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">camera_poses</span><span class="p">)):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Integrate </span><span class="si">{:d}</span><span class="s2">-th image into the volume.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">rgbd_data</span><span class="o">.</span><span class="n">color_paths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">rgbd_data</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="n">rgbd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+            <span class="n">color</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">depth_trunc</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">convert_rgb_to_intensity</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">volume</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span>
+            <span class="n">rgbd</span><span class="p">,</span>
+            <span class="n">camera_intrinsics</span><span class="p">,</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">camera_poses</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">pose</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extract triangle mesh&quot;</span><span class="p">)</span>
+    <span class="n">mesh</span> <span class="o">=</span> <span class="n">volume</span><span class="o">.</span><span class="n">extract_triangle_mesh</span><span class="p">()</span>
+    <span class="n">mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">mesh</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extract voxel-aligned debugging point cloud&quot;</span><span class="p">)</span>
+    <span class="n">voxel_pcd</span> <span class="o">=</span> <span class="n">volume</span><span class="o">.</span><span class="n">extract_voxel_point_cloud</span><span class="p">()</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">voxel_pcd</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extract voxel-aligned debugging voxel grid&quot;</span><span class="p">)</span>
+    <span class="n">voxel_grid</span> <span class="o">=</span> <span class="n">volume</span><span class="o">.</span><span class="n">extract_voxel_grid</span><span class="p">()</span>
+    <span class="c1"># o3d.visualization.draw_geometries([voxel_grid])</span>
+
+    <span class="c1"># print(&quot;Extract point cloud&quot;)</span>
+    <span class="c1"># pcd = volume.extract_point_cloud()</span>
+    <span class="c1"># o3d.visualization.draw_geometries([pcd])</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="rgbd-odometry-py">
+<h2>rgbd_odometry.py<a class="headerlink" href="#rgbd-odometry-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;Find camera movement between two consecutive RGBD image pairs&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">pinhole_camera_intrinsic</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">PinholeCameraIntrinsic</span><span class="p">(</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">PinholeCameraIntrinsicParameters</span><span class="o">.</span><span class="n">PrimeSenseDefault</span><span class="p">)</span>
+    <span class="n">rgbd_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">SampleRedwoodRGBDImages</span><span class="p">()</span>
+    <span class="n">source_color</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">rgbd_data</span><span class="o">.</span><span class="n">color_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">source_depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">rgbd_data</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">target_color</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">rgbd_data</span><span class="o">.</span><span class="n">color_paths</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">target_depth</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_image</span><span class="p">(</span><span class="n">rgbd_data</span><span class="o">.</span><span class="n">depth_paths</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">source_rgbd_image</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+        <span class="n">source_color</span><span class="p">,</span> <span class="n">source_depth</span><span class="p">)</span>
+    <span class="n">target_rgbd_image</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">RGBDImage</span><span class="o">.</span><span class="n">create_from_color_and_depth</span><span class="p">(</span>
+        <span class="n">target_color</span><span class="p">,</span> <span class="n">target_depth</span><span class="p">)</span>
+    <span class="n">target_pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">PointCloud</span><span class="o">.</span><span class="n">create_from_rgbd_image</span><span class="p">(</span>
+        <span class="n">target_rgbd_image</span><span class="p">,</span> <span class="n">pinhole_camera_intrinsic</span><span class="p">)</span>
+
+    <span class="n">option</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">odometry</span><span class="o">.</span><span class="n">OdometryOption</span><span class="p">()</span>
+    <span class="n">odo_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">option</span><span class="p">)</span>
+
+    <span class="p">[</span><span class="n">success_color_term</span><span class="p">,</span> <span class="n">trans_color_term</span><span class="p">,</span>
+     <span class="n">info</span><span class="p">]</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">odometry</span><span class="o">.</span><span class="n">compute_rgbd_odometry</span><span class="p">(</span>
+         <span class="n">source_rgbd_image</span><span class="p">,</span> <span class="n">target_rgbd_image</span><span class="p">,</span>
+         <span class="n">pinhole_camera_intrinsic</span><span class="p">,</span> <span class="n">odo_init</span><span class="p">,</span>
+         <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">odometry</span><span class="o">.</span><span class="n">RGBDOdometryJacobianFromColorTerm</span><span class="p">(),</span> <span class="n">option</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">success_hybrid_term</span><span class="p">,</span> <span class="n">trans_hybrid_term</span><span class="p">,</span>
+     <span class="n">info</span><span class="p">]</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">odometry</span><span class="o">.</span><span class="n">compute_rgbd_odometry</span><span class="p">(</span>
+         <span class="n">source_rgbd_image</span><span class="p">,</span> <span class="n">target_rgbd_image</span><span class="p">,</span>
+         <span class="n">pinhole_camera_intrinsic</span><span class="p">,</span> <span class="n">odo_init</span><span class="p">,</span>
+         <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">odometry</span><span class="o">.</span><span class="n">RGBDOdometryJacobianFromHybridTerm</span><span class="p">(),</span> <span class="n">option</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">success_color_term</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using RGB-D Odometry&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">trans_color_term</span><span class="p">)</span>
+        <span class="n">source_pcd_color_term</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">PointCloud</span><span class="o">.</span><span class="n">create_from_rgbd_image</span><span class="p">(</span>
+            <span class="n">source_rgbd_image</span><span class="p">,</span> <span class="n">pinhole_camera_intrinsic</span><span class="p">)</span>
+        <span class="n">source_pcd_color_term</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">trans_color_term</span><span class="p">)</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">target_pcd</span><span class="p">,</span> <span class="n">source_pcd_color_term</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">success_hybrid_term</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using Hybrid RGB-D Odometry&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">trans_hybrid_term</span><span class="p">)</span>
+        <span class="n">source_pcd_hybrid_term</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">PointCloud</span><span class="o">.</span><span class="n">create_from_rgbd_image</span><span class="p">(</span>
+            <span class="n">source_rgbd_image</span><span class="p">,</span> <span class="n">pinhole_camera_intrinsic</span><span class="p">)</span>
+        <span class="n">source_pcd_hybrid_term</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">trans_hybrid_term</span><span class="p">)</span>
+        <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">target_pcd</span><span class="p">,</span> <span class="n">source_pcd_hybrid_term</span><span class="p">])</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="robust-icp-py">
+<h2>robust_icp.py<a class="headerlink" href="#robust-icp-py" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># -                        Open3D: www.open3d.org                            -</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2018-2023 www.open3d.org</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1"># ----------------------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;Outlier rejection using robust kernels for ICP&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">open3d</span> <span class="k">as</span> <span class="nn">o3d</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+
+<span class="k">def</span> <span class="nf">draw_registration_result</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">transformation</span><span class="p">):</span>
+    <span class="n">source_temp</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">target_temp</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+    <span class="n">source_temp</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.706</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">target_temp</span><span class="o">.</span><span class="n">paint_uniform_color</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.651</span><span class="p">,</span> <span class="mf">0.929</span><span class="p">])</span>
+    <span class="n">source_temp</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">transformation</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">source_temp</span><span class="p">,</span> <span class="n">target_temp</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">apply_noise</span><span class="p">(</span><span class="n">pcd</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+    <span class="n">noisy_pcd</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pcd</span><span class="p">)</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">noisy_pcd</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
+    <span class="n">points</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">noisy_pcd</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">noisy_pcd</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">pcd_data</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DemoICPPointClouds</span><span class="p">()</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">pcd_data</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="n">pcd_data</span><span class="o">.</span><span class="n">paths</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">trans_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="mf">0.862</span><span class="p">,</span> <span class="mf">0.011</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.507</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+                             <span class="p">[</span><span class="o">-</span><span class="mf">0.139</span><span class="p">,</span> <span class="mf">0.967</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.215</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span>
+                             <span class="p">[</span><span class="mf">0.487</span><span class="p">,</span> <span class="mf">0.255</span><span class="p">,</span> <span class="mf">0.835</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.4</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
+
+    <span class="c1"># Mean and standard deviation.</span>
+    <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span>
+    <span class="n">source_noisy</span> <span class="o">=</span> <span class="n">apply_noise</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Displaying source point cloud + noise:&quot;</span><span class="p">)</span>
+    <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw</span><span class="p">([</span><span class="n">source_noisy</span><span class="p">])</span>
+
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;Displaying original source and target point cloud with initial transformation:&quot;</span>
+    <span class="p">)</span>
+    <span class="n">draw_registration_result</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">trans_init</span><span class="p">)</span>
+
+    <span class="n">threshold</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using the noisy source pointcloud to perform robust ICP.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Robust point-to-plane ICP, threshold=</span><span class="si">{}</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">threshold</span><span class="p">))</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">TukeyLoss</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using robust loss:&quot;</span><span class="p">,</span> <span class="n">loss</span><span class="p">)</span>
+    <span class="n">p2l</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">TransformationEstimationPointToPlane</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+    <span class="n">reg_p2l</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">registration_icp</span><span class="p">(</span>
+        <span class="n">source_noisy</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">trans_init</span><span class="p">,</span> <span class="n">p2l</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">reg_p2l</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Transformation is:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">reg_p2l</span><span class="o">.</span><span class="n">transformation</span><span class="p">)</span>
+    <span class="n">draw_registration_result</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">reg_p2l</span><span class="o">.</span><span class="n">transformation</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../utility/index.html" class="btn btn-neutral float-right" title="Utility" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../io/index.html" class="btn btn-neutral float-left" title="IO" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/python_example/pipelines/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:14:40 GMT -->
+</html>

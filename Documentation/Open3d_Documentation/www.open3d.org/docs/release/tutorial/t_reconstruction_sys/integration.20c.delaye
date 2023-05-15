@@ -1,0 +1,432 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/t_reconstruction_system/integration.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:21 GMT -->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>TSDF Integration &mdash; Open3D 0.17.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/open3d_logo.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-3TQPKGV6Z3"></script>
+        <script >
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3TQPKGV6Z3');</script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="../../../../../cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="../../../../../cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latestdda6.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Customized Integration" href="../t_reconstruction_sy/customized_integration" />
+    <link rel="prev" title="Voxel Block Grid" href="../t_reconstruction_sy/voxel_block_grid.20b.de" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index-2.html" class="icon icon-home"> Open3D
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="http://www.open3d.org/docs/release/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compilation.html">Build from source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_project.html">Link Open3D in C++ projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../builddocs.html">Build documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../open3d_ml.html">Open3D-ML</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm.html">ARM support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_geometry/index.html">Geometry (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../t_pipelines/index.html">Pipelines (Tensor)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualization/index.html">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data/index.html">Dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reconstruction_system/index.html">Reconstruction system</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../t_reconstruction_system/index.html#quick-start">Quick start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../t_reconstruction_system/index.html#capture-your-own-dataset">Capture your own dataset</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../t_reconstruction_system/index.html#getting-started-with-online-reconstruction-system">Getting started with online reconstruction system</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../t_reconstruction_sy/voxel_block_grid.20b.de">Voxel Block Grid</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">TSDF Integration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#activation">Activation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#integration">Integration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#surface-extraction">Surface extraction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#save-and-load">Save and load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../t_reconstruction_sy/customized_integration">Customized Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ray_casting.20e.delaye">Ray Casting in a Voxel Block Grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../t_reconstruction_syst/dense_slam.20f.delaye">Dense RGB-D SLAM</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sensor/index.html">Sensor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribute.html">Contributing to Open3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/contribution_recipes.html">Contribution methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute/styleguide.html">Open3D style guide</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp_api.html">C++ documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.camera.html">open3d.camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.core.html">open3d.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.data.html">open3d.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.geometry.html">open3d.geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.io.html">open3d.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.t.html">open3d.t</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.ml.html">open3d.ml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.pipelines.html">open3d.pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.utility.html">open3d.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_api/open3d.visualization.html">open3d.visualization</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Python Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/camera/index.html">Camera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/geometry/index.html">Geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/io/index.html">IO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/pipelines/index.html">Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/utility/index.html">Utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python_example/visualization/index.html">Visualization</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index-2.html">Open3D</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index-2.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../t_reconstruction_system/index.html">Reconstruction system (Tensor)</a> &raquo;</li>
+        
+      <li>TSDF Integration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="tsdf-integration">
+<span id="optimized-integration"></span><h1>TSDF Integration<a class="headerlink" href="#tsdf-integration" title="Permalink to this headline">¶</a></h1>
+<p>Truncated Signed Distance Function (TSDF) integration is the key of dense volumetric scene reconstruction. It receives relatively noisy depth images from RGB-D sensors such as Kinect and RealSense, and integrates depth readings into the <a class="reference internal" href="../t_reconstruction_sy/voxel_block_grid.20b.de#voxel-block-grid"><span class="std std-ref">Voxel Block Grid</span></a> given known camera poses. TSDF integration reduces noise and generates smooth surfaces.</p>
+<p>The integration process mainly consists of two steps, (sparse) <strong>block</strong> selection and activation, and (dense) <strong>voxel</strong> value integration. An example can be found at <code class="docutils literal notranslate"><span class="pre">examples/python/t_reconstruction_system/integrate.py</span></code>.</p>
+<div class="section" id="activation">
+<h2>Activation<a class="headerlink" href="#activation" title="Permalink to this headline">¶</a></h2>
+<p>In the activation step, we first locate blocks that contain points unprojected from the current depth image. In other words, it finds active blocks in the current viewing frustum. Internally, this is achieved by a <em>frustum</em> hash map that produces duplication-free block coordinates, and a <em>block</em> hash map that activates and query such block coordinates.</p>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span>
+               <span class="s1">&#39;Default dataset may be selected from the following options: &#39;</span>
+               <span class="s1">&#39;[lounge, jack_jack]&#39;</span><span class="p">,</span>
+               <span class="n">default</span><span class="o">=</span><span class="s1">&#39;lounge&#39;</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+</div>
+</div>
+<div class="section" id="integration">
+<h2>Integration<a class="headerlink" href="#integration" title="Permalink to this headline">¶</a></h2>
+<p>Now we can process the voxels in the blocks at <code class="docutils literal notranslate"><span class="pre">frustum_block_coords</span></code>. This is done by projecting all such related voxels to the input images and perform a weighted average, which is a pure geometric process without hash map operations.</p>
+<p>We may use optimized functions, along with raw depth images with calibration parameters to activate and perform TSDF integration, optionally with colors:</p>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;--path_trajectory&#39;</span><span class="p">,</span>
+               <span class="n">help</span><span class="o">=</span><span class="s1">&#39;path to the trajectory .log or .json file.&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;--path_npz&#39;</span><span class="p">,</span>
+               <span class="n">help</span><span class="o">=</span><span class="s1">&#39;path to the npz file that stores voxel block grid.&#39;</span><span class="p">,</span>
+               <span class="n">default</span><span class="o">=</span><span class="s1">&#39;vbg.npz&#39;</span><span class="p">)</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
+
+</pre></div></td></tr></table></div>
+</div>
+<p>Currently, to use our optimized function, we assume the below combinations of data types, in the order of <code class="docutils literal notranslate"><span class="pre">depth</span> <span class="pre">image</span></code>, <code class="docutils literal notranslate"><span class="pre">color</span> <span class="pre">image</span></code>, <code class="docutils literal notranslate"><span class="pre">tsdf</span> <span class="pre">in</span> <span class="pre">voxel</span> <span class="pre">grid</span></code>, <code class="docutils literal notranslate"><span class="pre">weight</span> <span class="pre">in</span> <span class="pre">voxel</span> <span class="pre">grid</span></code>, <code class="docutils literal notranslate"><span class="pre">color</span> <span class="pre">in</span> <span class="pre">voxel</span> <span class="pre">grid</span></code> in CPU</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">template</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">RayCastCPU</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">uint16_t</span><span class="p">,</span><span class="w"> </span><span class="kt">uint16_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">FN_ARGUMENTS</span><span class="p">);</span>
+<span class="k">template</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">RayCastCPU</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">FN_ARGUMENTS</span><span class="p">);</span>
+
+<span class="cp">#undef FN_ARGUMENTS</span>
+
+<span class="cp">#define FN_ARGUMENTS                                                           \</span>
+</pre></div></td></tr></table></div>
+</div>
+<p>and CUDA</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span></pre></div></td><td class="code"><div><pre><span></span><span class="k">template</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">RayCastCUDA</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">uint16_t</span><span class="p">,</span><span class="w"> </span><span class="kt">uint16_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">FN_ARGUMENTS</span><span class="p">);</span>
+<span class="k">template</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">RayCastCUDA</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">FN_ARGUMENTS</span><span class="p">);</span>
+
+<span class="cp">#undef FN_ARGUMENTS</span>
+
+<span class="cp">#define FN_ARGUMENTS                                                           \</span>
+</pre></div></td></tr></table></div>
+</div>
+<p>For more generalized functionalities, you may extend the macros and/or the kernel functions and compile Open3D from scratch achieve the maximal performance (~100Hz on a GTX 1070), or follow <a class="reference internal" href="../t_reconstruction_sy/customized_integration#customized-integration"><span class="std std-ref">Customized Integration</span></a> and implement a fast prototype (~25Hz).</p>
+</div>
+<div class="section" id="surface-extraction">
+<h2>Surface extraction<a class="headerlink" href="#surface-extraction" title="Permalink to this headline">¶</a></h2>
+<p>You may use the provided APIs to extract surface points.</p>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">135</span></pre></div></td><td class="code"><div><pre><span></span>
+</pre></div></td></tr></table></div>
+</div>
+<p>Note <code class="docutils literal notranslate"><span class="pre">extract_triangle_mesh</span></code> applies marching cubes and generate mesh. <code class="docutils literal notranslate"><span class="pre">extract_point_cloud</span></code> uses the similar algorithm, but skips the triangle face generation step.</p>
+</div>
+<div class="section" id="save-and-load">
+<h2>Save and load<a class="headerlink" href="#save-and-load" title="Permalink to this headline">¶</a></h2>
+<p>The voxel block grids can be saved to and loaded from <cite>.npz</cite> files that are accessible via numpy.</p>
+<div class="highlight-python notranslate"><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span>
+                                            <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">depth_file_names</span><span class="p">,</span> <span class="n">color_file_names</span> <span class="o">=</span> <span class="n">load_rgbd_file_names</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+</pre></div></td></tr></table></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">.npz</span></code> file of the aforementioned voxel block grid contains the following entries:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">attr_name_tsdf</span></code>: stores the value buffer index: 0</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr_name_weight</span></code>: stores the value buffer index: 1</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">attr_name_color</span></code>: stores the value buffer index: 2</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">value_000</span></code>: the tsdf value buffer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">value_001</span></code>: the weight value buffer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">value_002</span></code>: the color value buffer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">key</span></code>: all the active keys</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">block_resolution</span></code>: 8</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">voxel_size</span></code>: 0.0059 = 3.0 / 512</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CUDA:0</span></code>: the device</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../t_reconstruction_sy/customized_integration" class="btn btn-neutral float-right" title="Customized Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../t_reconstruction_sy/voxel_block_grid.20b.de" class="btn btn-neutral float-left" title="Voxel Block Grid" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018 - 2021, www.open3d.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+<span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Docs version</span>
+    0.17.0
+    <span class="fa fa-caret-down"></span>
+</span>
+
+<!-- A hack to include an external page to get around CORS policy -->
+<!-- https://stackoverflow.com/a/15250208/1255535 -->
+<div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+        <dd><ul>
+            <script src="../../../versions.js"></script>
+        </ul></dd>
+    </dl>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+
+<!-- Mirrored from www.open3d.org/docs/release/tutorial/t_reconstruction_system/integration.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 May 2023 10:52:21 GMT -->
+</html>
